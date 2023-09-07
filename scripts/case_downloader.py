@@ -20,6 +20,10 @@ base_url = f"http://kenyalaw.org/caselaw/cases/export/"
 save_directory = "/mnt/r/lawris_db/caselaws"
 os.makedirs(save_directory, exist_ok=True)
 
+# Save file for unfound files
+unfound_files = "/home/tykoon787/projects/lawris/logs/unfound_files.log"
+os.makedirs(os.path.dirname(unfound_files), exist_ok=True)
+
 # Logs
 log_dir = "/home/tykoon787/projects/lawris/logs"
 os.makedirs(log_dir, exist_ok=True)
@@ -48,8 +52,8 @@ DEFAULT_FILE_NAME = f"case_{DEFAULT_FILE_NAME_COUNTER}"
 def download_cases(LOWER_LIMIT: int, UPPER_LIMIT: int):
     for case_id in range(LOWER_LIMIT, UPPER_LIMIT):
         try:
-            logging.info(f"✔ Starting Download for file [{case_id}]")
-            response = requests.get(f"{base_url}/{case_id}/pdf", stream=True)
+            logging.info(f"🟢 Starting Download for file [{case_id}]")
+            response = requests.get(f"{base_url}{case_id}/pdf", stream=True, timeout=180)
 
             # Extract the file name
             if 'Content-Disposition' in response.headers:
@@ -58,7 +62,7 @@ def download_cases(LOWER_LIMIT: int, UPPER_LIMIT: int):
                 if filename_match:
                     file_name = unquote(filename_match.group(1))
                 else:
-                    logging.error(f"⚠ Filename not found.")
+                    logging.error(f"🔴 Filename not found.")
                     logging.info(f"✔ Defaulting to default filename: {DEFAULT_FILE_NAME}")
                     file_name = DEFAULT_FILE_NAME
 
@@ -70,7 +74,7 @@ def download_cases(LOWER_LIMIT: int, UPPER_LIMIT: int):
 
                 # Save the file
                 with open(save_path, 'wb') as case_file, tqdm(
-                    desc=f"Downloading {file_name}",
+                    desc=f"Downloading: {file_name}",
                     total=int(response.headers.get('content-length', 0)),
                     unit='B',
                     unit_scale=True,
@@ -83,24 +87,48 @@ def download_cases(LOWER_LIMIT: int, UPPER_LIMIT: int):
 
                 logging.info(f"✔ Downloaded : '{file_name}'")
                 # Sleep randomly before the next download
-                time.sleep(random.randint(2,6))
+                sleeping = random.randint(1, 2)
+                # logging.info(f"🥱 Sleeping for {sleeping} seconds")
+                logging.info(f"Sleeping for '{sleeping}' sec")
+                time.sleep(sleeping)
+                # while sleeping != 0:
+                    # print(f"{sleeping}", end='...')
+                    # sleeping -= 1
             else:
-                logging.error(f"⚠ Content Disposition not found in response for this request")
+                logging.error(f"🔴 Content Disposition not found in response for this request")
+                update_unfound(unfound_files, case_id)
+
+
         except requests.exceptions.HTTPError as http_err:
-            logging.error(f"⚠ HTTP Error: {http_err}")
+            logging.error(f"🔴 HTTP Error: {http_err}")
         except requests.exceptions.ConnectionError as conn_err:
-            logging.error(f"⚠ Connection Error: {conn_err}")
+            logging.error(f"🔴 Connection Error: {conn_err}")
         except requests.exceptions.Timeout as timeout_err:
-            logging.error(f"⚠ Timeout Error: {timeout_err}")
+            logging.error(f"🔴 Timeout Error: {timeout_err}")
         except requests.exceptions.RequestException as req_err:
-            logging.error(f"⚠ Request Error: {req_err}")
+            logging.error(f"🔴 Request Error: {req_err}")
+            if isinstance(e, requests.exceptions.Timeout):
+                logging.error(f"🔴 Time out for file '{case_id}'")
+                update_unfound(unfound_files, case_id)
+
         except IOError as io_err:
-            logging.error(f"⚠ I/O Error: {io_err}")
+            logging.error(f"🔴 I/O Error: {io_err}")
         except Exception as e:
-            logging.error(f"⚠ An unexpected error occurred: {e}")  
+            logging.error(f"🔴 An unexpected error occurred: {e}")  
             
+    # Once done, log the unfound files
+    logging.info(f" Unfound Files: {unfound_files}")
+
+def update_unfound(path: str, case_id: int):
+    """
+    Logs the unfound files
+    """
+    with open(path, 'a') as unfound:
+        logging.info(f"❌ Added file '{case_id}' to unfound")
+        unfound.write(str(case_id) + "\n")
+
 
 if __name__ == "__main__":
-    LOWER_LIMIT = 1
+    LOWER_LIMIT = 19986
     UPPER_LIMIT = 300000
     download_cases(LOWER_LIMIT, UPPER_LIMIT)
