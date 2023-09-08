@@ -2,7 +2,7 @@
 """
 Download cases
 
-NOTE: The cases in the data base 
+A helper script to download files from 100000 - 200000
 """
 
 import requests
@@ -53,7 +53,7 @@ def download_cases(LOWER_LIMIT: int, UPPER_LIMIT: int):
     for case_id in range(LOWER_LIMIT, UPPER_LIMIT):
         try:
             logging.info(f"🟢 Starting Download for file [{case_id}]")
-            response = requests.get(f"{base_url}{case_id}/pdf", stream=True, timeout=180)
+            response = requests.get(f"{base_url}{case_id}/pdf", stream=True, timeout=120)
 
             # Extract the file name
             if 'Content-Disposition' in response.headers:
@@ -129,6 +129,6 @@ def sleep():
     time.sleep(sleeping)
 
 if __name__ == "__main__":
-    LOWER_LIMIT = 36689
-    UPPER_LIMIT = 100000
+    LOWER_LIMIT = 100051
+    UPPER_LIMIT = 200000
     download_cases(LOWER_LIMIT, UPPER_LIMIT)
