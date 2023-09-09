@@ -80,51 +80,51 @@ last_successful_case_ids = {}
 not_found = []
 
 # Chunks to download at least 5 files at once
-# CONCURRENT_CHUNKS = [
-#     {'ll': 1, 'ul': 15000},      # 15,000 files
-#     {'ll': 15001, 'ul': 30000},  # 15,000 files
-#     {'ll': 30001, 'ul': 45000},  # 15,000 files
-#     {'ll': 45001, 'ul': 60000},  # 15,000 files
-#     {'ll': 60001, 'ul': 75000},  # 15,000 files
-#     {'ll': 75001, 'ul': 90000},  # 15,000 files
-#     {'ll': 90001, 'ul': 105000},  # 15,000 files
-#     {'ll': 105001, 'ul': 120000},  # 15,000 files
-#     {'ll': 120001, 'ul': 135000},  # 15,000 files
-#     {'ll': 135001, 'ul': 150000},  # 15,000 files
-#     {'ll': 150001, 'ul': 165000},  # 15,000 files
-#     {'ll': 165001, 'ul': 180000},  # 15,000 files
-#     {'ll': 180001, 'ul': 195000},  # 15,000 files
-#     {'ll': 195001, 'ul': 210000},  # 15,000 files
-#     {'ll': 210001, 'ul': 225000},  # 15,000 files
-#     {'ll': 225001, 'ul': 240000},  # 15,000 files
-#     {'ll': 240001, 'ul': 255000},  # 15,000 files
-#     {'ll': 255001, 'ul': 270000},  # 15,000 files
-#     {'ll': 270001, 'ul': 285000},  # 15,000 files
-#     {'ll': 285001, 'ul': 300000}   # The remaining files
-# ]
-
 CONCURRENT_CHUNKS = [
-    {'ll': 2780, 'ul': 15000},      # 15,000 files
-    {'ll': 19701, 'ul': 30000},  # 15,000 files
-    {'ll': 36670, 'ul': 45000},  # 15,000 files
-    {'ll': 51280, 'ul': 60000},  # 15,000 files
-    {'ll': 64160, 'ul': 75000},  # 15,000 files
-    {'ll': 77310, 'ul': 90000},  # 15,000 files
-    {'ll': 92060, 'ul': 105000},  # 15,000 files
-    {'ll': 107150, 'ul': 120000},  # 15,000 files
-    {'ll': 122280, 'ul': 135000},  # 15,000 files
-    {'ll': 137350, 'ul': 150000},  # 15,000 files
-    {'ll': 152501, 'ul': 165000},  # 15,000 files
-    {'ll': 167420, 'ul': 180000},  # 15,000 files
-    {'ll': 182360, 'ul': 195000},  # 15,000 files
-    {'ll': 197215, 'ul': 210000},  # 15,000 files
-    {'ll': 212340, 'ul': 225000},  # 15,000 files
-    {'ll': 227260, 'ul': 240000},  # 15,000 files
-    {'ll': 242120, 'ul': 255000},  # 15,000 files
-    {'ll': 257415, 'ul': 270000},  # 15,000 files
-    {'ll': 284660, 'ul': 285000},  # 15,000 files
+    {'ll': 1, 'ul': 15000},      # 15,000 files
+    {'ll': 15001, 'ul': 30000},  # 15,000 files
+    {'ll': 30001, 'ul': 45000},  # 15,000 files
+    {'ll': 45001, 'ul': 60000},  # 15,000 files
+    {'ll': 60001, 'ul': 75000},  # 15,000 files
+    {'ll': 75001, 'ul': 90000},  # 15,000 files
+    {'ll': 90001, 'ul': 105000},  # 15,000 files
+    {'ll': 105001, 'ul': 120000},  # 15,000 files
+    {'ll': 120001, 'ul': 135000},  # 15,000 files
+    {'ll': 135001, 'ul': 150000},  # 15,000 files
+    {'ll': 150001, 'ul': 165000},  # 15,000 files
+    {'ll': 165001, 'ul': 180000},  # 15,000 files
+    {'ll': 180001, 'ul': 195000},  # 15,000 files
+    {'ll': 195001, 'ul': 210000},  # 15,000 files
+    {'ll': 210001, 'ul': 225000},  # 15,000 files
+    {'ll': 225001, 'ul': 240000},  # 15,000 files
+    {'ll': 240001, 'ul': 255000},  # 15,000 files
+    {'ll': 255001, 'ul': 270000},  # 15,000 files
+    {'ll': 270001, 'ul': 285000},  # 15,000 files
     {'ll': 285001, 'ul': 300000}   # The remaining files
 ]
+
+# CONCURRENT_CHUNKS = [
+#     {'ll': 2780, 'ul': 15000},      # 15,000 files
+#     {'ll': 19701, 'ul': 30000},  # 15,000 files
+#     {'ll': 36670, 'ul': 45000},  # 15,000 files
+#     {'ll': 51280, 'ul': 60000},  # 15,000 files
+#     {'ll': 64160, 'ul': 75000},  # 15,000 files
+#     {'ll': 77310, 'ul': 90000},  # 15,000 files
+#     {'ll': 92060, 'ul': 105000},  # 15,000 files
+#     {'ll': 107150, 'ul': 120000},  # 15,000 files
+#     {'ll': 122280, 'ul': 135000},  # 15,000 files
+#     {'ll': 137350, 'ul': 150000},  # 15,000 files
+#     {'ll': 152501, 'ul': 165000},  # 15,000 files
+#     {'ll': 167420, 'ul': 180000},  # 15,000 files
+#     {'ll': 182360, 'ul': 195000},  # 15,000 files
+#     {'ll': 197215, 'ul': 210000},  # 15,000 files
+#     {'ll': 212340, 'ul': 225000},  # 15,000 files
+#     {'ll': 227260, 'ul': 240000},  # 15,000 files
+#     {'ll': 242120, 'ul': 255000},  # 15,000 files
+#     {'ll': 257415, 'ul': 270000},  # 15,000 files
+#     {'ll': 284660, 'ul': 285000},  # 15,000 files
+#     {'ll': 285001, 'ul': 300000}   # The remaining files
+# ]
 
 
 async def download_chunk(chunk: Dict):
@@ -287,17 +287,24 @@ async def download_file(chunk: Dict, response: aiohttp.ClientResponse, case_id: 
                 f"💾 Downloaded [{case_id}] : '{file_name}'")
 
             # Write to last_downloaded.json
-            last_successful_case_ids[json.dumps(
-                chunk)] = case_id
-            with open(last_downloaded, 'w') as last_downloaded_json_file:
-                json.dump(last_successful_case_ids,
-                          last_downloaded_json_file)
-            await sleep()
+            await write_to_last_downloaded(last_successful_case_ids, chunk, last_downloaded, case_id)
     else:
         logging.error(
             f"🔴 Content Disposition not found in response for this request [{case_id}]")
         not_found.append(case_id)
         update_unfound(unfound_files, case_id)
+
+
+async def write_to_last_downloaded(last_successful_case_ids: dict, chunk: dict, last_downloaded: str, case_id: int):
+    """
+    Writes the last downloaded file for a chunk
+    """
+    last_successful_case_ids[json.dumps(
+        chunk)] = case_id
+    with open(last_downloaded, 'w') as last_downloaded_json_file:
+        json.dump(last_successful_case_ids,
+                  last_downloaded_json_file)
+    await sleep()
 
 
 async def is_internet_available() -> bool:
