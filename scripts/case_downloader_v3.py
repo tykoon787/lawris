@@ -22,7 +22,6 @@ import logging
 import random
 import asyncio
 import aiohttp
-from typing import List, Dict
 
 base_url = f"http://kenyalaw.org/caselaw/cases/export/"
 base_url_meta = f"http://kenyalaw.org/caselaw/cases/export_meta/"
@@ -42,6 +41,9 @@ os.makedirs(os.path.dirname(timedout_files), exist_ok=True)
 # Save file for client error e.g., when no internet
 client_err_file = "/home/tykoon787/projects/lawris/logs/client_err_file_v2.log"
 os.makedirs(os.path.dirname(client_err_file), exist_ok=True)
+
+# Set for client error
+client_err_cases = set()
 
 # Persistence to track last downloaded files per chunk
 last_downloaded = "/home/tykoon787/projects/lawris/logs/last_downloaded_v2.json"
@@ -103,31 +105,8 @@ CONCURRENT_CHUNKS = [
     {'ll': 285001, 'ul': 300000}   # The remaining files
 ]
 
-# CONCURRENT_CHUNKS = [
-#     {'ll': 2780, 'ul': 15000},      # 15,000 files
-#     {'ll': 19701, 'ul': 30000},  # 15,000 files
-#     {'ll': 36670, 'ul': 45000},  # 15,000 files
-#     {'ll': 51280, 'ul': 60000},  # 15,000 files
-#     {'ll': 64160, 'ul': 75000},  # 15,000 files
-#     {'ll': 77310, 'ul': 90000},  # 15,000 files
-#     {'ll': 92060, 'ul': 105000},  # 15,000 files
-#     {'ll': 107150, 'ul': 120000},  # 15,000 files
-#     {'ll': 122280, 'ul': 135000},  # 15,000 files
-#     {'ll': 137350, 'ul': 150000},  # 15,000 files
-#     {'ll': 152501, 'ul': 165000},  # 15,000 files
-#     {'ll': 167420, 'ul': 180000},  # 15,000 files
-#     {'ll': 182360, 'ul': 195000},  # 15,000 files
-#     {'ll': 197215, 'ul': 210000},  # 15,000 files
-#     {'ll': 212340, 'ul': 225000},  # 15,000 files
-#     {'ll': 227260, 'ul': 240000},  # 15,000 files
-#     {'ll': 242120, 'ul': 255000},  # 15,000 files
-#     {'ll': 257415, 'ul': 270000},  # 15,000 files
-#     {'ll': 284660, 'ul': 285000},  # 15,000 files
-#     {'ll': 285001, 'ul': 300000}   # The remaining files
-# ]
 
-
-async def download_chunk(chunk: Dict):
+async def download_chunk(chunk: dict):
     """
     Downloads cases in chunks
     """
@@ -150,45 +129,54 @@ async def download_chunk(chunk: Dict):
             f"🗃[{chunk}] has already been fully downloaded. Skipping")
         return
 
-    async with aiohttp.ClientSession() as session:
-        for case_id in range(last_successful_case_id, upper_limit):
-            try:
-                logging.info(f"🟢 Starting Download for file [{case_id}]")
-                async with session.get(f"{base_url_meta}{case_id}/pdf", timeout=120) as response_meta:
-                    if response_meta.status == 200:
-                        await download_file(chunk, response_meta, case_id)
-                    else:
-                        logging.error(
-                            f"🔴 Failed to download file [{case_id}] from URL with metadata- HTTP Status: {response_meta.status}")
+    # Always check for internet connection
+    while True:
+        internet_available = await is_internet_available()
+        if not internet_available:
+            logging.info(f"🌐 NO INTERNET. Retrying in 60 Seconds")
+            await asyncio.sleep(60)
+            continue
 
-                        # Retry download for pdf without metadata
-                        logging.info(
-                            f" Retrying download for file [{case_id}] without metadata")
-                        async with session.get(f"{base_url}{case_id}/pdf", timeout=120) as response_no_meta:
-                            if response_no_meta.status == 200:
-                                await download_file(chunk, response_no_meta, case_id)
-                            else:
-                                logging.error(
-                                    f"🔴 Failed to download [{case_id} from URL without metadata - HTTP Status: {response_no_meta.status}]"
-                                )
-                                not_found.append(case_id)
-                                update_unfound(unfound_files, case_id)
-                                await sleep()
+        async with aiohttp.ClientSession() as session:
+            for case_id in range(last_successful_case_id, upper_limit):
+                try:
+                    logging.info(f"🟢 Starting Download for file [{case_id}]")
+                    async with session.get(f"{base_url_meta}{case_id}/pdf", timeout=120) as response_meta:
+                        if response_meta.status == 200:
+                            await download_file(chunk, response_meta, case_id)
+                        else:
+                            logging.error(
+                                f"🔴 Failed to download file [{case_id}] from URL with metadata- HTTP Status: {response_meta.status}")
 
-            except aiohttp.ClientError as client_err:
-                logging.error(f"🔴 HTTP Error: {client_err}")
-                update_client_err(client_err_file, case_id)
-            except asyncio.TimeoutError:
-                logging.error(f"🔴 Timeout Error: Timeout for file {case_id}")
-                update_timedout(timedout_files, case_id)
-                # sleep()
-            except IOError as io_err:
-                logging.error(f"🔴 I/O Error: {io_err}")
-            except Exception as e:
-                logging.error(f"🔴 An unexpected error occurred: {e}")
+                            # Retry download for pdf without metadata
+                            logging.info(
+                                f" Retrying download for file [{case_id}] without metadata")
+                            async with session.get(f"{base_url}{case_id}/pdf", timeout=120) as response_no_meta:
+                                if response_no_meta.status == 200:
+                                    await download_file(chunk, response_no_meta, case_id)
+                                else:
+                                    logging.error(
+                                        f"🔴 Failed to download [{case_id} from URL without metadata - HTTP Status: {response_no_meta.status}]"
+                                    )
+                                    not_found.append(case_id)
+                                    update_unfound(unfound_files, case_id)
+                                    await sleep()
 
-    # Once done, return the unfound files
-    return not_found
+                except aiohttp.ClientError as client_err:
+                    logging.error(f"🔴 HTTP Error: {client_err}")
+                    update_client_err(client_err_file, case_id)
+                except asyncio.TimeoutError:
+                    logging.error(
+                        f"🔴 Timeout Error: Timeout for file {case_id}")
+                    update_timedout(timedout_files, case_id)
+                    # sleep()
+                except IOError as io_err:
+                    logging.error(f"🔴 I/O Error: {io_err}")
+                except Exception as e:
+                    logging.error(f"🔴 An unexpected error occurred: {e}")
+
+        # Once done, return the unfound files
+        return not_found
 
 
 def update_unfound(path: str, case_id: int):
@@ -213,9 +201,11 @@ def update_client_err(path: str, case_id: int):
     """
     Log files that failed to download due to client err
     """
-    with open(path, 'a') as client_err:
+    client_err_cases.add(case_id)
+    with open(path, 'w') as client_err:
+        json.dump(list(client_err_cases), client_err)
         logging.info(f"❌ Added file [{case_id}] to client_err")
-        client_err.write(str(case_id) + "\n")
+        # client_err.write(str(case_id) + "\n")
 
 
 async def sleep():
@@ -225,7 +215,7 @@ async def sleep():
     await asyncio.sleep(sleeping)
 
 
-async def download_file(chunk: Dict, response: aiohttp.ClientResponse, case_id: int):
+async def download_file(chunk: dict, response: aiohttp.ClientResponse, case_id: int):
     """
     Downloads the actual pdf file
     """
@@ -326,18 +316,18 @@ async def main():
     """
     Main Function
     """
-    while True:
-        internet_available = await is_internet_available()
-        if not internet_available:
-            logging.info(f"🌐 NO INTERNET. Retrying in 60 Seconds")
-            await asyncio.sleep(60)
-            continue
+    # while True:
+    #     internet_available = await is_internet_available()
+    #     if not internet_available:
+    #         logging.info(f"🌐 NO INTERNET. Retrying in 60 Seconds")
+    #         await asyncio.sleep(60)
+    #         continue
 
-        tasks = [download_chunk(chunk) for chunk in CONCURRENT_CHUNKS]
-        results = await asyncio.gather(*tasks)
+    tasks = [download_chunk(chunk) for chunk in CONCURRENT_CHUNKS]
+    results = await asyncio.gather(*tasks)
 
-        for chunk, unfound_files in zip(CONCURRENT_CHUNKS, results):
-            logging.info(f"Unfound Files for chunk {chunk}: {unfound_files}")
+    for chunk, unfound_files in zip(CONCURRENT_CHUNKS, results):
+        logging.info(f"Unfound Files for chunk {chunk}: {unfound_files}")
 
 if __name__ == "__main__":
     asyncio.run(main())
