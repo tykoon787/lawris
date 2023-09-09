@@ -39,6 +39,10 @@ os.makedirs(os.path.dirname(unfound_files), exist_ok=True)
 timedout_files = "/home/tykoon787/projects/lawris/logs/timedout_files_v2.log"
 os.makedirs(os.path.dirname(timedout_files), exist_ok=True)
 
+# Save file for client error e.g., when no internet
+client_err_file = "/home/tykoon787/projects/lawris/logs/client_err_file_v2.log"
+os.makedirs(os.path.dirname(client_err_file), exist_ok=True)
+
 # Persistence to track last downloaded files per chunk
 last_downloaded = "/home/tykoon787/projects/lawris/logs/last_downloaded_v2.json"
 os.makedirs(os.path.dirname(last_downloaded), exist_ok=True)
@@ -76,26 +80,49 @@ last_successful_case_ids = {}
 not_found = []
 
 # Chunks to download at least 5 files at once
+# CONCURRENT_CHUNKS = [
+#     {'ll': 1, 'ul': 15000},      # 15,000 files
+#     {'ll': 15001, 'ul': 30000},  # 15,000 files
+#     {'ll': 30001, 'ul': 45000},  # 15,000 files
+#     {'ll': 45001, 'ul': 60000},  # 15,000 files
+#     {'ll': 60001, 'ul': 75000},  # 15,000 files
+#     {'ll': 75001, 'ul': 90000},  # 15,000 files
+#     {'ll': 90001, 'ul': 105000},  # 15,000 files
+#     {'ll': 105001, 'ul': 120000},  # 15,000 files
+#     {'ll': 120001, 'ul': 135000},  # 15,000 files
+#     {'ll': 135001, 'ul': 150000},  # 15,000 files
+#     {'ll': 150001, 'ul': 165000},  # 15,000 files
+#     {'ll': 165001, 'ul': 180000},  # 15,000 files
+#     {'ll': 180001, 'ul': 195000},  # 15,000 files
+#     {'ll': 195001, 'ul': 210000},  # 15,000 files
+#     {'ll': 210001, 'ul': 225000},  # 15,000 files
+#     {'ll': 225001, 'ul': 240000},  # 15,000 files
+#     {'ll': 240001, 'ul': 255000},  # 15,000 files
+#     {'ll': 255001, 'ul': 270000},  # 15,000 files
+#     {'ll': 270001, 'ul': 285000},  # 15,000 files
+#     {'ll': 285001, 'ul': 300000}   # The remaining files
+# ]
+
 CONCURRENT_CHUNKS = [
-    {'ll': 1, 'ul': 15000},      # 15,000 files
-    {'ll': 15001, 'ul': 30000},  # 15,000 files
-    {'ll': 30001, 'ul': 45000},  # 15,000 files
-    {'ll': 45001, 'ul': 60000},  # 15,000 files
-    {'ll': 60001, 'ul': 75000},  # 15,000 files
-    {'ll': 75001, 'ul': 90000},  # 15,000 files
-    {'ll': 90001, 'ul': 105000},  # 15,000 files
-    {'ll': 105001, 'ul': 120000},  # 15,000 files
-    {'ll': 120001, 'ul': 135000},  # 15,000 files
-    {'ll': 135001, 'ul': 150000},  # 15,000 files
-    {'ll': 150001, 'ul': 165000},  # 15,000 files
-    {'ll': 165001, 'ul': 180000},  # 15,000 files
-    {'ll': 180001, 'ul': 195000},  # 15,000 files
-    {'ll': 195001, 'ul': 210000},  # 15,000 files
-    {'ll': 210001, 'ul': 225000},  # 15,000 files
-    {'ll': 225001, 'ul': 240000},  # 15,000 files
-    {'ll': 240001, 'ul': 255000},  # 15,000 files
-    {'ll': 255001, 'ul': 270000},  # 15,000 files
-    {'ll': 270001, 'ul': 285000},  # 15,000 files
+    {'ll': 2780, 'ul': 15000},      # 15,000 files
+    {'ll': 19701, 'ul': 30000},  # 15,000 files
+    {'ll': 36670, 'ul': 45000},  # 15,000 files
+    {'ll': 51280, 'ul': 60000},  # 15,000 files
+    {'ll': 64160, 'ul': 75000},  # 15,000 files
+    {'ll': 77310, 'ul': 90000},  # 15,000 files
+    {'ll': 92060, 'ul': 105000},  # 15,000 files
+    {'ll': 107150, 'ul': 120000},  # 15,000 files
+    {'ll': 122280, 'ul': 135000},  # 15,000 files
+    {'ll': 137350, 'ul': 150000},  # 15,000 files
+    {'ll': 152501, 'ul': 165000},  # 15,000 files
+    {'ll': 167420, 'ul': 180000},  # 15,000 files
+    {'ll': 182360, 'ul': 195000},  # 15,000 files
+    {'ll': 197215, 'ul': 210000},  # 15,000 files
+    {'ll': 212340, 'ul': 225000},  # 15,000 files
+    {'ll': 227260, 'ul': 240000},  # 15,000 files
+    {'ll': 242120, 'ul': 255000},  # 15,000 files
+    {'ll': 257415, 'ul': 270000},  # 15,000 files
+    {'ll': 284660, 'ul': 285000},  # 15,000 files
     {'ll': 285001, 'ul': 300000}   # The remaining files
 ]
 
@@ -150,6 +177,7 @@ async def download_chunk(chunk: Dict):
 
             except aiohttp.ClientError as client_err:
                 logging.error(f"🔴 HTTP Error: {client_err}")
+                update_client_err(client_err_file, case_id)
             except asyncio.TimeoutError:
                 logging.error(f"🔴 Timeout Error: Timeout for file {case_id}")
                 update_timedout(timedout_files, case_id)
@@ -181,22 +209,20 @@ def update_timedout(path: str, case_id: int):
         timedout.write(str(case_id) + "\n")
 
 
+def update_client_err(path: str, case_id: int):
+    """
+    Log files that failed to download due to client err
+    """
+    with open(path, 'a') as client_err:
+        logging.info(f"❌ Added file [{case_id}] to client_err")
+        client_err.write(str(case_id) + "\n")
+
+
 async def sleep():
     sleeping = random.randint(1, 5)
     # sleeping = 3
     logging.info(f"Sleeping for '{sleeping}' sec")
     await asyncio.sleep(sleeping)
-
-
-async def main():
-    """
-    Main Function
-    """
-    tasks = [download_chunk(chunk) for chunk in CONCURRENT_CHUNKS]
-    results = await asyncio.gather(*tasks)
-
-    for chunk, unfound_files in zip(CONCURRENT_CHUNKS, results):
-        logging.info(f"Unfound Files for chunk {chunk}: {unfound_files}")
 
 
 async def download_file(chunk: Dict, response: aiohttp.ClientResponse, case_id: int):
@@ -215,6 +241,7 @@ async def download_file(chunk: Dict, response: aiohttp.ClientResponse, case_id: 
             logging.info(
                 f"✔ Defaulting to default filename: {DEFAULT_FILE_NAME}")
             file_name = DEFAULT_FILE_NAME
+            DEFAULT_NAME_COUNTER += 1
 
         # Save path
         save_path = os.path.join(save_directory, file_name)
@@ -272,6 +299,39 @@ async def download_file(chunk: Dict, response: aiohttp.ClientResponse, case_id: 
             f"🔴 Content Disposition not found in response for this request [{case_id}]")
         not_found.append(case_id)
         update_unfound(unfound_files, case_id)
+
+
+async def is_internet_available() -> bool:
+    """
+    Checks to see if an internent connection is available.
+
+    If not, it will enter a retry loop
+    """
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get('https://www.google.com') as response:
+                if response.status == 200:
+                    return True
+    except:
+        return False
+
+
+async def main():
+    """
+    Main Function
+    """
+    while True:
+        internet_available = await is_internet_available()
+        if not internet_available:
+            logging.info(f"🌐 NO INTERNET. Retrying in 60 Seconds")
+            await asyncio.sleep(60)
+            continue
+
+        tasks = [download_chunk(chunk) for chunk in CONCURRENT_CHUNKS]
+        results = await asyncio.gather(*tasks)
+
+        for chunk, unfound_files in zip(CONCURRENT_CHUNKS, results):
+            logging.info(f"Unfound Files for chunk {chunk}: {unfound_files}")
 
 if __name__ == "__main__":
     asyncio.run(main())
