@@ -287,7 +287,6 @@ async def download_file(chunk: Dict, response: aiohttp.ClientResponse, case_id: 
                 f"💾 Downloaded [{case_id}] : '{file_name}'")
 
             # Write to last_downloaded.json
-            # NOTE: This method doesn't work as intended
             last_successful_case_ids[json.dumps(
                 chunk)] = case_id
             with open(last_downloaded, 'w') as last_downloaded_json_file:
