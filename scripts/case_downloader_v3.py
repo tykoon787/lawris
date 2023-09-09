@@ -316,13 +316,6 @@ async def main():
     """
     Main Function
     """
-    # while True:
-    #     internet_available = await is_internet_available()
-    #     if not internet_available:
-    #         logging.info(f"🌐 NO INTERNET. Retrying in 60 Seconds")
-    #         await asyncio.sleep(60)
-    #         continue
-
     tasks = [download_chunk(chunk) for chunk in CONCURRENT_CHUNKS]
     results = await asyncio.gather(*tasks)
 
