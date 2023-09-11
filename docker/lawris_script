@@ -1,0 +1,16 @@
+# Python runtime as parent image
+FROM python:3.8
+
+# Working directory for the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY scripts/ /app/scripts/
+COPY logs/ /app/logs/
+COPY scripts/requirements.txt .
+
+# Install packages specified in requirements.txt
+RUN pip install -r requirements.txt
+
+# Run script when container launches
+CMD ["python3", "scripts/case_downloader.py"]
