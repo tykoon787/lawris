@@ -1,0 +1,63 @@
+.docs-container {
+    padding: 10px;
+}
+
+.doc-card.card {
+    height: 200px;
+    width: 170px;
+    margin-right: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.doc-card.card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.file_name {
+    font-size: 16px;
+    margin-bottom: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.doc-body:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-icon {
+    height: 20px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.edit-icon:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.templates-container {
+    padding: 15px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.docs-container{
+    width: 100%;
+}
+
+/* Animations */
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+    
+}

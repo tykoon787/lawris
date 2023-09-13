@@ -1,0 +1,30 @@
+.dms-background_image {
+}
+.dashboard-nav {
+    height: 50px;
+}
+.background_image-container {
+    padding-top: 70px;
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    width: auto;
+    height: 150px;
+}
+.command_bar-card {
+    border-radius: 150px;
+}
+
+.command_bar-container {
+    height: 70px;
+    width: 780px;
+}
+
+.command_bar-icon {
+    width: 45px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.command_bar-icon:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}

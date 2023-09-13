@@ -1,0 +1,9 @@
+.dev_icon {
+    height: 25px;
+    width: 25px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.dev_icon:hover {
+    transform: scale(1.09)
+}

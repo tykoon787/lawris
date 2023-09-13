@@ -1,0 +1,16 @@
+.user-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.user-card {
+    margin-right: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.user-card:hover {
+    background-color: rgb(182, 182, 182);
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
