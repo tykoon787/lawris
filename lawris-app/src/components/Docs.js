@@ -5,9 +5,15 @@ import './styles/Icons.css';
 // Icons
 // import { EditIcon } from './Icons';
 import { SaveIcon } from './Icons';
+import { RightIcon } from './Icons';
+import { LeftIcon } from './Icons';
 
 // Image
 import EditIcon from '../static/icons/docs/icons/writing.png';
+
+// Utilty Functions
+import { scrollRight } from '../funcs/utility_functions';
+import { scrollLeft } from '../funcs/utility_functions';
 
 // Fetch Common templates from the database
 const documentList = [
@@ -45,12 +51,12 @@ const documentList = [
     }
 ]
 
+
 const DocumentCard = ({ name }) => {
     return (
         <div className="doc-card card col-1">
             <div className="card-body doc-body">
                 <div className="doc_preview file-name-overlay">
-                    {/* Document Preview Goes here */}
                 </div>
             </div>
 
@@ -66,6 +72,7 @@ const DocumentCard = ({ name }) => {
 }
 
 const DocumentList = ({ documentList }) => {
+
     return (
         <div className="templates-container">
             <div className="templates d-flex">
@@ -73,15 +80,30 @@ const DocumentList = ({ documentList }) => {
                     <DocumentCard key={document.id} name={document.title} />
                 ))}
             </div>
-            <button id="scroll_right-button"></button>
         </div>
     )
 }
+
+const handleScrollRight = () => {
+    scrollRight('.templates-container', 300)
+}
+
+const handleScrollLeft = () => {
+    scrollLeft('.templates-container', 300)
+}
+
+
 
 const Docs = () => {
     return (
         <div className="docs-container">
             <DocumentList documentList={documentList} />
+            <button className="btn" id="scroll_right-button" onClick={handleScrollRight}>
+                <RightIcon />
+            </button>
+            <button className="btn" id="scroll_left-button" onClick={handleScrollLeft}>
+                <LeftIcon />
+            </button>
         </div>
     )
 }

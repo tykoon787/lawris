@@ -15,7 +15,7 @@
 }
 
 .file_name {
-    font-size: 16px;
+    font-size: 13px;
     margin-bottom: 0px;
     white-space: nowrap;
     overflow: hidden;
@@ -43,12 +43,38 @@
 
 .templates-container {
     padding: 15px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
 }
 
+#scroll_right-button {
+    position: absolute;
+    top: 40%;
+    right: 10px;
+    padding: 1px;
+    border-radius: 50%;
+    visibility: hidden;
+    transition: visibility 0.1s;
+}
+
+#scroll_left-button {
+    position: absolute;
+    top: 40%;
+    left: 10px;
+    padding: 1px;
+    border-radius: 50%;
+    visibility: hidden;
+    transition: visibility 0.1s;
+}
+
 .docs-container{
+    position: relative;
     width: 100%;
+}
+
+.docs-container:hover #scroll_right-button,
+.docs-container:hover #scroll_left-button {
+    visibility: visible;
 }
 
 /* Animations */
