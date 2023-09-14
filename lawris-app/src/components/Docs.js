@@ -16,7 +16,7 @@ import { scrollRight } from '../funcs/utility_functions';
 import { scrollLeft } from '../funcs/utility_functions';
 
 // Fetch Common templates from the database
-const documentList = [
+const documentListCivil = [
     {
         id: 1,
         title: "Affidavit"
@@ -94,10 +94,11 @@ const handleScrollLeft = () => {
 
 
 
-const Docs = () => {
+const Docs = ({ activeSection }) => {
     return (
         <div className="docs-container">
-            <DocumentList documentList={documentList} />
+            {activeSection === 'Civil' && <DocumentList documentList={documentListCivil} />}
+            {activeSection === 'Criminal' && <DocumentList documentList={documentListCivil} />}
             <button className="btn" id="scroll_right-button" onClick={handleScrollRight}>
                 <RightIcon />
             </button>

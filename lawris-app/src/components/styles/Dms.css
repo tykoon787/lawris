@@ -10,21 +10,52 @@
     width: auto;
     height: 150px;
 }
-.command_bar-card {
+.command_bar-card.card {
     border-radius: 150px;
 }
 
-.command_bar-container {
+.card-body.command_bar-container {
     height: 70px;
     width: 780px;
+    padding: 15px;
+    padding-left: 30px;
 }
 
 .command_bar-icon {
     width: 45px;
-    transition: transform 0.1s ease-in-out;
+    transform-origin: center;
 }
 
-.command_bar-icon:hover {
-    transform: scale(1.1);
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.1s ease-in-out
+}
+
+.icon-container:hover {
+    transform: translateY(-10px) scale(0.90);
     cursor: pointer;
+}
+
+.icon-container:hover + .command_bar-text {
+    transform: translateY(-14px);
+    opacity: 1;
+}
+
+.command_bar-text {
+    font-size: 12px;
+    padding: 0px;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.1s ease-in-out, transform 0.05s ease-in-out;
+}
+
+.command_bar-text:hover {
+    display: block;
+}
+
+.cases_tab-container {
+    margin-top: 45px;
+    justify-content: center;
 }
