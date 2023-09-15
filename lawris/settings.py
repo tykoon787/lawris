@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'lawrisdb',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# update settings to use CustomUser
+
+AUTH_USER_MODEL = 'lawrisdb.CustomUser'
+
