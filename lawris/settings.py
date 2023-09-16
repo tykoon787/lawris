@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!q1(9ql=q#v2=5ryq@8*vb-w159$^eea8zaj^-&!+=^h)838ay
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', '192.168.56.4']
 
 
 # Application definition
@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lawrisdb',
-    'lawris_api',
     'rest_framework',
 ]
 
@@ -132,4 +131,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # update settings to use CustomUser
 
 AUTH_USER_MODEL = 'lawrisdb.CustomUser'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+
+    # Configure pagination
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 
