@@ -13,6 +13,35 @@ import judiciaryImage from '../static/icons/judiciary.png';
 import businessImage from '../static/icons/enterprise.png';
 import schoolImage from '../static/icons/school.png';
 
+const usersList = [
+    { id: 1, name: "Lawyer", png: lawyerImage },
+    { id: 2, name: "Non-Litigant", png: nonLitigantImage },
+    { id: 3, name: "Law Firm", png: lawFirmImage },
+    { id: 4, name: "Student", png: studentImage },
+    { id: 5, name: "Judiciary", png: judiciaryImage },
+    { id: 6, name: "Business", png: businessImage },
+    { id: 7, name: "School", png: schoolImage }
+]
+
+const UserCard = ({ usersList, onClick }) => {
+    return (
+        <div className="row g-3 justify-content-center">
+            {
+                usersList.map((user) => (
+                    <div className="card col-2 user-card" onClick={onClick}>
+                        <div key={user.id} className="card-body" id={user.name}>
+                            <div className="d-flex flex-column align-items-center">
+                                <img alt={user.name} src={user.png} className="user-icon" />
+                                <p className="lead fw-bold text-center mt-1 mb-0">{user.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    )
+}
+
 const SelectUser = () => {
     const navigate = useNavigate();
 
@@ -28,70 +57,7 @@ const SelectUser = () => {
                 </div>
 
                 <div className="card-body">
-                    <div className="row g-3 justify-content-center">
-                        <div className="card col-2 user-card" id="lawyer-card" onClick={handleCardClick}>
-                            <div className="card-body">
-                                <div className="row flex-column align-items-center">
-                                    <img alt="lawyer" src={lawyerImage} className="user-icon" />
-                                    <p className="lead fw-bold text-center mt-1 mb-0">Lawyer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card col-2 user-card" id="non-litigant-card" onClick={handleCardClick}>
-                            <div className="card-body">
-                                <div className="row flex-column align-items-center">
-                                    <img alt="non-litigant" src={nonLitigantImage} className="user-icon" />
-                                    <p className="lead fw-bold text-center mt-1 mb-0">Non-Litigant</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card col-2 user-card" id="law_firm-card" onClick={handleCardClick}>
-                            <div className="card-body">
-                                <div className="row flex-column align-items-center">
-                                    <img alt="law_firm" src={lawFirmImage} className="user-icon" />
-                                    <p className="lead fw-bold text-center mt-1 mb-0">Law Firm</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card col-2 user-card" id="judiciary-card" onClick={handleCardClick}>
-                            <div className="card-body">
-                                <div className="row flex-column align-items-center">
-                                    <img alt="judiciary" src={judiciaryImage} className="user-icon" />
-                                    <p className="lead fw-bold text-center mt-1 mb-0">Judiciary</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card col-2 user-card" id="business-card">
-                            <div className="card-body">
-                                <div className="row flex-column align-items-center">
-                                    <img alt="enterprise" src={businessImage} className="user-icon" />
-                                    <p className="lead fw-bold text-center mt-1 mb-0">Business</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card col-2 user-card" id="educational_institution-card">
-                            <div className="card-body">
-                                <div className="row flex-column align-items-center">
-                                    <img alt="school" src={schoolImage} className="user-icon" />
-                                    <p className="lead fw-bold text-center mt-1 mb-0">University</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card col-2 user-card" id="student-card">
-                            <div className="card-body">
-                                <div className="row flex-column align-items-center">
-                                    <img alt="student" src={studentImage} className="user-icon" />
-                                    <p className="lead fw-bold text-center mt-1 mb-0">Student</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <UserCard usersList={usersList} onClick={handleCardClick} />
                 </div>
             </div>
 

@@ -1,0 +1,32 @@
+.category-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.category-card {
+    margin-right: 20px;
+    transition: transform 0.19s ease-in-out;
+}
+
+.category-card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.divisor {
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.ruler {
+    border-top: 5px solid;
+    color: black;
+    opacity: 1;
+}
+
+.about-case_input.form-control {
+    margin-bottom: 10px;
+    resize: none;
+    max-height: 200px;
+    overflow-y: auto;
+}

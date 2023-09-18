@@ -1,0 +1,123 @@
+.file_manager-container {
+    height: 100vh;
+}
+
+.main_side_bar-container {
+    height: 100%;
+    width: 50px;    
+    padding: 5px;
+    padding-top: 20px;
+    border-right: 1px solid;
+    justify-content: center;
+}
+
+.side_bar {
+    padding-top: 20px;
+    justify-content: center;
+}
+
+.side_bar-icon {
+    padding: 10px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.side_bar-icon:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.side_bar-icon#Logo {
+    position: absolute;
+    top: 0;
+}
+
+.side_bar-icon#Settings {
+    position: absolute;
+    bottom: 0;
+}
+
+.explorer {
+    height: 100%;
+    width: 200px;
+    padding: 10px;
+    border-right: 1px solid;
+}
+
+.explorer .explorer-btn {
+    position: absolute;
+    bottom: 0px;
+}
+
+.file-tree {
+    list-style-type: none;
+    padding-left: 20px;    
+    height: 200px;
+    overflow-y: auto;
+}
+
+.tree_view-icon {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.file-tree li {
+    list-style: none;
+
+}
+
+.file-tree .ul {
+    padding-left: 0px;
+}
+
+li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.folder-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.document-container {
+    height: 100vh;
+    width: 65vw;
+    padding: 10px;
+    border-right: 1px solid;
+}
+
+.folders_display-container {
+    padding: 10px;
+}
+
+.folder-card {
+    margin-right: 15px;
+    transition: transform 0.1s ease-in-out;
+}
+
+.folder-card:hover {
+    background-color: rgb(182, 182, 182);
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.recent_files-table {
+    overflow: auto;
+}
+
+.recent_files-table .recent_files-tbody{
+    width: 100;
+    table-layout: fixed;
+}
+
+.table-hover {
+    cursor: pointer;
+}
+
+.storage-manager {
+    padding: 10px;
+    height: 100%;
+    width: 17vw;
+    background-color: #333;
+}

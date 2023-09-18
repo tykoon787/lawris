@@ -29,6 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: var(--bs-border-radius);
 }
 
 .edit-icon {

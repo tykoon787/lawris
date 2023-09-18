@@ -1,0 +1,25 @@
+.document-preview {
+    height: 700px;
+    overflow: auto;
+}
+
+.page-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.document-preview::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #050505;
+}
+
+.document-preview::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: #050505;
+}
+
+.document-preview::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #432fc8c7;
+}

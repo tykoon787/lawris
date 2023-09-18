@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
 import archive from '../static/icons/dms/icons/archive.png';
@@ -11,21 +10,18 @@ import './styles/Dms.css'
 // Comoonenets
 import Docs from './Docs';
 
-import $ from 'jquery';
+// Edit Doc
+import EditDoc from '../components/EditDoc';
+import form78 from '../static/docs/[Form 78]-Petition for probate of written will or for proof of oral will.pdf'
+
+import { useNavigate } from 'react-router-dom';
+
 
 const iconList = [
-    {
-        id: 1,
-        png: addFile,
-        action_name: "New File"
-    },
-    {
-        id: 2,
-        png: archive,
-        action_name: "Open"
-    },
-    { id: 3, png: upload, action_name: "Upload" },
-    { id: 4, png: pdf, action_name: "Convert" }
+    { id: 1, png: addFile, action_name: "New File", route: "file_new_case" },
+    { id: 2, png: archive, action_name: "Open", route: "file_manager" },
+    { id: 3, png: upload, action_name: "Upload", route: "upload" },
+    { id: 4, png: pdf, action_name: "Convert", route: "pdf_converter" }
 ]
 
 const navList = [
@@ -36,12 +32,12 @@ const navList = [
     { id: 5, name: "Arbitration", href: "/arbitration", active: false },
 ]
 
-const CommandBarActions = ({ icon, action_name }) => {
+const CommandBarActions = ({ icon, action_name, onClick }) => {
     return (
         <div className="col-1">
             <div className="d-flex flex-column align-items-center">
                 <div className="icon-container">
-                    <img alt="new-file" src={icon} className="command_bar-icon" />
+                    <img alt="new-file" src={icon} className="command_bar-icon" onClick={onClick} />
                 </div>
                 <p className="command_bar-text fw-bold">{action_name}</p>
             </div>
@@ -49,11 +45,18 @@ const CommandBarActions = ({ icon, action_name }) => {
     )
 }
 
-const CommandBarIcons = () => {
+const CommandBarIcons = ({ iconList }) => {
+    const navigate = useNavigate();
+
+    const handleIconClick = (route) => {
+        console.log('[DEBUG] Calling Route: ', route)
+        navigate(`/${route}`)
+    }
+
     return (
         <div className="command_bar d-flex align-items-center">
             {iconList.map((icon) => (
-                <CommandBarActions key={icon.id} icon={icon.png} action_name={icon.action_name} />
+                <CommandBarActions key={icon.id} icon={icon.png} action_name={icon.action_name} onClick={() => handleIconClick(icon.route)} />
             ))}
         </div>
     )
@@ -69,46 +72,18 @@ const NavItem = ({ href, name, active }) => {
     )
 }
 
-// Nav Item on click
-$('.docs-container').children().hide();
-$('.docs-container').children(':eq(0)').show()
-
-// const navigationHandler = () => {
-//     // Get the clicked item ID
-//     const itemId = $(this).atrr('id');
-
-//     // Hide all template gallery content
-//     $('.docs-container').children().hide();
-
-//     // Show the corresponding template gallery
-//     const contentToShow = $(`.docs-container#${itemId}`)
-//     contentToShow.show();
-
-//     // Update the active state of the navigation
-//     $('.nav-item').removeClass('active');
-//     $(this).addClass('active');
-// }
-
-const NavList = ({ activeSection, onClick }) => {
+const NavList = () => {
     return (
         <ul className="nav nav-underline">
             {navList.map((navItem) => (
-                <NavItem key={navItem.id} href={navItem.href} name={navItem.name} active={navItem.active === activeSection}
-                    OnClick={() => onClick(navItem.name)} />
+                <NavItem key={navItem.id} href={navItem.href} name={navItem.name} active={navItem.active}
+                />
             ))}
         </ul>
     )
 }
 
 const Dms = () => {
-    const [activeSection, setActiveSection] = useState('Civil');
-
-    // Function to hande navigation and update the active section
-
-    const navigationHandler = (sectionName) => {
-        setActiveSection(sectionName);
-    };
-
     return (
         <div className="main-container">
             <div className="dashboard-nav"></div>
@@ -117,17 +92,18 @@ const Dms = () => {
                     <p className="lead fw-bold text-center">DOCUMENT MANAGER</p>
                     <div className="command_bar-card card">
                         <div className="card-body command_bar-container">
-                            <CommandBarIcons />
+                            <CommandBarIcons iconList={iconList} />
                         </div>
                     </div>
                 </div>
 
                 <div className="cases_tab-container d-flex flex-row">
                     <div className="cases-tab">
-                        <NavList activeSection={activeSection} onClick={navigationHandler} />
+                        <NavList />
                     </div>
                 </div>
-                <Docs activeSection={activeSection} />
+                <Docs />
+                <EditDoc docUrl={form78} />
             </div>
         </div>
     )
