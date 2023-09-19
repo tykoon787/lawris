@@ -2,13 +2,46 @@
     height: 100vh;
 }
 
+.logo-container {
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.active_storage-container {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+}
+
+
 .main_side_bar-container {
     height: 100%;
-    width: 50px;    
-    padding: 5px;
-    padding-top: 20px;
+    width: 50vw;    
+    padding: var(--padding);
+    /* padding-top: 20px; */
     border-right: 1px solid;
-    justify-content: center;
+    /* justify-content: center; */
+}
+
+.expanded_sidebar-container {
+    width: 100%;
+}
+
+
+.side-nav {
+    margin-top: 10px;
+}
+
+.side_nav-icon {
+    margin-right: 25px;
+}
+
+.expanded_sidebar {
+    height: 100%;
+    position: relative;
 }
 
 .side_bar {

@@ -15,6 +15,7 @@ import {
 } from '../components/Icons';
 
 import folderSvg from '../static/icons/file_manager/icons/folder.png';
+import balance from '../static/icons/balance.png';
 
 const items = [
     { id: 1, name: "Logo", icon: UserIcon },
@@ -95,6 +96,38 @@ const SideBar = ({ sideBarItems }) => {
     )
 }
 
+const SideNav = () => {
+    return (
+        <nav id="sideNav" className="side-nav h-100 flex-column align-items-stretch">
+            <nav className="nav nav-pills flex-column">
+                <a className="nav-link active" href="/file_manager"><span className="side_nav-icon"><FolderIcon /></span>Files</a>
+                <a className="nav-link" href="/file_manager"><span className="side_nav-icon"><PrinterIcon /></span>Printer</a>
+                <a className="nav-link" href="/file_manager"><span className="side_nav-icon"><TrashIcon /></span>Trash</a>
+            </nav>
+        </nav>
+    )
+}
+
+const ExpandedSideBar = () => {
+    return (
+        <div className="expanded_sidebar-container">
+            <div className="expanded_sidebar d-flex flex-column justify-content-center">
+                <div className="logo-container d-flex justify-content-center">
+                    <img alt="balance" src={balance} className="dev_icon"></img>
+                    <h3>Lawris</h3>
+                </div>
+                <div className="active_storage-container">
+                    <ActiveStorage />
+                </div>
+
+                <div className="side_nav-container">
+                    <SideNav />
+                </div>
+            </div>
+        </div>
+    )
+}
+
 const TreeNode = ({ item }) => {
     const hasChildren = item.children && item.children.length > 0;
     return (
@@ -138,9 +171,8 @@ $(function () {
 const ActiveStorage = () => {
     return (
         <div className="dropdown">
-            <Cloud />
-            <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                One Drive
+            <button className="btn btn-primary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span className="side_nav-icon"><Cloud /></span>One Drive
             </button>
 
             <ul className="dropdown-menu">
@@ -222,6 +254,7 @@ const DocumentContainer = ({ folders }) => {
     return (
         <div className="document-container d-flex flex-column">
             <h3 className="fw-bold">Folders</h3>
+            <hr></hr>
             <div className="folders_display-container d-flex">
                 <Folders folders={folders} />
             </div>
@@ -235,10 +268,7 @@ const FileManager = () => {
     return (
         <div className="file_manager-container d-flex">
             <div className="main_side_bar-container d-flex">
-                <SideBar sideBarItems={items} />
-            </div>
-            <div className="explorer">
-                <Explorer />
+                <ExpandedSideBar />
             </div>
             <div>
                 <DocumentContainer folders={folders} />
