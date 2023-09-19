@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from lawrisdb.views import *
+from lawrisdb.views.user_views import *
+from lawrisdb.views.dms_views import *
+from lawrisdb.views.pms_views import *
+from lawrisdb.views.acct_views import *
+
 
 # from lawris_api import urls as lawris_urls
 

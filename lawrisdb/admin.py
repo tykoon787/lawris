@@ -5,7 +5,11 @@ and use the following command to register the models.
 """
 
 from django.contrib import admin
-from . models import *
+from lawrisdb.models.acct import *
+from lawrisdb.models.user import CustomUser, ActivityLog
+from lawrisdb.models.pms import *
+from lawrisdb.models.dms import *
+
 
 # Register your models here.
 
