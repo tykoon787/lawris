@@ -17,6 +17,9 @@ class DocumentTemplate(BaseModel):
     title = models.CharField(max_length=200)
     content = models.TextField()
 
+    def __str__(self):
+        return self.title
+
 
 class CaseRuling(BaseModel):
     case_number = models.CharField(max_length=50)
