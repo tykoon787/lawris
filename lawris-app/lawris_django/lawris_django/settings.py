@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dms',
-    'pms',
-    'acct'
+    'dms.apps.DmsConfig',
+    'pms.apps.PmsConfig',
+    'acct.apps.AcctConfig'
 ]
 
 MIDDLEWARE = [
