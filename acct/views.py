@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from lawrisdb.models.acct import Invoice
+from acct.models import Invoice
 from acct.serializers import InvoiceSerializer
 
 class InvoiceViewSet(viewsets.ModelViewSet):
