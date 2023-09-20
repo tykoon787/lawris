@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from dms.views import *
+from pms.views import *
 
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -25,14 +26,14 @@ router = routers.DefaultRouter()
 router.register(r'caserulings', CaseRulingViewSet)
 router.register(r'templates', DocumentTemplateViewSet)
 router.register(r'documents', DocumentViewSet)
+router.register(r'events', EventViewSet)
+router.register(r'lawfirms', LawFirmViewSet)
+router.register(r'tasks', TaskViewSet)
+router.register(r'clients', ClientViewSet)
+# router.register(r'invoices', InvoiceViewSet)
 # router.register(r'users', CustomUserViewSet)
 # router.register(r'permission', PermissionViewSet)
 # router.register(r'activity-log', ActivityLogViewSet)
-# router.register(r'events', EventViewSet)
-# router.register(r'invoices', InvoiceViewSet)
-# router.register(r'lawfirms', LawFirmViewSet)
-# router.register(r'tasks', TaskViewSet)
-# router.register(r'clients', ClientViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
