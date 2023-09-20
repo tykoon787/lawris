@@ -1,3 +1,12 @@
 from django.shortcuts import render
+from rest_framework import viewsets
+from lawrisdb.models.acct import Invoice
+from acct.serializers import InvoiceSerializer
 
-# Create your views here.
+class InvoiceViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Invoices to be viewed or edited.
+    """
+    queryset = Invoice.objects.all().order_by('-created_at')
+    serializer_class = InvoiceSerializer
+    # permission_classes = [permissions.IsAuthenticated]
