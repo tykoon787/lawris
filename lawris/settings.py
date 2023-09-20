@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lawrisdb',
     'rest_framework',
+    'dms',
 ]
 
 MIDDLEWARE = [
