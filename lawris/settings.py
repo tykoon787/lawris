@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'lawrisdb',
     'rest_framework',
     'dms',
+    'pms',
 ]
 
 MIDDLEWARE = [
