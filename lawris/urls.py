@@ -17,29 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from lawrisdb.views.user_views import *
-from lawrisdb.views.dms_views import *
-from lawrisdb.views.pms_views import *
-from lawrisdb.views.acct_views import *
-
-
-# from lawris_api import urls as lawris_urls
+from dms.views import *
 
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', CustomUserViewSet)
-router.register(r'permission', PermissionViewSet)
-router.register(r'activity-log', ActivityLogViewSet)
 router.register(r'caserulings', CaseRulingViewSet)
-router.register(r'clients', ClientViewSet)
 router.register(r'templates', DocumentTemplateViewSet)
 router.register(r'documents', DocumentViewSet)
-router.register(r'events', EventViewSet)
-router.register(r'invoices', InvoiceViewSet)
-router.register(r'lawfirms', LawFirmViewSet)
-router.register(r'tasks', TaskViewSet)
-
+# router.register(r'users', CustomUserViewSet)
+# router.register(r'permission', PermissionViewSet)
+# router.register(r'activity-log', ActivityLogViewSet)
+# router.register(r'events', EventViewSet)
+# router.register(r'invoices', InvoiceViewSet)
+# router.register(r'lawfirms', LawFirmViewSet)
+# router.register(r'tasks', TaskViewSet)
+# router.register(r'clients', ClientViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
