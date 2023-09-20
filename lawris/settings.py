@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'dms',
     'pms',
+    'acct',
 ]
 
 MIDDLEWARE = [
