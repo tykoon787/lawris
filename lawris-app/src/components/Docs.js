@@ -19,8 +19,12 @@ const documentListCivil = [
     { id: 5, title: "Affidavit of Service" },
     { id: 6, title: "Notice to Produce Documents" },
     { id: 7, title: "Witness Statement" },
-    { id: 8, title: "Application Notice" }
-]
+    { id: 8, title: "Application Notice" },
+    { id: 9, title: "Interrogatories" },
+    { id: 10, title: "Counterclaim" },
+    { id: 11, title: "Notice of Discontinuance" },
+    { id: 12, title: "Amended Pleading" }
+];
 
 
 const DocumentCard = ({ name }) => {
@@ -46,7 +50,7 @@ const DocumentList = ({ documentList }) => {
 
     return (
         <div className="templates-container">
-            <div className="templates d-flex">
+            <div className="templates row g-3 justify-content-center">
                 {documentList.map((document) => (
                     <DocumentCard key={document.id} name={document.title} />
                 ))}
