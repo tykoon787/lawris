@@ -18,6 +18,29 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url,
 ).toString();
 
+// function PDFViewer() {
+//     const [pdfFile, setPdfFile] = useState(docUrl)
+//     const pdfContainerStyle = {
+//         backgroundColor: 'lightgray',
+//         display: 'flex',
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         height: '100vh',
+//     };
+
+//     const handleInputChange = (event) => {
+//         console.log("Input Change")    
+//     }
+
+//     return (
+//         <div style={pdfContainerStyle}>
+//             <Document file={pdfFile}>
+//                 <Page pageNumber={1} />
+//             </Document>
+//         </div>
+//     )
+// }
+
 
 const EditDoc = ({ docUrl }) => {
     const [numPages, setNumPages] = useState();
@@ -39,18 +62,24 @@ const EditDoc = ({ docUrl }) => {
         }
     }
 
+    const pdfContainerStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    };
+
     return (
         <div className="d-flex">
             <div className="col-6 p-3">
-                <div className="document-preview">
+                <div className="document-preview" style={pdfContainerStyle}>
                     <Document file={docUrl} onLoadSuccess={onDocumentLoadSuccess}>
                         <Page pageNumber={pageNumber} />
                     </Document>
 
                 </div>
                 {numPages && (
-                    <div className="d-flex flex-column justify-content-center mt-4">
-                        <p className="text-center">Page {pageNumber} of {numPages}</p>
+                    <div className="d-flex flex-column justify-content-center">
+                        <p className="text-muted text-center">Page {pageNumber} of {numPages}</p>
                         <div className="d-flex justify-content-center">
                             <button className="btn btn-outline" onClick={goToPreviousPage} disabled={pageNumber === 1}>
                                 <img alt="left_arrow" src={leftArrow} className="page-icon"></img>
