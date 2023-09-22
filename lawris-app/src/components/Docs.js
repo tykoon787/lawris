@@ -5,16 +5,9 @@ import './styles/Icons.css';
 // Icons
 // import { EditIcon } from './Icons';
 import { SaveIcon } from './Icons';
-import { RightIcon } from './Icons';
-import { LeftIcon } from './Icons';
 
 // Image
 import EditIcon from '../static/icons/docs/icons/writing.png';
-
-// Utilty Functions
-import { scrollRight } from '../funcs/utility_functions';
-import { scrollLeft } from '../funcs/utility_functions';
-
 
 
 // Fetch Common templates from the database
@@ -62,28 +55,11 @@ const DocumentList = ({ documentList }) => {
     )
 }
 
-const handleScrollRight = () => {
-    scrollRight('.templates-container', 300)
-}
-
-const handleScrollLeft = () => {
-    scrollLeft('.templates-container', 300)
-}
-
-
-
 const Docs = (documentList) => {
     documentList = documentListCivil
     return (
         <div className="docs-container">
             <DocumentList documentList={documentList} />
-            <button className="btn" id="scroll_right-button" onClick={handleScrollRight}>
-                <RightIcon />
-            </button>
-            <button className="btn" id="scroll_left-button" onClick={handleScrollLeft}>
-                <LeftIcon />
-            </button>
-
         </div>
     )
 }
