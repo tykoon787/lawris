@@ -1,5 +1,6 @@
+import re
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+from django.db.models import JSONField
 from django.utils import timezone
 import uuid
 import pdfplumber
@@ -7,6 +8,22 @@ import docx
 import os
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+import logging
+
+# Logs
+log_dir = "/home/tykoon787/projects/lawris/logs"
+os.makedirs(log_dir, exist_ok=True)
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+log_file = os.path.join(log_dir, "tests.py.log")
+file_handler = logging.FileHandler(log_file, mode="w")
+file_handler.setLevel(logging.DEBUG)
+file_formatter = logging.Formatter(
+    '[%(asctime)s] [%(levelname)-5s]  ::    %(message)s')
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
 
 # Create your models here.
 
@@ -23,7 +40,7 @@ class BaseModel(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        override the save method to update the 'upadated_at' timestamp when saving an instance
+        Override the save method to update the 'upadated_at' timestamp when saving an instance
         """
 
         self.updated_at = timezone.now()
@@ -58,14 +75,16 @@ class Template(BaseModel):
     title = models.CharField(max_length=200)
     category_of_law = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     division_of_law = models.CharField(max_length=20, choices=DIVISION_CHOICES)
-    branch_of_division_of_law = models.CharField(
+    sub_division = models.CharField(
         max_length=20, choices=SUB_DIVISION_CHOICES)
     template_file_docx = models.CharField(max_length=255)
-    form_fields = JSONField()
+    pdf_preview_file = models.CharField(max_length=255, default="preview_file")
+    thumbnail = models.ImageField(upload_to="thumbnails/")
+    form_fields = JSONField(blank=True, null=True)
 
 
     @classmethod
-    def create_template(cls, type, title, category_of_law, division_of_law, branch_of_division_of_law, template_file_docx, form_fields):
+    def create_template(cls, type, title, category_of_law, division_of_law, sub_division, template_file_docx, pdf_preview_file, thumbnail, form_fields):
         """
         Creates a new template and stores it in the database
 
@@ -74,8 +93,10 @@ class Template(BaseModel):
             title (str): The title of the template
             category_of_law (str): The category of law
             division_of_law (str): The division of law
-            branch_of_division_of_law (str): The branch of division of law
+            sub_division (str): The branch of division of law
             template_file_docx (str): The path to the template file in 'docx' format
+            pdf_preview_file (str) : The path to the pdf preview file
+            thumbnail (str) : The path to the thumbnail of the file
             form_fields (dict): A JSON dictionary representing form fields
 
         Returns:
@@ -86,8 +107,10 @@ class Template(BaseModel):
             title=title,
             category_of_law=category_of_law,
             division_of_law=division_of_law,
-            branch_of_division_of_law=branch_of_division_of_law,
+            sub_division=sub_division,
             template_file_docx=template_file_docx,
+            pdf_preview_file=pdf_preview_file,
+            thumbnail=thumbnail,
             form_fields=form_fields
         )
         template.save()
@@ -95,7 +118,7 @@ class Template(BaseModel):
 
     def read_template_content(self, template_file: str):
         """
-        Reads the content from a template
+        Reads the content from a template file
 
         Args: 
             template_file (str): Path to the file
@@ -108,7 +131,7 @@ class Template(BaseModel):
                 return template_content
 
 
-    def replace_placeholder(self, doc, placeholder: str, replacement: str):
+    def replace_placeholder(self, doc: docx.Document, placeholder:str, replacement: str):
         """
         Replaces a placeholder from a ``.docx`` document with the
         replacement string
@@ -116,9 +139,9 @@ class Template(BaseModel):
         for paragraph in doc.paragraphs:
             for run in paragraph.runs:
                 if placeholder in run.text:
-                    run.text = run.text.replace(placeholder, replacement)
+                    run.text = run.text.replace(placeholder, replacement.upper())
 
-    def save_file(self, doc:docx.Document, file_name:str="modified.docx", save_path:str="/home/tykoon787/projects/lawris/.temp/docs"):
+    def save_file(self, document:docx.Document, file_name:str="modified.docx", save_path:str="/home/tykoon787/projects/lawris/.temp/docs"):
         """
         Saves the generated file to the specified path 
 
@@ -131,40 +154,40 @@ class Template(BaseModel):
             Nothing
         """
         file_name = os.path.join(save_path, file_name)
-        doc.save(file_name)
+        document.save(file_name)
         with open(file_name, 'rb') as file:
             generated_content = file.read()
 
         return generated_content
 
-    def fill_template(self, data, docx:docx.Document=None, replacements:dict=None):
+    def fill_template(self, data=None, document:docx.Document=None, replacements:dict=None):
         """
         Fills the template with data
-        If ``doc`` is passed, the placeholders are replaced within te word document
+        If ``docx`` is passed, the placeholders are replaced within te word document
 
         Args: 
-            data: Data to be filled
+            data (dict): Data to be filled
             template_file: Template file to be read and used
-            docx (document) : Document to be read and replaced
+            document (docx.Document): Document to be read and replaced
             replacements (dict) : Dictionary containing the placeholders and replacement
-        """
-        if (docx and replacements):
-            doc = docx.Document(self.template_file_docx)
 
+        Returns:
+            Document (Document): Document object with the generated content
+        """
+        if (document and replacements):
             for placeholder, replacement in replacements.items():
-                self.replace_placeholder(doc, placeholder, replacement)
+                self.replace_placeholder(document, placeholder, replacement)
 
             new_document = Document(title=self.title)
             new_document.save()
 
-            generated_content = self.save_file(doc)
+            generated_content = self.save_file(document, file_name=f'{new_document.title}.docx')
             new_document.content = generated_content
             new_document.save()
 
             return new_document
-
         else:
-            template_content = self.read_template_content(self.template_file)
+            template_content = self.read_template_content(self.template_file_docx)
             filled_template = template_content.format(**data)
             return (filled_template)
 
@@ -177,10 +200,10 @@ class Document(BaseModel):
     Document Model
     """
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = models.TextField(blank=True, null=True)
 
     def __init__(self, title, *args, **kwargs):
-        super().__init(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.title = title
 
     def generate_document(self, format: str="docx"):
@@ -194,6 +217,9 @@ class Document(BaseModel):
         else:
             # NOTE: Handler other formats (pdf)
             pass
+
+    def __str__(self):
+        return f'Document Object: {self.id}-{self.title}'
 
     def download_document(self):
         """
