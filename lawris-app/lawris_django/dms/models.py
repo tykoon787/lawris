@@ -79,12 +79,11 @@ class Template(BaseModel):
         max_length=20, choices=SUB_DIVISION_CHOICES)
     template_file_docx = models.CharField(max_length=255)
     pdf_preview_file = models.CharField(max_length=255, default="preview_file")
-    thumbnail = models.ImageField(upload_to="thumbnails/")
     form_fields = JSONField(blank=True, null=True)
 
 
     @classmethod
-    def create_template(cls, type, title, category_of_law, division_of_law, sub_division, template_file_docx, pdf_preview_file, thumbnail, form_fields):
+    def create_template(cls, type, title, category_of_law, division_of_law, sub_division, template_file_docx, pdf_preview_file, form_fields):
         """
         Creates a new template and stores it in the database
 
@@ -110,7 +109,7 @@ class Template(BaseModel):
             sub_division=sub_division,
             template_file_docx=template_file_docx,
             pdf_preview_file=pdf_preview_file,
-            thumbnail=thumbnail,
+            # thumbnail=thumbnail,
             form_fields=form_fields
         )
         template.save()
