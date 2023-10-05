@@ -1,0 +1,828 @@
+[DEBUG]: Run: TITLE
+[DEBUG]: Run: HEADING
+[DEBUG]: Run: I 
+[DEBUG]: Run: PETITIONER_NAME
+[DEBUG]: Run:  of 
+[DEBUG]: Run: PETITIONER_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  
+[DEBUG]: Run: PETITIONER_ADDRESS
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: DATE_OF_DECEASED_DEATH
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: PETITIONER_NAME
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: HEADING
+[DEBUG]: Run: I 
+[DEBUG]: Run: PETITIONER_NAME
+[DEBUG]: Run:  of 
+[DEBUG]: Run: PETITIONER_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  
+[DEBUG]: Run: PETITIONER_ADDRESS
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: DATE_OF_DECEASED_DEATH
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: PETITIONER_NAME
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: PETITIONER_NAME
+[DEBUG]: Run:  of 
+[DEBUG]: Run: PETITIONER_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  
+[DEBUG]: Run: PETITIONER_ADDRESS
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: DATE_OF_DECEASED_DEATH
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: PETITIONER_NAME
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: PETITIONER_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  
+[DEBUG]: Run: PETITIONER_ADDRESS
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: DATE_OF_DECEASED_DEATH
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: PETITIONER_ADDRESS
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: DATE_OF_DECEASED_DEATH
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: DECEASED_NAME
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: DATE_OF_DECEASED_DEATH
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: DATE_OF_DECEASED_DEATH
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: YEAR_OF_DECEASED_DEATH
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: PLACE_OF_DECEASED_DEATH
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: DOMICILED_AREA
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: EXECUTOR
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: Chukwudi Eze
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: PETITIONER_SIGNATURE
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: Chukwudi Eze
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: K.N
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: WITNESS_NAME
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: Chukwudi Eze
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: K.N
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: Amina Ibrahim
+[DEBUG]: Run: WITNESS_SIGNATURE
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: Chukwudi Eze
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: K.N
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: Amina Ibrahim
+[DEBUG]: Run: A.I
+[DEBUG]: Run: Of
+[DEBUG]: Run: WITNESS_ADDRESS_DESCRIPTION
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: Chukwudi Eze
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: K.N
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: Amina Ibrahim
+[DEBUG]: Run: A.I
+[DEBUG]: Run: Of
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  of 
+[DEBUG]: Run: WITNESS_ADDRESS
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: Chukwudi Eze
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: K.N
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: Amina Ibrahim
+[DEBUG]: Run: A.I
+[DEBUG]: Run: Of
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  of 
+[DEBUG]: Run: 456 Park Avenue, Nairobi, Kenya
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: ADDRESS_OF_SERVICE
+[DEBUG]: Run: Petition for Grant of Probate
+[DEBUG]: Run: In the High Court of COURT_LOCATION
+[DEBUG]: Run: I 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run:  of 
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  
+[DEBUG]: Run: 123 Main Street, Accra, Ghana
+[DEBUG]: Run:  HEREBY PETITION this court for a grant of probate of the last will (and codicil(s)) of the 
+[DEBUG]: Run: above named
+[DEBUG]: Run:  
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run: :
+[DEBUG]: Run: And say as follows:
+[DEBUG]: Run: The said 
+[DEBUG]: Run: Ngozi Okafor
+[DEBUG]: Run:  died on the 
+[DEBUG]: Run: 15th September
+[DEBUG]: Run:  
+[DEBUG]: Run: 2023
+[DEBUG]: Run:  at 
+[DEBUG]: Run: Lagos, Nigeria
+[DEBUG]: Run:  and was domiciled in 
+[DEBUG]: Run: Abuja, Nigeria
+[DEBUG]: Run: ;
+[DEBUG]: Run: The document hereto annexed 
+[DEBUG]: Run: contains
+[DEBUG]: Run:  the true and original last written will and codicil(s);
+[DEBUG]: Run: I am the 
+[DEBUG]: Run: Chukwudi Eze
+[DEBUG]: Run:  named in the said will (and codicil(s));
+[DEBUG]: Run: I will faithfully administer according to the law all the estate which by law devolves upon and vests in the personal representative of the deceased and I will a just and true account of such estate whenever required by law so to 
+[DEBUG]: Run: do,
+[DEBUG]: Run:  and I will when be required by this Court deliver up thereto the said grant. 
+[DEBUG]: Run: Signed by the above named, 
+[DEBUG]: Run: Kwame Nkuruma
+[DEBUG]: Run: K.N
+[DEBUG]: Run: In the presence of 
+[DEBUG]: Run: Amina Ibrahim
+[DEBUG]: Run: A.I
+[DEBUG]: Run: Of
+[DEBUG]: Run: Residing at
+[DEBUG]: Run:  of 
+[DEBUG]: Run: 456 Park Avenue, Nairobi, Kenya
+[DEBUG]: Run: Filed by
+[DEBUG]: Run: 789 Court Street, Cape Town, South Africa

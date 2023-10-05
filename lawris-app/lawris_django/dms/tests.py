@@ -1,128 +1,194 @@
 # from django.test import TestCase
-# from dms.models import Template
+from .models import Template
 import pdfplumber
 import docx
 
-file = "/home/tykoon787/projects/lawris/lawris-app/lawris_django/dms/templates/f_78.docx"
+# file = "/home/tykoon787/projects/lawris/lawris-app/lawris_django/dms/templates/Form_78_refined.pdf"
 
-import docx
+# def replace_placeholder(doc, placeholder, replacement):
+#     for paragraph in doc.paragraphs:
+#         for run in paragraph.runs:
+#             print(f"[DEBUG]: Run: {run.text}")
+#             if placeholder in run.text:
+#                 run.text = run.text.replace(placeholder, replacement)
 
-def replace_placeholder(doc, placeholder, replacement):
-    for paragraph in doc.paragraphs:
-        for run in paragraph.runs:
-            print(f"[DEBUG]: Run: {run.text}")
-            if placeholder in run.text:
-                run.text = run.text.replace(placeholder, replacement)
-            # else:
-            #     print(f"[DEBUG]: Placeholder '{placeholder}' not Found")
+# def read_file(file_path):
+#     template_content = ""
+#     with pdfplumber.open(file_path) as pdf_template:
+#         for page in pdf_template.pages:
+#             page_text = page.extract_text()
+#             template_content += page_text + "\n"
+#             return template_content
 
-def main():
-    # Load the Word document
-    doc = docx.Document(file)  # Replace with the path to your Word document
+
+# def run():
+#     # doc = docx.Document(file)
+
+#     replacements = {
+#         "{TITLE}": 'Petition for Grant of Probate',
+#         "{HEADING}": 'In the High Court of {COURT_LOCATION}',
+#         "{PETITIONER_NAME}": 'Kwame Nkuruma',
+#         "{PETITIONER_ADDRESS_DESCRIPTION}": 'Residing at',
+#         "{PETITIONER_ADDRESS}": '123 Main Street, Accra, Ghana',
+#         "{DECEASED_NAME}": 'Ngozi Okafor',
+#         "{DATE_OF_DECEASED_DEATH}": '15th September',
+#         "{YEAR_OF_DECEASED_DEATH}": '2023',
+#         "{PLACE_OF_DECEASED_DEATH}": 'Lagos, Nigeria',
+#         "{DOMICILED_AREA}": 'Abuja, Nigeria',
+#         "{EXECUTOR}": 'Chukwudi Eze',
+#         "{PETITIONER_SIGNATURE}": 'K.N',
+#         "{WITNESS}": 'Amina Ibrahim',
+#         "{WITNESS_SIGNATURE}": 'A.I',
+#         "{WITNESS_ADDRESS_DESCRIPTION}": 'Residing at',
+#         "{WITNESS_ADDRESS}": '456 Park Avenue, Nairobi, Kenya',
+#         "{ADDRESS_OF_SERVICE}": '789 Court Street, Cape Town, South Africa',
+#         "{COURT_LOCATION}": 'Lagos, Nigeria' 
+#     }
+
+#     generated_content = read_file(file)
+#     filled_template = generated_content.format(**replacements)
+#     print(filled_template)
+
+    # # Perform replacements
+    # for placeholder, replacement in replacements.items():
+    #     replace_placeholder(doc, placeholder, replacement)
     
-    # Define your replacements
-    # replacements = {
-    #     "{TITLE}": 'Petition for grant of probate',
-    #     "{HEADING}": 'Heading',
-    #     "{PETITIONER}": 'Kwame Nkuruma',
-    #     "{PETITIONER_ADDRESS}": 'P.O Box 7396 Eldoret',
-    #     "{DECEASED}": 'Saitoti Kanga',
-    #     "{DATE_OF_DEATH}": 'January 1',
-    #     "{YEAR_OF_DEATH}": '2023',
-    #     "{STATE_OF_DEATH}": 'Nigeria',
-    #     "{DOMICILED_AREA}": 'Nigeria',
-    #     "{EXECTUROR(S)}": 'Executor 1',
-    #     "{PETITIONER_SIGNATURE}": 'Kwame Nkuruma (Signature)',
-    #     "{WITNESS}": 'Witness 1',
-    #     "{WITNESS_SIGNATURE}": 'Chenge (Signature)',
-    #     "{ADVOCATE_ADRESS}": '123 Main St, Nigeria',
-    #     "{ADVOCATE_SIGNATURE}": 'Advocate (Signature)',
-    #     "{ADDRESS_OF_SERVICE}": '456 Elm St, Nigeria',
-    # }
-
-    replacements = {
-        'TITLE': 'Petition for grant of probate',
-        'HEADING': 'Heading',
-        'PETITIONER': 'Kwame Nkuruma',
-        'PETITIONER_ADDRESS': 'P.O Box 7396 Eldoret',
-        'DECEASED': 'Saitoti Kanga',
-        'DATE_OF_DEATH': 'January 1',
-        'YEAR_OF_DEATH': '2023',
-        'STATE_OF_DEATH': 'Nigeria',
-        'DOMICILED_AREA': 'Nigeria',
-        'EXECTUROR(S)': 'Executor 1',
-        'PETITIONER_SIGNATURE': 'Kwame Nkuruma (Signature)',
-        'WITNESS': 'Witness 1',
-        'WITNESS_SIGNATURE': 'Chenge (Signature)',
-        'ADVOCATE_ADRESS': '123 Main St, Nigeria',
-        'ADVOCATE_SIGNATURE': 'Advocate (Signature)',
-        'ADDRESS_OF_SERVICE': '456 Elm St, Nigeria',
-    }
+    # # Save the modified document
+    # doc.save("Modifed_v6.docx")  # Replace with the desired output file path
 
 
-    # Perform replacements
-    for placeholder, replacement in replacements.items():
-        replace_placeholder(doc, placeholder, replacement)
+
+# def main():
+#     # Load the Word document
+#     doc = docx.Document(file)  # Replace with the path to your Word document
     
-    # Save the modified document
-    doc.save("Modifed_v5.docx")  # Replace with the desired output file path
-
-if __name__ == "__main__":
-    main()
-
-
-
-
-
-
-
-
-
-
-# file = "/home/tykoon787/projects/lawris/lawris-app/lawris_django/dms/templates/form_78_v2.pdf"
-
-# Create the template
-# template = Template.objects.create(
-#     type="petition",
-#     title="Form 78",
-#     category_of_law="civil",
-#     division_of_law='family',
-#     branch_of_division_of_law='succession',
-#     template_file=file
-# )
-
-# # Retrieve the template
-# template = Template.objects.get(title="Form 78")
-
-# template_content = ""
-# with pdfplumber.open(file) as pdf:
-#     for page in pdf.pages:
-#         page_text = page.extract_text()
-#         template_content += page_text + "\n"
-
-# data = {
-#     'TITLE': 'Petition for grant of probate',
-#     'HEADING': 'Heading',
-#     'PETITIONER': 'Kwame Nkuruma',
-#     'PETITIONER_ADDRESS': 'P.O Box 7396 Eldoret',
-#     'DECEASED': 'Saitoti Kanga',
-#     'DATE_OF_DEATH': 'January 1',
-#     'YEAR_OF_DEATH': '2023',
-#     'STATE_OF_DEATH': 'Nigeria',
-#     'DOMICILED_AREA': 'Nigeria',
-#     'EXECTUROR(S)': 'Executor 1',
-#     'PETITIONER_SIGNATURE': 'Kwame Nkuruma (Signature)',
-#     'WITNESS': 'Witness 1',
-#     'WITNESS_SIGNATURE': 'Chenge (Signature)',
-#     'ADVOCATE_ADRESS': '123 Main St, Nigeria',
-#     'ADVOCATE_SIGNATURE': 'Advocate (Signature)',
-#     'ADDRESS_OF_SERVICE': '456 Elm St, Nigeria',
+#     # Define your replacements
+#     replacements = {
+#         "{TITLE}": 'Petition for Grant of Probate',
+#         "{HEADING}": 'In the High Court of {COURT_LOCATION}',
+#         "{PETITIONER_NAME}": 'Kwame Nkuruma',
+#         "{PETITIONER_ADDRESS_DESCRIPTION}": 'Residing at',
+#         "{PETITIONER_ADDRESS}": '123 Main Street, Accra, Ghana',
+#         "{DECEASED_NAME}": 'Ngozi Okafor',
+#         "{DATE_OF_DECEASED_DEATH}": '15th September',
+#         "{YEAR_OF_DECEASED_DEATH}": '2023',
+#         "{PLACE_OF_DECEASED_DEATH}": 'Lagos, Nigeria',
+#         "{DOMICILED_AREA}": 'Abuja, Nigeria',
+#         "{EXECUTOR}": 'Chukwudi Eze',
+#         "{PETITIONER_SIGNATURE}": "K.N",
+#         "{WITNESS}": 'Amina Ibrahim',
+#         "{WITNESS_SIGNATURE}": "A.I",
+#         "{WITNESS_ADDRESS_DESCRIPTION}": 'Residing at',
+#         "{WITNESS_ADDRESS}": '456 Park Avenue, Nairobi, Kenya',
+#         "{ADDRESS_OF_SERVICE}": '789 Court Street, Cape Town, South Africa',
+#         "{COURT_LOCATION}": 'Kisumu, Kenya'
 # }
 
-# filled_template = template.fill_template(data)
+#     # Perform replacements
+#     for placeholder, replacement in replacements.items():
+#         replace_placeholder(doc, placeholder, replacement)
+    
+#     # Save the modified document
+#     doc.save("Modifed_v6.docx")  # Replace with the desired output file path
 
-# filled_template = template_content.format(**data)
+# if __name__ == "__main__":
+#     main()
 
-# with open('filled_template', 'w') as to_write:
-#     to_write.write(filled_template)
 
+
+
+
+
+
+file = "/home/tykoon787/projects/lawris/lawris-app/lawris_django/dms/templates/Form_78_refined_v2.docx"
+
+form_78_data = {
+    'type': 'Petition',
+    'title': 'Grant of probate',
+    'category_of_law': 'civil',
+    'division_of_law': 'family',
+    'sub_division': 'succession',
+    'template_file_docx': file,
+    'form_fields' : {
+        'field1': 'Field 1',
+        'field2': 'Field 2',
+    }
+}
+
+replacements = {
+    "TITLE": 'Petition for Grant of Probate',
+    "HEADING": 'In the High Court of COURT_LOCATION',
+    "PETITIONER_NAME": 'Kwame Nkuruma',
+    "PETITIONER_ADDRESS_DESCRIPTION": 'Residing at',
+    "PETITIONER_ADDRESS": '123 Main Street, Accra, Ghana',
+    "DECEASED_NAME": 'Ngozi Okafor',
+    "DATE_OF_DECEASED_DEATH": '15th September',
+    "YEAR_OF_DECEASED_DEATH": '2023',
+    "PLACE_OF_DECEASED_DEATH": 'Lagos, Nigeria',
+    "DOMICILED_AREA": 'Abuja, Nigeria',
+    "EXECUTOR": 'Chukwudi Eze',
+    "PETITIONER_SIGNATURE": 'K.N',
+    "WITNESS_NAME": 'Amina Ibrahim',
+    "WITNESS_SIGNATURE": 'A.I',
+    "WITNESS_ADDRESS_DESCRIPTION": 'Residing at',
+    "WITNESS_ADDRESS": '456 Park Avenue, Nairobi, Kenya',
+    "ADDRESS_OF_SERVICE": '789 Court Street, Cape Town, South Africa',
+    "COURT_LOCATION": 'Lagos, Nigeria' 
+}
+
+# replacements = {
+#     "{TITLE}": 'Petition for Grant of Probate',
+#     "{HEADING}": 'In the High Court of {COURT_LOCATION}',
+#     "{PETITIONER_NAME}": 'Kwame Nkuruma',
+#     "{PETITIONER_ADDRESS_DESCRIPTION}": 'Residing at',
+#     "{PETITIONER_ADDRESS}": '123 Main Street, Accra, Ghana',
+#     "{DECEASED_NAME}": 'Ngozi Okafor',
+#     "{DATE_OF_DECEASED_DEATH}": '15th September',
+#     "{YEAR_OF_DECEASED_DEATH}": '2023',
+#     "{PLACE_OF_DECEASED_DEATH}": 'Lagos, Nigeria',
+#     "{DOMICILED_AREA}": 'Abuja, Nigeria',
+#     "{EXECUTOR}": 'Chukwudi Eze',
+#     "{PETITIONER_SIGNATURE}": 'K.N',
+#     "{WITNESS}": 'Amina Ibrahim',
+#     "{WITNESS_SIGNATURE}": 'A.I',
+#     "{WITNESS_ADDRESS_DESCRIPTION}": 'Residing at',
+#     "{WITNESS_ADDRESS}": '456 Park Avenue, Nairobi, Kenya',
+#     "{ADDRESS_OF_SERVICE}": '789 Court Street, Cape Town, South Africa',
+#     "{COURT_LOCATION}": 'Lagos, Nigeria' 
+# }
+
+# def replace_placeholder(doc, placeholder, replacement):
+#     for paragraph in doc.paragraphs:
+#         for run in paragraph.runs:
+#             print(f"[DEBUG]: Run: {run.text}")
+#             if placeholder in run.text:
+#                 run.text = run.text.replace(placeholder, replacement)
+
+# def run():
+#     # form_78 = Template.create_template(**form_78_data)
+#     doc = docx.Document(file)
+
+#     # Perform replacements
+#     for placeholder, replacement in replacements.items():
+#         replace_placeholder(doc, placeholder, replacement)
+
+#     # Save the modified document
+#     doc.save("Modifed_v7.docx")  # Replace with the desired output file path
+
+
+ 
+
+#     # doc = docx.Document(file)
+#     # filled_document = form_78.fill_template(data=None, document=doc, replacements=replacements)
+#     # print(filled_document)
+
+
+def main():
+    form_78 = Template.create_template(**form_78_data)
+    doc = docx.Document(file)
+
+    form_78_document = form_78.fill_template(data=None, document=doc, replacements=replacements)
+    print(form_78_document)
+
+def run():
+    main()
