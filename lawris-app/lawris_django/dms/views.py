@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from .models import Template, Document
 from dms.serializers import TemplateSerializer
 from django.shortcuts import render
@@ -13,6 +13,13 @@ def react_app(request):
 class TemplateListView(viewsets.ModelViewSet):
     """
     List all templates
+    """
+    queryset = Template.objects.all()
+    serializer_class = TemplateSerializer
+
+class SingleTemplateView(mixins.RetrieveModelMixin,viewsets.GenericViewSet):
+    """
+    Return data about a single template
     """
     queryset = Template.objects.all()
     serializer_class = TemplateSerializer
