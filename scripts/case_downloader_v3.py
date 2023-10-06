@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 """
-Script for downloading all cases from the Databases in chunks
+Script for downloading all cases from the Kenya Law Databases
+in chunks
 
 This script attempts to download two versions of the file:
     a) With metadata - PDF file with metadata about the case
     b) Without metadata - If the first pdf file is not found, the second file is donwloaded
 
-
-Author:
-    Oduor Otieno E. (tykoon787)
-    Github: github.com/tykoon787
 """
 
 import json
