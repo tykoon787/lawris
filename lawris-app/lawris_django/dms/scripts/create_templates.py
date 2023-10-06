@@ -56,6 +56,7 @@ def get_thumbnail(thumbnail_path: str):
     """
     Retrieves the thumbnail img
     """
+    # NOTE: This method leads to a Suspicious File Operation Error
     # image_temp_file = NamedTemporaryFile(delete=True)
 
     # in_memory_image = open(thumbnail_path, 'rb')
