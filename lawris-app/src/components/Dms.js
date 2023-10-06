@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import $ from 'jquery';
+
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
 import archive from '../static/icons/dms/icons/archive.png';
@@ -7,12 +10,13 @@ import pdf from '../static/icons/dms/icons/pdf.png';
 // Styles
 import './styles/Dms.css'
 
-// Comoonenets
+// Componenets
 import Docs from './Docs';
+import EditDocMainContainer from './EditDoc';
 
 // Edit Doc
-import EditDoc from '../components/EditDoc';
-import form78 from '../static/docs/[Form 78]-Petition for probate of written will or for proof of oral will.pdf'
+// import EditDoc from '../components/EditDoc';
+// import form78 from '../static/docs/[Form 78]-Petition for probate of written will or for proof of oral will.pdf'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -84,6 +88,55 @@ const NavList = () => {
 }
 
 const Dms = () => {
+    const [documentList, setDocumentList] = useState([]);
+    const [selectedCard, setSelectedCard] = useState(null);
+    const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
+
+
+    // Load templates on render
+    useEffect(() => {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/dms/api/templates/',
+            method: 'GET',
+            dataType: 'json',
+            success: (data) => {
+                setDocumentList(data);
+            },
+            error: (error) => {
+                console.log("Error fetching data: ", error);
+            }
+        })
+    }, [])
+
+    const handleCardClick = async (documentId) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/dms/api/templates/${documentId}/`);
+            const data = await response.json();
+
+            console.log("Template Data: ", data)
+
+            setSelectedCard({
+                docUrl: data.pdf_preview_file,
+                title: data.title,
+                formFields: Object.values(data.form_fields)
+            });
+
+
+            setIsEditDocModalOpen(true)
+
+        } catch (error) {
+            console.error("Error fetching document data:", error);
+        }
+    };
+
+    const closeModal = () => {
+        setIsEditDocModalOpen(false);
+    };
+
+    console.log("IsEditModalOpen", isEditDocModalOpen);
+    console.log("Selected Card", selectedCard);
+
+
     return (
         <div className="main-container">
             <div className="dashboard-nav"></div>
@@ -102,8 +155,11 @@ const Dms = () => {
                         <NavList />
                     </div>
                 </div>
-                <Docs />
-                <EditDoc docUrl={form78} />
+                <Docs documentList={documentList} handleCardClick={handleCardClick} />
+                {isEditDocModalOpen && selectedCard && (
+                    <EditDocMainContainer title={selectedCard.title} docUrl={selectedCard.docUrl} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
+                    closeModal={closeModal} />
+                )}
             </div>
         </div>
     )

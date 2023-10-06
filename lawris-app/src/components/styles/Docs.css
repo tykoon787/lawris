@@ -15,6 +15,11 @@
     cursor: pointer;
 }
 
+.card-body.doc-body {
+    height: 80%;
+    padding: 1px;
+}
+
 .file_name {
     font-size: 13px;
     margin-bottom: 0px;
@@ -25,12 +30,17 @@
 }
 
 .doc-body:hover{
-    background-color: rgba(0, 0, 0, 0.7);
+    /* background-color: rgba(0, 0, 0, 0.7); */
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: var(--bs-border-radius);
+}
+
+.doc_thumbnail {
+    height: 100%;
+    width: 100%;
 }
 
 .edit-icon {

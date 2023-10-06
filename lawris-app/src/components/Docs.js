@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import './styles/Docs.css';
 import './styles/Icons.css';
 
@@ -10,29 +10,33 @@ import { SaveIcon } from './Icons';
 import EditIcon from '../static/icons/docs/icons/writing.png';
 
 
+// Thumbnail example
+// import Thumbnail from '../static/docs/form_78_thumbnail.png';
+
+
 // Fetch Common templates from the database
-const documentListCivil = [
-    { id: 1, title: "Affidavit" },
-    { id: 2, title: "Plaint" },
-    { id: 3, title: "Notice of Appearance" },
-    { id: 4, title: "Statement of Defence" },
-    { id: 5, title: "Affidavit of Service" },
-    { id: 6, title: "Notice to Produce Documents" },
-    { id: 7, title: "Witness Statement" },
-    { id: 8, title: "Application Notice" },
-    { id: 9, title: "Interrogatories" },
-    { id: 10, title: "Counterclaim" },
-    { id: 11, title: "Notice of Discontinuance" },
-    { id: 12, title: "Amended Pleading" }
-];
+
+// const documentListCivil = [
+//     { id: 1, title: "Affidavit", thumbnail: Thumbnail },
+//     { id: 2, title: "Plaint" },
+//     { id: 3, title: "Notice of Appearance" },
+//     { id: 4, title: "Statement of Defence" },
+//     { id: 5, title: "Affidavit of Service" },
+//     { id: 6, title: "Notice to Produce Documents" },
+//     { id: 7, title: "Witness Statement" },
+//     { id: 8, title: "Application Notice" },
+//     { id: 9, title: "Interrogatories" },
+//     { id: 10, title: "Counterclaim" },
+//     { id: 11, title: "Notice of Discontinuance" },
+//     { id: 12, title: "Amended Pleading" }
+// ];
 
 
-const DocumentCard = ({ name }) => {
+const DocumentCard = ({ name, documentThumbnail, onClick }) => {
     return (
-        <div className="doc-card card col-1" data-bs-toggle="modal" data-bs-target="#edit-modal">
+        <div className="doc-card card col-1" onClick={onClick} data-bs-toggle="modal" data-bs-target="#edit-modal">
             <div className="card-body doc-body">
-                <div className="doc_preview file-name-overlay">
-                </div>
+                <img className="doc_thumbnail file-name-overlay" alt="thumbnail" src={documentThumbnail} />
             </div>
 
             <div className="card-footer doc-footer">
@@ -46,24 +50,24 @@ const DocumentCard = ({ name }) => {
     )
 }
 
-const DocumentList = ({ documentList }) => {
+const DocumentList = ({ documentList, handleCardClick }) => {
 
     return (
         <div className="templates-container">
             <div className="templates row g-3 justify-content-center">
                 {documentList.map((document) => (
-                    <DocumentCard key={document.id} name={document.title} />
+                    <DocumentCard key={document.id} name={document.title} documentThumbnail={document.thumbnail}
+                        onClick={() => handleCardClick(document.id)} />
                 ))}
             </div>
         </div>
     )
 }
 
-const Docs = (documentList) => {
-    documentList = documentListCivil
+const Docs = ({ documentList, handleCardClick }) => {
     return (
         <div className="docs-container">
-            <DocumentList documentList={documentList} />
+            <DocumentList documentList={documentList} handleCardClick={handleCardClick} />
         </div>
     )
 }

@@ -18,31 +18,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url,
 ).toString();
 
-// function PDFViewer() {
-//     const [pdfFile, setPdfFile] = useState(docUrl)
-//     const pdfContainerStyle = {
-//         backgroundColor: 'lightgray',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         height: '100vh',
-//     };
-
-//     const handleInputChange = (event) => {
-//         console.log("Input Change")    
-//     }
-
-//     return (
-//         <div style={pdfContainerStyle}>
-//             <Document file={pdfFile}>
-//                 <Page pageNumber={1} />
-//             </Document>
-//         </div>
-//     )
-// }
-
-
-const EditDoc = ({ docUrl }) => {
+const EditDoc = ({ docUrl, formFields }) => {
     const [numPages, setNumPages] = useState();
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -92,25 +68,27 @@ const EditDoc = ({ docUrl }) => {
                 )}
             </div>
             <div className="col-6 p-3">
-                <div className="document-form">
-                    <DynamicForm />
+                <div className="document-form d-flex flex-column">
+                    <DynamicForm formFields={formFields} />
+                    <button className='btn btn-outline-secondary align-self-end' id="print-btn" type="submit">Print</button>
                 </div>
             </div>
         </div >
     )
 }
 
-const EditDocMainContainer = ({ docUrl }) => {
+const EditDocMainContainer = ({ docUrl, formFields, title, isOpen, closeModal }) => {
     return (
+        // <div className={`modal fade ${isOpen ? 'show' : closeModal}`} id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
         <div className="modal fade" id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
             <div className="modal-dialog modal-xl">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5 text-center">Editting File: </h1>
+                        <h1 className="modal-title fs-5 text-center">{title}</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <EditDoc docUrl={docUrl} />
+                        <EditDoc docUrl={docUrl} formFields={formFields} />
                     </div>
 
                 </div>
