@@ -11,7 +11,7 @@ import EditIcon from '../static/icons/docs/icons/writing.png';
 
 
 // Thumbnail example
-// import Thumbnail from '../static/docs/form_78_thumbnail.png';
+import Thumbnail from '../static/docs/form_78_thumbnail.png';
 
 
 // Fetch Common templates from the database
@@ -56,7 +56,7 @@ const DocumentList = ({ documentList, handleCardClick }) => {
         <div className="templates-container">
             <div className="templates row g-3 justify-content-center">
                 {documentList.map((document) => (
-                    <DocumentCard key={document.id} name={document.title} documentThumbnail={document.thumbnail}
+                    <DocumentCard key={document.id} name={document.title} documentThumbnail={Thumbnail}
                         onClick={() => handleCardClick(document.id)} />
                 ))}
             </div>

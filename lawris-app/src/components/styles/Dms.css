@@ -3,6 +3,16 @@
 .dashboard-nav {
     height: 50px;
 }
+
+.dashboard-nav.d-flex {
+    height: 100%;
+    width: 100%;
+}
+
+.dashboard-nav.apps:hover,
+.dashboard-nav.profile:hover {
+    cursor: pointer;
+}
 .background_image-container {
     padding-top: 70px;
     /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */

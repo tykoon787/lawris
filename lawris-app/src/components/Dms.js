@@ -6,6 +6,7 @@ import addFile from '../static/icons/dms/icons/new-file.png';
 import archive from '../static/icons/dms/icons/archive.png';
 import upload from '../static/icons/dms/icons/upload.png';
 import pdf from '../static/icons/dms/icons/pdf.png';
+import apps from '../static/icons/dms/icons/apps.svg';
 
 // Styles
 import './styles/Dms.css'
@@ -14,9 +15,12 @@ import './styles/Dms.css'
 import Docs from './Docs';
 import EditDocMainContainer from './EditDoc';
 
+// Icons
+import { UserIcon } from './Icons';
+
 // Edit Doc
 // import EditDoc from '../components/EditDoc';
-// import form78 from '../static/docs/[Form 78]-Petition for probate of written will or for proof of oral will.pdf'
+import form78 from '../static/docs/[Form 78]-Petition for probate of written will or for proof of oral will.pdf'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -116,6 +120,7 @@ const Dms = () => {
             console.log("Template Data: ", data)
 
             setSelectedCard({
+                templateId: documentId,
                 docUrl: data.pdf_preview_file,
                 title: data.title,
                 formFields: Object.values(data.form_fields)
@@ -139,7 +144,16 @@ const Dms = () => {
 
     return (
         <div className="main-container">
-            <div className="dashboard-nav"></div>
+            <div className="dashboard-nav p-2">
+                <div className="d-flex justify-content-end align-items-center">
+                    <div className="apps">
+                        <img className="dev_icon" src={apps} alt="apps"></img>
+                    </div>
+                    <div className="profile align-self-end">
+                        <UserIcon />
+                    </div>
+                </div>
+            </div>
             <div className="dms-container">
                 <div className="background_image-container d-flex flex-column align-items-center">
                     <p className="lead fw-bold text-center">DOCUMENT MANAGER</p>
@@ -157,8 +171,8 @@ const Dms = () => {
                 </div>
                 <Docs documentList={documentList} handleCardClick={handleCardClick} />
                 {isEditDocModalOpen && selectedCard && (
-                    <EditDocMainContainer title={selectedCard.title} docUrl={selectedCard.docUrl} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
-                    closeModal={closeModal} />
+                    <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
+                        closeModal={closeModal} />
                 )}
             </div>
         </div>

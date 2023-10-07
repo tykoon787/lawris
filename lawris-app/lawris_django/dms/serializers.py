@@ -5,3 +5,11 @@ class TemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Template
         fields = '__all__'
+
+class CreateDocument(serializers.ModelSerializer):
+    """
+    Cretes a document from a template
+    """
+    class Meta:
+        model = Template
+        fields = '_all__'

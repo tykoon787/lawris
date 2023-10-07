@@ -1,16 +1,6 @@
 import React from 'react';
+import axios from 'axios';
 
-// const fields = [
-//     { id: "case-number", name: "Case Number", type: "text", placeholder: "22 of 2023 or 22/23" },
-//     { id: "names_of_deceased", type: "text", name: "Full Names of Deceased", placeholder: "OKWEMA WANJIKU" },
-//     { id: "value", type: "text", name: "Value of the Deceased estate", placeholder: "2000" },
-//     { id: "affiant", type: "text", name: "Affiant (Your Name)", placeholder: "Your Name" },
-//     { id: "address", type: "text", name: "Address (Your Address)", placeholder: "P.O BOX 7766-00200" },
-//     { id: "date_of_death", type: "date", name: "Date of Death of deceased", placeholder: "2001-08-21" },
-//     { id: "state_of_death", type: "text", name: "State of Death", placeholder: "Kenya" },
-//     { id: "name_of_advocate", type: "text", name: "Name of Advocate", placeholder: "OKUMU MAN" },
-//     { id: "address_of_advocate", type: "text", name: "Addres of Advocate", placeholder: "OKUMU MAN" }
-// ]
 
 const FormInputFields = ({ formFields }) => {
     return (
@@ -21,13 +11,42 @@ const FormInputFields = ({ formFields }) => {
                     <label htmlFor={formField.id} className="form-label">{formField.name}</label>
                 </div>
             ))}
+            <button className='btn btn-outline-secondary align-self-end' id="print-btn" type="submit">Print</button>
         </div>
     )
 }
 
-const DynamicForm = ({ formFields }) => {
+const DynamicForm = ({ templateId, formFields }) => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        const requestData = {}
+        formFields.forEach((field) => {
+            const fieldName = field.name;
+            const fieldValue = formData.get(fieldName);
+
+            requestData["templateId"] = templateId
+            requestData[fieldName] = fieldValue;
+        })
+        console.log(requestData)
+
+        try {
+            const response = await axios.post(`http://127.0.0.1:8000/dms/api/templates/print/`, formData);
+
+            if (response.status === 200) {
+                console.log("Success");
+            } else {
+                console.log("Error");
+            }
+        } catch (error) {
+            console.error("An error occurred:", error);
+        }
+
+
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit} id="dynamicForm">
             <FormInputFields formFields={formFields} />
         </form>
     )

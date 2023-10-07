@@ -109,6 +109,7 @@ form_78_data = {
     'division_of_law': 'family',
     'sub_division': 'succession',
     'template_file_docx': file,
+    'pdf_preview_file' : "/mnt/preview",
     'form_fields' : {
         'field1': 'Field 1',
         'field2': 'Field 2',
@@ -117,10 +118,10 @@ form_78_data = {
 
 replacements = {
     "TITLE": 'Petition for Grant of Probate',
-    "HEADING": 'In the High Court of COURT_LOCATION',
+    "HEADING": 'In the High Court of Nairobi, Kenya',
     "PETITIONER_NAME": 'Kwame Nkuruma',
     "PETITIONER_ADDRESS_DESCRIPTION": 'Residing at',
-    "PETITIONER_ADDRESS": '123 Main Street, Accra, Ghana',
+    "PETITIONER_ADDRESS": '123 Main Street, Nairobi, Kenya',
     "DECEASED_NAME": 'Ngozi Okafor',
     "DATE_OF_DECEASED_DEATH": '15th September',
     "YEAR_OF_DECEASED_DEATH": '2023',
@@ -132,8 +133,8 @@ replacements = {
     "WITNESS_SIGNATURE": 'A.I',
     "WITNESS_ADDRESS_DESCRIPTION": 'Residing at',
     "WITNESS_ADDRESS": '456 Park Avenue, Nairobi, Kenya',
-    "ADDRESS_OF_SERVICE": '789 Court Street, Cape Town, South Africa',
-    "COURT_LOCATION": 'Lagos, Nigeria' 
+    "ADDRESS_OF_SERVICE": '789 Court Street, Nairobi, Kenya',
+    "COURT_LOCATION": 'Nairobi, Kenya'
 }
 
 # replacements = {

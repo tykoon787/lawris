@@ -18,7 +18,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url,
 ).toString();
 
-const EditDoc = ({ docUrl, formFields }) => {
+const EditDoc = ({ templateId, docUrl, formFields }) => {
     const [numPages, setNumPages] = useState();
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -69,15 +69,14 @@ const EditDoc = ({ docUrl, formFields }) => {
             </div>
             <div className="col-6 p-3">
                 <div className="document-form d-flex flex-column">
-                    <DynamicForm formFields={formFields} />
-                    <button className='btn btn-outline-secondary align-self-end' id="print-btn" type="submit">Print</button>
+                    <DynamicForm templateId={templateId} formFields={formFields} />
                 </div>
             </div>
         </div >
     )
 }
 
-const EditDocMainContainer = ({ docUrl, formFields, title, isOpen, closeModal }) => {
+const EditDocMainContainer = ({ templateId, docUrl, formFields, title, isOpen, closeModal }) => {
     return (
         // <div className={`modal fade ${isOpen ? 'show' : closeModal}`} id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
         <div className="modal fade" id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
@@ -88,7 +87,7 @@ const EditDocMainContainer = ({ docUrl, formFields, title, isOpen, closeModal })
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <EditDoc docUrl={docUrl} formFields={formFields} />
+                        <EditDoc templateId={templateId} docUrl={docUrl} formFields={formFields} />
                     </div>
 
                 </div>

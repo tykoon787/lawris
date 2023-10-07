@@ -11,8 +11,6 @@ import logging
 import shutil
 from pathlib import Path
 
-
-
 # Logs
 log_dir = "/home/tykoon787/projects/lawris/logs"
 os.makedirs(log_dir, exist_ok=True)
@@ -24,7 +22,6 @@ file_handler.setLevel(logging.DEBUG)
 file_formatter = logging.Formatter('[%(asctime)s] [%(levelname)-5s]  ::    %(message)s')
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
-
 
 # Folders from cloud storage
 lawris_db = "/mnt/r/lawris_db/"
@@ -95,7 +92,7 @@ def get_thumbnail(thumbnail_path: str):
 templates = {
     "form_78_template" : {
         'type': 'Petition',
-        'title': 'Petition for probate of written will or for proof of oraw will',
+        'title': 'Petition for probate of written will or for proof of oral will',
         'category_of_law': 'Civil',
         'division_of_law': 'Family',
         'sub_division': 'Succession',
@@ -105,7 +102,7 @@ templates = {
             "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
             "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
             "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
-            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address_description" : FormField("Petitioner's Address Description", "text", "Residing at Africa").to_json(),
             "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
             "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
             'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
@@ -115,7 +112,7 @@ templates = {
             'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
             "witness_name" : FormField("Witness Name", "text", "Enter Witness Name").to_json(),
             "witness_signature": FormField("Witness Signature", "text", "Sign here").to_json(),
-            "witness_address_description": FormField("Address Description", "text", "Where do you stay?").to_json(),
+            "witness_address_description": FormField("Witness's Address Description", "text", "Where do you stay?").to_json(),
             "witness_address" : FormField("Witness Address", "text", "P.O Box, 1244").to_json(),
             "address_of_service" : FormField("Address of Service", "text", "Enter Add of service").to_json()
         }
