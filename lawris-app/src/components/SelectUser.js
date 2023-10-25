@@ -13,6 +13,7 @@ import judiciaryImage from '../static/icons/judiciary.png';
 import businessImage from '../static/icons/enterprise.png';
 import schoolImage from '../static/icons/school.png';
 
+
 const usersList = [
     { id: 1, name: "Lawyer", png: lawyerImage },
     { id: 2, name: "Non-Litigant", png: nonLitigantImage },
@@ -44,9 +45,11 @@ const UserCard = ({ usersList, onClick }) => {
 
 const SelectUser = () => {
     const navigate = useNavigate();
+    
 
     const handleCardClick = () => {
-        navigate('/dms_dashboard')
+        navigate('/Signup');
+         
     };
 
     return (
