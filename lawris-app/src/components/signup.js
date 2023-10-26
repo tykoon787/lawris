@@ -29,9 +29,24 @@ const Signup = () => {
     backgroundColor: 'rgb(12, 12, 47)'
   }
 
+  // const imgStyle = {
+  //   position: 'absolute',
+  //   width: '100%',
+  //   height: '100%',
+  //   left: '0',
+  //   backgroundSize: 'cover',
+  //   backgroundPosition: 'center',
+  //   backgroundRepeat: 'noRepeat'
+  // }
+
+  // const formStyle = {
+  //   // position: 'absolute',
+  //   width: '60%',
+  //   right: '0'
+  // }
 
   const [error, setError] = useState(null);
-  
+
 
   //  const handleUserTypeChange = (newType) => {
   //   setUserType(newType);
@@ -139,122 +154,124 @@ const Signup = () => {
               onClick={() => setUserType('Institution')}
             >
               Institution
-            </a>      
+            </a>
 
-          </div> 
+          </div>
 
       </div>
-            <h2 className=''>
+            <h2 className='mt-3'>
               Please fill in the Registration form to continue</h2>
 
-      <section className='card mx-auto' style={cardStyle}> 
-        <div className='d-flex justify-content-start align-items-center p-5'>
-          <div>
-            <img className="w-50" src={law1} alt="law" />
-          </div>
-          <div className='formContainer'> 
-            <form onSubmit={handleSubmit}>
-                <input
-                type="text"
-                name="name"
-                required
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleInputChange}
-                />
-                
-                <input
-                type="email"
-                name="email"
-                required
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleInputChange}
-                />
-                <input
-                  type="password"
-                  name="password"
+      <div className="card mx-auto mt-4 p-4" style={cardStyle}>
+        <div className='card card-1 bg-dark text-light p-4 m-2'>
+          <div className="d-flex justify-content-start align-items-center">
+          <div className='bg-black' style={{width: '60%'}}>
+              <img className="w-100 mx-auto" style={{width: '60%'}} src={law1} alt="law" />
+            </div>
+            <div className='formContainer bg-gray-800 h-100 w-100' style={{width: '40%'}}>
+              <form onSubmit={handleSubmit}>
+                  <input
+                  type="text"
+                  name="name"
                   required
-                  placeholder="Password"
-                  value={formData.password}
+                  placeholder="Name"
+                  value={formData.name}
                   onChange={handleInputChange}
                   />
+
                   <input
-                  type="password"
-                  name="confirmPassword"
+                  type="email"
+                  name="email"
                   required
-                  placeholder="Confirm Password"
-                  value={formData.confirmPassword}
+                  placeholder="Email"
+                  value={formData.email}
                   onChange={handleInputChange}
                   />
                   <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  />
-                  {userType === 'lawyer' && (
-                  <input
-                      type="text"
-                      name="licenceNumber"
-                      required
-                      placeholder="LicenceNumber"
-                      value={formData.practicingNumber}
-                      onChange={handleInputChange}
-                  />
-                  )}
-                  {userType === 'student' && (
-                      <input
-                      type="text"
-                      name="studentId"
-                      required
-                      placeholder="studentId"
-                      value={formData.studentId}
-                      onChange={handleInputChange} />
-                  )}
-                  {userType === 'judiciary' && (
-                      <input
-                      type="text"
-                      name="employeeId"
-                      required
-                      placeholder="Employee Id"
-                      value={formData.employeeId}
-                      onChange={handleInputChange} />
-                  )}
-                  {userType === 'Law Firm' && (
-                      <input
-                      type="text"
-                      name="registrationNo"
-                      required
-                      placeholder="Registration Number"
-                      value={formData.registrationNumber}
-                      onChange={handleInputChange} />
-                  )}
-                  {userType === 'Institution' && (
-                      <input
-                      type="text"
-                      name="isoNo"
-                      required
-                      placeholder="ISO Number"
-                      value={formData.isoId}
-                      onChange={handleInputChange} />
-                  )}
-                  <button type="submit">Register</button>
-              </form>
-          </div>
-            
+                    type="password"
+                    name="password"
+                    required
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    />
+                    <input
+                    type="password"
+                    name="confirmPassword"
+                    required
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    />
+                    <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    />
+                    {userType === 'lawyer' && (
+                    <input
+                        type="text"
+                        name="licenceNumber"
+                        required
+                        placeholder="LicenceNumber"
+                        value={formData.practicingNumber}
+                        onChange={handleInputChange}
+                    />
+                    )}
+                    {userType === 'student' && (
+                        <input
+                        type="text"
+                        name="studentId"
+                        required
+                        placeholder="studentId"
+                        value={formData.studentId}
+                        onChange={handleInputChange} />
+                    )}
+                    {userType === 'judiciary' && (
+                        <input
+                        type="text"
+                        name="employeeId"
+                        required
+                        placeholder="Employee Id"
+                        value={formData.employeeId}
+                        onChange={handleInputChange} />
+                    )}
+                    {userType === 'Law Firm' && (
+                        <input
+                        type="text"
+                        name="registrationNo"
+                        required
+                        placeholder="Registration Number"
+                        value={formData.registrationNumber}
+                        onChange={handleInputChange} />
+                    )}
+                    {userType === 'Institution' && (
+                        <input
+                        type="text"
+                        name="isoNo"
+                        required
+                        placeholder="ISO Number"
+                        value={formData.isoId}
+                        onChange={handleInputChange} />
+                    )}
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+
           {error && <p style={{ color: 'red' }}>{error}</p>}
 
         </div>
-       
-
-      </section>
- 
-        
 
 
-     </div> 
+      </div>
+
+
+
+
+     </div>
    );
 
 };
