@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import law1 from '../Assets/law1.jpg';
+import student from '../Assets/law students2.jpg';
+import nonLitigant from '../Assets/non-litigant.png';
+import judiciary from '../Assets/judiciary.jpg';
+import institution from '../Assets/institution.jpg';
+import business from '../Assets/business.jpg';
+import lawyer from '../Assets/lawyer.png';
+import lawFirm from '../Assets/lawFirm.jpg';
 
 const Signup = () => {
   const [userType, setUserType] = useState('lawyer');
@@ -19,6 +26,16 @@ const Signup = () => {
     employeeNo: '',
 
   });
+
+  const blueprint = {
+    lawyer: lawyer,
+    judiciary: judiciary,
+    institution: institution,
+    LawFirm: lawFirm,
+    student: student,
+    nonLitigant: nonLitigant
+  }
+   
   const navigate = useNavigate();
   const cardStyle = {
     width: '50rem',
@@ -29,21 +46,7 @@ const Signup = () => {
     backgroundColor: 'rgb(12, 12, 47)'
   }
 
-  // const imgStyle = {
-  //   position: 'absolute',
-  //   width: '100%',
-  //   height: '100%',
-  //   left: '0',
-  //   backgroundSize: 'cover',
-  //   backgroundPosition: 'center',
-  //   backgroundRepeat: 'noRepeat'
-  // }
-
-  // const formStyle = {
-  //   // position: 'absolute',
-  //   width: '60%',
-  //   right: '0'
-  // }
+ 
 
   const [error, setError] = useState(null);
 
@@ -104,9 +107,10 @@ const Signup = () => {
     console.log(formData.password)
     navigate('/Login');
   };
+  //const filteredItems = blueprint.filter((item) => item === userType);
 
   return (
-     <div>
+     <div className="main">
       <div className='container' style={header}>
         <div className="navbar text-small">
           <a href="#lawyer"
@@ -126,8 +130,8 @@ const Signup = () => {
             Lawyer
             </label>  */}
             <a href="#non-litigant"
-              className={`navbar-brand text-light ${userType === 'non-lawyer' ? 'selected' : ''}`}
-              onClick={() => setUserType('non-lawyer')}
+              className={`navbar-brand text-light ${userType === 'nonLitigant' ? 'selected' : ''}`}
+              onClick={() => setUserType('nonLitigant')}
             >
               Non-Litigant
             </a>
@@ -144,14 +148,14 @@ const Signup = () => {
                 Judiciary
             </a>
             <a href="#lawfirm"
-              className={`navbar-brand text-light ${userType === 'Law Firm' ? 'selected' : ''}`}
-              onClick={() => setUserType('Law Firm')}
+              className={`navbar-brand text-light ${userType === 'lawFirm' ? 'selected' : ''}`}
+              onClick={() => setUserType('lawFirm')}
             >
               Law Firm
             </a>
             <a href="#Institution"
-              className={`navbar-brand text-light ${userType === 'Institution' ? 'selected' : ''}`}
-              onClick={() => setUserType('Institution')}
+              className={`navbar-brand text-light ${userType === 'institution' ? 'selected' : ''}`}
+              onClick={() => setUserType('institution')}
             >
               Institution
             </a>
@@ -166,7 +170,7 @@ const Signup = () => {
         <div className='card card-1 bg-dark text-light p-4 m-2'>
           <div className="d-flex justify-content-start align-items-center">
           <div className='bg-black' style={{width: '60%'}}>
-              <img className="w-100 mx-auto" style={{width: '60%'}} src={law1} alt="law" />
+              <img className="w-100 mx-auto" style={{width: '60%'}} src={blueprint[userType]} alt={userType} />
             </div>
             <div className='formContainer bg-gray-800 h-100 w-100' style={{width: '40%'}}>
               <form onSubmit={handleSubmit}>
@@ -203,6 +207,8 @@ const Signup = () => {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     />
+                    {error && <div className="alert alert-danger mb-3" roll="alert">{error}</div>}
+
                     <input
                     type="tel"
                     name="phone"
@@ -238,7 +244,7 @@ const Signup = () => {
                         value={formData.employeeId}
                         onChange={handleInputChange} />
                     )}
-                    {userType === 'Law Firm' && (
+                    {userType === 'LawFirm' && (
                         <input
                         type="text"
                         name="registrationNo"
@@ -261,7 +267,7 @@ const Signup = () => {
             </div>
         </div>
 
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          
 
         </div>
 
