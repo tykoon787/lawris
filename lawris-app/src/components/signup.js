@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
-import law1 from '../Assets/law1.jpg';
+// import law1 from '../Assets/law1.jpg';
 import student from '../Assets/law students2.jpg';
-import nonLitigant from '../Assets/non-litigant.png';
+import nonLitigant from '../Assets/non-litigant.jpg';
 import judiciary from '../Assets/judiciary.jpg';
 import institution from '../Assets/institution.jpg';
-import business from '../Assets/business.jpg';
+// import business from '../Assets/business.jpg';
 import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 
@@ -31,22 +31,22 @@ const Signup = () => {
     lawyer: lawyer,
     judiciary: judiciary,
     institution: institution,
-    LawFirm: lawFirm,
+    lawFirm: lawFirm,
     student: student,
     nonLitigant: nonLitigant
   }
-   
+
   const navigate = useNavigate();
   const cardStyle = {
-    width: '50rem',
-    backgroundColor: 'rgb(12, 12, 47)', // Set background color to dark blue
-    color: 'white' // Set text color to white for better visibility on dark background
+    // width: '70rem',
+    backgroundColor: 'rgb(12, 12, 47)',
+    color: 'white',
+    borderRadius: '1.5rem'
   };
   const header = {
     backgroundColor: 'rgb(12, 12, 47)'
   }
 
- 
 
   const [error, setError] = useState(null);
 
@@ -166,15 +166,15 @@ const Signup = () => {
             <h2 className='mt-3'>
               Please fill in the Registration form to continue</h2>
 
-      <div className="card mx-auto mt-4 p-4" style={cardStyle}>
-        <div className='card card-1 bg-dark text-light p-4 m-2'>
+      <div className="card card-body row justify-content-center align-items-center col-md-6 mx-auto mt-3 p-3" style={cardStyle}>
+        <div className='card card-1 text-light' style={{backgroundColor: '#acaeb4'}}>
           <div className="d-flex justify-content-start align-items-center">
-          <div className='bg-black' style={{width: '60%'}}>
-              <img className="w-100 mx-auto" style={{width: '60%'}} src={blueprint[userType]} alt={userType} />
+          <div className='imageContainer row no-gutters col-md-6 h-4' style={{}}>
+              <img className="imgContainer" style={{width: '100%', height: '90%'}} src={blueprint[userType]} alt={userType} />
             </div>
-            <div className='formContainer bg-gray-800 h-100 w-100' style={{width: '40%'}}>
-              <form onSubmit={handleSubmit}>
-                  <input
+            <div className='card-body col-md-6 bg-gray-800 h-100 w-100 p-5' style={{width: '40%'}}>
+              <form className='form-group d-flex flex-column justify-content-center align-items-center mb-3' onSubmit={handleSubmit}>
+                  <input className='mb-3 w-4'
                   type="text"
                   name="name"
                   required
@@ -183,7 +183,7 @@ const Signup = () => {
                   onChange={handleInputChange}
                   />
 
-                  <input
+                  <input className='mb-3'
                   type="email"
                   name="email"
                   required
@@ -191,7 +191,7 @@ const Signup = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   />
-                  <input
+                  <input className='mb-3'
                     type="password"
                     name="password"
                     required
@@ -199,7 +199,7 @@ const Signup = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                     />
-                    <input
+                    <input className='mb-3'
                     type="password"
                     name="confirmPassword"
                     required
@@ -209,7 +209,7 @@ const Signup = () => {
                     />
                     {error && <div className="alert alert-danger mb-3" roll="alert">{error}</div>}
 
-                    <input
+                    <input className='mb-3'
                     type="tel"
                     name="phone"
                     placeholder="Phone"
@@ -217,7 +217,7 @@ const Signup = () => {
                     onChange={handleInputChange}
                     />
                     {userType === 'lawyer' && (
-                    <input
+                    <input className='mb-3'
                         type="text"
                         name="licenceNumber"
                         required
@@ -227,7 +227,7 @@ const Signup = () => {
                     />
                     )}
                     {userType === 'student' && (
-                        <input
+                        <input className='mb-3'
                         type="text"
                         name="studentId"
                         required
@@ -236,7 +236,7 @@ const Signup = () => {
                         onChange={handleInputChange} />
                     )}
                     {userType === 'judiciary' && (
-                        <input
+                        <input className='mb-3'
                         type="text"
                         name="employeeId"
                         required
@@ -245,7 +245,7 @@ const Signup = () => {
                         onChange={handleInputChange} />
                     )}
                     {userType === 'LawFirm' && (
-                        <input
+                        <input className='mb-3'
                         type="text"
                         name="registrationNo"
                         required
@@ -254,7 +254,7 @@ const Signup = () => {
                         onChange={handleInputChange} />
                     )}
                     {userType === 'Institution' && (
-                        <input
+                        <input className='mb-3'
                         type="text"
                         name="isoNo"
                         required
@@ -266,12 +266,7 @@ const Signup = () => {
                 </form>
             </div>
         </div>
-
-          
-
         </div>
-
-
       </div>
 
 
