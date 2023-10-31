@@ -1,80 +1,158 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './styles/Login.css';
+import { getselectedUserType } from './userType';
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    userType: 'lawyer', // Specify the user type directly
-    email: '',
-    password: '',
-    practicingNumber: '',
-  });
-  const [error, setError] = useState(null);
+//image import
+const userTypeImages = {
+  Lawyer: require('../Assets/lawyer.png'),
+  Judiciary: require('../Assets/judiciary.jpg'),
+  Business: require('../Assets/business.jpg'),
+  Student: require('../Assets/law students2.jpg'),
+  School: require('../Assets/institution.jpg'),
+  'Law Firm': require('../Assets/lawFirm.jpg'),
+  "Non-Litigant": require('../Assets/non-litigant.jpg'),
+};
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+
+
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [licenseNumber, setlicenseNumber] = useState('');
+  const [employeeId, setemployeeId] = useState('');
+  const [registrationNumber, setregistrationNumber] = useState('');
+  const [studentId, setstudentId] = useState('');
+  const [isoNumber, setisoNumber] = useState('');
+  const [firmRegistrationNumber, setfirmRegistrationNumber] = useState('');
+  
+  
+  const [requiredField] = useState(getselectedUserType);
+  const navigate = useNavigate();
+
+
+  const userTypeNames = {
+    Lawyer: 'Lawyer',
+    Judiciary: 'Judge',
+    Business: 'Business Owner',
+    Student: 'Student',
+    School: 'School',
+    'Law Firm': 'Firm',
+    "Non-Litigant": "Non-Litigant",
+  };
+  
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate('/dms_dashboard')
+    alert('Login Successful');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle the login submission here, including sending the data to your server for authentication.
-    if (!formData.email || !formData.password) {
-      setError('Please fill in the required fields.');
-    } else if (formData.userType === 'lawyer' && !formData.practicingNumber) {
-      setError('Please enter your practicing number.');
-    } else {
-      setError(null);
-      // Simulate a successful login
-      alert('Login Successful');
-    }
-  };
+  const handleredirect = (event) => {
+    event.preventDefault();
+    navigate('/SignUp')
+  }
+
+  
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <select
-          name="userType"
-          value={formData.userType}
-          onChange={handleInputChange}
-        >
-          <option value="lawyer">Lawyer</option>
-          <option value="non-lawyer">Non-Litigant</option>
-          {/* Add other user types here */}
-        </select>
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleInputChange}
-        />
-        <input
-          type="password"
-          name="password"
-          required
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleInputChange}
-        />
-        {formData.userType === 'lawyer' && (
-          <input
-            type="text"
-            name="practicingNumber"
-            required
-            placeholder="Practicing Number"
-            value={formData.practicingNumber}
-            onChange={handleInputChange}
-          />
-        )}
-        <button type="submit">Login</button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="body">
+        <div className='h1s'>
+          <h1><br/>{userTypeNames[requiredField] || userTypeNames['Non-Litigant']}</h1> 
+        </div>
+        <div className="login-page">
+          <div className="animation">
+            <img src={userTypeImages[requiredField] || userTypeImages['Non-Litigant']} alt={userTypeNames[requiredField]} className="court"/>
+          </div>
+
+          <form onSubmit={handleSubmit}>
+            <h1 className='login'>Login</h1>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+            {requiredField === "Lawyer" && (
+            <input
+              type="text"
+              name="licenseNumber"
+              placeholder="License Number"
+              value={licenseNumber}
+              onChange={(event) => setlicenseNumber(event.target.value)}
+              required
+            />
+            )}
+            {requiredField === "Judiciary" && (
+              <input
+                type="text"
+                name="employeeId"
+                placeholder="Employee ID"
+                value={employeeId}
+                onChange={(event) => setemployeeId(event.target.value)}
+                required
+              />
+            )}
+            {requiredField === "Business" && (
+              <input
+                type="text"
+                name="registrationNumber"
+                placeholder="Registration Number"
+                value={registrationNumber}
+                onChange={(event) => setregistrationNumber(event.target.value)}
+                required
+              />
+            )}
+            {requiredField === "Student" && (
+              <input
+                type="text"
+                name="studentId"
+                placeholder="Student ID"
+                value={studentId}
+                onChange={(event) => setstudentId(event.target.value)}
+                required
+              />
+            )}
+            {requiredField === "School" && (
+              <input
+                type="text"
+                name="isoNumber"
+                placeholder="ISO Number"
+                value={isoNumber}
+                onChange={(event) => setisoNumber(event.target.value)}
+                required
+              />
+            )}
+            {requiredField === "Law Firm" && (
+              <input
+                type="text"
+                name="firmRegistrationNumber"
+                placeholder="Firm Registration Number"
+                value={firmRegistrationNumber}
+                onChange={(event) => setfirmRegistrationNumber(event.target.value)}
+                required
+              />
+            )}
+            <button type="submit" onClick={(event) => handleSubmit} className=''>Login</button>
+
+            <div className='mt-4 text-center'>
+              Don't have an account? 
+            </div>
+            <button onClick={handleredirect}>Create Account</button>
+          </form>
+        </div>
     </div>
   );
-};
+}
 
 export default Login;
