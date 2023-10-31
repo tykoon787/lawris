@@ -85,7 +85,7 @@ html {
     background-color: #444;
   }
   
-  form {
+  .form {
     width: 50%;
     border-radius: 0 10px 10px 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -96,7 +96,7 @@ html {
     height: 100%;
   }
 
-  form input {
+  .form .input {
     /* width: 70%;
     margin: 0 auto;
     word-wrap: break-word; 
@@ -121,17 +121,17 @@ html {
     font-family: 'Courier New', Courier, monospace;
   }
 
-  form input:hover {
+  .form .input:hover {
     border-top-width: 0.2em;
     background-color: #f1e8e8;
   }
    
-  form input:focus {
+  .form .input:focus {
     border-top-width: 0.2em;
     background-color: #f1e8e8;
    }
 
-  form button {
+  .form button {
     max-width: 190px;
     border-radius: 5px;
     margin-left: 25%;

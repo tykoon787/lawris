@@ -65,7 +65,7 @@ function Login() {
             <img src={userTypeImages[requiredField] || userTypeImages['Non-Litigant']} alt={userTypeNames[requiredField]} className="court"/>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className='form'>
             <h1 className='login'>Login</h1>
             <input
               type="email"
@@ -74,6 +74,7 @@ function Login() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
+              className='input'
             />
             <input
               type="password"
@@ -82,6 +83,7 @@ function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
+              className='input'
             />
             {requiredField === "Lawyer" && (
             <input
@@ -91,6 +93,7 @@ function Login() {
               value={licenseNumber}
               onChange={(event) => setlicenseNumber(event.target.value)}
               required
+              className='input'
             />
             )}
             {requiredField === "Judiciary" && (
@@ -101,6 +104,7 @@ function Login() {
                 value={employeeId}
                 onChange={(event) => setemployeeId(event.target.value)}
                 required
+                className='input'
               />
             )}
             {requiredField === "Business" && (
@@ -111,6 +115,7 @@ function Login() {
                 value={registrationNumber}
                 onChange={(event) => setregistrationNumber(event.target.value)}
                 required
+                className='input'
               />
             )}
             {requiredField === "Student" && (
@@ -121,6 +126,7 @@ function Login() {
                 value={studentId}
                 onChange={(event) => setstudentId(event.target.value)}
                 required
+                className='input'
               />
             )}
             {requiredField === "School" && (
@@ -131,6 +137,7 @@ function Login() {
                 value={isoNumber}
                 onChange={(event) => setisoNumber(event.target.value)}
                 required
+                className='input'
               />
             )}
             {requiredField === "Law Firm" && (
@@ -141,6 +148,7 @@ function Login() {
                 value={firmRegistrationNumber}
                 onChange={(event) => setfirmRegistrationNumber(event.target.value)}
                 required
+                className='input'
               />
             )}
             <button type="submit" onClick={(event) => handleSubmit} className=''>Login</button>
