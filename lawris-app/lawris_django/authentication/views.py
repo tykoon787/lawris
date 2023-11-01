@@ -13,10 +13,10 @@ def user_signup(request):
             messages.success(request, 'Account created successfully')
             login(request, user)
             request.session['username'] = username
-            return redirect('http://localhost:8000/')  # Replace with your desired URL
+            return redirect('http://localhost:8000/')  # Replace with a desired URL
         except:
             messages.error(request, 'An error occurred during signup')
-    return render(request, 'signup.html')  # Replace with your signup template name
+    return render(request, 'signup.html')  # Replace with the signup template name
 
 def user_login(request):
     if request.method == 'POST':
@@ -26,13 +26,13 @@ def user_login(request):
         if user is not None:
             login(request, user)
             request.session['username'] = username
-            return redirect('http://localhost:8000/')  # Replace with your desired URL
+            return redirect('http://localhost:8000/')
         else:
             messages.error(request, 'Invalid credentials')
-    return render(request, 'login.html')  # Replace with your login template name
+    return render(request, 'login.html')
 
 def user_logout(request):
     if 'username' in request.session:
         del request.session['username']
     logout(request)
-    return redirect('http://localhost:8000/')  # Replace with your desired URL
+    return redirect('http://localhost:8000/')
