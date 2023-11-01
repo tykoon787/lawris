@@ -1,38 +1,42 @@
-from django.shortcuts import render, redirect
+# authentication/views.py
+
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib.sessions.models import Session
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import CustomUserSerializer
+from .models import CustomUser
 
-def user_signup(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        email = request.POST.get('email')
+class UserSignupView(APIView):
+    def post(self, request):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            login(request, user)  # Automatically log in the user after signup
+            request.session['username'] = user.username  # Store the username in the session
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserLoginView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        password = request.data.get('password')
         try:
-            user = User.objects.create_user(username, email, password)
-            messages.success(request, 'Account created successfully')
-            login(request, user)
-            request.session['username'] = username
-            return redirect('http://localhost:8000/')  # Replace with a desired URL
-        except:
-            messages.error(request, 'An error occurred during signup')
-    return render(request, 'signup.html')  # Replace with the signup template name
+            user = CustomUser.objects.get(email=email)
+            if user.check_password(password):
+                # If the password is correct, log in the user
+                login(request, user)
+                request.session['username'] = user.username  # Store the username in the session
+                return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"message": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+        except CustomUser.DoesNotExist:
+            return Response({"message": "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
 
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            request.session['username'] = username
-            return redirect('http://localhost:8000/')
-        else:
-            messages.error(request, 'Invalid credentials')
-    return render(request, 'login.html')
-
-def user_logout(request):
-    if 'username' in request.session:
-        del request.session['username']
-    logout(request)
-    return redirect('http://localhost:8000/')
+class UserLogoutView(APIView):
+    def post(self, request):
+        if 'username' in request.session:
+            del request.session['username']
+        logout(request)
+        return Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
