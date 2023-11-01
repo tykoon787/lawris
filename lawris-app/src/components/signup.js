@@ -207,14 +207,17 @@ const Signup = () => {
               </div>
               <div className='col-md-6 p-2' style={{backgroundColor: '#cbc9bd', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
-                  <form className='w-100 p-4' onSubmit={handleSubmit}>
+                  <form className='w-100 p-4 needs-validation' onSubmit={handleSubmit}>
                   <div className='input-group mb-3'>
+                    <label htmlFor='validationCustom01' className='form-label'></label>
                       <span className='input-group-text'>
                         <i class="bi bi-briefcase-fill"></i>
                       </span>
                       {userType === 'lawyer' && (
                       <input
-                      className='form-control'
+                      className='form-control is-valid'
+                      id="validationCustom01"
+                      aria-describedby='inputFeedback'
                       type="text"
                       name="licenceNumber"
                       required
@@ -222,7 +225,11 @@ const Signup = () => {
                       value={formData.practicingNumber}
                       onChange={handleInputChange}
                       />
+                      
                       )}
+                      <div id='inputFeedback' className='valid-feedback'>
+                        Looks good!
+                      </div>
                     </div>
                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
@@ -359,8 +366,8 @@ const Signup = () => {
                           Already Have an Account? <span> </span>
                           <a href="/login" style={{color:'393f81'}}>Login</a>
                         </p>
-                        <a href="#" className="small text-muted">Terms of Use</a><br></br>
-                        <a href="#" className="small text-muted">Privacy Policy</a>
+                        <a href="#terms" className="small text-muted">Terms of Use</a><br></br>
+                        <a href="#privacy" className="small text-muted">Privacy Policy</a>
                       </div>
                     </form>
                 {/* </div> */}
