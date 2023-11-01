@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
 from dms import views
-from authentication import views as auth_views
 
 urlpatterns = [
     path('', views.react_app, name="react_app"),
