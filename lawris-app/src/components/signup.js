@@ -74,8 +74,6 @@ const Signup = () => {
     cursor: 'pointer',
   }
 
-  const [error, setError] = useState(null);
-
 
   //  const handleUserTypeChange = (newType) => {
   //   setUserType(newType);
@@ -94,9 +92,32 @@ const Signup = () => {
 
   //    });
   //    setError(null);
-  //  };
+//  };
 
+//  var inputFeedback;
+//   $(function() {
+//     inputFeedback = $('#licenseNumberInputFeedback');    
+//   })
+  
+  
+//   function validateLicenseNumber(number) {
+//     if (number === 1234) {
+//       console.log("True")
+//       return true;
+//     } else {
+//       console.log("False")
+//       return false;
+//     }
+//   }
+    
   const handleInputChange = (e) => {
+   
+    // console.log(e.target.value)
+    // if (validateLicenseNumber(e.target.value)) {
+    //   inputFeedback.removeClass('d-none').addClass('valid-feedback').text('Valid License number');
+    // } else {
+    //   inputFeedback.removeClass('valid-feedback').removeClass('d-none').addClass('invalid-feedback').text('Invalid License number');
+    // }
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -107,29 +128,28 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle the form submission here, including sending the data to your server for registration.
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    } else if (!formData.name || !formData.email || !formData.password) {
-      setError('Please fill in the required fields.')
+    // if (formData.password !== formData.confirmPassword) {
+    //   setError('Passwords do not match');
+    //   return;
+    // } else if (!formData.name || !formData.email || !formData.password) {
+    //   setError('Please fill in the required fields.')
 
-    } else {
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        employeeId: '',
-        registrationNumber: '',
-        studentNo: '',
-        isoId: '',
-        phone: '',
-        licenceNumber: '',
-        employeeNo: ''
-
+    // } else {
+    setFormData({
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      employeeId: '',
+      registrationNumber: '',
+      studentNo: '',
+      isoId: '',
+      phone: '',
+      licenceNumber: '',
+      employeeNo: ''
       });
       alert('Registration Successful')
-    }
+    
     console.log(formData.password)
     navigate('/Login');
   };
@@ -207,16 +227,15 @@ const Signup = () => {
               </div>
               <div className='col-md-6 p-2' style={{backgroundColor: '#cbc9bd', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
-                  <form className='w-100 p-4 needs-validation' onSubmit={handleSubmit}>
-                  <div className='input-group mb-3'>
-                    <label htmlFor='validationCustom01' className='form-label'></label>
+                  <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
+                  <div className='input-group mb-3'> 
                       <span className='input-group-text'>
-                        <i class="bi bi-briefcase-fill"></i>
+                        <i className="bi bi-briefcase-fill"></i>
                       </span>
                       {userType === 'lawyer' && (
                       <input
-                      className='form-control is-valid'
-                      id="validationCustom01"
+                      className={`form-control ${formData.licenceNumber.match(/^1234$/) ? 'is-valid' : 'is-invalid'}`}
+                      id="licenseNumberInput"
                       aria-describedby='inputFeedback'
                       type="text"
                       name="licenceNumber"
@@ -224,66 +243,70 @@ const Signup = () => {
                       placeholder="LicenceNumber"
                       value={formData.practicingNumber}
                       onChange={handleInputChange}
+                      pattern="^1234$"
                       />
                       
                       )}
-                      <div id='inputFeedback' className='valid-feedback'>
-                        Looks good!
-                      </div>
-                    </div>
+                  </div>
                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
-                        <i class="bi bi-person-fill"></i>
+                        <i className="bi bi-person-fill"></i>
                       </span>
                       <input
-                      className='form-control'
+                      className={`form-control ${formData.name.match(/^[A-Za-z\s]+$/) ? 'is-valid' : 'is-invalid'}`}
                       type="text"
                       name="name"
                       required
-                      placeholder="Name"
+                      placeholder="Full Name"
                       value={formData.name}
                       onChange={handleInputChange}
+                      pattern="^[A-Za-z\s]+$"
                       />
                     </div>
                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
                         </svg>
                       </span>
                       <input
-                      className='form-control'
+                      className={`form-control ${formData.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/) ? 'is-valid' : 'is-invalid'}`}
                       type="email"
                       name="email"
                       required
                       placeholder="Email"
                       value={formData.email}
                       onChange={handleInputChange}
+                      pattern="^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$"
                       />
                     </div>
                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
-                        <i class="bi bi-key-fill"></i>
+                        <i className="bi bi-key-fill"></i>
                       </span>
                       <input
-                      className='form-control'
+                      className={`form-control ${formData.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/) ? 'is-valid' : 'is-invalid'}`}
                       type="password"
                       name="password"
                       required
                       placeholder="Password"
                       value={formData.password}
                       onChange={handleInputChange}
+                      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$"
                       />
                       <span className='input-group-text'>
-                        <i class="bi bi-eye-fill"></i>
+                        <i className="bi bi-eye-fill"></i>
                       </span>
+                      <div className="invalid-feedback">
+                        Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character.
+                      </div>
                     </div>
                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
-                        <i class="bi bi-key-fill"></i>
+                        <i className="bi bi-key-fill"></i>
                       </span>
                       <input
-                      className='form-control'
+                      className={`form-control ${formData.confirmPassword === formData.password ? 'is-valid' : 'is-invalid'}`}
                       type="password"
                       name="confirmPassword"
                       required
@@ -292,22 +315,33 @@ const Signup = () => {
                       onChange={handleInputChange}
                       />
                       <span className='input-group-text'>
-                        <i class="bi bi-eye-fill"></i>
+                        <i className="bi bi-eye-fill"></i>
                       </span>
-                      {error && <div className="alert alert-danger mb-3" role="alert">{error}</div>}
+                      <div className="invalid-feedback">
+                        Passwords do not match.
+                      </div>
                     </div>
                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
-                        <i class="bi bi-telephone-fill"></i>
+                        <i className="bi bi-telephone-fill"></i>
                       </span>
                       <input
-                      className='form-control'
+                      className={`form-control ${formData.phone.match(/^\+254[1-9]\d{8}$/
+                      ) ? 'is-valid' : 'is-invalid'}`}
                       type="tel"
                       name="phone"
-                      placeholder="Phone"
+                      placeholder="Phone Number"
                       value={formData.phone}
                       onChange={handleInputChange}
+                      pattern='/^\+254[1-9]\d{8}$/'
                       />
+                      <div className="invalid-feedback">
+                        Phone number must be in the format +2547XXXXXXXX
+                      </div>
+                    <div>
+                      
+                    </div>
+
                     </div>
                       {userType === 'student' && (
                       <input
