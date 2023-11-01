@@ -2,10 +2,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# React Dir
-REACT_DIR = "/home/tykoon787/projects/lawris/lawris-app"
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Media
 
@@ -38,7 +35,13 @@ INSTALLED_APPS = [
     'acct.apps.AcctConfig',
     'django_extensions',
     'rest_framework',
+    'authentication',
     'corsheaders'
+]
+
+# Configure authentication backend
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +86,7 @@ ROOT_URLCONF = 'lawris_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(REACT_DIR, 'build')],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -153,6 +156,12 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+# Configure session settings
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2  # 2 weeks
+SESSION_COOKIE_NAME = 'lawris_sessionid'
+
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS =  [os.path.join(REACT_DIR, 'build/static')]
+STATICFILES_DIRS =  [os.path.join(BASE_DIR, 'build/static')]
