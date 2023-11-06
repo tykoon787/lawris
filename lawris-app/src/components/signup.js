@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
-// import law1 from '../Assets/law1.jpg';
 import student from '../Assets/law students2.jpg';
 import nonLitigant from '../Assets/non-litigant.jpg';
 import judiciary from '../Assets/judiciary.jpg';
@@ -10,6 +9,70 @@ import business from '../Assets/business.jpg';
 import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
+import InputGroup from './DynamicSignupForm';
+
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
+
+const inputList = [
+  {userType: 'lawyer'},
+  {
+    icon: <LawyerIcon/>,
+    name: 'licenceNumber',
+    pattern: '^1234$',
+    placeholder: 'LicenceNumber',
+  },
+  {
+    userType: 'nonLitigant',
+    icon: <NonLitigantIcon />,
+    name: 'nonLitigantField',
+    pattern: 'your-pattern-here',
+    placeholder: 'Non-Litigant Field',
+  },
+  {
+    userType: 'student',
+    icon: <StudentIcon />,
+    name: 'studentId',
+    pattern: null,
+    placeholder: 'Student ID',
+  },
+  {
+    userType: 'business',
+    icon: <BusinessIcon />,
+    name: 'registrationNumber',
+    pattern: null,
+    placeholder: 'Registration Number',
+  },
+  {
+    icon: <PersonIcon/>,
+    name: 'name',
+    pattern: '^[A-Za-z\\s]+$',
+    placeholder: 'Full Name',
+  },
+  {
+    icon: <EmailIcon/>,
+    name: 'email',
+    pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+    placeholder: 'Email',
+  },
+  {
+    icon: <PasswordIcon/>,
+    name: 'password',
+    pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
+    placeholder: 'Password',
+  },
+  {
+    icon: <PasswordIcon/>,
+    name: 'confirmPassword',
+    pattern: null,
+    placeholder: 'Confirm Password',
+  },
+  {
+    icon: <PhoneIcon/>,
+    name: 'phone',
+    pattern: '^\\+254[1-9]\\d{8}$',
+    placeholder: 'Phone Number',
+  },
+];
 
 const Introduction = () => {
   return(
@@ -55,12 +118,9 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const cardStyle = {
-    // width: '70rem',
     backgroundColor: 'rgb(12, 12, 47)',
     color: 'white',
     borderRadius: '1.5rem',
-    // width: '70%',
-    // padding: '4rem'
   };
   const header = {
     backgroundColor: 'rgb(12, 12, 47)',
@@ -75,49 +135,7 @@ const Signup = () => {
   }
 
 
-  //  const handleUserTypeChange = (newType) => {
-  //   setUserType(newType);
-  //   setFormData({
-  //     name: '',
-  //    email: '',
-  //    password: '',
-  //    confirmPassword: '',
-  //    employeeId: '',
-  //    registrationNumber: '',
-  //    studentNo: '',
-  //    isoId: '',
-  //    phone: '',
-  //    licenceNumber: '',
-  //    employeeNo: '',
-
-  //    });
-  //    setError(null);
-//  };
-
-//  var inputFeedback;
-//   $(function() {
-//     inputFeedback = $('#licenseNumberInputFeedback');    
-//   })
-  
-  
-//   function validateLicenseNumber(number) {
-//     if (number === 1234) {
-//       console.log("True")
-//       return true;
-//     } else {
-//       console.log("False")
-//       return false;
-//     }
-//   }
-    
   const handleInputChange = (e) => {
-   
-    // console.log(e.target.value)
-    // if (validateLicenseNumber(e.target.value)) {
-    //   inputFeedback.removeClass('d-none').addClass('valid-feedback').text('Valid License number');
-    // } else {
-    //   inputFeedback.removeClass('valid-feedback').removeClass('d-none').addClass('invalid-feedback').text('Invalid License number');
-    // }
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -127,14 +145,6 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle the form submission here, including sending the data to your server for registration.
-    // if (formData.password !== formData.confirmPassword) {
-    //   setError('Passwords do not match');
-    //   return;
-    // } else if (!formData.name || !formData.email || !formData.password) {
-    //   setError('Please fill in the required fields.')
-
-    // } else {
     setFormData({
       name: '',
       email: '',
@@ -149,11 +159,10 @@ const Signup = () => {
       employeeNo: ''
       });
       alert('Registration Successful')
-    
+
     console.log(formData.password)
     navigate('/Login');
   };
-  //const filteredItems = blueprint.filter((item) => item === userType);
 
   return (
      <div className="main">
@@ -166,69 +175,54 @@ const Signup = () => {
             >
               Lawyer
             </a>
-              {/* <div className='radioContainer'>
-              <label>
-              <input
-                  type="radio"
-                  value="lawyer"
-                  checked={userType === 'lawyer'}
-                  onChange={() => handleUserTypeChange('lawyer')}
-              />
-              Lawyer
-              </label>  */}
-              <a href="#non-litigant"
+            <a href="#non-litigant"
                 className={`navbar-brand text-light ${userType === 'nonLitigant' ? 'selected' : ''}`}
                 onClick={() => setUserType('nonLitigant')}
               >
                 Non-Litigant
-              </a>
-              <a href="#student"
+            </a>
+            <a href="#student"
                 className={`navbar-brand text-light ${userType === 'student' ? 'selected' : ''}`}
                 onClick={() => setUserType('student')}
               >
                 Student
-              </a>
-              <a href="#judiciary"
+            </a>
+            <a href="#judiciary"
                   className={`navbar-brand text-light ${userType === 'judiciary' ? 'selected' : ''}`}
                   onClick={() => setUserType('judiciary')}
                 >
                   Judiciary
-              </a>
-              <a href="#lawfirm"
+            </a>
+            <a href="#lawfirm"
                 className={`navbar-brand text-light ${userType === 'lawFirm' ? 'selected' : ''}`}
                 onClick={() => setUserType('lawFirm')}
               >
                 Law Firm
-              </a>
-              <a href="#Institution"
+            </a>
+            <a href="#Institution"
                 className={`navbar-brand text-light ${userType === 'institution' ? 'selected' : ''}`}
                 onClick={() => setUserType('institution')}
               >
                 Institution
-              </a>
-              <a href="#Business"
+            </a>
+            <a href="#Business"
                   className={`navbar-brand text-light ${userType === 'business' ? 'selected' : ''}`}
                   onClick={() => setUserType('business')}
                 >
                   Business
-              </a>
-
-            </div>
-
+            </a>
+          </div>
         </div>
-        {/* <h2 className='mt-3'>
-          Please fill in the Registration form to continue</h2> */}
-
         <div className='card m-2 col-lg-10' style={cardStyle}>
-          {/* <div className='card card-1' style={{borderRadius: '1rem', backgroundColor: 'white'}}> */}
           <div className='card-body d-flex p-0'>
               <div className='col-md-6'>
                 <img className="card-img" style={{minHeight: '100%', objectFit: 'cover', borderTopLeftRadius: '1.5rem', borderBottomLeftRadius: '1.5rem'}} src={profileImage[userType]} alt={userType} />
               </div>
               <div className='col-md-6 p-2' style={{backgroundColor: '#cbc9bd', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
+                <InputGroup list={inputList} userType={userType} formData={formData} handleInputChange={handleInputChange} />
                   <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
-                  <div className='input-group mb-3'> 
+                  {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-briefcase-fill"></i>
                       </span>
@@ -245,7 +239,6 @@ const Signup = () => {
                       onChange={handleInputChange}
                       pattern="^1234$"
                       />
-                      
                       )}
                   </div>
                     <div className='input-group mb-3'>
@@ -262,8 +255,8 @@ const Signup = () => {
                       onChange={handleInputChange}
                       pattern="^[A-Za-z\s]+$"
                       />
-                    </div>
-                    <div className='input-group mb-3'>
+                    </div> */}
+                    {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
@@ -337,13 +330,11 @@ const Signup = () => {
                       />
                       <div className="invalid-feedback">
                         Phone number must be in the format +2547XXXXXXXX
-                      </div>
-                    <div>
-                      
-                    </div>
-
-                    </div>
-                      {userType === 'student' && (
+                      </div> */}
+                    {/* <div> */}
+                    {/* </div> */}
+                    {/* </div> */}
+                      {/* {userType === 'student' && (
                       <input
                       className='form-control mb-3'
                       type="text"
@@ -352,7 +343,7 @@ const Signup = () => {
                       placeholder="studentId"
                       value={formData.studentId}
                       onChange={handleInputChange} />
-                      )}
+                      )} */}
                       {userType === 'judiciary' && (
                       <input
                       className='form-control mb-3'
@@ -383,7 +374,7 @@ const Signup = () => {
                       value={formData.isoId}
                       onChange={handleInputChange} />
                       )}
-                      {userType === 'business' && (
+                      {/* {userType === 'business' && (
                       <input
                       className='form-control mb-3'
                       type="text"
@@ -392,8 +383,8 @@ const Signup = () => {
                       placeholder="Registration Number"
                       value={formData.registrationNumber}
                       onChange={handleInputChange}
-                      />
-                      )}
+                      /> */}
+                      {/* )} */}
                       <button className='btn btn-lg w-100 btn-outline-secondary' style={btnHeader} type="submit">Register</button>
                       <div className='d-flex flex-column mt-3'>
                         <p className="lead pb-lg-2 fs-5">
