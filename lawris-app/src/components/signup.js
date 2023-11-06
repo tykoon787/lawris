@@ -9,70 +9,104 @@ import business from '../Assets/business.jpg';
 import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
-import InputGroup from './DynamicSignupForm';
+import inputGroup from './DynamicSignupForm';
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
 
-const inputList = [
-  {userType: 'lawyer'},
-  {
-    icon: <LawyerIcon/>,
-    name: 'licenceNumber',
-    pattern: '^1234$',
-    placeholder: 'LicenceNumber',
-  },
-  {
-    userType: 'nonLitigant',
-    icon: <NonLitigantIcon />,
-    name: 'nonLitigantField',
-    pattern: 'your-pattern-here',
-    placeholder: 'Non-Litigant Field',
-  },
-  {
-    userType: 'student',
-    icon: <StudentIcon />,
-    name: 'studentId',
-    pattern: null,
-    placeholder: 'Student ID',
-  },
-  {
-    userType: 'business',
-    icon: <BusinessIcon />,
-    name: 'registrationNumber',
-    pattern: null,
-    placeholder: 'Registration Number',
-  },
-  {
-    icon: <PersonIcon/>,
-    name: 'name',
-    pattern: '^[A-Za-z\\s]+$',
-    placeholder: 'Full Name',
-  },
-  {
-    icon: <EmailIcon/>,
-    name: 'email',
-    pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
-    placeholder: 'Email',
-  },
-  {
-    icon: <PasswordIcon/>,
-    name: 'password',
-    pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
-    placeholder: 'Password',
-  },
-  {
-    icon: <PasswordIcon/>,
-    name: 'confirmPassword',
-    pattern: null,
-    placeholder: 'Confirm Password',
-  },
-  {
-    icon: <PhoneIcon/>,
-    name: 'phone',
-    pattern: '^\\+254[1-9]\\d{8}$',
-    placeholder: 'Phone Number',
-  },
+const userList = [
+  {lawyer: {
+      icon: <LawyerIcon />,
+      name: 'LicenceNumber',
+      pattern: '',
+      placeholder: 'LicenceNumber',
+  }
+},
+{
+  nonLitigant: {
+      icon: <PersonIcon />,
+      name: '',
+      pattern: '',
+      placeholder:'',
+  }
+}, 
+{
+  student: {
+      icon: <PersonIcon />,
+      name: 'studentNumber',
+      pattern: '',
+      placeholder:'studentNumber',
+  }
+},
+{
+  business: {
+      icon: <BusinessIcon />,
+      name: 'BusinessNumber',
+      pattern: '',
+      placeholder: 'BusinessNumber',
+  }
+}
+
 ];
+// const inputList = [
+//   {userType: 'lawyer'},
+//   {
+//     icon: <LawyerIcon/>,
+//     name: 'licenceNumber',
+//     pattern: '^1234$',
+//     placeholder: 'LicenceNumber',
+//   },
+//   {
+//     userType: 'nonLitigant',
+//     icon: <NonLitigantIcon />,
+//     name: 'nonLitigantField',
+//     pattern: 'your-pattern-here',
+//     placeholder: 'Non-Litigant Field',
+//   },
+//   {
+//     userType: 'student',
+//     icon: <StudentIcon />,
+//     name: 'studentId',
+//     pattern: null,
+//     placeholder: 'Student ID',
+//   },
+//   {
+//     userType: 'business',
+//     icon: <BusinessIcon />,
+//     name: 'registrationNumber',
+//     pattern: null,
+//     placeholder: 'Registration Number',
+//   },
+//   {
+//     icon: <PersonIcon/>,
+//     name: 'name',
+//     pattern: '^[A-Za-z\\s]+$',
+//     placeholder: 'Full Name',
+//   },
+//   {
+//     icon: <EmailIcon/>,
+//     name: 'email',
+//     pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+//     placeholder: 'Email',
+//   },
+//   {
+//     icon: <PasswordIcon/>,
+//     name: 'password',
+//     pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
+//     placeholder: 'Password',
+//   },
+//   {
+//     icon: <PasswordIcon/>,
+//     name: 'confirmPassword',
+//     pattern: null,
+//     placeholder: 'Confirm Password',
+//   },
+//   {
+//     icon: <PhoneIcon/>,
+//     name: 'phone',
+//     pattern: '^\\+254[1-9]\\d{8}$',
+//     placeholder: 'Phone Number',
+//   },
+// ];
 
 const Introduction = () => {
   return(
@@ -220,7 +254,8 @@ const Signup = () => {
               </div>
               <div className='col-md-6 p-2' style={{backgroundColor: '#cbc9bd', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
-                <InputGroup list={inputList} userType={userType} formData={formData} handleInputChange={handleInputChange} />
+                <inputGroup userList={userList} />
+                {/* <inputGroup list={inputList} userType={userType} formData={formData} handleInputChange={handleInputChange} /> */}
                   <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
                   {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
