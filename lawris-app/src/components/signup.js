@@ -32,7 +32,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
  }, 
  {
    student: {
-       icon: <PersonIcon />,
+       icon: <StudentIcon />,
        name: 'studentNumber',
        pattern: '',
        placeholder:'studentNumber',
@@ -41,14 +41,39 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
  {
    business: {
        icon: <BusinessIcon />,
-       name: 'BusinessNumber',
+       name: 'RegistrationNumber',
        pattern: '',
-       placeholder: 'BusinessNumber',
+       placeholder: 'Registration Number',
    },
-  }
- 
- ];
-// const inputList = [
+  },
+  {
+    judiciary: {
+      icon: '',
+      name: 'Employeeid',
+      pattern: '',
+      placeholder: 'EmployeeId',
+    }
+  },
+  {
+    lawFirm: {
+      icon: '',
+      name: 'registrationNumber',
+      pattern: '',
+      placeholder: 'Registration Number',
+    },
+  },
+  {
+    institution: {
+      icon: '',
+      name: 'IsoNumber',
+      pattern: '',
+      placeholder: 'ISO Number',
+    }
+  },
+
+    
+  ];
+// cot inputList = [
 //   {userType: 'lawyer'},
 //   {
 //     icon: <LawyerIcon/>,
@@ -256,9 +281,10 @@ const Signup = () => {
               <div className='col-md-6 p-2' style={{backgroundColor: '#cbc9bd', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
                 {/* <inputGroup userList={userList} /> */}
-                <InputGroup useList={userList} userType={userType} formData={formData} handleInputChange={handleInputChange} />
+                
                   <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
-                  {/* <div className='input-group mb-3'>
+                    <InputGroup userList={userList} userType={userType} formData={formData} handleInputChange={handleInputChange} />
+                   {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-briefcase-fill"></i>
                       </span>
@@ -276,8 +302,8 @@ const Signup = () => {
                       pattern="^1234$"
                       />
                       )}
-                  </div>
-                    <div className='input-group mb-3'>
+                  </div> */}
+                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-person-fill"></i>
                       </span>
@@ -291,8 +317,8 @@ const Signup = () => {
                       onChange={handleInputChange}
                       pattern="^[A-Za-z\s]+$"
                       />
-                    </div> */}
-                    {/* <div className='input-group mb-3'>
+                    </div> 
+                     <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
@@ -366,10 +392,10 @@ const Signup = () => {
                       />
                       <div className="invalid-feedback">
                         Phone number must be in the format +2547XXXXXXXX
-                      </div> */}
-                    {/* <div> */}
-                    {/* </div> */}
-                    {/* </div> */}
+                      </div>
+                     <div> 
+                     </div> 
+                     </div> 
                       {/* {userType === 'student' && (
                       <input
                       className='form-control mb-3'
@@ -380,7 +406,7 @@ const Signup = () => {
                       value={formData.studentId}
                       onChange={handleInputChange} />
                       )} */}
-                      {userType === 'judiciary' && (
+                      {/* {userType === 'judiciary' && (
                       <input
                       className='form-control mb-3'
                       type="text"
@@ -389,8 +415,8 @@ const Signup = () => {
                       placeholder="Employee Id"
                       value={formData.employeeId}
                       onChange={handleInputChange} />
-                      )}
-                      {userType === 'Law Firm' && (
+                      )} */}
+                      {/* {userType === 'Law Firm' && (
                       <input
                       className='form-control mb-3'
                       type="text"
@@ -399,8 +425,8 @@ const Signup = () => {
                       placeholder="Registration Number"
                       value={formData.registrationNumber}
                       onChange={handleInputChange} />
-                      )}
-                      {userType === 'Institution' && (
+                      )} */}
+                      {/* {userType === 'Institution' && (
                       <input
                       className='form-control mb-3'
                       type="text"
@@ -409,7 +435,7 @@ const Signup = () => {
                       placeholder="ISO Number"
                       value={formData.isoId}
                       onChange={handleInputChange} />
-                      )}
+                      )} */}
                       {/* {userType === 'business' && (
                       <input
                       className='form-control mb-3'

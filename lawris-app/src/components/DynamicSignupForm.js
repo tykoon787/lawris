@@ -58,7 +58,7 @@ import React from 'react';
             {userType === userTypeKey && (
               <input
                 className={`form-control ${
-                  formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
+                  formData[userProps.name] && formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
                 }`}
                 type="text"
                 name={userProps.name}
