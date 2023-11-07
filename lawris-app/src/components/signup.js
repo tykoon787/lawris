@@ -9,44 +9,45 @@ import business from '../Assets/business.jpg';
 import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
-import inputGroup from './DynamicSignupForm';
+import InputGroup from './DynamicSignupForm';
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
 
-const userList = [
-  {lawyer: {
-      icon: <LawyerIcon />,
-      name: 'LicenceNumber',
-      pattern: '',
-      placeholder: 'LicenceNumber',
+ const userList = [
+   {
+    lawyer: {
+       icon: <LawyerIcon />,
+       name: 'LicenceNumber',
+       pattern: '',
+       placeholder: 'LicenceNumber',
+   },
+ },
+ {
+   nonLitigant: {
+       icon: <PersonIcon />,
+       name: '',
+       pattern: '',
+       placeholder:'',
+   },
+ }, 
+ {
+   student: {
+       icon: <PersonIcon />,
+       name: 'studentNumber',
+       pattern: '',
+       placeholder:'studentNumber',
+   },
+ },
+ {
+   business: {
+       icon: <BusinessIcon />,
+       name: 'BusinessNumber',
+       pattern: '',
+       placeholder: 'BusinessNumber',
+   },
   }
-},
-{
-  nonLitigant: {
-      icon: <PersonIcon />,
-      name: '',
-      pattern: '',
-      placeholder:'',
-  }
-}, 
-{
-  student: {
-      icon: <PersonIcon />,
-      name: 'studentNumber',
-      pattern: '',
-      placeholder:'studentNumber',
-  }
-},
-{
-  business: {
-      icon: <BusinessIcon />,
-      name: 'BusinessNumber',
-      pattern: '',
-      placeholder: 'BusinessNumber',
-  }
-}
-
-];
+ 
+ ];
 // const inputList = [
 //   {userType: 'lawyer'},
 //   {
@@ -254,8 +255,8 @@ const Signup = () => {
               </div>
               <div className='col-md-6 p-2' style={{backgroundColor: '#cbc9bd', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
-                <inputGroup userList={userList} />
-                {/* <inputGroup list={inputList} userType={userType} formData={formData} handleInputChange={handleInputChange} /> */}
+                {/* <inputGroup userList={userList} /> */}
+                <InputGroup useList={userList} userType={userType} formData={formData} handleInputChange={handleInputChange} />
                   <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
                   {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
