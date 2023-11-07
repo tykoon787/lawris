@@ -1,8 +1,18 @@
 import React from 'react';
-//import userList from '../utils/userList';
-//import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from "../components/Icons";
+import userList from './utils/userList.js';
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from "../components/Icons";
 
+const InputGroup = ( userType) => {
+  return (
+    <div className="input-group mb-3">
+      <span>
 
+      </span>
+
+      <input className="form-control"/>
+    </div>
+  )
+}
 
 
 
@@ -46,35 +56,35 @@ import React from 'react';
 //     </div>
 //   );
  //};
- function InputGroup({ userList, userType, formData, handleInputChange }) {
-  return (
-    <div>
-      {userList.map((user, index) => {
-        const [userTypeKey, userProps] = Object.entries(user)[0]; // Get the key-value pair for the user type
+//  function InputGroup({ userList, userType, formData, handleInputChange }) {
+//   return (
+//     <div>
+//       {userList.map((user, index) => {
+//         const [userTypeKey, userProps] = Object.entries(user)[0]; // Get the key-value pair for the user type
 
-        return (
-          <div key={index} className="input-group mb-3">
-            <span className="input-group-text">{userProps.icon}</span>
-            {userType === userTypeKey && (
-              <input
-                className={`form-control ${
-                  formData[userProps.name] && formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
-                }`}
-                type="text"
-                name={userProps.name}
-                required
-                placeholder={userProps.placeholder}
-                value={formData[userProps.name] || ''}
-                onChange={handleInputChange}
-                pattern={userProps.pattern}
-              />
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+//         return (
+//           <div key={index} className="input-group mb-3">
+//             <span className="input-group-text">{userProps.icon}</span>
+//             {userType === userTypeKey && (
+//               <input
+//                 className={`form-control ${
+//                   formData[userProps.name] && formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
+//                 }`}
+//                 type="text"
+//                 name={userProps.name}
+//                 required
+//                 placeholder={userProps.placeholder}
+//                 value={formData[userProps.name] || ''}
+//                 onChange={handleInputChange}
+//                 pattern={userProps.pattern}
+//               />
+//             )}
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// }
                 
      
 
