@@ -46,17 +46,18 @@ import React from 'react';
 //     </div>
 //   );
  //};
- function InputGroup({ userList, userType, formData, handleInputChange }) {
+ function InputGroup({ userList, commonInputs, userType, formData, handleInputChange }) {
   return (
-    <div>
+    <>
       {userList.map((user, index) => {
         const [userTypeKey, userProps] = Object.entries(user)[0]; // Get the key-value pair for the user type
 
         return (
-          <div key={index} className="input-group mb-3">
-            <span className="input-group-text">{userProps.icon}</span>
+          <div key={index} className="input-group_container">
             {userType === userTypeKey && (
-              <input
+              <div className='input-group mb-3'>
+                <span className="input-group-text">{userProps.icon}</span>
+                <input
                 className={`form-control ${
                   formData[userProps.name] && formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
                 }`}
@@ -68,11 +69,35 @@ import React from 'react';
                 onChange={handleInputChange}
                 pattern={userProps.pattern}
               />
+              
+
+              </div>
+
+             
             )}
           </div>
         );
       })}
-    </div>
+      <div>
+        {commonInputs.map((input, index) => (
+          <div key={index} className="input-group mb-3">
+            <span className="input-group-text">{input.icon}</span>
+            <input
+              className={`form-control ${
+                formData[input.name] && formData[input.name].match(input.pattern) ? 'is-valid' : 'is-invalid'
+              }`}
+              type="text"
+              name={input.name}
+              required
+              placeholder={input.placeholder}
+              value={formData[input.name] || ''}
+              onChange={handleInputChange}
+              pattern={input.pattern}
+            />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
                 

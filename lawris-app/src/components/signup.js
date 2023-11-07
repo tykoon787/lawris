@@ -13,6 +13,39 @@ import InputGroup from './DynamicSignupForm';
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
 
+const commonInputs = [
+  {
+    name: 'name',
+    icon: <PersonIcon />, // You can define the icon for the common inputs
+    pattern: '^[A-Za-z\\s]+$',
+    placeholder: 'Full Name',
+  },
+  {
+    name: 'email',
+    icon: <EmailIcon />,
+    pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+    placeholder: 'Email',
+  },
+  {
+    name: 'password',
+    icon: <PasswordIcon />,
+    pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
+    placeholder: 'Password',
+  },
+  {
+    name: 'confirmPassword',
+    icon: <PasswordIcon />,
+    pattern: null, // You can set the pattern to null for confirmPassword
+    placeholder: 'Confirm Password',
+  },
+  {
+    name: 'phone',
+    icon: <PhoneIcon />,
+    pattern: '^\\+254[1-9]\\d{8}$',
+    placeholder: 'Phone Number',
+  },
+];
+
  const userList = [
    {
     lawyer: {
@@ -32,7 +65,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
  }, 
  {
    student: {
-       icon: <StudentIcon />,
+       icon: <PersonIcon />,
        name: 'studentNumber',
        pattern: '',
        placeholder:'studentNumber',
@@ -227,51 +260,68 @@ const Signup = () => {
   return (
      <div className="main">
       <div className='contentContainer d-flex flex-column justify-content-center align-items-center'>
-        <div className='navbarContainer p-2 col-lg-10 mt-4' style={header}>
-          <div className="navbar text-small ">
-            <a href="#lawyer"
-              className={`navbar-brand text-light ${userType === 'lawyer' ? 'selected' : ''}`}
+        <div className='navbarContainer p-3 col-lg-10 mt-4' style={header}>
+            <ul className='nav nav-underline text-small d-flex justify-content-between'>
+              <li className='nav-item'>
+              <a href="#lawyer"
+              className={`navbar-brand nav-link active text-light ${userType === 'lawyer' ? 'selected' : ''}`}
               onClick={() => setUserType('lawyer')}
-            >
-              Lawyer
-            </a>
-            <a href="#non-litigant"
-                className={`navbar-brand text-light ${userType === 'nonLitigant' ? 'selected' : ''}`}
-                onClick={() => setUserType('nonLitigant')}
               >
-                Non-Litigant
-            </a>
-            <a href="#student"
-                className={`navbar-brand text-light ${userType === 'student' ? 'selected' : ''}`}
-                onClick={() => setUserType('student')}
-              >
-                Student
-            </a>
-            <a href="#judiciary"
-                  className={`navbar-brand text-light ${userType === 'judiciary' ? 'selected' : ''}`}
-                  onClick={() => setUserType('judiciary')}
+                Lawyer
+              </a>
+              </li>
+              <li className='nav-item'>
+                <a href="#non-litigant"
+                  className={`navbar-brand nav-link text-light ${userType === 'nonLitigant' ? 'selected' : ''}`}
+                  onClick={() => setUserType('nonLitigant')}
                 >
-                  Judiciary
-            </a>
-            <a href="#lawfirm"
-                className={`navbar-brand text-light ${userType === 'lawFirm' ? 'selected' : ''}`}
-                onClick={() => setUserType('lawFirm')}
-              >
-                Law Firm
-            </a>
-            <a href="#Institution"
-                className={`navbar-brand text-light ${userType === 'institution' ? 'selected' : ''}`}
-                onClick={() => setUserType('institution')}
-              >
-                Institution
-            </a>
-            <a href="#Business"
-                  className={`navbar-brand text-light ${userType === 'business' ? 'selected' : ''}`}
-                  onClick={() => setUserType('business')}
+                  Non-Litigant
+                </a>
+
+              </li>
+              <li className='nav-item'>
+                <a href="#student"
+                  className={`navbar-brand nav-link text-light ${userType === 'student' ? 'selected' : ''}`}
+                  onClick={() => setUserType('student')}
                 >
-                  Business
-            </a>
-          </div>
+                  Student
+              </a>
+              </li>
+              <li className='nav-item'>
+                <a href="#judiciary"
+                    className={`navbar-brand nav-link text-light ${userType === 'judiciary' ? 'selected' : ''}`}
+                    onClick={() => setUserType('judiciary')}
+                  >
+                    Judiciary
+              </a>
+              </li>
+              <li className='nav-item'>
+                <a href="#lawfirm"
+                  className={`navbar-brand nav-link text-light ${userType === 'lawFirm' ? 'selected' : ''}`}
+                  onClick={() => setUserType('lawFirm')}
+                >
+                  Law Firm
+              </a>
+              </li>
+              <li className='nav-item'>
+                <a href="#Institution"
+                  className={`navbar-brand nav-link text-light ${userType === 'institution' ? 'selected' : ''}`}
+                  onClick={() => setUserType('institution')}
+                >
+                  Institution
+              </a>
+              </li>
+              <li className='nav-item'>
+                <a href="#Business"
+                    className={`navbar-brand nav-link text-light ${userType === 'business' ? 'selected' : ''}`}
+                    onClick={() => setUserType('business')}
+                  >
+                    Business
+              </a>
+
+              </li>
+            </ul>
+          
         </div>
         <div className='card m-2 col-lg-10' style={cardStyle}>
           <div className='card-body d-flex p-0'>
@@ -283,7 +333,7 @@ const Signup = () => {
                 {/* <inputGroup userList={userList} /> */}
                 
                   <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
-                    <InputGroup userList={userList} userType={userType} formData={formData} handleInputChange={handleInputChange} />
+                    <InputGroup userList={userList} commonInputs={commonInputs} userType={userType} formData={formData} handleInputChange={handleInputChange} />
                    {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-briefcase-fill"></i>
@@ -303,7 +353,7 @@ const Signup = () => {
                       />
                       )}
                   </div> */}
-                     <div className='input-group mb-3'>
+                     {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-person-fill"></i>
                       </span>
@@ -317,8 +367,8 @@ const Signup = () => {
                       onChange={handleInputChange}
                       pattern="^[A-Za-z\s]+$"
                       />
-                    </div> 
-                     <div className='input-group mb-3'>
+                    </div>  */}
+                     {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
@@ -334,8 +384,8 @@ const Signup = () => {
                       onChange={handleInputChange}
                       pattern="^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$"
                       />
-                    </div>
-                    <div className='input-group mb-3'>
+                    </div> */}
+                    {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-key-fill"></i>
                       </span>
@@ -355,8 +405,8 @@ const Signup = () => {
                       <div className="invalid-feedback">
                         Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character.
                       </div>
-                    </div>
-                    <div className='input-group mb-3'>
+                    </div> */}
+                    {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-key-fill"></i>
                       </span>
@@ -375,8 +425,8 @@ const Signup = () => {
                       <div className="invalid-feedback">
                         Passwords do not match.
                       </div>
-                    </div>
-                    <div className='input-group mb-3'>
+                    </div> */}
+                    {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
                         <i className="bi bi-telephone-fill"></i>
                       </span>
@@ -395,7 +445,7 @@ const Signup = () => {
                       </div>
                      <div> 
                      </div> 
-                     </div> 
+                     </div>  */}
                       {/* {userType === 'student' && (
                       <input
                       className='form-control mb-3'
