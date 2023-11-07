@@ -1,8 +1,18 @@
 import React from 'react';
-//import userList from '../utils/userList';
-//import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from "../components/Icons";
+import userList from './utils/userList.js';
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from "../components/Icons";
 
+const InputGroup = ( userType) => {
+  return (
+    <div className="input-group mb-3">
+      <span>
 
+      </span>
+
+      <input className="form-control"/>
+    </div>
+  )
+}
 
 
 
