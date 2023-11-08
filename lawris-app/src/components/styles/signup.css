@@ -18,17 +18,16 @@
 
 } */
 
-.radioContainer{
-    display: flex;
-    justify-content: center;
-    padding-top: 2rem;
-    background-color: rgb(12, 12, 47);
+.contentContainer{
+    background: linear-gradient(0.2deg, rgb(51, 204, 255) 4.8%, rgb(51, 102, 255) 85.5%);
+    
 
 
 
 }
 .radioContainer input {
     margin-left: 2rem;
+    background-color: rgb(228, 165, 47);
     
 
 }

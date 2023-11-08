@@ -106,66 +106,7 @@ const commonInputs = [
 
     
   ];
-// cot inputList = [
-//   {userType: 'lawyer'},
-//   {
-//     icon: <LawyerIcon/>,
-//     name: 'licenceNumber',
-//     pattern: '^1234$',
-//     placeholder: 'LicenceNumber',
-//   },
-//   {
-//     userType: 'nonLitigant',
-//     icon: <NonLitigantIcon />,
-//     name: 'nonLitigantField',
-//     pattern: 'your-pattern-here',
-//     placeholder: 'Non-Litigant Field',
-//   },
-//   {
-//     userType: 'student',
-//     icon: <StudentIcon />,
-//     name: 'studentId',
-//     pattern: null,
-//     placeholder: 'Student ID',
-//   },
-//   {
-//     userType: 'business',
-//     icon: <BusinessIcon />,
-//     name: 'registrationNumber',
-//     pattern: null,
-//     placeholder: 'Registration Number',
-//   },
-//   {
-//     icon: <PersonIcon/>,
-//     name: 'name',
-//     pattern: '^[A-Za-z\\s]+$',
-//     placeholder: 'Full Name',
-//   },
-//   {
-//     icon: <EmailIcon/>,
-//     name: 'email',
-//     pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
-//     placeholder: 'Email',
-//   },
-//   {
-//     icon: <PasswordIcon/>,
-//     name: 'password',
-//     pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
-//     placeholder: 'Password',
-//   },
-//   {
-//     icon: <PasswordIcon/>,
-//     name: 'confirmPassword',
-//     pattern: null,
-//     placeholder: 'Confirm Password',
-//   },
-//   {
-//     icon: <PhoneIcon/>,
-//     name: 'phone',
-//     pattern: '^\\+254[1-9]\\d{8}$',
-//     placeholder: 'Phone Number',
-//   },
-// ];
+
 
 const Introduction = () => {
   return(
@@ -211,18 +152,18 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const cardStyle = {
-    backgroundColor: 'rgb(12, 12, 47)',
+    backgroundColor: 'rgb(4, 4, 94)',
     color: 'white',
     borderRadius: '1.5rem',
   };
   const header = {
-    backgroundColor: 'rgb(12, 12, 47)',
+   // backgroundColor: 'rgb(12, 12, 47)',
     color: 'white',
     cursor: 'pointer'
   }
 
   const btnHeader = {
-    backgroundColor: 'rgb(12, 12, 47)',
+    backgroundColor: '#ff9a3c',
     color: 'white',
     cursor: 'pointer',
   }
@@ -328,7 +269,7 @@ const Signup = () => {
               <div className='col-md-6'>
                 <img className="card-img" style={{minHeight: '100%', objectFit: 'cover', borderTopLeftRadius: '1.5rem', borderBottomLeftRadius: '1.5rem'}} src={profileImage[userType]} alt={userType} />
               </div>
-              <div className='col-md-6 p-2' style={{backgroundColor: '#cbc9bd', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
+              <div className='col-md-6 p-2' style={{backgroundColor: '#8dc6ff', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
                 {/* <inputGroup userList={userList} /> */}
                 

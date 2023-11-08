@@ -56,13 +56,14 @@ function Login() {
   
 
   return (
-    <div className="body">
-        <div className='h1s'>
+    <div className="'card m-2 col-lg-10'">
+        <div className='card-body d-flex p-0'>
           <h1><br/>{userTypeNames[requiredField] || userTypeNames['Non-Litigant']}</h1> 
         </div>
-        <div className="login-page">
+        <div className="login-page ">
           <div className="animation">
-            <img src={userTypeImages[requiredField] || userTypeImages['Non-Litigant']} alt={userTypeNames[requiredField]} className="court"/>
+            <img className="card-img" style={{minHeight: '100%', objectFit: 'cover',}}
+            src={userTypeImages[requiredField] || userTypeImages['Non-Litigant']} alt={userTypeNames[requiredField]} className="court"/>
           </div>
 
           <form onSubmit={handleSubmit} className='form'>
@@ -74,7 +75,7 @@ function Login() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className='input'
+              className='form-control'
             />
             <input
               type="password"
@@ -83,7 +84,7 @@ function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
-              className='input'
+              className='form-control'
             />
             {requiredField === "Lawyer" && (
             <input
