@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/Login.css';
 import { getselectedUserType } from './userType';
+import logo from '../Assets/transparentLawrisLogo.png';
 
 //image import
 const userTypeImages = {
@@ -13,6 +14,21 @@ const userTypeImages = {
   'Law Firm': require('../Assets/lawFirm.jpg'),
   "Non-Litigant": require('../Assets/non-litigant.jpg'),
 };
+const Introduction = () => {
+  return(
+      <div className='introductionContainer d-flex'>
+        <div className='d-flex'>
+          <div className='col-2'>
+            <img src={logo} alt='logo' style={{width: '120%'}}/>
+          </div>
+          <div className='d-flex flex-column p-2 justify-content-center col-10'>
+            <h1 className='fw-bold text-white'>LAWRIS</h1>
+            <h5 className='lead text-white'>Login to continue</h5>
+          </div>
+        </div>
+      </div>
+  );
+}
 
 
 
@@ -69,6 +85,7 @@ function Login() {
     
             <div className='col-md-6' style={{backgroundColor: '#8dc6ff'}}>
               <h1 className='text-white m-3'><br/>{userTypeNames[requiredField] || userTypeNames['Non-Litigant']}</h1>
+              <Introduction />
               <form className='w-100 p-4 needs-validation'>
                 <div className='input-group mb-3'>
                   <input
@@ -158,6 +175,19 @@ function Login() {
                       placeholder="Firm Registration Number"
                       value={firmRegistrationNumber}
                       onChange={(event) => setfirmRegistrationNumber(event.target.value)}
+                      required
+                      className='form-control' 
+                    />
+                  </div>
+                )}
+                {requiredField === "Business" && (
+                  <div className='input-group mb-3'>
+                    <input
+                      type="text"
+                      name="registrationNumber"
+                      placeholder="Firm Registration Number"
+                      value={registrationNumber}
+                      onChange={(event) => setregistrationNumber(event.target.value)}
                       required
                       className='form-control' 
                     />
