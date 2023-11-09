@@ -10,12 +10,14 @@ from .views import (
     InstitutionRegisterView,
     LogoutView,
     CustomRefreshTokenView,
+    UnifiedRegisterView,
 )
 
 
 urlpatterns = [
     path('login/refresh', CustomRefreshTokenView.as_view(), name='token_refresh'),
     path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('register/', UnifiedRegisterView.as_view(), name='unified_register'),
     path('register/lawyer/', LawyerRegisterView.as_view(), name='lawyer_register'),
     path('register/student/', StudentRegisterView.as_view(), name='student_register'),
     path('register/judiciary/', JudiciaryRegisterView.as_view(), name='judiciary_register'),
