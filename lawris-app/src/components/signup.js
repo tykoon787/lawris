@@ -10,6 +10,8 @@ import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
+import Input from './Input';
+import Navbar from './NavBar';
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
 
@@ -198,9 +200,13 @@ const Signup = () => {
     navigate('/Login');
   };
 
+
+ 
+
   return (
      <div className="main">
       <div className='contentContainer d-flex flex-column justify-content-center align-items-center'>
+<<<<<<< HEAD
         <div className='navbarContainer p-3 col-lg-10 mt-4' style={header}>
             <ul className='nav nav-underline text-small d-flex justify-content-between'>
               <li className='nav-item'>
@@ -263,6 +269,10 @@ const Signup = () => {
               </li>
             </ul>
           
+=======
+        <div className='navbarContainer p-2 col-lg-10 mt-4' style={header}>
+         <Navbar /> 
+>>>>>>> 94ce4d9 (added navbar)
         </div>
         <div className='card m-2 col-lg-10' style={cardStyle}>
           <div className='card-body d-flex p-0'>
@@ -272,10 +282,18 @@ const Signup = () => {
               <div className='col-md-6 p-2' style={{backgroundColor: '#8dc6ff', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
                 {/* <inputGroup userList={userList} /> */}
+<<<<<<< HEAD
                 
                   <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
                     <InputGroup userList={userList} commonInputs={commonInputs} userType={userType} formData={formData} handleInputChange={handleInputChange} />
                    {/* <div className='input-group mb-3'>
+=======
+                {/* <InputGroup useList={userList} userType={userType} formData={formData} handleInputChange={handleInputChange} /> */}
+                  <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
+                    <Input icon={<LawyerIcon/>} name='licenceNumber' placeholder='LicenceNumber' pattern='^1234$' inputType='licenceNumber' id='licenseNumberInput' formData={formData} handleInputChange={handleInputChange} />
+
+                  {/* <div className='input-group mb-3'>
+>>>>>>> 94ce4d9 (added navbar)
                       <span className='input-group-text'>
                         <i className="bi bi-briefcase-fill"></i>
                       </span>
@@ -293,6 +311,7 @@ const Signup = () => {
                       pattern="^1234$"
                       />
                       )}
+<<<<<<< HEAD
                   </div> */}
                      {/* <div className='input-group mb-3'>
                       <span className='input-group-text'>
@@ -387,6 +406,102 @@ const Signup = () => {
                      <div> 
                      </div> 
                      </div>  */}
+=======
+                  </div>
+                    // <div className='input-group mb-3'>
+                    //   <span className='input-group-text'>
+                    //     <i className="bi bi-person-fill"></i>
+                    //   </span>
+                    //   <input
+                    //   className={`form-control ${formData.name.match(/^[A-Za-z\s]+$/) ? 'is-valid' : 'is-invalid'}`}
+                    //   type="text"
+                    //   name="name"
+                    //   required
+                    //   placeholder="Full Name"
+                    //   value={formData.name}
+                    //   onChange={handleInputChange}
+                    //   pattern="^[A-Za-z\s]+$"
+                    //   />
+                    // </div> */}
+                    // {/* <div className='input-group mb-3'>
+                    //   <span className='input-group-text'>
+                    //     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
+                    //     <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                    //     </svg>
+                    //   </span>
+                    //   <input
+                    //   className={`form-control ${formData.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/) ? 'is-valid' : 'is-invalid'}`}
+                    //   type="email"
+                    //   name="email"
+                    //   required
+                    //   placeholder="Email"
+                    //   value={formData.email}
+                    //   onChange={handleInputChange}
+                    //   pattern="^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$"
+                    //   />
+                    // </div>
+                    // <div className='input-group mb-3'>
+                    //   <span className='input-group-text'>
+                    //     <i className="bi bi-key-fill"></i>
+                    //   </span>
+                    //   <input
+                    //   className={`form-control ${formData.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/) ? 'is-valid' : 'is-invalid'}`}
+                    //   type="password"
+                    //   name="password"
+                    //   required
+                    //   placeholder="Password"
+                    //   value={formData.password}
+                    //   onChange={handleInputChange}
+                    //   pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$"
+                    //   />
+                    //   <span className='input-group-text'>
+                    //     <i className="bi bi-eye-fill"></i>
+                    //   </span>
+                    //   <div className="invalid-feedback">
+                    //     Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character.
+                    //   </div>
+                    // </div>
+                    // <div className='input-group mb-3'>
+                    //   <span className='input-group-text'>
+                    //     <i className="bi bi-key-fill"></i>
+                    //   </span>
+                    //   <input
+                    //   className={`form-control ${formData.confirmPassword === formData.password ? 'is-valid' : 'is-invalid'}`}
+                    //   type="password"
+                    //   name="confirmPassword"
+                    //   required
+                    //   placeholder="Confirm Password"
+                    //   value={formData.confirmPassword}
+                    //   onChange={handleInputChange}
+                    //   />
+                    //   <span className='input-group-text'>
+                    //     <i className="bi bi-eye-fill"></i>
+                    //   </span>
+                    //   <div className="invalid-feedback">
+                    //     Passwords do not match.
+                    //   </div>
+                    // </div>
+                    // <div className='input-group mb-3'>
+                    //   <span className='input-group-text'>
+                    //     <i className="bi bi-telephone-fill"></i>
+                    //   </span>
+                    //   <input
+                    //   className={`form-control ${formData.phone.match(/^\+254[1-9]\d{8}$/
+                    //   ) ? 'is-valid' : 'is-invalid'}`}
+                    //   type="tel"
+                    //   name="phone"
+                    //   placeholder="Phone Number"
+                    //   value={formData.phone}
+                    //   onChange={handleInputChange}
+                    //   pattern='/^\+254[1-9]\d{8}$/'
+                    //   />
+                    //   <div className="invalid-feedback">
+                    //     Phone number must be in the format +2547XXXXXXXX
+                    //   </div> */}
+                    // {/* <div> */}
+                    // {/* </div> */}
+                    // {/* </div> */}
+>>>>>>> 94ce4d9 (added navbar)
                       {/* {userType === 'student' && (
                       <input
                       className='form-control mb-3'

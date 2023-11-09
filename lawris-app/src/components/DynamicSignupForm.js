@@ -48,8 +48,13 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
  //};
  function InputGroup({ userList, commonInputs, userType, formData, handleInputChange }) {
   return (
+<<<<<<< HEAD
     <>
       {userList.map((user, index) => {
+=======
+    <div>
+      {/* {userList.map((user, index) => {
+>>>>>>> 94ce4d9 (added navbar)
         const [userTypeKey, userProps] = Object.entries(user)[0]; // Get the key-value pair for the user type
 
         return (
@@ -77,6 +82,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
             )}
           </div>
         );
+<<<<<<< HEAD
       })}
       <div>
         {commonInputs.map((input, index) => (
@@ -98,6 +104,10 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
         ))}
       </div>
     </>
+=======
+      })} */}
+    </div>
+>>>>>>> 94ce4d9 (added navbar)
   );
 }
                 
