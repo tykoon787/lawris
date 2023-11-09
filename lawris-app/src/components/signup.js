@@ -13,6 +13,7 @@ import InputGroup from './DynamicSignupForm';
 import Input from './Input';
 import Navbar from './NavBar';
 
+
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
 
 const commonInputs = [
@@ -21,30 +22,35 @@ const commonInputs = [
     icon: <PersonIcon />, // You can define the icon for the common inputs
     pattern: '^[A-Za-z\\s]+$',
     placeholder: 'Full Name',
+    required: true,
   },
   {
     name: 'email',
     icon: <EmailIcon />,
     pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
     placeholder: 'Email',
+    required: true,
   },
   {
     name: 'password',
     icon: <PasswordIcon />,
     pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
     placeholder: 'Password',
+    required: true,
   },
   {
     name: 'confirmPassword',
     icon: <PasswordIcon />,
     pattern: null, // You can set the pattern to null for confirmPassword
     placeholder: 'Confirm Password',
+    required: true,
   },
   {
     name: 'phone',
     icon: <PhoneIcon />,
     pattern: '^\\+254[1-9]\\d{8}$',
     placeholder: 'Phone Number',
+    required: true,
   },
 ];
 
@@ -53,8 +59,10 @@ const commonInputs = [
     lawyer: {
        icon: <LawyerIcon />,
        name: 'LicenceNumber',
-       pattern: '',
+       pattern: '^12345$',
        placeholder: 'LicenceNumber',
+       id: 'licenseNumberInput',
+       required: true,
    },
  },
  {
@@ -62,47 +70,58 @@ const commonInputs = [
        icon: <PersonIcon />,
        name: '',
        pattern: '',
-       placeholder:'',
+       placeholder:'Name',
+
    },
  }, 
  {
    student: {
        icon: <PersonIcon />,
        name: 'studentNumber',
-       pattern: '',
+       pattern: '^1234$',
        placeholder:'studentNumber',
+       id: 'studentNumberInput',
+       required: true,
    },
  },
  {
    business: {
        icon: <BusinessIcon />,
        name: 'RegistrationNumber',
-       pattern: '',
+       pattern: '^1234$',
        placeholder: 'Registration Number',
+       id: 'registrationNumberInput',
+       required: true,
    },
   },
   {
     judiciary: {
       icon: '',
       name: 'Employeeid',
-      pattern: '',
+      pattern: '^1234$',
       placeholder: 'EmployeeId',
+      id: 'employeeIdInput',
+      required: true,
     }
   },
   {
     lawFirm: {
       icon: '',
       name: 'registrationNumber',
-      pattern: '',
+      pattern: '^1234$',
       placeholder: 'Registration Number',
+      id: 'registrationNumberInput',
+      required: true,
     },
   },
   {
     institution: {
       icon: '',
       name: 'IsoNumber',
-      pattern: '',
+      pattern: '^1234$',
       placeholder: 'ISO Number',
+      id: 'isoNumberInput',
+      required: true,
     }
   },
 
@@ -154,14 +173,27 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const cardStyle = {
-    backgroundColor: 'rgb(4, 4, 94)',
+    background: 'transparent',
+    borderRadius: '16px',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    border: '1px solid rgba(51, 204, 255, 0.34)',
     color: 'white',
-    borderRadius: '1.5rem',
-  };
+  }
   const header = {
    // backgroundColor: 'rgb(12, 12, 47)',
     color: 'white',
     cursor: 'pointer'
+  }
+
+  const navbar = {
+    background: 'transparent',
+    borderRadius: '10px',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    backdropFilter: 'blur(20px)',
+    WebkitBackdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 154, 60, 0.34)',
   }
 
   const btnHeader = {
@@ -181,6 +213,21 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
+    const emptyFields = requiredFields.filter(field => !formData[field]);
+
+    if (emptyFields.length > 0) {
+      alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+      return;
+    }
+
+    // Check for mismatched passwords
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
     setFormData({
       name: '',
       email: '',
@@ -206,7 +253,7 @@ const Signup = () => {
   return (
      <div className="main">
       <div className='contentContainer d-flex flex-column justify-content-center align-items-center'>
-        <div className='navbarContainer p-3 col-lg-10 mt-4' style={header}>
+        <div className='navbarContainer p-3 col-lg-10 mt-1' style={header}>
             {/* <ul className='nav nav-underline text-small d-flex justify-content-between'>
               <li className='nav-item'>
               <a href="#lawyer"
@@ -268,7 +315,7 @@ const Signup = () => {
               </li>
             </ul> */}
           
-        <div className='navbarContainer p-2 col-lg-10 mt-4' style={header}>
+        <div className='navbarContainer p-2 col-lg-10 mt-2' style={navbar}>
          <Navbar userType={userType} setUserType={setUserType} /> 
         </div>
         <div className='card m-2 col-lg-10' style={cardStyle}>
@@ -276,7 +323,7 @@ const Signup = () => {
               <div className='col-md-6'>
                 <img className="card-img" style={{minHeight: '100%', objectFit: 'cover', borderTopLeftRadius: '1.5rem', borderBottomLeftRadius: '1.5rem'}} src={profileImage[userType]} alt={userType} />
               </div>
-              <div className='col-md-6 p-2' style={{backgroundColor: '#8dc6ff', borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
+              <div className='col-md-6 p-2 formInput' style={{borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
                 <Introduction />
                 {/* <inputGroup userList={userList} /> */}
                 
