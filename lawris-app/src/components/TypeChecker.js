@@ -17,13 +17,14 @@ const TypeChecker = ({
   setRegistrationNumber,
 }) => {
   return (
-    <div>
+    <div className='input-group mb-3' >
       {requiredField === 'Lawyer' && (
         <InputLogin
           type="text"
           name="licenseNumber"
           placeholder="License Number"
           value={licenseNumber}
+          className="form-control"
           onChange={(event) => setLicenseNumber(event.target.value)}
         />
       )}
@@ -34,6 +35,7 @@ const TypeChecker = ({
           name="employeeId"
           placeholder="Employee ID"
           value={employeeId}
+          className="form-control"
           onChange={(event) => setEmployeeId(event.target.value)}
         />
       )}
@@ -44,6 +46,7 @@ const TypeChecker = ({
           name="studentId"
           placeholder="Student ID"
           value={studentId}
+          className="form-control"
           onChange={(event) => setStudentId(event.target.value)}
         />
       )}
@@ -54,6 +57,7 @@ const TypeChecker = ({
           name="isoNumber"
           placeholder="ISO Number"
           value={isoNumber}
+          className="form-control"
           onChange={(event) => setIsoNumber(event.target.value)}
         />
       )}
@@ -64,6 +68,7 @@ const TypeChecker = ({
           name="firmRegistrationNumber"
           placeholder="Firm Registration Number"
           value={firmRegistrationNumber}
+          className="form-control"
           onChange={(event) => setFirmRegistrationNumber(event.target.value)}
         />
       )}
@@ -74,6 +79,7 @@ const TypeChecker = ({
           name="registrationNumber"
           placeholder="Firm Registration Number"
           value={registrationNumber}
+          className="form-control"
           onChange={(event) => setRegistrationNumber(event.target.value)}
         />
       )}
