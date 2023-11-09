@@ -98,7 +98,7 @@ import docx
 
 
 
-
+# Change this line to reflect the file on your file system
 
 file = "/home/tykoon787/projects/lawris/lawris-app/lawris_django/dms/templates/Form_78_refined_v2.docx"
 
