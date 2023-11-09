@@ -92,12 +92,17 @@ input {
 */  
 }
 
-.color {
+/* .color {
     color: #ff9a3c !important;
     border: none !important;
     border-shadow: none !important;
     backdropFilter: none !important;
     WebkitBackdropFilter: none !important;
+} */
+
+.nav .nav-item > li:hover {
+    background-color: transparent;
+    cursor: pointer;
 }
 
 

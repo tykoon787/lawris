@@ -188,7 +188,7 @@ const Signup = () => {
   }
 
   const navbar = {
-    background: 'transparent',
+    background: 'orange',
     borderRadius: '10px',
     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
     backdropFilter: 'blur(20px)',
@@ -323,7 +323,7 @@ const Signup = () => {
               <div className='col-md-6'>
                 <img className="card-img" style={{minHeight: '100%', objectFit: 'cover', borderTopLeftRadius: '1.5rem', borderBottomLeftRadius: '1.5rem'}} src={profileImage[userType]} alt={userType} />
               </div>
-              <div className='col-md-6 p-2 formInput' style={{borderTopRightRadius: '1.5rem', borderBottomRightRadius: '1.5rem'}}>
+              <div className='col-md-6 p-2 formInput' style={{borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem'}}>
                 <Introduction />
                 {/* <inputGroup userList={userList} /> */}
                 

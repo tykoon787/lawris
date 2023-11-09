@@ -18,7 +18,7 @@ const Navbar = ({ userType, setUserType }) => {
           <a
             href={`#${option}`}
             className={` nav-link ${userType === option ? 'selected' : ''}`}
-            style={{ cursor: 'pointer', color: 'orange' }}
+            style={{ cursor: 'pointer', color: 'white' }}
             onClick={() => setUserType(option)}
           >
             {option.charAt(0).toUpperCase() + option.slice(1)}

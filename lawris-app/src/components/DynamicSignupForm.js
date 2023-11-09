@@ -47,14 +47,14 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
 //   );
  //};
  function InputGroup({ userList, commonInputs, userType, formData, handleInputChange }) {
-  const glassEffect = {
-    background: 'transparent',
-    borderRadius: '6px',
-    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    border: '1px solid rgba(255, 154, 60, 0.34)',
-}
+//   const glassEffect = {
+//     background: 'white',
+//     borderRadius: '6px',
+//     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+//     backdropFilter: 'blur(20px)',
+//     WebkitBackdropFilter: 'blur(20px)',
+//     border: '1px solid rgba(255, 154, 60, 0.34)',
+// }
   return (
     <>
       {userList.map((user, index) => {
@@ -65,7 +65,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
             {userType === userTypeKey && (
               <div className='input-group mb-3'
               >
-                <span className="input-group-text color" style={glassEffect}>{userProps.icon}</span>
+                <span className="input-group-text color" >{userProps.icon}</span>
                 <input
                 className={`form-control ${
                   formData[userProps.name] && formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
@@ -77,7 +77,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
                 value={formData[userProps.name] || ''}
                 onChange={handleInputChange}
                 pattern={userProps.pattern}
-                style={glassEffect}
+                
                 id={userProps.id}
                 aria-describedby='inputFeedback'
               />
@@ -93,7 +93,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
       <div>
         {commonInputs.map((input, index) => (
           <div key={index} className="input-group mb-3">
-            <span className="input-group-text color" style={glassEffect}>{input.icon}</span>
+            <span className="input-group-text color" >{input.icon}</span>
             <input
               className={`form-control ${
                 formData[input.name] && formData[input.name].match(input.pattern) ? 'is-valid' : 'is-invalid'
@@ -105,7 +105,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
               value={formData[input.name] || ''}
               onChange={handleInputChange}
               pattern={input.pattern}
-              style={glassEffect}
+              
             />
           </div>
         ))}
