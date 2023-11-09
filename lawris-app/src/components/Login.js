@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './styles/Login.css';
 import { getselectedUserType } from './userType';
 import logo from '../Assets/transparentLawrisLogo.png';
+import InputLogin from './InputLogin';
+import TypeChecker from './TypeChecker';
 
 //image import
 const userTypeImages = {
@@ -41,10 +43,9 @@ function Login() {
   const [studentId, setstudentId] = useState('');
   const [isoNumber, setisoNumber] = useState('');
   const [firmRegistrationNumber, setfirmRegistrationNumber] = useState('');
-  
-  
   const [requiredField] = useState(getselectedUserType);
   const navigate = useNavigate();
+  const [error, setError] = useState({ email: '', password: '' });
 
 
   const userTypeNames = {
@@ -60,14 +61,41 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate('/dms_dashboard')
-    alert('Login Successful');
+    if (validateForm()) {
+      navigate('/dms_dashboard');
+      alert('Login Successful');
+    }
   };
 
   const handleredirect = (event) => {
     event.preventDefault();
     navigate('/SignUp')
   }
+
+  const validateForm = () => {
+    let isValid = true;
+    const newError = { email: '', password: '' };
+
+    // Email validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      newError.email = 'Invalid email format';
+      isValid = false;
+    }
+
+    // Password validation using regex (minimum 8 characters, at least one uppercase letter, one lowercase letter, one digit, and one special character)
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      newError.password = 'Invalid password format';
+      isValid = false;
+    }
+
+    setError(newError);
+    return isValid;
+  };
+
+  
+
 
   return (
     <div className='main'>
@@ -86,8 +114,8 @@ function Login() {
             <div className='col-md-6' style={{backgroundColor: '#8dc6ff'}}>
               <h1 className='text-white m-3'><br/>{userTypeNames[requiredField] || userTypeNames['Non-Litigant']}</h1>
               <Introduction />
-              <form className='w-100 p-4 needs-validation'>
-                <div className='input-group mb-3'>
+              <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
+                {/* <div className='input-group mb-3'>
                   <input
                     className="form-control"
                     type="email"
@@ -109,92 +137,126 @@ function Login() {
                     required
                     className='form-control mb-3' // Correct class name
                   />
-                </div>
+                </div> */}
+                <InputLogin 
+                type="email" 
+                name="email"
+                placeholder="Email"
+                value={email}
+                className={`form-control ${error.email ? 'is-invalid' : ''}`}
+                onChange={(e) => setEmail(e.target.value)}  
+                error={error.email}
+                />
+                <InputLogin
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                className={`form-control ${error.password ? 'is-invalid' : ''}`}
+                onChange={(e) => setPassword(e.target.value)}
+                error={error.password}
+                />
+                <TypeChecker
+                  requiredField={requiredField}
+                  licenseNumber={licenseNumber}
+                  setLicenseNumber={setlicenseNumber}
+                  employeeId={employeeId}
+                  setEmployeeId={setemployeeId}
+                  studentId={studentId}
+                  setStudentId={setstudentId}
+                  isoNumber={isoNumber}
+                  setIsoNumber={setisoNumber}
+                  firmRegistrationNumber={firmRegistrationNumber}
+                  setFirmRegistrationNumber={setfirmRegistrationNumber}
+                  registrationNumber={registrationNumber}
+                  setRegistrationNumber={setregistrationNumber}
+                />
+
+
+                {/* // {requiredField === "Lawyer" && ( 
+                //   <div className='input-group mb-3'>
+                //     <input
+                //       type="text"
+                //       name="licenseNumber"
+                //       placeholder="License Number"
+                //       value={licenseNumber}
+                //       onChange={(event) => setlicenseNumber(event.target.value)}
+                //       re{/* {required
+                //       className='form-control' // Correct class name
+                //     />
+                //   </div>
+                // )}
     
-                {requiredField === "Lawyer" && (
-                  <div className='input-group mb-3'>
-                    <input
-                      type="text"
-                      name="licenseNumber"
-                      placeholder="License Number"
-                      value={licenseNumber}
-                      onChange={(event) => setlicenseNumber(event.target.value)}
-                      required
-                      className='form-control' // Correct class name
-                    />
-                  </div>
-                )}
+                // {requiredField === "Judiciary" && (
+                //   <div className='input-group mb-3'>
+                //     <input
+                //       type="text"
+                //       name="employeeId"
+                //       placeholder="Employee ID"
+                //       value={employeeId}
+                //       onChange={(event) => setemployeeId(event.target.value)}
+                //       required
+                //       className='form-control'
+                //     />
+                //   </div>
+                // )}
     
-                {requiredField === "Judiciary" && (
-                  <div className='input-group mb-3'>
-                    <input
-                      type="text"
-                      name="employeeId"
-                      placeholder="Employee ID"
-                      value={employeeId}
-                      onChange={(event) => setemployeeId(event.target.value)}
-                      required
-                      className='form-control'
-                    />
-                  </div>
-                )}
+                // {requiredField === "Student" && (
+                //   <div className='input-group mb-3'>
+                //     <input
+                //       type="text"
+                //       name="studentId"
+                //       placeholder="Student ID"
+                //       value={studentId}
+                //       onChange={(event) => setstudentId(event.target.value)}
+                //       required
+                //       className='form-control' 
+                //     />
+                //   </div>
+                // )}
     
-                {requiredField === "Student" && (
-                  <div className='input-group mb-3'>
-                    <input
-                      type="text"
-                      name="studentId"
-                      placeholder="Student ID"
-                      value={studentId}
-                      onChange={(event) => setstudentId(event.target.value)}
-                      required
-                      className='form-control' 
-                    />
-                  </div>
-                )}
+                // {requiredField === "School" && (
+                //   <div className='input-group mb-3'>
+                //     <input
+                //       type="text"
+                //       name="isoNumber"
+                //       placeholder="ISO Number"
+                //       value={isoNumber}
+                //       onChange={(event) => setisoNumber(event.target.value)}
+                //       required
+                //       className='form-control' 
+                //     />
+                //   </div>
+                // )}
     
-                {requiredField === "School" && (
-                  <div className='input-group mb-3'>
-                    <input
-                      type="text"
-                      name="isoNumber"
-                      placeholder="ISO Number"
-                      value={isoNumber}
-                      onChange={(event) => setisoNumber(event.target.value)}
-                      required
-                      className='form-control' 
-                    />
-                  </div>
-                )}
-    
-                {requiredField === "Law Firm" && (
-                  <div className='input-group mb-3'>
-                    <input
-                      type="text"
-                      name="firmRegistrationNumber"
-                      placeholder="Firm Registration Number"
-                      value={firmRegistrationNumber}
-                      onChange={(event) => setfirmRegistrationNumber(event.target.value)}
-                      required
-                      className='form-control' 
-                    />
-                  </div>
-                )}
-                {requiredField === "Business" && (
-                  <div className='input-group mb-3'>
-                    <input
-                      type="text"
-                      name="registrationNumber"
-                      placeholder="Firm Registration Number"
-                      value={registrationNumber}
-                      onChange={(event) => setregistrationNumber(event.target.value)}
-                      required
-                      className='form-control' 
-                    />
-                  </div>
-                )}
+                // {requiredField === "Law Firm" && (
+                //   <div className='input-group mb-3'>
+                //     <input
+                //       type="text"
+                //       name="firmRegistrationNumber"
+                //       placeholder="Firm Registration Number"
+                //       value={firmRegistrationNumber}
+                //       onChange={(event) => setfirmRegistrationNumber(event.target.value)}
+                //       required
+                //       className='form-control' 
+                //     />
+                //   </div>
+                // )}
+                // {requiredField === "Business" && (
+                //   <div className='input-group mb-3'>
+                //     <input
+                //       type="text"
+                //       name="registrationNumber"
+                //       placeholder="Firm Registration Number"
+                //       value={registrationNumber}
+                //       onChange={(event) => setregistrationNumber(event.target.value)}
+                //       required
+                //       className='form-control' 
+                //     />
+                //   </div>
+                // )} */}
               
-                <button className='btn btn-lg w-100 btn-outline-secondary text-white' style={{backgroundColor: '#ff9a3c'}} type="submit" onClick={handleSubmit}>Login</button>
+                <button className='btn btn-lg w-100 btn-outline-secondary text-white' style={{backgroundColor: '#ff9a3c'}} type="submit">Login</button>
                 <div className='d-flex flex-column mt-3'>
                   <p className="lead pb-lg-2 fs-5 text-white">
                     Don't Have an Account? <span> </span>
