@@ -45,30 +45,26 @@ class CustomRefreshTokenView(TokenRefreshView):
         except Exception as e:
             return Response({"error": "Token refresh failed"}, status=status.HTTP_400_BAD_REQUEST)
 
-
 class UnifiedRegisterView(APIView):
     permission_classes = (AllowAny,)
+    serializer_mapping = {
+        'student': StudentSerializer,
+        'lawyer': LawyerSerializer,
+        'judiciary': JudiciarySerializer,
+        'business': BusinessSerializer,
+        'non_litigant': Non_litigantSerializer,
+        'law_firm': LawFirmSerializer,
+        'institution': InstitutionSerializer,
+    }
 
     def post(self, request, *args, **kwargs):
         user_type = request.data.get('user_type')
+        serializer_class = self.serializer_mapping.get(user_type)
 
-        if user_type == 'student':
-            serializer = StudentSerializer(data=request.data)
-        elif user_type == 'lawyer':
-            serializer = LawyerSerializer(data=request.data)
-        elif user_type == 'judiciary':
-            serializer = JudiciarySerializer(data=request.data)
-        elif user_type == 'business':
-            serializer = BusinessSerializer(data=request.data)
-        elif user_type == 'non_litigant':
-            serializer = NonLitigantSerializer(data=request.data)
-        elif user_type == 'law_firm':
-            serializer = LawFirmSerializer(data=request.data)
-        elif user_type == 'institution':
-            serializer = InstitutionSerializer(data=request.data)
-        else:
+        if not serializer_class:
             return Response({"error": "Invalid user type"}, status=status.HTTP_400_BAD_REQUEST)
 
+        serializer = serializer_class(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             return Response({"user_id": user.id, "user_type": user_type, 
