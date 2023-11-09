@@ -71,37 +71,11 @@ class UnifiedRegisterView(APIView):
 
         if serializer.is_valid():
             user = serializer.save()
-            return Response({"user_id": user.id, "user_type": user_type, "message": "User created successfully"}, status=status.HTTP_201_CREATED)
+            return Response({"user_id": user.id, "user_type": user_type, 
+                             "message": "User created successfully"}, 
+                            status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class LawyerRegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = LawyerSerializer
-
-class StudentRegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = StudentSerializer
-
-class JudiciaryRegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = JudiciarySerializer
-
-class BusinessRegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = BusinessSerializer
-
-class NonLitigantRegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = Non_litigantSerializer
-
-class LawFirmRegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = LawFirmSerializer
-
-class InstitutionRegisterView(generics.CreateAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = InstitutionSerializer
 
 class LogoutView(APIView):
     permission_classes = (AllowAny,)
