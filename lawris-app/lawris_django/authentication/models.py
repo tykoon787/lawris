@@ -64,7 +64,7 @@ class Judiciary(CustomUser):
     employee_id = models.CharField(max_length=50)
 
 class LawFirm(CustomUser):
-    registration_number = models.CharField(max_length=50)
+    pass
 
 class Institution(CustomUser):
     # Add fields specific to the Institution user type

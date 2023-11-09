@@ -22,8 +22,8 @@ class NonLitigantAdmin(admin.ModelAdmin):
     list_filter = ('full_name',)
 
 class LawFirmAdmin(admin.ModelAdmin):
-    list_display = ('id', 'full_name', 'email', 'phone_number', 'registration_number')
-    list_filter = ('full_name', 'registration_number')
+    list_display = ('id', 'full_name', 'email', 'phone_number')
+    list_filter = ('full_name',)
 
 class InstitutionAdmin(admin.ModelAdmin):
     list_display = ('id', 'full_name', 'email', 'phone_number')

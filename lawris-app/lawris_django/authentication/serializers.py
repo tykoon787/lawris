@@ -21,6 +21,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 class LawyerSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = Lawyer
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number')
@@ -37,6 +41,10 @@ class LawyerSerializer(serializers.ModelSerializer):
         return lawyer
 
 class StudentSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = Student
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'student_id')
@@ -53,6 +61,10 @@ class StudentSerializer(serializers.ModelSerializer):
         return student
 
 class JudiciarySerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = Judiciary
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'employee_id')
@@ -69,6 +81,10 @@ class JudiciarySerializer(serializers.ModelSerializer):
         return judiciary
 
 class BusinessSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = Business
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'registration_number')
@@ -85,6 +101,10 @@ class BusinessSerializer(serializers.ModelSerializer):
         return business
 
 class Non_litigantSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = NonLitigant
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
@@ -100,32 +120,38 @@ class Non_litigantSerializer(serializers.ModelSerializer):
         return non_litigant
 
 class LawFirmSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = LawFirm
-        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'registration_number')
+        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
 
     def create(self, validated_data):
         law_firm = LawFirm.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
             phone_number=validated_data['phone_number'],
-            registration_number=validated_data['registration_number']
         )
         law_firm.set_password(validated_data['password'])
         law_firm.save()
         return law_firm
 
 class InstitutionSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = Institution
-        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'registration_number')
+        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
 
     def create(self, validated_data):
         institution = Institution.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
             phone_number=validated_data['phone_number'],
-            registration_number=validated_data['registration_number']
         )
         institution.set_password(validated_data['password'])
         institution.save()
