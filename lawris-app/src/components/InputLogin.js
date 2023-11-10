@@ -1,21 +1,34 @@
 import React from "react";
 
-function InputLogin({ type, name, placeholder, value, onChange, className, error }) {
- 
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
+
+function InputLogin({ 
+  handleInputChange,
+  formData,
+  commonLoginInputs,
+}) {
 
   return (
-    <div className="input-group mb-3">
-      <input
-        type={type}
-        className={className} 
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        required
-      />
-      {error && <div className="invalid-feedback">{error}</div>}
-    </div>
+    <div>
+        {commonLoginInputs.map((input, index) => (
+          <div key={index} className="input-group mb-3">
+            <span className="input-group-text color" >{input.icon}</span>
+            <input
+              className={`form-control ${
+                formData[input.name] && formData[input.name].match(input.pattern) ? 'is-valid' : 'is-invalid'
+              }`}
+              type="text"
+              name={input.name}
+              required
+              placeholder={input.placeholder}
+              value={formData[input.name] || ''}
+              onChange={handleInputChange}
+              pattern={input.pattern}
+              
+            />
+          </div>
+        ))}
+      </div>
   );
 }
 

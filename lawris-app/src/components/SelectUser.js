@@ -50,9 +50,8 @@ const UserCard = ({ usersList, onClick }) => {
 const SelectUser = () => {
     const navigate = useNavigate();
 
-    const handleCardClick = (userType) => {
-        setselectedUserType(userType);
-        navigate('/login/');
+    const handleCardClick = () => {
+        navigate('/auth');
     };
 
     

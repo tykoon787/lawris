@@ -17,7 +17,7 @@ const Navbar = ({ userType, setUserType }) => {
         <li className='nav-item' key={option}>
           <a
             href={`#${option}`}
-            className={` nav-link ${userType === option ? 'selected' : ''}`}
+            className={`nav-link ${userType === option ? 'selected' : ''}`}
             style={{ cursor: 'pointer', color: 'white' }}
             onClick={() => setUserType(option)}
           >

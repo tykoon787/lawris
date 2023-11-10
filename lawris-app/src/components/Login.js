@@ -263,8 +263,11 @@ function Login() {
                     <a href="/signup" style={{ color: '393f81' }}>Signup</a>
                     <button className='btn btn-lg w-100 btn-outline-secondary text-white' style={{backgroundColor: '#ff9a3c'}} onClick={handleredirect}>Create Account</button>
                   </p>
-                  <a href="#terms" className="small text-muted text-white">Terms of Use</a><br></br>
+                  <p>
+                  <a href="#terms" className="small text-muted text-white">Terms of Use</a>
+                  &nbsp; &nbsp;
                   <a href="#privacy" className="small text-muted text-white">Privacy Policy</a>
+                  </p>
                 </div>
               </form>
             </div>
