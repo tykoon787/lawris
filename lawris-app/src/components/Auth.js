@@ -753,8 +753,8 @@ const handleLoginInputChange = (e) => {
                   style={{
                     minHeight: '100%',
                     objectFit: 'cover',
-                    borderTopLeftRadius: '1.5rem',
-                    borderBottomLeftRadius: '1.5rem',
+                    borderRadius: '1.1rem 0 0 1.1rem'
+
                   }}
                   src={profileImage[userType]}
                   alt={userType}
@@ -812,13 +812,17 @@ const handleLoginInputChange = (e) => {
                     />
                   </>
                       )}
+
+                  {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <i className="bi bi-google mx-2" style={{fontSize: '2em'}}></i>
+                    <i className="bi bi-linkedin mx-2" style={{fontSize: '2em'}}></i>
+                    <i className="bi bi-microsoft mx-2" style={{fontSize: '2em'}}></i>
+                  </div>}
+                  <br />
                   <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
                     {isSignup ? 'Register' : 'Login'}
                   </button>
                   <div className="d-flex flex-column mt-3">
-                    <p className="lead pb-lg-2 fs-5" onClick={handleModeSwitch} style={{ cursor: 'pointer' }}>
-                      {isSignup ? 'Already Have an Account? Login' : 'Don\'t have an account? Sign up'}
-                    </p>
                     <p>
                       <a href="#terms" className="small text-muted">
                         Terms of Use
