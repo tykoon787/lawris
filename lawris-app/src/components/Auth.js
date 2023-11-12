@@ -812,16 +812,18 @@ const handleLoginInputChange = (e) => {
                     />
                   </>
                       )}
+                  <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
+                    {isSignup ? 'Register' : 'Login'}
+                  </button>
+                  <br />
+                  <br />
+                  <p className='text-center'> {isSignup ? '' : 'Or'}</p>
 
                   {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <i className="bi bi-google mx-2" style={{fontSize: '2em'}}></i>
                     <i className="bi bi-linkedin mx-2" style={{fontSize: '2em'}}></i>
                     <i className="bi bi-microsoft mx-2" style={{fontSize: '2em'}}></i>
                   </div>}
-                  <br />
-                  <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
-                    {isSignup ? 'Register' : 'Login'}
-                  </button>
                   <div className="d-flex flex-column mt-3">
                     <p>
                       <a href="#terms" className="small text-muted">
