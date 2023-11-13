@@ -16,6 +16,11 @@ import TypeChecker from './TypeChecker';
 import {getselectedUserType} from './userType';
 import InputLogin from './InputLogin';
 
+//icons import
+import Google from '../Assets/google.png';
+import Microsoft from '../Assets/microsoft.png';
+import LinkedIn from '../Assets/linkedin.png';
+
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
 
@@ -192,7 +197,7 @@ const Introduction = ({userType, isSignup}) => {
 
 //   });
 
-//   const profileImage = {
+//   const profileImicrosoftmage = {
 //     lawyer: lawyer,
 //     judiciary: judiciary,
 //     institution: institution,
@@ -817,12 +822,12 @@ const handleLoginInputChange = (e) => {
                   </button>
                   <br />
                   <br />
-                  <p className='text-center'> {isSignup ? '' : 'Or'}</p>
+                  
 
                   {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <i className="bi bi-google mx-2" style={{fontSize: '2em'}}></i>
-                    <i className="bi bi-linkedin mx-2" style={{fontSize: '2em'}}></i>
-                    <i className="bi bi-microsoft mx-2" style={{fontSize: '2em'}}></i>
+                    <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <img src={Microsoft} alt="microsoft" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} />
                   </div>}
                   <div className="d-flex flex-column mt-3">
                     <p>
