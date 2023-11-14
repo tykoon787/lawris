@@ -599,10 +599,9 @@ const Auth = () => {
           alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
         }
-    if (validateForm()) {
+  
       navigate('/dms_dashboard');
       alert('Login Successful');
-    }
   };
 
   const [LoginformState, setLoginFormState] = useState({
@@ -643,40 +642,7 @@ const Auth = () => {
           ...formData,
           [name]: value,
         });
-      };
-const handleLoginInputChange = (e) => {
-        const { name, value } = e.target;
-        setLoginFormState({
-          ...LoginformState,
-          [name]: value,
-        });
-        if (!validateForm()) { 
-          return error;
-      };
-    }
-
-      const validateForm = () => {
-        let isValid = true;
-        const newError = { email: '', password: '' };
-    
-        // Email validation using regex
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(LoginformState.email)) {
-            newError.email = 'Invalid email format';
-            isValid = false;
-        }
-    
-        // Password validation using regex (minimum 8 characters, at least one uppercase letter, one lowercase letter, one digit, and one special character)
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if (!passwordRegex.test(LoginformState.password)) {
-            newError.password = 'Invalid password format';
-            isValid = false;
-        }
-    
-        setLoginFormState((prevState) => ({ ...prevState, error: newError }));
-        return isValid;
-    };
-    
+      };     
     
       const handleSignup = (e) => {
         e.preventDefault();
@@ -811,7 +777,7 @@ const handleLoginInputChange = (e) => {
                     
                     <TypeChecker
                       userType={userType}
-                      handleInputChange={handleLoginInputChange}
+                      handleInputChange={handleInputChange}
                       userList={userList}
                       formData={formData}
                     />

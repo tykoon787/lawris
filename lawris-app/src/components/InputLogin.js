@@ -17,7 +17,7 @@ function InputLogin({
               className={`form-control ${
                 formData[input.name] && formData[input.name].match(input.pattern) ? 'is-valid' : 'is-invalid'
               }`}
-              type="text"
+              type={input.name}
               name={input.name}
               required
               placeholder={input.placeholder}

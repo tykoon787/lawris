@@ -72,7 +72,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
                 }`}
                 type="text"
                 name={userProps.name}
-                required={userProps.required}
+                required
                 placeholder={userProps.placeholder}
                 value={formData[userProps.name] || ''}
                 onChange={handleInputChange}
@@ -98,7 +98,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
               className={`form-control ${
                 formData[input.name] && formData[input.name].match(input.pattern) ? 'is-valid' : 'is-invalid'
               }`}
-              type="text"
+              type={input.name === "confirmPassword" ? "password" : (input.name === "name" || input.name === "phone") ? "text" : input.name}
               name={input.name}
               required
               placeholder={input.placeholder}
