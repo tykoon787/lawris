@@ -112,7 +112,7 @@ const commonLoginInputs = [
  },
  {
    business: {
-       icon: <BusinessIcon />,
+       icon: <LawyerIcon />,
        name: 'RegistrationNumber',
        pattern: '^1234$',
        placeholder: 'Registration Number',
@@ -122,7 +122,7 @@ const commonLoginInputs = [
   },
   {
     judiciary: {
-      icon: '',
+      icon: <LawyerIcon />,
       name: 'Employeeid',
       pattern: '^1234$',
       placeholder: 'EmployeeId',
@@ -132,7 +132,7 @@ const commonLoginInputs = [
   },
   {
     lawFirm: {
-      icon: '',
+      icon: <LawyerIcon />,
       name: 'registrationNumber',
       pattern: '^1234$',
       placeholder: 'Registration Number',
@@ -142,7 +142,7 @@ const commonLoginInputs = [
   },
   {
     institution: {
-      icon: '',
+      icon: <LawyerIcon />,
       name: 'IsoNumber',
       pattern: '^1234$',
       placeholder: 'ISO Number',
@@ -692,10 +692,10 @@ const Auth = () => {
       const navbar = {
         background: 'transparent',
         borderRadius: '10px',
-        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 154, 60, 0.34)',
+        border: '1px solid rgba(51, 204, 255, 0.34)',
       }
     
       const btnHeader = {
