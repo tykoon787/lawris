@@ -180,402 +180,6 @@ const Introduction = ({userType, isSignup}) => {
       </div>
   );
 }
-// const Signup = () => {
-//   const [userType, setUserType] = useState('lawyer');
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: '',
-//     password: '',
-//     confirmPassword: '',
-//     employeeId: '',
-//     registrationNumber: '',
-//     studentNo: '',
-//     isoId: '',
-//     phone: '',
-//     licenceNumber: '',
-//     employeeNo: '',
-
-//   });
-
-//   const profileImicrosoftmage = {
-//     lawyer: lawyer,
-//     judiciary: judiciary,
-//     institution: institution,
-//     lawFirm: lawFirm,
-//     student: student,
-//     nonLitigant: nonLitigant,
-//     business: business
-//   }
-
-//   const navigate = useNavigate();
-//   const cardStyle = {
-//     background: 'transparent',
-//     borderRadius: '16px',
-//     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
-//     backdropFilter: 'blur(20px)',
-//     WebkitBackdropFilter: 'blur(20px)',
-//     border: '1px solid rgba(51, 204, 255, 0.34)',
-//     color: 'white',
-//   }
-//   const header = {
-//    // backgroundColor: 'rgb(12, 12, 47)',
-//     color: 'white',
-//     cursor: 'pointer'
-//   }
-
-//   const navbar = {
-//     background: 'orange',
-//     borderRadius: '10px',
-//     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-//     backdropFilter: 'blur(20px)',
-//     WebkitBackdropFilter: 'blur(20px)',
-//     border: '1px solid rgba(255, 154, 60, 0.34)',
-//   }
-
-//   const btnHeader = {
-//     backgroundColor: '#ff9a3c',
-//     color: 'white',
-//     cursor: 'pointer',
-//   }
-
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: value,
-//     });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-//     const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
-//     const emptyFields = requiredFields.filter(field => !formData[field]);
-
-//     if (emptyFields.length > 0) {
-//       alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
-//       return;
-//     }
-
-//     // Check for mismatched passwords
-//     if (formData.password !== formData.confirmPassword) {
-//       alert('Passwords do not match');
-//       return;
-//     }
-
-//     setFormData({
-//       name: '',
-//       email: '',
-//       password: '',
-//       confirmPassword: '',
-//       employeeId: '',
-//       registrationNumber: '',
-//       studentNo: '',
-//       isoId: '',
-//       phone: '',
-//       licenceNumber: '',
-//       employeeNo: ''
-//       });
-//       alert('Registration Successful')
-
-//     console.log(formData.password)
-//     navigate('/Login');
-//   };
-
-
- 
-
-//   return (
-//      <div className="main">
-//       <div className='contentContainer d-flex flex-column justify-content-center align-items-center'>
-//         <div className='navbarContainer p-3 col-lg-10 mt-1' style={header}>
-//             {/* <ul className='nav nav-underline text-small d-flex justify-content-between'>
-//               <li className='nav-item'>
-//               <a href="#lawyer"
-//               className={`navbar-brand nav-link active text-light ${userType === 'lawyer' ? 'selected' : ''}`}
-//               onClick={() => setUserType('lawyer')}
-//               >
-//                 Lawyer
-//               </a>
-//               </li>
-//               <li className='nav-item'>
-//                 <a href="#non-litigant"
-//                   className={`navbar-brand nav-link text-light ${userType === 'nonLitigant' ? 'selected' : ''}`}
-//                   onClick={() => setUserType('nonLitigant')}
-//                 >
-//                   Non-Litigant
-//                 </a>
-
-//               </li>
-//               <li className='nav-item'>
-//                 <a href="#student"
-//                   className={`navbar-brand nav-link text-light ${userType === 'student' ? 'selected' : ''}`}
-//                   onClick={() => setUserType('student')}
-//                 const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: value,
-//     });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-//     const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
-//     const emptyFields = requiredFields.filter(field => !formData[field]);
-
-//     if (emptyFields.length > 0) {
-//       alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
-//       return;
-//     }
-
-//     // Check for mismatched passwords
-//     if (formData.password !== formData.confirmPassword) {
-//       alert('Passwords do not match');
-//       return;
-//     }>
-//                   Student
-//               </a>
-//               </li>
-//               <li className='nav-item'>
-//                 <a href="#judiciary"
-//                     className={`navbar-brand nav-link text-light ${userType === 'judiciary' ? 'selected' : ''}`}
-//                     onClick={() => setUserType('judiciary')}
-//                   >
-//                     Judiciary
-//               </a>
-//               </li>
-//               <li className='nav-item'>
-//                 <a href="#lawfirm"
-//                   className={`navbar-brand nav-link text-light ${userType === 'lawFirm' ? 'selected' : ''}`}
-//                   onClick={() => setUserType('lawFirm')}
-//                 >
-//                   Law Firm
-//               </a>
-//               </li>
-//               <li className='nav-item'>
-//                 <a href="#Institution"
-//                   className={`navbar-brand nav-link text-light ${userType === 'institution' ? 'selected' : ''}`}
-//                   onClick={() => setUserType('institution')}
-//                 >
-//                   Institution
-//               </a>
-//               </li>
-//               <li className='nav-item'>
-//                 <a href="#Business"
-//                     className={`navbar-brand nav-link text-light ${userType === 'business' ? 'selected' : ''}`}
-//                     onClick={() => setUserType('business')}
-//                   >
-//                     Business
-//               </a>
-
-//               </li>
-//             </ul> */}
-          
-//         <div className='navbarContainer p-2 col-lg-10 mt-2' style={navbar}>
-//          <Navbar userType={userType} setUserType={setUserType} /> 
-//         </div>
-//         <div className='card m-2 col-lg-10' style={cardStyle}>
-//           <div className='card-body d-flex p-0'>
-//               <div className='col-md-6'>
-//                 <img className="card-img" style={{minHeight: '100%', objectFit: 'cover', borderTopLeftRadius: '1.5rem', borderBottomLeftRadius: '1.5rem'}} src={profileImage[userType]} alt={userType} />
-//               </div>
-//               <div className='col-md-6 p-2 formInput' style={{borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem'}}>
-//                 <Introduction />
-//                 {/* <inputGroup userList={userList} /> */}
-                
-//                   <form className='w-100 p-4 needs-validation' noValidate onSubmit={handleSubmit}>
-//                     <InputGroup userList={userList} commonInputs={commonInputs} userType={userType} formData={formData} handleInputChange={handleInputChange} />
-//                    {/* <div className='input-group mb-3'>
-//                       <span className='input-group-text'>
-//                         <i className="bi bi-briefcase-fill"></i>
-//                       </span>
-//                       {userType === 'lawyer' && (
-//                       <input
-//                       className={`form-control ${formData.licenceNumber.match(/^1234$/) ? 'is-valid' : 'is-invalid'}`}
-//                       id="licenseNumberInput"
-//                       aria-describedby='inputFeedback'
-//                       type="text"
-//                       name="licenceNumber"
-//                       required
-//                       placeholder="LicenceNumber"
-//                       value={formData.practicingNumber}
-//                       onChange={handleInputChange}
-//                       pattern="^1234$"
-//                       />
-//                       )}
-//                   </div> */}
-//                      {/* <div className='input-group mb-3'>
-//                       <span className='input-group-text'>
-//                         <i className="bi bi-person-fill"></i>
-//                       </span>
-//                       <input
-//                       className={`form-control ${formData.name.match(/^[A-Za-z\s]+$/) ? 'is-valid' : 'is-invalid'}`}
-//                       type="text"
-//                       name="name"
-//                       required
-//                       placeholder="Full Name"
-//                       value={formData.name}
-//                       onChange={handleInputChange}
-//                       pattern="^[A-Za-z\s]+$"
-//                       />
-//                     </div>  */}
-//                      {/* <div className='input-group mb-3'>
-//                       <span className='input-group-text'>
-//                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-fill" viewBox="0 0 16 16">
-//                         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-//                         </svg>
-//                       </span>
-//                       <input
-//                       className={`form-control ${formData.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/) ? 'is-valid' : 'is-invalid'}`}
-//                       type="email"
-//                       name="email"
-//                       required
-//                       placeholder="Email"
-//                       value={formData.email}
-//                       onChange={handleInputChange}
-//                       pattern="^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$"
-//                       />
-//                     </div> */}
-//                     {/* <div className='input-group mb-3'>
-//                       <span className='input-group-text'>
-//                         <i className="bi bi-key-fill"></i>
-//                       </span>
-//                       <input
-//                       className={`form-control ${formData.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/) ? 'is-valid' : 'is-invalid'}`}
-//                       type="password"
-//                       name="password"
-//                       required
-//                       placeholder="Password"
-//                       value={formData.password}
-//                       onChange={handleInputChange}
-//                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$"
-//                       />
-//                       <span className='input-group-text'>
-//                         <i className="bi bi-eye-fill"></i>
-//                       </span>
-//                       <div className="invalid-feedback">
-//                         Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one digit, and one special character.
-//                       </div>
-//                     </div> */}
-//                     {/* <div className='input-group mb-3'>
-//                       <span className='input-group-text'>
-//                         <i className="bi bi-key-fill"></i>
-//                       </span>
-//                       <input
-//                       className={`form-control ${formData.confirmPassword === formData.password ? 'is-valid' : 'is-invalid'}`}
-//                       type="password"
-//                       name="confirmPassword"
-//                       required
-//                       placeholder="Confirm Password"
-//                       value={formData.confirmPassword}
-//                       onChange={handleInputChange}
-//                       />
-//                       <span className='input-group-text'>
-//                         <i className="bi bi-eye-fill"></i>
-//                       </span>
-//                       <div className="invalid-feedback">
-//                         Passwords do not match.
-//                       </div>
-//                     </div> */}
-//                     {/* <div className='input-group mb-3'>
-//                       <span className='input-group-text'>
-//                         <i className="bi bi-telephone-fill"></i>
-//                       </span>
-//                       <input
-//                       className={`form-control ${formData.phone.match(/^\+254[1-9]\d{8}$/
-//                       ) ? 'is-valid' : 'is-invalid'}`}
-//                       type="tel"
-//                       name="phone"
-//                       placeholder="Phone Number"
-//                       value={formData.phone}
-//                       onChange={handleInputChange}
-//                       pattern='/^\+254[1-9]\d{8}$/'
-//                       />
-//                       <div className="invalid-feedback">
-//                         Phone number must be in the format +2547XXXXXXXX
-//                       </div>
-//                      <div> 
-//                      </div> 
-//                      </div>  */}
-//                       {/* {userType === 'student' && (
-//                       <input
-//                       className='form-control mb-3'
-//                       type="text"
-//                       name="studentId"
-//                       required
-//                       placeholder="studentId"
-//                       value={formData.studentId}
-//                       onChange={handleInputChange} />
-//                       )} */}
-//                       {/* {userType === 'judiciary' && (
-//                       <input
-//                       className='form-control mb-3'
-//                       type="text"
-//                       name="employeeId"
-//                       required
-//                       placeholder="Employee Id"
-//                       value={formData.employeeId}
-//                       onChange={handleInputChange} />
-//                       )} */}
-//                       {/* {userType === 'Law Firm' && (
-//                       <input
-//                       className='form-control mb-3'
-//                       type="text"
-//                       name="registrationNo"
-//                       required
-//                       placeholder="Registration Number"
-//                       value={formData.registrationNumber}
-//                       onChange={handleInputChange} />
-//                       )} */}
-//                       {/* {userType === 'Institution' && (
-//                       <input
-//                       className='form-control mb-3'
-//                       type="text"
-//                       name="isoNo"
-//                       required
-//                       placeholder="ISO Number"
-//                       value={formData.isoId}
-//                       onChange={handleInputChange} />
-//                       )} */}
-//                       {/* {userType === 'business' && (
-//                       <input
-//                       className='form-control mb-3'
-//                       type="text"
-//                       name="registrationNumber"
-//                       required
-//                       placeholder="Registration Number"
-//                       value={formData.registrationNumber}
-//                       onChange={handleInputChange}
-//                       /> */}
-//                       {/* )} */}
-//                       <button className='btn btn-lg w-100 btn-outline-secondary' style={btnHeader} type="submit">Register</button>
-//                       <div className='d-flex flex-column mt-3'>
-//                         <p className="lead pb-lg-2 fs-5">
-//                           Already Have an Account? <span> </span>
-//                           <a href="/login" style={{color:'393f81'}}>Login</a>
-//                         </p>
-//                         <p>
-//                         <a href="#terms" className="small text-muted">Terms of Use</a>
-//                         &nbsp; &nbsp;
-//                         <a href="#privacy" className="small text-muted">Privacy Policy</a>
-//                         </p>
-//                       </div>
-//                     </form>
-//                 {/* </div> */}
-//               </div>
-//             {/* </div> */}
-//           </div>
-//         </div>
-
-//       </div>
-//      </div>
-//      </div>
-//    );
-
-// };
 
 
 
@@ -590,7 +194,7 @@ const Auth = () => {
   const navigate = useNavigate();
   // ... other functions ...
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const requiredFields = ['email', 'password', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
         const emptyFields = requiredFields.filter(field => !formData[field]);
@@ -599,24 +203,43 @@ const Auth = () => {
           alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
         }
+    const apiUrl = 'http://localhost:8080/your-endpoint'; // Replace 'your-endpoint' with the actual endpoint
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+      
+        if (!response.ok) {
+          // Handle the case where the server returns an error
+          throw new Error('Login failed');
+        }
+
   
       navigate('/dms_dashboard');
       alert('Login Successful');
-  };
+    } catch (error) {
+      console.error('Error during login:', error.message);
+    }
+  }
 
-  const [LoginformState, setLoginFormState] = useState({
-    email: '',
-    password: '',
-    licenseNumber: '',
-    employeeId: '',
-    registrationNumber: '',
-    studentId: '',
-    isoNumber: '',
-    firmRegistrationNumber: '',
-    requiredField: '',
-  });
+  // const [LoginformState, setLoginFormState] = useState({
+  //   email: '',
+  //   password: '',
+  //   licenseNumber: '',
+  //   employeeId: '',
+  //   registrationNumber: '',
+  //   studentId: '',
+  //   isoNumber: '',
+  //   firmRegistrationNumber: '',
+  //   requiredField: '',
+  // });
 
-  const [error, setError] = useState({ email: '', password: '' });
+  //const [error, setError] = useState({ email: '', password: '' });
 
   const handleModeSwitch = () => {
     setIsSignup((prev) => !prev);
@@ -636,7 +259,7 @@ const Auth = () => {
     });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
         const { name, value } = e.target;
         setFormData({
           ...formData,
@@ -644,8 +267,30 @@ const Auth = () => {
         });
       };     
     
-      const handleSignup = (e) => {
+      const handleSignup =  async (e) => {
         e.preventDefault();
+        const apiUrl = 'http://localhost:8080/your-endpoint'; // Replace 'your-endpoint' with the actual endpoint
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+      
+          if (!response.ok) {
+            // Handle the case where the server returns an error
+            throw new Error('Registration failed');
+          }
+
+        } catch (error) {
+          console.error('Error during registration:', error.message);
+          // Handle the error, show a message to the user, or perform other actions
+        }
+
+        
     
         const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
         const emptyFields = requiredFields.filter(field => !formData[field]);
@@ -659,8 +304,10 @@ const Auth = () => {
         if (formData.password !== formData.confirmPassword) {
           alert('Passwords do not match');
           return;
-        }
+        }  
+        
       };
+    
 
      
 
@@ -706,7 +353,9 @@ const Auth = () => {
 
       const btnSwitch = {
         cursor: 'pointer',
+        color: 'black',
       }
+    
 
   return (
     <div className="main">
@@ -738,12 +387,12 @@ const Auth = () => {
                 <div className="d-flex justify-content-center">
                 <ul className="nav nav-underline justify-content-center" style={btnSwitch}>
                   <li className="nav-item">
-                    <a className={`nav-link text-light ${isSignup ? 'active' : ''}`} href="#" onClick={() => handleModeSwitch(true)}>
+                    <a className={`nav-link text-dark ${isSignup ? 'active' : ''}`} href="#" onClick={() => handleModeSwitch(true)}>
                       Signup
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className={`nav-link text-light ${!isSignup ? 'active' : ''}`} href="#" onClick={() => handleModeSwitch(false)}>
+                    <a className={`nav-link text-dark ${!isSignup ? 'active' : ''}`} href="#li" onClick={() => handleModeSwitch(false)}>
                       Login
                     </a>
                   </li>
