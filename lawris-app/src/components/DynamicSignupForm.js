@@ -47,6 +47,14 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
 //   );
  //};
  function InputGroup({ userList, commonInputs, userType, formData, handleInputChange }) {
+//   const glassEffect = {
+//     background: 'white',
+//     borderRadius: '6px',
+//     boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+//     backdropFilter: 'blur(20px)',
+//     WebkitBackdropFilter: 'blur(20px)',
+//     border: '1px solid rgba(255, 154, 60, 0.34)',
+// }
   return (
     <>
       {userList.map((user, index) => {
@@ -55,8 +63,9 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
         return (
           <div key={index} className="input-group_container">
             {userType === userTypeKey && (
-              <div className='input-group mb-3'>
-                <span className="input-group-text">{userProps.icon}</span>
+              <div className='input-group mb-3'
+              >
+                <span className="input-group-text color" >{userProps.icon}</span>
                 <input
                 className={`form-control ${
                   formData[userProps.name] && formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
@@ -68,6 +77,9 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
                 value={formData[userProps.name] || ''}
                 onChange={handleInputChange}
                 pattern={userProps.pattern}
+                
+                id={userProps.id}
+                aria-describedby='inputFeedback'
               />
               
 
@@ -81,18 +93,19 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
       <div>
         {commonInputs.map((input, index) => (
           <div key={index} className="input-group mb-3">
-            <span className="input-group-text">{input.icon}</span>
+            <span className="input-group-text color" >{input.icon}</span>
             <input
               className={`form-control ${
                 formData[input.name] && formData[input.name].match(input.pattern) ? 'is-valid' : 'is-invalid'
               }`}
-              type="text"
+              type={input.name === "confirmPassword" ? "password" : (input.name === "name" || input.name === "phone") ? "text" : input.name}
               name={input.name}
               required
               placeholder={input.placeholder}
               value={formData[input.name] || ''}
               onChange={handleInputChange}
               pattern={input.pattern}
+              
             />
           </div>
         ))}

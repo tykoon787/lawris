@@ -7,7 +7,7 @@ import SelectUser from './components/SelectUser';
 import Dms from './components/Dms';
 import FileNewCase from './components/FileNewCase';
 import FileManager from './components/FileManager';
-import Signup from './components/signup';
+import Auth from './components/Auth';
 import Login from './components/Login';
 
 function App() {
@@ -18,8 +18,7 @@ function App() {
         <Route exact path="/dms_dashboard" element={<Dms />} />
         <Route exact path="/file_new_case" element={<FileNewCase />} />
         <Route exact path="/file_manager" element={<FileManager />} />
-        <Route exact path="/Signup" element={<Signup />} />
-        <Route exact path="Login" element={<Login />} />
+        <Route exact path="/auth" element={<Auth />} />
       </Routes>
     </Router>
   );
