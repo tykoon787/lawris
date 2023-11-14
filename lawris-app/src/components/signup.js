@@ -207,66 +207,7 @@ const Signup = () => {
      <div className="main">
       <div className='contentContainer d-flex flex-column justify-content-center align-items-center'>
         <div className='navbarContainer p-3 col-lg-10 mt-4' style={header}>
-            {/* <ul className='nav nav-underline text-small d-flex justify-content-between'>
-              <li className='nav-item'>
-              <a href="#lawyer"
-              className={`navbar-brand nav-link active text-light ${userType === 'lawyer' ? 'selected' : ''}`}
-              onClick={() => setUserType('lawyer')}
-              >
-                Lawyer
-              </a>
-              </li>
-              <li className='nav-item'>
-                <a href="#non-litigant"
-                  className={`navbar-brand nav-link text-light ${userType === 'nonLitigant' ? 'selected' : ''}`}
-                  onClick={() => setUserType('nonLitigant')}
-                >
-                  Non-Litigant
-                </a>
-
-              </li>
-              <li className='nav-item'>
-                <a href="#student"
-                  className={`navbar-brand nav-link text-light ${userType === 'student' ? 'selected' : ''}`}
-                  onClick={() => setUserType('student')}
-                >
-                  Student
-              </a>
-              </li>
-              <li className='nav-item'>
-                <a href="#judiciary"
-                    className={`navbar-brand nav-link text-light ${userType === 'judiciary' ? 'selected' : ''}`}
-                    onClick={() => setUserType('judiciary')}
-                  >
-                    Judiciary
-              </a>
-              </li>
-              <li className='nav-item'>
-                <a href="#lawfirm"
-                  className={`navbar-brand nav-link text-light ${userType === 'lawFirm' ? 'selected' : ''}`}
-                  onClick={() => setUserType('lawFirm')}
-                >
-                  Law Firm
-              </a>
-              </li>
-              <li className='nav-item'>
-                <a href="#Institution"
-                  className={`navbar-brand nav-link text-light ${userType === 'institution' ? 'selected' : ''}`}
-                  onClick={() => setUserType('institution')}
-                >
-                  Institution
-              </a>
-              </li>
-              <li className='nav-item'>
-                <a href="#Business"
-                    className={`navbar-brand nav-link text-light ${userType === 'business' ? 'selected' : ''}`}
-                    onClick={() => setUserType('business')}
-                  >
-                    Business
-              </a>
-
-              </li>
-            </ul> */}
+       
           
         <div className='navbarContainer p-2 col-lg-10 mt-4' style={header}>
          <Navbar userType={userType} setUserType={setUserType} /> 
