@@ -12,7 +12,7 @@ import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
 import Input from './Input';
 import Navbar from './NavBar';
-import TypeChecker from './TypeChecker';
+// import TypeChecker from './TypeChecker';
 import {getselectedUserType} from './userType';
 import InputLogin from './InputLogin';
 
@@ -775,12 +775,12 @@ const Auth = () => {
                       commonLoginInputs={commonLoginInputs}
                       />
                     
-                    <TypeChecker
+                    {/* <TypeChecker
                       userType={userType}
                       handleInputChange={handleInputChange}
                       userList={userList}
                       formData={formData}
-                    />
+                    /> */}
                   </>
                       )}
                   <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
