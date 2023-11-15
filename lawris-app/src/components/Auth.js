@@ -27,7 +27,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
 
 const commonInputs = [
   {
-    name: 'name',
+    name: 'full_name',
     icon: <PersonIcon />, // You can define the icon for the common inputs
     pattern: '^[A-Za-z\\s]+$',
     placeholder: 'Full Name',
@@ -51,7 +51,7 @@ const commonInputs = [
     errorMessage: 'password should be 8 characters, include special characters and a capital letters.',
   },
   {
-    name: 'confirmPassword',
+    name: 'confirm_password',
     icon: <PasswordIcon />,
     pattern: null, // You can set the pattern to null for confirmPassword
     placeholder: 'Confirm Password',
@@ -59,7 +59,7 @@ const commonInputs = [
     errorMessage: 'Passwords must match.',
   },
   {
-    name: 'phone',
+    name: 'phone_number',
     icon: <PhoneIcon />,
     pattern: '^\\+254[1-9]\\d{8}$',
     placeholder: 'Phone Number',
@@ -90,9 +90,9 @@ const commonLoginInputs = [
    {
     lawyer: {
        icon: <LawyerIcon />,
-       name: 'LicenceNumber',
+       name: 'license_number',
        pattern: '^12345$',
-       placeholder: 'LicenceNumber',
+       placeholder: 'Licence Number',
        id: 'licenseNumberInput',
        required: true,
    },
@@ -109,7 +109,7 @@ const commonLoginInputs = [
  {
    student: {
        icon: <PersonIcon />,
-       name: 'studentNumber',
+       name: 'student_id',
        pattern: '^1234$',
        placeholder:'studentNumber',
        id: 'studentNumberInput',
@@ -119,7 +119,7 @@ const commonLoginInputs = [
  {
    business: {
        icon: <LawyerIcon />,
-       name: 'RegistrationNumber',
+       name: 'registration_number',
        pattern: '^1234$',
        placeholder: 'Registration Number',
        id: 'registrationNumberInput',
@@ -129,9 +129,9 @@ const commonLoginInputs = [
   {
     judiciary: {
       icon: <LawyerIcon />,
-      name: 'Employeeid',
+      name: 'employee_id',
       pattern: '^1234$',
-      placeholder: 'EmployeeId',
+      placeholder: 'Employee Id',
       id: 'employeeIdInput',
       required: true,
     }
@@ -139,7 +139,7 @@ const commonLoginInputs = [
   {
     lawFirm: {
       icon: <LawyerIcon />,
-      name: 'registrationNumber',
+      name: 'registration_number',
       pattern: '^1234$',
       placeholder: 'Registration Number',
       id: 'registrationNumberInput',
@@ -149,7 +149,7 @@ const commonLoginInputs = [
   {
     institution: {
       icon: <LawyerIcon />,
-      name: 'IsoNumber',
+      name: 'Iso_number',
       pattern: '^1234$',
       placeholder: 'ISO Number',
       id: 'isoNumberInput',
@@ -275,7 +275,13 @@ const Auth = () => {
     
       const handleSignup =  async (e) => {
         e.preventDefault();
-        const apiUrl = 'http://localhost:8000/auth/register'; // Replace 'your-endpoint' with the actual endpoint
+
+        const formDataWithUserType = {
+          ...formData,
+          user_type: userType.toLowerCase(),
+        };
+
+        const apiUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint
 
         try {
           const response = await fetch(apiUrl, {
@@ -283,7 +289,7 @@ const Auth = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formDataWithUserType),
           });
       
           if (!response.ok) {
@@ -309,7 +315,8 @@ const Auth = () => {
           employeeNo: ''
           });
           alert('Registration Successful')
-      }
+          navigate('/Login');
+      
 
         
     
