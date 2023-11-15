@@ -26,7 +26,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
 
 const commonInputs = [
   {
-    name: 'name',
+    name: 'full_name',
     icon: <PersonIcon />, // You can define the icon for the common inputs
     pattern: '^[A-Za-z\\s]+$',
     placeholder: 'Full Name',
@@ -47,14 +47,14 @@ const commonInputs = [
     required: true,
   },
   {
-    name: 'confirmPassword',
+    name: 'confirm_password',
     icon: <PasswordIcon />,
     pattern: null, // You can set the pattern to null for confirmPassword
     placeholder: 'Confirm Password',
     required: true,
   },
   {
-    name: 'phone',
+    name: 'phone_number',
     icon: <PhoneIcon />,
     pattern: '^\\+254[1-9]\\d{8}$',
     placeholder: 'Phone Number',
@@ -84,15 +84,15 @@ const commonLoginInputs = [
    {
     lawyer: {
        icon: <LawyerIcon />,
-       name: 'LicenceNumber',
+       name: 'license_number',
        pattern: '^12345$',
-       placeholder: 'LicenceNumber',
+       placeholder: 'Licence Number',
        id: 'licenseNumberInput',
        required: true,
    },
  },
  {
-   nonLitigant: {
+   nonlitigant: {
        icon: <PersonIcon />,
        name: '',
        pattern: '',
@@ -103,9 +103,9 @@ const commonLoginInputs = [
  {
    student: {
        icon: <PersonIcon />,
-       name: 'studentNumber',
+       name: 'student_id',
        pattern: '^1234$',
-       placeholder:'studentNumber',
+       placeholder:'Student Id',
        id: 'studentNumberInput',
        required: true,
    },
@@ -113,7 +113,7 @@ const commonLoginInputs = [
  {
    business: {
        icon: <LawyerIcon />,
-       name: 'RegistrationNumber',
+       name: 'registration_number',
        pattern: '^1234$',
        placeholder: 'Registration Number',
        id: 'registrationNumberInput',
@@ -123,9 +123,9 @@ const commonLoginInputs = [
   {
     judiciary: {
       icon: <LawyerIcon />,
-      name: 'Employeeid',
+      name: 'employee_id',
       pattern: '^1234$',
-      placeholder: 'EmployeeId',
+      placeholder: 'Employee Id',
       id: 'employeeIdInput',
       required: true,
     }
@@ -133,7 +133,7 @@ const commonLoginInputs = [
   {
     lawFirm: {
       icon: <LawyerIcon />,
-      name: 'registrationNumber',
+      name: 'registration_number',
       pattern: '^1234$',
       placeholder: 'Registration Number',
       id: 'registrationNumberInput',
@@ -143,7 +143,7 @@ const commonLoginInputs = [
   {
     institution: {
       icon: <LawyerIcon />,
-      name: 'IsoNumber',
+      name: 'ISO_number',
       pattern: '^1234$',
       placeholder: 'ISO Number',
       id: 'isoNumberInput',
@@ -154,10 +154,10 @@ const commonLoginInputs = [
 
   const userTypes = [
     'lawyer',
-    'nonLitigant',
+    'nonlitigant',
     'student',
     'judiciary',
-    'lawFirm',
+    'lawfirm',
     'institution',
     'business'
   ];
@@ -196,7 +196,7 @@ const Auth = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const requiredFields = ['email', 'password', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
+    const requiredFields = ['email', 'password'];
         const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
@@ -269,7 +269,14 @@ const Auth = () => {
     
       const handleSignup =  async (e) => {
         e.preventDefault();
-        const apiUrl = 'http://localhost:8000/auth/register'; // Replace 'your-endpoint' with the actual endpoint
+ 
+        const formDataWithUserType = {
+                ...formData,
+                user_type: userType.toLowerCase(),
+        };
+
+        console.log(formDataWithUserType);
+        const apiUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint
 
         try {
           const response = await fetch(apiUrl, {
@@ -277,11 +284,13 @@ const Auth = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formDataWithUserType),
           });
       
-          if (!response.ok) {
-            // Handle the case where the server returns an error
+          if (response.ok) {
+             console.log('Registration successful');
+          } else {
+                // Handle the case where the server returns an error
             throw new Error('Registration failed');
           }
 
@@ -292,7 +301,7 @@ const Auth = () => {
 
         
     
-        const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
+        const requiredFields = ['email', 'password'];
         const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
