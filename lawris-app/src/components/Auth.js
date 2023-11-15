@@ -269,7 +269,7 @@ const Auth = () => {
     
       const handleSignup =  async (e) => {
         e.preventDefault();
-        const apiUrl = 'http://localhost:8080/your-endpoint'; // Replace 'your-endpoint' with the actual endpoint
+        const apiUrl = 'http://localhost:8000/auth/register'; // Replace 'your-endpoint' with the actual endpoint
 
         try {
           const response = await fetch(apiUrl, {
