@@ -203,7 +203,7 @@ const Auth = () => {
           alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
         }
-    const apiUrl = 'http://localhost:8080/your-endpoint'; // Replace 'your-endpoint' with the actual endpoint
+    const apiUrl = 'http://localhost:8000/auth/login';
 
       try {
         const response = await fetch(apiUrl, {
