@@ -22,6 +22,7 @@ import Microsoft from '../Assets/microsoft.png';
 import LinkedIn from '../Assets/linkedin.png';
 
 
+
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
 
 const commonInputs = [
@@ -31,6 +32,7 @@ const commonInputs = [
     pattern: '^[A-Za-z\\s]+$',
     placeholder: 'Full Name',
     required: true,
+    errorMessage: 'Please enter a valid name with only letters and spaces.',
   },
   {
     name: 'email',
@@ -38,6 +40,7 @@ const commonInputs = [
     pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
     placeholder: 'Email',
     required: true,
+    errorMessage: 'Please enter a valid email address.',
   },
   {
     name: 'password',
@@ -45,6 +48,7 @@ const commonInputs = [
     pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
     placeholder: 'Password',
     required: true,
+    errorMessage: 'password should be 8 characters, include special characters and a capital letters.',
   },
   {
     name: 'confirmPassword',
@@ -52,6 +56,7 @@ const commonInputs = [
     pattern: null, // You can set the pattern to null for confirmPassword
     placeholder: 'Confirm Password',
     required: true,
+    errorMessage: 'Passwords must match.',
   },
   {
     name: 'phone',
@@ -59,6 +64,7 @@ const commonInputs = [
     pattern: '^\\+254[1-9]\\d{8}$',
     placeholder: 'Phone Number',
     required: true,
+    errorMessage: 'Phone Number must start with +254.',
   },
 ];
 
@@ -91,15 +97,15 @@ const commonLoginInputs = [
        required: true,
    },
  },
- {
-   nonLitigant: {
-       icon: <PersonIcon />,
-       name: '',
-       pattern: '',
-       placeholder:'Name',
+//  {
+//    nonLitigant: {
+//       //icon: <PersonIcon />,
+//       //  name: '',
+//       //  pattern: '',
+//       //  placeholder:'Name',
 
-   },
- }, 
+//    },
+//  }, 
  {
    student: {
        icon: <PersonIcon />,
