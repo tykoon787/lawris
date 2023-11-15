@@ -13,15 +13,28 @@ from .models import Lawyer, Student, Judiciary, Business, NonLitigant, LawFirm, 
 UserModel = get_user_model()
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Custom JWT token serializer to add custom claims like 'email' to the token.
+    """
     @classmethod
     def get_token(cls, user):
+        """
+        Override the get_token method to add custom claims to the token.
+
+        Args:
+            user: The user for whom the token is generated.
+
+        Returns:
+            The JWT token with custom claims.
+        """
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-        # Add custom claims
         token['email'] = user.email
         return token
 
 class LawyerSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Lawyer registration and data validation.
+    """
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
 
@@ -30,6 +43,15 @@ class LawyerSerializer(serializers.ModelSerializer):
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number')
 
     def create(self, validated_data):
+        """
+        Create and save a new Lawyer instance with validated data.
+
+        Args:
+            validated_data: Validated data for creating a new Lawyer.
+
+        Returns:
+            The created Lawyer instance.
+        """
         lawyer = Lawyer.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
@@ -41,7 +63,9 @@ class LawyerSerializer(serializers.ModelSerializer):
         return lawyer
 
 class StudentSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Student registration and data validation.
+    """
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
 
@@ -50,6 +74,15 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'student_id')
 
     def create(self, validated_data):
+        """
+        Create and save a new Student instance with validated data.
+
+        Args:
+            validated_data: Validated data for creating a new Student.
+
+        Returns:
+            The created Student instance.
+        """
         student = Student.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
@@ -61,7 +94,9 @@ class StudentSerializer(serializers.ModelSerializer):
         return student
 
 class JudiciarySerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Judiciary registration and data validation.
+    """
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
 
@@ -70,6 +105,15 @@ class JudiciarySerializer(serializers.ModelSerializer):
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'employee_id')
 
     def create(self, validated_data):
+        """
+        Create and save a new Judiciary instance with validated data.
+
+        Args:
+            validated_data: Validated data for creating a new Judiciary.
+
+        Returns:
+            The created Judiciary instance.
+        """
         judiciary = Judiciary.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
@@ -81,7 +125,9 @@ class JudiciarySerializer(serializers.ModelSerializer):
         return judiciary
 
 class BusinessSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Business registration and data validation.
+    """
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
 
@@ -90,6 +136,15 @@ class BusinessSerializer(serializers.ModelSerializer):
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'registration_number')
 
     def create(self, validated_data):
+        """
+        Create and save a new Business instance with validated data.
+
+        Args:
+            validated_data: Validated data for creating a new Business.
+
+        Returns:
+            The created Business instance.
+        """
         business = Business.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
@@ -101,7 +156,9 @@ class BusinessSerializer(serializers.ModelSerializer):
         return business
 
 class Non_litigantSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Non-Litigant registration and data validation.
+    """
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
 
@@ -110,6 +167,15 @@ class Non_litigantSerializer(serializers.ModelSerializer):
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
 
     def create(self, validated_data):
+        """
+        Create and save a new Non-Litigant instance with validated data.
+
+        Args:
+            validated_data: Validated data for creating a new Non-Litigant.
+
+        Returns:
+            The created Non-Litigant instance.
+        """
         non_litigant = NonLitigant.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
@@ -120,7 +186,9 @@ class Non_litigantSerializer(serializers.ModelSerializer):
         return non_litigant
 
 class LawFirmSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Law Firm registration and data validation.
+    """
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
 
@@ -129,6 +197,15 @@ class LawFirmSerializer(serializers.ModelSerializer):
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
 
     def create(self, validated_data):
+        """
+        Create and save a new Law Firm instance with validated data.
+
+        Args:
+            validated_data: Validated data for creating a new Law Firm.
+
+        Returns:
+            The created Law Firm instance.
+        """
         law_firm = LawFirm.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
@@ -139,7 +216,9 @@ class LawFirmSerializer(serializers.ModelSerializer):
         return law_firm
 
 class InstitutionSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Institution registration and data validation.
+    """
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True)
 
@@ -148,6 +227,15 @@ class InstitutionSerializer(serializers.ModelSerializer):
         fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
 
     def create(self, validated_data):
+        """
+        Create and save a new Institution instance with validated data.
+
+        Args:
+            validated_data: Validated data for creating a new Institution.
+
+        Returns:
+            The created Institution instance.
+        """
         institution = Institution.objects.create(
             full_name=validated_data['full_name'],
             email=validated_data['email'],
@@ -156,3 +244,4 @@ class InstitutionSerializer(serializers.ModelSerializer):
         institution.set_password(validated_data['password'])
         institution.save()
         return institution
+
