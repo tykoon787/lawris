@@ -295,6 +295,21 @@ const Auth = () => {
           console.error('Error during registration:', error.message);
           // Handle the error, show a message to the user, or perform other actions
         }
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          employeeId: '',
+          registrationNumber: '',
+          studentNo: '',
+          isoId: '',
+          phone: '',
+          licenceNumber: '',
+          employeeNo: ''
+          });
+          alert('Registration Successful')
+      }
 
         
     
