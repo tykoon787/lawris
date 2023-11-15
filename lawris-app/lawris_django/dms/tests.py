@@ -100,7 +100,7 @@ import docx
 
 
 
-file = "/home/tykoon787/projects/lawris/lawris-app/lawris_django/dms/templates/Form_78_refined_v2.docx"
+file = "/home/sakwa/Okestra/lawris/lawris-app/lawris_django/dms/templates/Form_78_refined_v2.docx"
 
 form_78_data = {
     'type': 'Petition',
@@ -191,5 +191,4 @@ def main():
     form_78_document = form_78.fill_template(data=None, document=doc, replacements=replacements)
     print(form_78_document)
 
-def run():
-    main()
+main()
