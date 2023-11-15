@@ -203,7 +203,7 @@ const Auth = () => {
           alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
         }
-    const apiUrl = 'http://localhost:8000/auth/register';
+    const apiUrl = 'http://localhost:8000/auth/login';
 
       try {
         const response = await fetch(apiUrl, {
