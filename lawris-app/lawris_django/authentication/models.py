@@ -152,14 +152,14 @@ class LawFirm(CustomUser):
     """
     Subclass of CustomUser for generic users within law firms.
     """
-    pass
+    registration_number = models.CharField(max_length=50, default="")
 
 class Institution(CustomUser):
     """
     Subclass of CustomUser for institution users.
     """
-   
-    pass
+
+    ISO_number = models.CharField(max_length=50, default="")
 
 class Business(CustomUser):
     """

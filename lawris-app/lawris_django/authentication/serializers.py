@@ -194,7 +194,7 @@ class LawFirmSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LawFirm
-        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
+        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'registration_number')
 
     def create(self, validated_data):
         """
@@ -210,6 +210,7 @@ class LawFirmSerializer(serializers.ModelSerializer):
             full_name=validated_data['full_name'],
             email=validated_data['email'],
             phone_number=validated_data['phone_number'],
+            registration_number=validated_data['registration_number']
         )
         law_firm.set_password(validated_data['password'])
         law_firm.save()
@@ -224,7 +225,7 @@ class InstitutionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Institution
-        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number')
+        fields = ('full_name', 'email', 'password', 'confirm_password', 'phone_number', 'ISO_number')
 
     def create(self, validated_data):
         """
@@ -240,6 +241,7 @@ class InstitutionSerializer(serializers.ModelSerializer):
             full_name=validated_data['full_name'],
             email=validated_data['email'],
             phone_number=validated_data['phone_number'],
+            ISO_number=validated_data['ISO_number']
         )
         institution.set_password(validated_data['password'])
         institution.save()
