@@ -7,6 +7,7 @@ import archive from '../static/icons/dms/icons/archive.png';
 import upload from '../static/icons/dms/icons/upload.png';
 import pdf from '../static/icons/dms/icons/pdf.png';
 import apps from '../static/icons/dms/icons/apps.svg';
+import logo from '../Assets/transparentLawrisLogo.png';
 
 // Styles
 import './styles/Dms.css'
@@ -145,14 +146,32 @@ const Dms = () => {
     return (
         <div className="main-container">
             <div className="dashboard-nav p-2">
-                <div className="d-flex justify-content-end align-items-center">
-                    <div className="apps">
-                        <img className="dev_icon" src={apps} alt="apps"></img>
+                <div className='d-flex justify-content-between align-items-center'>
+                    <div className='d-flex'>
+                        <img  src={logo} alt='logoimg' style={{height: '45px'}}/>
+                        <p className='text-bold pt-2'>Lawris</p>
+                    </div>    
+                    <div className= 'd-flex justify-content-center align-items-center'>
+                        <span>
+                        <svg style={{height: '30px'}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                        </span>
+                        <input className=''
+                        type='text' />
                     </div>
-                    <div className="profile align-self-end">
-                        <UserIcon />
+                    <div className="d-flex justify-content-end align-items-center">
+                    
+                        <div className="apps">
+                            <img className="dev_icon" src={apps} alt="apps"></img>
+                        </div>
+                        <div className="profile align-self-end">
+                            <UserIcon />
+                        </div>
                     </div>
+
                 </div>
+                
             </div>
             <div className="dms-container">
                 <div className="background_image-container d-flex flex-column align-items-center">

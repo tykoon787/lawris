@@ -28,6 +28,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
 const commonInputs = [
   {
     name: 'full_name',
+    type: 'text',
     icon: <PersonIcon />, // You can define the icon for the common inputs
     pattern: '^[A-Za-z\\s]+$',
     placeholder: 'Full Name',
@@ -36,14 +37,17 @@ const commonInputs = [
   },
   {
     name: 'email',
+    type: 'email',
     icon: <EmailIcon />,
-    pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+    //pattern: '^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$',
+    
     placeholder: 'Email',
     required: true,
     errorMessage: 'Please enter a valid email address.',
   },
   {
     name: 'password',
+    type: 'password',
     icon: <PasswordIcon />,
     pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
     placeholder: 'Password',
@@ -52,6 +56,7 @@ const commonInputs = [
   },
   {
     name: 'confirm_password',
+    type: 'password',
     icon: <PasswordIcon />,
     pattern: null, // You can set the pattern to null for confirmPassword
     placeholder: 'Confirm Password',
@@ -60,6 +65,7 @@ const commonInputs = [
   },
   {
     name: 'phone_number',
+    type: 'text',
     icon: <PhoneIcon />,
     pattern: '^\\+254[1-9]\\d{8}$',
     placeholder: 'Phone Number',
@@ -91,6 +97,7 @@ const commonLoginInputs = [
     lawyer: {
        icon: <LawyerIcon />,
        name: 'license_number',
+       type: 'text',
        pattern: '^12345$',
        placeholder: 'Licence Number',
        id: 'licenseNumberInput',
@@ -110,6 +117,7 @@ const commonLoginInputs = [
    student: {
        icon: <PersonIcon />,
        name: 'student_id',
+       type: 'text',
        pattern: '^1234$',
        placeholder:'studentNumber',
        id: 'studentNumberInput',
@@ -119,6 +127,7 @@ const commonLoginInputs = [
  {
    business: {
        icon: <LawyerIcon />,
+       type: 'text',
        name: 'registration_number',
        pattern: '^1234$',
        placeholder: 'Registration Number',
@@ -129,6 +138,7 @@ const commonLoginInputs = [
   {
     judiciary: {
       icon: <LawyerIcon />,
+      type: 'text',
       name: 'employee_id',
       pattern: '^1234$',
       placeholder: 'Employee Id',
@@ -139,6 +149,7 @@ const commonLoginInputs = [
   {
     lawFirm: {
       icon: <LawyerIcon />,
+      type: 'text',
       name: 'registration_number',
       pattern: '^1234$',
       placeholder: 'Registration Number',
@@ -149,6 +160,7 @@ const commonLoginInputs = [
   {
     institution: {
       icon: <LawyerIcon />,
+      type: 'text',
       name: 'Iso_number',
       pattern: '^1234$',
       placeholder: 'ISO Number',
@@ -271,8 +283,9 @@ const Auth = () => {
           ...formData,
           [name]: value,
         });
-      };     
-    
+      }; 
+      
+     
       const handleSignup =  async (e) => {
         e.preventDefault();
 
@@ -314,25 +327,19 @@ const Auth = () => {
           licenceNumber: '',
           employeeNo: ''
           });
-          alert('Registration Successful')
-          navigate('/Login');
-      
-
-        
+          
     
-        const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
-        const emptyFields = requiredFields.filter(field => !formData[field]);
+          const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber'];
+          const emptyFields = requiredFields.filter(field => !formData[field]);
     
-        if (emptyFields.length > 0) {
-          alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
-          return;
-        }
-    
-        // Check for mismatched passwords
-        if (formData.password !== formData.confirmPassword) {
-          alert('Passwords do not match');
-          return;
-        }  
+          if (emptyFields.length > 0) {
+            alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+            return;
+         } else {
+          alert('Registration Successful') 
+          setIsSignup(false)
+          
+         }
         
       };
     

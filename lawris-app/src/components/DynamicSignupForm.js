@@ -19,7 +19,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
                    className={`form-control ${
                      formData[userProps.name] && formData[userProps.name].match(userProps.pattern) ? 'is-valid' : 'is-invalid'
                    }`}
-                   type="text"
+                   type={userProps.type}
                    name={userProps.name}
                    required
                    placeholder={userProps.placeholder}
@@ -49,9 +49,10 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
             <span className="input-group-text color" >{input.icon}</span>
             <input
               className={`form-control ${
-                formData[input.name] && formData[input.name].match(input.pattern) ? 'is-valid' : 'is-invalid'
-              }`}
-              type={input.name === "confirmPassword" ? "password" : (input.name === "name" || input.name === "phone") ? "text" : input.name}
+                formData[input.name] && 
+                (input.name === 'confirm_password' ? formData.confirm_password === formData.password : formData[input.name].match(input.pattern)) 
+                ? 'is-valid' : 'is-invalid'}`}
+              type={input.type}
               name={input.name}
               required
               placeholder={input.placeholder}
