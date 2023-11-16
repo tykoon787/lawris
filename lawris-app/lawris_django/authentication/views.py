@@ -107,8 +107,8 @@ class UnifiedRegisterView(APIView):
         'lawyer': LawyerSerializer,
         'judiciary': JudiciarySerializer,
         'business': BusinessSerializer,
-        'non_litigant': Non_litigantSerializer,
-        'law_firm': LawFirmSerializer,
+        'nonlitigant': Non_litigantSerializer,
+        'lawfirm': LawFirmSerializer,
         'institution': InstitutionSerializer,
     }
 
