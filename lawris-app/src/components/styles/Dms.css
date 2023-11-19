@@ -2,6 +2,7 @@
 }
 .dashboard-nav {
     height: 50px;
+    background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
 }
 
 .dashboard-nav.d-flex {
@@ -68,4 +69,71 @@
 .cases_tab-container {
     margin-top: 45px;
     justify-content: center;
+}
+.search input {
+    height: 30px;
+    border: none;
+    min-width: 20px;
+    width: 10rem;
+    background-color: rgb(225, 225, 225);
+    outline: none;
+    border-radius: 15px;
+    padding-left: 5px;
+
+}
+.search {
+    padding-bottom: 15px;
+}
+
+.logo p {
+    font-weight: bold;
+    font-size: large;  
+}
+.logo img {
+    padding-bottom: 10px;
+}
+
+
+.menuItems ul li {
+    margin-right: 1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.menuItems ul li:hover{
+    text-decoration: underline;
+
+    color: blue;
+}
+
+.subMenu {
+    display: none;
+    list-style: none;
+}
+.subMenu ul li {
+    list-style: none;
+}
+
+.menuItems ul li:hover .subMenu {
+    display: block;
+    position: absolute;
+    background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
+    margin-top: 5px;
+    margin-left: -15px;
+}
+.menuItems ul li:hover .subMenu ul{
+    display: block;
+    margin: 10px;
+}
+
+.menuItems ul li:hover .subMenu ul li {
+    /* width: 150px; */
+    /* padding: 10px; */
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+
+.menuItems ul li:hover .subMenu ul li:last-child {
+    border-bottom: none;
 }

@@ -147,19 +147,40 @@ const Dms = () => {
         <div className="main-container">
             <div className="dashboard-nav p-2">
                 <div className='d-flex justify-content-between align-items-center'>
-                    <div className='d-flex'>
+                    <div className='logo d-flex'>
                         <img  src={logo} alt='logoimg' style={{height: '45px'}}/>
                         <p className='text-bold pt-2'>Lawris</p>
+                        
                     </div>    
-                    <div className= 'd-flex justify-content-center align-items-center'>
+                    <div className= 'search d-flex justify-content-center align-items-center'>
                         <span>
                         <svg style={{height: '30px'}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
                         </span>
-                        <input className=''
-                        type='text' />
+                        <input className='input-group'
+                        type='search'
+                        placeholder='search...' />   
                     </div>
+                    <div className='menuItems d-flex align-items-center'>
+                        <ul className='nav'>
+                            <li>
+                                Services
+                                <div className='subMenu'>
+                                    <ul className=''>
+                                        <li>Document retrival</li>
+                                        <li>Affidavits</li>
+                                        <l1>Case Files</l1>
+                                    </ul>
+                                </div>
+
+                            </li>
+
+                            <li>About</li>
+                            <li>Contact</li>
+                        </ul>
+                    </div>
+                   
                     <div className="d-flex justify-content-end align-items-center">
                     
                         <div className="apps">
