@@ -98,9 +98,9 @@ import docx
 
 
 
+# Change this line to reflect the file on your file system
 
-
-file = "/home/tykoon787/projects/lawris/lawris-app/lawris_django/dms/templates/Form_78_refined_v2.docx"
+file = "/home/sakwa/Okestra/lawris/lawris-app/lawris_django/dms/templates/Form_78_refined_v2.docx"
 
 form_78_data = {
     'type': 'Petition',
@@ -183,6 +183,8 @@ replacements = {
 #     # filled_document = form_78.fill_template(data=None, document=doc, replacements=replacements)
 #     # print(filled_document)
 
+# Added this comment just to test
+
 
 def main():
     form_78 = Template.create_template(**form_78_data)
@@ -191,5 +193,9 @@ def main():
     form_78_document = form_78.fill_template(data=None, document=doc, replacements=replacements)
     print(form_78_document)
 
+<<<<<<< HEAD
+main()
+=======
 def run():
     main()
+>>>>>>> 558ec80e7d0439dc0f77992c8a65d93463465439

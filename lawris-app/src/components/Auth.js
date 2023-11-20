@@ -160,8 +160,12 @@ const commonLoginInputs = [
   {
     institution: {
       icon: <LawyerIcon />,
+<<<<<<< HEAD
       type: 'text',
       name: 'Iso_number',
+=======
+      name: 'ISO_number',
+>>>>>>> 0db82633454ceca76684fe58146512f854c31ad6
       pattern: '^1234$',
       placeholder: 'ISO Number',
       id: 'isoNumberInput',
@@ -172,10 +176,10 @@ const commonLoginInputs = [
 
   const userTypes = [
     'lawyer',
-    'nonLitigant',
+    'nonlitigant',
     'student',
     'judiciary',
-    'lawFirm',
+    'lawfirm',
     'institution',
     'business'
   ];
@@ -214,14 +218,14 @@ const Auth = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const requiredFields = ['email', 'password', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
+    const requiredFields = []; // you can factor this when doing validation
         const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
           alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
         }
-    const apiUrl = 'http://localhost:8000/auth/login';
+    const apiUrl = 'http://localhost:8000/auth/login/';
 
       try {
         const response = await fetch(apiUrl, {
@@ -263,17 +267,6 @@ const Auth = () => {
     setIsSignup((prev) => !prev);
     // Reset form data when switching modes
     setFormData({
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      employeeId: '',
-      registrationNumber: '',
-      studentNo: '',
-      isoId: '',
-      phone: '',
-      licenceNumber: '',
-      employeeNo: '',
     });
   };
 
@@ -294,6 +287,8 @@ const Auth = () => {
           user_type: userType.toLowerCase(),
         };
 
+        console.log(formDataWithUserType);
+
         const apiUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint
 
         try {
@@ -306,14 +301,18 @@ const Auth = () => {
           });
       
           if (!response.ok) {
-            // Handle the case where the server returns an error
             throw new Error('Registration failed');
+          }
+          else {
+                console.log('Registration successful');
+                navigate('/Login');
           }
 
         } catch (error) {
           console.error('Error during registration:', error.message);
           // Handle the error, show a message to the user, or perform other actions
         }
+<<<<<<< HEAD
         setFormData({
           name: '',
           email: '',
@@ -331,6 +330,12 @@ const Auth = () => {
     
           const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber'];
           const emptyFields = requiredFields.filter(field => !formData[field]);
+=======
+               
+    
+        const requiredFields = []; // you can factor this when doing validation
+        const emptyFields = requiredFields.filter(field => !formData[field]);
+>>>>>>> 0db82633454ceca76684fe58146512f854c31ad6
     
           if (emptyFields.length > 0) {
             alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
