@@ -287,7 +287,7 @@ const Auth = () => {
 
         const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
     
-      const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber'];
+      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number'];
       const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
