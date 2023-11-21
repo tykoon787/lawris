@@ -285,29 +285,36 @@ const Auth = () => {
 
         console.log(formDataWithUserType);
 
-        const apiUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint
-
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formDataWithUserType),
-          });
-      
-          if (!response.ok) {
-            throw new Error('Registration failed');
+        const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
+    
+      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number'];
+      const emptyFields = requiredFields.filter(field => !formData[field]);
+    
+        if (emptyFields.length > 0) {
+          alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+          return;
+        } else {
+          try {
+            const response = await fetch(signUpUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formDataWithUserType),
+            });
+        
+            if (!response.ok) {
+            // Handle the case where the server returns an error
+              throw new Error('Registration failed');
+            }
+  
+          } catch (error) {
+            console.error('Error during registration:', error.message);
+            // Handle the error, show a message to the user, or perform other actions
           }
-          else {
-                console.log('Registration successful');
-                navigate('/Login');
-          }
-
-        } catch (error) {
-          console.error('Error during registration:', error.message);
-          // Handle the error, show a message to the user, or perform other actions
-        }
+          alert('Registration Successful') 
+          setIsSignup(false)
+         }
         setFormData({
           name: '',
           email: '',
@@ -320,28 +327,8 @@ const Auth = () => {
           phone: '',
           licenceNumber: '',
           employeeNo: ''
-          });
-          
-    
-        // const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber'];
-        // const emptyFields = requiredFields.filter(field => !formData[field]);
-               
-    
-        // const requiredFields = []; // you can factor this when doing validation
-        // const emptyFields = requiredFields.filter(field => !formData[field]);
-    
-        //   if (emptyFields.length > 0) {
-        //     alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
-            return;
-        //  } else {
-        alert('Registration Successful') 
-        setIsSignup(false)
-          
-        // }
-        
+          });       
       };
-    
-
      
 
   const profileImage = {
