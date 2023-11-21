@@ -172,10 +172,10 @@ const commonLoginInputs = [
 
   const userTypes = [
     'lawyer',
-    'nonLitigant',
+    'nonlitigant',
     'student',
     'judiciary',
-    'lawFirm',
+    'lawfirm',
     'institution',
     'business'
   ];
@@ -214,14 +214,14 @@ const Auth = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const requiredFields = ['email', 'password', 'phone', 'licenceNumber', 'employeeId', 'registrationNumber', 'studentNo', 'isoId', 'employeeNo'];
+    const requiredFields = []; // you can factor this when doing validation
         const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
           alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
         }
-    const apiUrl = 'http://localhost:8000/auth/login';
+    const apiUrl = 'http://localhost:8000/auth/login/';
 
       try {
         const response = await fetch(apiUrl, {
@@ -263,17 +263,6 @@ const Auth = () => {
     setIsSignup((prev) => !prev);
     // Reset form data when switching modes
     setFormData({
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      employeeId: '',
-      registrationNumber: '',
-      studentNo: '',
-      isoId: '',
-      phone: '',
-      licenceNumber: '',
-      employeeNo: '',
     });
   };
 
@@ -294,7 +283,9 @@ const Auth = () => {
           user_type: userType.toLowerCase(),
         };
 
-        const apiUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
+        console.log(formDataWithUserType);
+
+        const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
     
       const requiredFields = ['name', 'email', 'password', 'confirmPassword', 'phone', 'licenceNumber'];
       const emptyFields = requiredFields.filter(field => !formData[field]);
@@ -304,7 +295,7 @@ const Auth = () => {
           return;
         } else {
           try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(signUpUrl, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -313,7 +304,7 @@ const Auth = () => {
             });
         
             if (!response.ok) {
-              // Handle the case where the server returns an error
+            // Handle the case where the server returns an error
               throw new Error('Registration failed');
             }
   
@@ -324,7 +315,6 @@ const Auth = () => {
           alert('Registration Successful') 
           setIsSignup(false)
          }
-
         setFormData({
           name: '',
           email: '',
@@ -337,12 +327,8 @@ const Auth = () => {
           phone: '',
           licenceNumber: '',
           employeeNo: ''
-          });
-
-        
+          });       
       };
-    
-
      
 
   const profileImage = {

@@ -9,6 +9,11 @@ import pdf from '../static/icons/dms/icons/pdf.png';
 import apps from '../static/icons/dms/icons/apps.svg';
 import logo from '../Assets/transparentLawrisLogo.png';
 
+//importing app icons
+import video from '../Assets/video-camera.png';
+import edit from '../Assets/edit.png';
+import community from '../Assets/care.png';
+
 // Styles
 import './styles/Dms.css'
 
@@ -96,6 +101,11 @@ const Dms = () => {
     const [documentList, setDocumentList] = useState([]);
     const [selectedCard, setSelectedCard] = useState(null);
     const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
+    const [isDropdownVisisble, setDropdownVisible] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownVisible(!isDropdownVisisble)
+    }
 
 
     // Load templates on render
@@ -181,11 +191,18 @@ const Dms = () => {
                         </ul>
                     </div>
                    
-                    <div className="d-flex justify-content-end align-items-center">
+                    <div className="d-flex justify-content-end align-items-center" style={{position: 'relative'}}> 
                     
-                        <div className="apps">
+                        <div onClick={toggleDropdown} className="apps">
                             <img className="dev_icon" src={apps} alt="apps"></img>
                         </div>
+                        {isDropdownVisisble && (
+                            <div className='app d-flex'>
+                                <img src={video} alt='videoImg' style={{ height:'30px' }} />
+                                <img style={{height: '30px'}} src={edit} alt='editingTool'/>
+                                <img  style={{height: '30px'}} src={community} alt='communityImg'/>
+                            </div>
+                        )}
                         <div className="profile align-self-end">
                             <UserIcon />
                         </div>

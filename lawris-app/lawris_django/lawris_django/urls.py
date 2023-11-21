@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.react_app, name="react_app"),
     path('dms/', include('dms.urls')),
     path('admin/', admin.site.urls),
+    path('auth/', include('authentication.urls')),
 ]

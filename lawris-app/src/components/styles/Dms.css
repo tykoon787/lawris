@@ -137,3 +137,25 @@
 .menuItems ul li:hover .subMenu ul li:last-child {
     border-bottom: none;
 }
+
+.app img {
+    height: 30px;   
+    margin-right: 10px;
+    transition: transform 0.1s ease-in-out;
+}
+.app img:hover {
+    transform: translateY(-8px);
+}
+
+
+.app {
+    position: absolute;
+    top: 100%;
+    left: 10;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    
+}
