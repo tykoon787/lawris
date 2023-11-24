@@ -41,8 +41,8 @@ const iconList = [
 ]
 
 const navList = [
-    { id: 1, name: "Civil", href: "/civil", active: true },
-    { id: 2, name: "Criminal", href: "/criminal", active: false }, // Set this item as active
+    { id: 1, name: "Civil", href: "/civil", active: false},
+    { id: 2, name: "Criminal", href: "/criminal", active: true }, // Set this item as active
     { id: 3, name: "Commercial", href: "/commercial", active: false },
     { id: 4, name: "Land Law", href: "/land_law", active: false },
     { id: 5, name: "Arbitration", href: "/arbitration", active: false },
@@ -105,7 +105,7 @@ const Dms = () => {
     const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
     const [show, setShow] = useState(false);
-    const [activeCategory, setActiveCategory] = useState("Civil");
+    const [activeCategory, setActiveCategory] = useState("Criminal");
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisisble)
@@ -117,6 +117,7 @@ const Dms = () => {
     const handleClose= () => setShow(false);
 
     const handleNavItemClick = (category_of_law) => {
+        console.log("Selected Category:", category_of_law);
         setActiveCategory(category_of_law);
       };
 
