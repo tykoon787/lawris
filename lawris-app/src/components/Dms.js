@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import $ from 'jquery';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
@@ -102,10 +104,22 @@ const Dms = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
+    const [show, setShow] = useState(false);
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisisble)
     }
+
+    // const handleClose = () => {
+    //     setShow(false);
+    //     console.log('closing off canvas')
+
+    // }
+    const handleToggle = () => {
+        setShow(!show); 
+        console.log('closed')// Toggle the show state
+      };
+    const handleClose= () => setShow(false);
 
 
     // Load templates on render
@@ -173,22 +187,23 @@ const Dms = () => {
                         placeholder='search...' />   
                     </div>
                     <div className='menuItems d-flex align-items-center'>
-                        <ul className='nav'>
-                            <li>
+                        <Dropdown className='dropDown'>
+                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
                                 Services
-                                <div className='subMenu'>
-                                    <ul className=''>
-                                        <li>Document retrival</li>
-                                        <li>Affidavits</li>
-                                        <l1>Case Files</l1>
-                                    </ul>
-                                </div>
-
-                            </li>
-
-                            <li>About</li>
-                            <li>Contact</li>
-                        </ul>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href='#doc'>Document retrival</Dropdown.Item>
+                                <Dropdown.Item href='#doc'>Affidavits</Dropdown.Item>
+                                <Dropdown.Item href='#doc'>Case files</Dropdown.Item>
+                            </Dropdown.Menu>
+                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                                About
+                            </Dropdown.Toggle>
+                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                                Contact
+                            </Dropdown.Toggle>
+                        </Dropdown>
+                        
                     </div>
                    
                     <div className="d-flex justify-content-end align-items-center" style={{position: 'relative'}}> 
@@ -203,8 +218,16 @@ const Dms = () => {
                                 <img  style={{height: '30px'}} src={community} alt='communityImg'/>
                             </div>
                         )}
-                        <div className="profile align-self-end">
+                        <div onClick={handleToggle} className="profile align-self-end">
                             <UserIcon />
+                            <Offcanvas show={show} onHide={handleClose} className='bgCanvas'> 
+                                <Offcanvas.Header className='close' closeButton>
+                                    <Offcanvas.Title>My Profile</Offcanvas.Title>
+                                </Offcanvas.Header>
+                                <Offcanvas.Body>
+                                    My Documents
+                                </Offcanvas.Body>
+                            </Offcanvas>
                         </div>
                     </div>
 

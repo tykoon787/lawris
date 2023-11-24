@@ -125,6 +125,9 @@
     display: block;
     margin: 10px;
 }
+.menuItems {
+    margin-bottom: 10px;
+}
 
 .menuItems ul li:hover .subMenu ul li {
     /* width: 150px; */
@@ -145,6 +148,7 @@
 }
 .app img:hover {
     transform: translateY(-8px);
+    cursor: pointer;
 }
 
 
@@ -158,4 +162,26 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     
+}
+
+.bgCanvas{
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-weight: 800;
+    font-size: large;
+}
+
+.close {
+    color: white;
+}
+
+.dropDown {
+    margin-right: 3rem;
+
+}
+#dropdown-basic {
+    margin-right: 1rem;
+}
+.dropDown .btn-success{
+    background-color: black;
 }

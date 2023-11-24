@@ -10,11 +10,13 @@ import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
-import Input from './Input';
+
 import Navbar from './NavBar';
 // import TypeChecker from './TypeChecker';
-import {getselectedUserType} from './userType';
+
 import InputLogin from './InputLogin';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 //icons import
 import Google from '../Assets/google.png';
@@ -104,15 +106,7 @@ const commonLoginInputs = [
        required: true,
    },
  },
-//  {
-//    nonLitigant: {
-//       //icon: <PersonIcon />,
-//       //  name: '',
-//       //  pattern: '',
-//       //  placeholder:'Name',
 
-//    },
-//  }, 
  {
    student: {
        icon: <PersonIcon />,
@@ -245,19 +239,7 @@ const Auth = () => {
     }
   }
 
-  // const [LoginformState, setLoginFormState] = useState({
-  //   email: '',
-  //   password: '',
-  //   licenseNumber: '',
-  //   employeeId: '',
-  //   registrationNumber: '',
-  //   studentId: '',
-  //   isoNumber: '',
-  //   firmRegistrationNumber: '',
-  //   requiredField: '',
-  // });
-
-  //const [error, setError] = useState({ email: '', password: '' });
+  
 
   const handleModeSwitch = () => {
     setIsSignup((prev) => !prev);
@@ -287,11 +269,12 @@ const Auth = () => {
 
         const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
     
-      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number'];
+      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number', 'student_id',
+       'registration_number', 'employee_id', 'Iso_number'];
       const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
-          alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+          Swal.fire(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
         } else {
           try {
@@ -312,7 +295,7 @@ const Auth = () => {
             console.error('Error during registration:', error.message);
             // Handle the error, show a message to the user, or perform other actions
           }
-          alert('Registration Successful') 
+          Swal.fire('Registration Successful') 
           setIsSignup(false)
          }
         setFormData({
@@ -380,11 +363,11 @@ const Auth = () => {
   return (
     <div className="main">
       <div className="contentContainer d-flex flex-column justify-content-center align-items-center">
-        <div className="navbarContainer p-3 col-lg-10 mt-1" style={header}>
+        <div className="surround0Container p-3 col-lg-10 mt-1" style={header}>
           <div className="navbarContainer p-2 col-lg-10 mt-2" style={navbar}>
             <Navbar userType={userType} setUserType={setUserType} />
           </div>
-          <div className="card m-2 col-lg-10" style={cardStyle}>
+          <div className="card col-lg-10" style={cardStyle}>
             <div className="card-body d-flex p-0">
               
               <div className="col-md-6">
