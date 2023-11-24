@@ -105,21 +105,20 @@ const Dms = () => {
     const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
     const [show, setShow] = useState(false);
+    const [activeCategory, setActiveCategory] = useState("Civil");
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisisble)
     }
-
-    // const handleClose = () => {
-    //     setShow(false);
-    //     console.log('closing off canvas')
-
-    // }
     const handleToggle = () => {
         setShow(!show); 
         console.log('closed')// Toggle the show state
       };
     const handleClose= () => setShow(false);
+
+    const handleNavItemClick = (category_of_law) => {
+        setActiveCategory(category_of_law);
+      };
 
 
     // Load templates on render
@@ -130,6 +129,11 @@ const Dms = () => {
             dataType: 'json',
             success: (data) => {
                 setDocumentList(data);
+                console.log(data)
+
+                data.forEach((document) => {
+                    console.log("Category of Law:", document.category_of_law);
+                });
             },
             error: (error) => {
                 console.log("Error fetching data: ", error);
@@ -161,6 +165,11 @@ const Dms = () => {
 
     const closeModal = () => {
         setIsEditDocModalOpen(false);
+    };
+
+    // Add a helper function to filter documents by category
+    const filterDocumentsByCategory = (documentList, category_of_law) => {
+        return documentList.filter((document) => document.category_of_law === category_of_law);
     };
 
     console.log("IsEditModalOpen", isEditDocModalOpen);
@@ -246,10 +255,12 @@ const Dms = () => {
 
                 <div className="cases_tab-container d-flex flex-row">
                     <div className="cases-tab">
-                        <NavList />
+                        {/* <NavList /> */}
+                        <NavList handleNavItemClick={handleNavItemClick} />
                     </div>
                 </div>
-                <Docs documentList={documentList} handleCardClick={handleCardClick} />
+                {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
+                <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} />
                 {isEditDocModalOpen && selectedCard && (
                     <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
                         closeModal={closeModal} />
