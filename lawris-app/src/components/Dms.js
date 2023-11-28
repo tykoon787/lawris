@@ -188,7 +188,7 @@ const Dms = () => {
                     </div>    
                     <div className= 'search d-flex justify-content-center align-items-center'>
                         <span>
-                        <svg style={{height: '30px'}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <svg style={{height: '20px'}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
                         </span>
@@ -206,9 +206,20 @@ const Dms = () => {
                                 <Dropdown.Item href='#doc'>Affidavits</Dropdown.Item>
                                 <Dropdown.Item href='#doc'>Case files</Dropdown.Item>
                             </Dropdown.Menu>
-                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                            {/* <Dropdown.Toggle variant='success' id='dropdown-basic'>
                                 About
                             </Dropdown.Toggle>
+                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                                Contact
+                            </Dropdown.Toggle> */}
+                        </Dropdown>
+                        <Dropdown className='dropDown'>
+                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
+                                About
+
+                            </Dropdown.Toggle>
+                        </Dropdown>
+                        <Dropdown className='dropDown'>
                             <Dropdown.Toggle variant='success' id='dropdown-basic'>
                                 Contact
                             </Dropdown.Toggle>
@@ -230,7 +241,7 @@ const Dms = () => {
                         )}
                         <div onClick={handleToggle} className="profile align-self-end">
                             <UserIcon />
-                            <Offcanvas show={show} onHide={handleClose} className='bgCanvas'> 
+                            <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
                                 <Offcanvas.Header className='close' closeButton>
                                     <Offcanvas.Title>My Profile</Offcanvas.Title>
                                 </Offcanvas.Header>

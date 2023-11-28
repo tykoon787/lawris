@@ -165,7 +165,8 @@
 }
 
 .bgCanvas{
-    background-color: rgba(0, 0, 0, 0.8);
+    /* background-color: rgba(0, 0, 0, 0.8); */
+    background: linear-gradient(-225deg, rgba(203, 186, 204, 0.7) 0%, rgba(37, 128, 179, 0.7) 100%);
     color: white;
     font-weight: 800;
     font-size: large;
