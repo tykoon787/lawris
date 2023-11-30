@@ -186,3 +186,37 @@
 .dropDown .btn-success{
     background-color: black;
 }
+
+.userSettings button{
+    padding: 1rem;
+    outline: none;
+    border: none;
+    color: black;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    margin: 0 20px;
+}
+
+.userProfile {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+.dropDownSettings {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    padding: 0;
+    text-decoration: underline; /* You can use 'none' if you don't want any underline */
+    cursor: pointer;
+
+}
+.dropDownSettings:hover,
+.dropDownSettings:focus {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    text-decoration: underline;
+
+}

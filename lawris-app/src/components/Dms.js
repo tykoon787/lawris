@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import $ from 'jquery';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import User from '../Assets/non-litigant.jpg';
+import Search from '../Assets/search.png';
 
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
@@ -99,22 +101,65 @@ const NavList = () => {
     )
 }
 
-const Dms = () => {
-    const [documentList, setDocumentList] = useState([]);
-    const [selectedCard, setSelectedCard] = useState(null);
-    const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
-    const [isDropdownVisisble, setDropdownVisible] = useState(false);
+const ProfileSideBar = () => {
     const [show, setShow] = useState(false);
-    const [activeCategory, setActiveCategory] = useState("Criminal");
+     const navigate = useNavigate();
 
-    const toggleDropdown = () => {
-        setDropdownVisible(!isDropdownVisisble)
+     const handleButtonClick = () => {
+        navigate('/auth');
     }
+
+
     const handleToggle = () => {
         setShow(!show); 
         console.log('closed')// Toggle the show state
       };
     const handleClose= () => setShow(false);
+    return (
+        <div>
+            <div onClick={handleToggle} className="profile align-self-end">
+                <UserIcon />
+                <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
+                    <Offcanvas.Header className='close' closeButton>
+                        <Offcanvas.Title className='text-center'>My Profile</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body className='userSettings d-flex flex-column align-center justify-center'>
+                        <div>
+                            <img className='userProfile' src={User} alt='userImg'/>
+                            <p>User Name</p>
+                            <hr></hr>
+                        </div>
+                        <button className='mb-3'>My Documents</button>
+                        <button className='mb-3' onClick={handleButtonClick}>Sign In</button>
+                        <button className='mb-3'>My Account</button>
+                         <Dropdown className='dropDownSettings'>
+                            <Dropdown.Toggle>
+                                Settings & Support
+
+                            </Dropdown.Toggle>
+                        </Dropdown>
+                                        
+                    </Offcanvas.Body>
+                </Offcanvas>
+            </div>
+        </div>
+    )
+
+    
+}
+
+const Dms = () => {
+    const [documentList, setDocumentList] = useState([]);
+    const [selectedCard, setSelectedCard] = useState(null);
+    const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
+    const [isDropdownVisisble, setDropdownVisible] = useState(false);
+    const [activeCategory, setActiveCategory] = useState("Criminal");
+    const [searchTerm, setSEarchTerm] = useState('');
+   
+
+    const toggleDropdown = () => {
+        setDropdownVisible(!isDropdownVisisble)
+    }
 
     const handleNavItemClick = (category_of_law) => {
         console.log("Selected Category:", category_of_law);
@@ -169,12 +214,20 @@ const Dms = () => {
     };
 
     // Add a helper function to filter documents by category
-    const filterDocumentsByCategory = (documentList, category_of_law) => {
-        return documentList.filter((document) => document.category_of_law === category_of_law);
-    };
+    // const filterDocumentsByCategory = (documentList, category_of_law) => {
+    //     return documentList.filter((document) => document.category_of_law === category_of_law);
+    // };
 
     console.log("IsEditModalOpen", isEditDocModalOpen);
     console.log("Selected Card", selectedCard);
+
+      // Filtering function based on the search input
+    const filterDocuments = () => (
+        documentList.filter((document) => 
+            document.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            document.category_of_law === activeCategory
+        )
+    )
 
 
     return (
@@ -187,14 +240,16 @@ const Dms = () => {
                         
                     </div>    
                     <div className= 'search d-flex justify-content-center align-items-center'>
-                        <span>
-                        <svg style={{height: '20px'}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
+                        <span className='input-group-text'>
+                            <img src={Search} alt='searchIcon' style={{ height: '20px'}}/>
                         </span>
+                        
                         <input className='input-group'
                         type='search'
-                        placeholder='search...' />   
+                        placeholder='search...'
+                        value={searchTerm}
+                        onChange={(e) => setSEarchTerm(e.target.value)} 
+                        />   
                     </div>
                     <div className='menuItems d-flex align-items-center'>
                         <Dropdown className='dropDown'>
@@ -206,12 +261,7 @@ const Dms = () => {
                                 <Dropdown.Item href='#doc'>Affidavits</Dropdown.Item>
                                 <Dropdown.Item href='#doc'>Case files</Dropdown.Item>
                             </Dropdown.Menu>
-                            {/* <Dropdown.Toggle variant='success' id='dropdown-basic'>
-                                About
-                            </Dropdown.Toggle>
-                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
-                                Contact
-                            </Dropdown.Toggle> */}
+                           
                         </Dropdown>
                         <Dropdown className='dropDown'>
                             <Dropdown.Toggle variant='success' id='dropdown-basic'>
@@ -239,17 +289,7 @@ const Dms = () => {
                                 <img  style={{height: '30px'}} src={community} alt='communityImg'/>
                             </div>
                         )}
-                        <div onClick={handleToggle} className="profile align-self-end">
-                            <UserIcon />
-                            <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
-                                <Offcanvas.Header className='close' closeButton>
-                                    <Offcanvas.Title>My Profile</Offcanvas.Title>
-                                </Offcanvas.Header>
-                                <Offcanvas.Body>
-                                    My Documents
-                                </Offcanvas.Body>
-                            </Offcanvas>
-                        </div>
+                        <ProfileSideBar />
                     </div>
 
                 </div>
@@ -272,7 +312,8 @@ const Dms = () => {
                     </div>
                 </div>
                 {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
-                <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} />
+                {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
+                <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
                 {isEditDocModalOpen && selectedCard && (
                     <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
                         closeModal={closeModal} />
