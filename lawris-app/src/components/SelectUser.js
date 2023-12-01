@@ -13,6 +13,10 @@ import judiciaryImage from '../static/icons/judiciary.png';
 import businessImage from '../static/icons/enterprise.png';
 import schoolImage from '../static/icons/school.png';
 
+//user type import
+import { setselectedUserType } from './userType';
+
+
 const usersList = [
     { id: 1, name: "Lawyer", png: lawyerImage },
     { id: 2, name: "Non-Litigant", png: nonLitigantImage },
@@ -28,7 +32,7 @@ const UserCard = ({ usersList, onClick }) => {
         <div className="row g-3 justify-content-center">
             {
                 usersList.map((user) => (
-                    <div className="card col-2 user-card" onClick={onClick}>
+                    <div className="card col-2 user-card" key={user.id} onClick={() => onClick(user.name)}>
                         <div key={user.id} className="card-body" id={user.name}>
                             <div className="d-flex flex-column align-items-center">
                                 <img alt={user.name} src={user.png} className="user-icon" />
@@ -42,12 +46,15 @@ const UserCard = ({ usersList, onClick }) => {
     )
 }
 
+
 const SelectUser = () => {
     const navigate = useNavigate();
 
     const handleCardClick = () => {
-        navigate('/dms_dashboard')
+        navigate('/auth');
     };
+
+    
 
     return (
         <div className="container mt-5">

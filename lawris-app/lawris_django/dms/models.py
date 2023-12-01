@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 import logging
 
 # Logs
-log_dir = "/home/tykoon787/projects/lawris/logs"
+log_dir = "projects/lawris/logs"
 os.makedirs(log_dir, exist_ok=True)
 
 logger = logging.getLogger()
@@ -140,7 +140,7 @@ class Template(BaseModel):
                 if placeholder in run.text:
                     run.text = run.text.replace(placeholder, replacement.upper())
 
-    def save_file(self, document:docx.Document, file_name:str="modified.docx", save_path:str="/home/tykoon787/projects/lawris/.temp/docs"):
+    def save_file(self, document:docx.Document, file_name:str="modified.docx", save_path:str="/home/sakwa/Okestra/lawris/lawris-app/lawris_django/dms/.temp/docs"):
         """
         Saves the generated file to the specified path 
 
