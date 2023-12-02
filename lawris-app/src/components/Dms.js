@@ -4,6 +4,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import User from '../Assets/non-litigant.jpg';
 import Search from '../Assets/search.png';
+import Account from '../Assets/user.png';
+import Logout from '../Assets/exit.png';
+import Doc from '../Assets/google-docs.png';
+
 
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
@@ -101,6 +105,40 @@ const NavList = () => {
     )
 }
 
+const Menu = () => {
+    return (
+        <div>
+            <div className='menuItems d-flex align-items-center'>
+                <Dropdown className='dropDown'>
+                    <Dropdown.Toggle as='span' id='dropdown-basic'>
+                        Services
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item href='#doc'>Document retrival</Dropdown.Item>
+                        <Dropdown.Item href='#doc'>Affidavits</Dropdown.Item>
+                        <Dropdown.Item href='#doc'>Case files</Dropdown.Item>
+                    </Dropdown.Menu>
+                            
+                </Dropdown>
+                <Dropdown className='dropDown'>
+                    <Dropdown.Toggle as='span' id='dropdown-basic'>
+                        About
+
+                    </Dropdown.Toggle>
+                </Dropdown>
+                <Dropdown className='dropDown'>
+                    <Dropdown.Toggle as='span' id='dropdown-basic'>
+                        Contact
+                    </Dropdown.Toggle>
+                </Dropdown>
+
+            </div>
+            
+
+        </div>
+    )
+}
+
 const ProfileSideBar = () => {
     const [show, setShow] = useState(false);
      const navigate = useNavigate();
@@ -123,22 +161,38 @@ const ProfileSideBar = () => {
                     <Offcanvas.Header className='close' closeButton>
                         <Offcanvas.Title className='text-center'>My Profile</Offcanvas.Title>
                     </Offcanvas.Header>
-                    <Offcanvas.Body className='userSettings d-flex flex-column align-center justify-center'>
+                    <Offcanvas.Body className=''>
                         <div>
                             <img className='userProfile' src={User} alt='userImg'/>
                             <p>User Name</p>
                             <hr></hr>
                         </div>
-                        <button className='mb-3'>My Documents</button>
-                        <button className='mb-3' onClick={handleButtonClick}>Sign In</button>
-                        <button className='mb-3'>My Account</button>
-                         <Dropdown className='dropDownSettings'>
-                            <Dropdown.Toggle>
+                        <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
+                            <div className='d-flex align-items-center justify-content-center'>
+                                <span>
+                                    <img src={Doc} alt='docsImg' style={{height: '25px'}}/>
+                                </span>
+                                <p className='mb-3'>My Documents</p>
+                            </div>
+                            <div className='d-flex align-items-center'>
+                                <span>
+                                    <img src={Account} alt='profileIcon' style={{height: '25px'}}/>
+                                </span>
+                                <p className='mb-3'>My Account</p>
+                            </div>
+                            <h2 className='mb-3' onClick={handleButtonClick}>Sign In</h2>
+                            <div className='d-flex align-items-center'>
+                                <span>
+                                    <img src={Logout} alt='profileIcon' style={{height: '25px'}}/>
+                                </span>
+                                <p className='logout'>Logout</p>
+                            </div>
+                            <Dropdown className='dropDownSettings'>
+                            <Dropdown.Toggle as='span' id='dropdown-basic'>
                                 Settings & Support
-
                             </Dropdown.Toggle>
                         </Dropdown>
-                                        
+                        </div>          
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>
@@ -236,23 +290,31 @@ const Dms = () => {
                 <div className='d-flex justify-content-between align-items-center'>
                     <div className='logo d-flex'>
                         <img  src={logo} alt='logoimg' style={{height: '45px'}}/>
+
                         <p className='text-bold pt-2'>Lawris</p>
                         
                     </div>    
                     <div className= 'search d-flex justify-content-center align-items-center'>
-                        <span className='input-group-text'>
-                            <img src={Search} alt='searchIcon' style={{ height: '20px'}}/>
-                        </span>
                         
-                        <input className='input-group'
-                        type='search'
-                        placeholder='search...'
-                        value={searchTerm}
-                        onChange={(e) => setSEarchTerm(e.target.value)} 
-                        />   
+                            <span>
+                                <img src={Search} alt='searchIcon' style={{ height: '20px'}}/>
+                            </span>
+                            
+                            <input
+                            className="input-group"
+                        
+                            type='search'
+                            placeholder='search...'
+                            value={searchTerm}
+                            onChange={(e) => setSEarchTerm(e.target.value)} 
+                            />  
+
+                        
+                       
                     </div>
                     <div className='menuItems d-flex align-items-center'>
-                        <Dropdown className='dropDown'>
+                        <Menu />
+                        {/* <Dropdown className='dropDown'>
                             <Dropdown.Toggle variant='success' id='dropdown-basic'>
                                 Services
                             </Dropdown.Toggle>
@@ -273,7 +335,7 @@ const Dms = () => {
                             <Dropdown.Toggle variant='success' id='dropdown-basic'>
                                 Contact
                             </Dropdown.Toggle>
-                        </Dropdown>
+                        </Dropdown> */}
                         
                     </div>
                    
