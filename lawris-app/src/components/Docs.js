@@ -46,7 +46,7 @@ const DocumentCard = ({ name, documentThumbnail, category_of_law, onClick }) => 
                     <img className="edit-icon col-2" alt="edit_icon" src={EditIcon} />
                 </div>
                 <div>
-                    <p>category_of_law: {category_of_law}</p>
+                    {/* <p>category_of_law: {category_of_law}</p> */}
                 </div>
             </div>
         </div>

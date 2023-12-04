@@ -180,7 +180,7 @@ const ProfileSideBar = () => {
                                 </span>
                                 <p className='mb-3'>My Account</p>
                             </div>
-                            <h2 className='mb-3' onClick={handleButtonClick}>Sign In</h2>
+                            <p className='mb-3' onClick={handleButtonClick}>Sign In</p>
                             <div className='d-flex align-items-center'>
                                 <span>
                                     <img src={Logout} alt='profileIcon' style={{height: '25px'}}/>
@@ -207,7 +207,7 @@ const Dms = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
-    const [activeCategory, setActiveCategory] = useState("Criminal");
+    const [activeCategory, setActiveCategory] = useState("Civil");
     const [searchTerm, setSEarchTerm] = useState('');
    
 
