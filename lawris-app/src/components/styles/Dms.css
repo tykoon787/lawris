@@ -2,7 +2,8 @@
 }
 .dashboard-nav {
     height: 50px;
-    background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
+    /* background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); */
+    background: lightgray;
 }
 
 .dashboard-nav.d-flex {
@@ -69,6 +70,13 @@
 .cases_tab-container {
     margin-top: 45px;
     justify-content: center;
+    
+}
+.docsLayout {
+    background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg');
+    object-fit: cover;
+    height: 100vh;
+
 }
 .search input {
     height: 30px;

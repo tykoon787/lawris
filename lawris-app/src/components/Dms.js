@@ -361,13 +361,17 @@ const Dms = () => {
                         <NavList handleNavItemClick={handleNavItemClick} />
                     </div>
                 </div>
-                {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
-                {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
-                <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
-                {isEditDocModalOpen && selectedCard && (
+                <div className='docsLayout'>
+                    {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
+                    {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
+                    <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
+                    {isEditDocModalOpen && selectedCard && (
                     <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
                         closeModal={closeModal} />
                 )}
+
+                </div>
+                
             </div>
         </div>
     )
