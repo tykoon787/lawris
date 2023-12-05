@@ -74,16 +74,42 @@
     height: 30px;
     border: none;
     min-width: 20px;
-    width: 10rem;
+    width: 100%;
     background-color: rgb(225, 225, 225);
     outline: none;
-    border-radius: 15px;
-    padding-left: 5px;
+    border-radius: 5px;
+    padding: 2px 23px 2px 30px;
 
 }
 .search {
     padding-bottom: 15px;
+    position: relative;
+    min-width: 100px;
 }
+.searchIcon {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    z-index: 1;
+}
+.clear-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 10px;
+    cursor: pointer;
+    
+  }
+  .search input:hover {
+    border: 1.8px solid #cf6f16;
+    background-color: white;
+  }
+  .search input:focus {
+    border: 1.8px solid #cf6f16;
+    background-color: white;
+  }
+
+
 
 .logo p {
     font-weight: bold;
@@ -197,10 +223,6 @@
     color: black;
     font-weight: bold;
     
-    /* background-color: antiquewhite;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    margin: 0 20px; */
 }
 
 .userProfile {
@@ -212,24 +234,15 @@
 .profile {
     position: relative;
 }
-/* .logout {
-    position: absolute;
-    bottom: 5%;
-    left: 7%;
-    padding: 1rem;
-    outline: none;
-    border: none;
-    color: black;
-    background-color: antiquewhite;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    margin: 0 20px;
-} */
+
 .dropDownSettings {
     margin-left: 1rem;
 }
 
 .userSettings img {
     margin-right: 15px;
-    margin-top: 10px;
+    margin-top: 5px;
+}
+.userSettings p {
+    margin: 0;
 }

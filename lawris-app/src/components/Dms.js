@@ -7,6 +7,9 @@ import Search from '../Assets/search.png';
 import Account from '../Assets/user.png';
 import Logout from '../Assets/exit.png';
 import Doc from '../Assets/google-docs.png';
+import login from '../Assets/log-in.png';
+import settings from '../Assets/settings.png';
+import { UilApps } from '@iconscout/react-unicons'
 
 
 // import backgroundImg from '../static/backgrounds/art.png';
@@ -168,30 +171,42 @@ const ProfileSideBar = () => {
                             <hr></hr>
                         </div>
                         <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
-                            <div className='d-flex align-items-center justify-content-center'>
+                            <div className='d-flex align-items-center justify-content-center mb-3'>
                                 <span>
                                     <img src={Doc} alt='docsImg' style={{height: '25px'}}/>
                                 </span>
-                                <p className='mb-3'>My Documents</p>
+                                <p className=''>My Documents</p>
                             </div>
-                            <div className='d-flex align-items-center'>
+                            <div className='d-flex align-items-center mb-3'>
                                 <span>
                                     <img src={Account} alt='profileIcon' style={{height: '25px'}}/>
                                 </span>
-                                <p className='mb-3'>My Account</p>
+                                <p className=''>My Account</p>
                             </div>
-                            <p className='mb-3' onClick={handleButtonClick}>Sign In</p>
-                            <div className='d-flex align-items-center'>
+                            <div className='d-flex align-items-center mb-3'>
+                                <span>
+                                    <img src={login} alt='loginImg' style={{height: '25px'}}/>
+                                </span>
+                                <p className='' onClick={handleButtonClick}>Sign In</p>
+                            </div>
+                            
+                            <div className='d-flex align-items-center mb-3'>
                                 <span>
                                     <img src={Logout} alt='profileIcon' style={{height: '25px'}}/>
                                 </span>
                                 <p className='logout'>Logout</p>
                             </div>
-                            <Dropdown className='dropDownSettings'>
-                            <Dropdown.Toggle as='span' id='dropdown-basic'>
-                                Settings & Support
-                            </Dropdown.Toggle>
-                        </Dropdown>
+                            <div className='d-flex align-items-center mb-3'>
+                                <span>
+                                    <img className='mr-0' src={settings} alt='settingsImg' style={{height: '25px'}} />
+                                </span>
+                                <Dropdown className='dropDownSettings'>
+                                    <Dropdown.Toggle as='span' id='dropdown-basic'>
+                                    Settings & Support
+                                    </Dropdown.Toggle>
+                                </Dropdown>
+                            </div>
+                            
                         </div>          
                     </Offcanvas.Body>
                 </Offcanvas>
@@ -294,55 +309,28 @@ const Dms = () => {
                         <p className='text-bold pt-2'>Lawris</p>
                         
                     </div>    
-                    <div className= 'search d-flex justify-content-center align-items-center'>
-                        
-                            <span>
-                                <img src={Search} alt='searchIcon' style={{ height: '20px'}}/>
-                            </span>
-                            
-                            <input
+                    <div className= 'search d-flex justify-content-center align-items-center'>    
+                        <img className='searchIcon'src={Search} alt='searchIcon' style={{ height: '20px'}}/>
+                        <input
                             className="input-group"
-                        
                             type='search'
                             placeholder='search...'
                             value={searchTerm}
                             onChange={(e) => setSEarchTerm(e.target.value)} 
-                            />  
-
+                        />
                         
-                       
                     </div>
                     <div className='menuItems d-flex align-items-center'>
                         <Menu />
-                        {/* <Dropdown className='dropDown'>
-                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
-                                Services
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item href='#doc'>Document retrival</Dropdown.Item>
-                                <Dropdown.Item href='#doc'>Affidavits</Dropdown.Item>
-                                <Dropdown.Item href='#doc'>Case files</Dropdown.Item>
-                            </Dropdown.Menu>
-                           
-                        </Dropdown>
-                        <Dropdown className='dropDown'>
-                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
-                                About
-
-                            </Dropdown.Toggle>
-                        </Dropdown>
-                        <Dropdown className='dropDown'>
-                            <Dropdown.Toggle variant='success' id='dropdown-basic'>
-                                Contact
-                            </Dropdown.Toggle>
-                        </Dropdown> */}
                         
                     </div>
                    
                     <div className="d-flex justify-content-end align-items-center" style={{position: 'relative'}}> 
                     
                         <div onClick={toggleDropdown} className="apps">
-                            <img className="dev_icon" src={apps} alt="apps"></img>
+                        
+                            {/* <img className="dev_icon" src={apps} alt="apps"></img> */}
+                            <UilApps className='mr-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>
