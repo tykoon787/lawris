@@ -45,6 +45,9 @@ import { useNavigate } from 'react-router-dom';
 //Notifications
 import Notifications from './Notifications'
 
+//File Upload
+import FileUpload from './FileUpload';
+
 
 const iconList = [
     { id: 1, png: addFile, action_name: "New File", route: "file_new_case" },
@@ -339,11 +342,12 @@ const Dms = () => {
         setShowUpload(false);
      }
 
-     const handleOnChange = (event) => {
-        const file = event.target.files[0];
+     const onFileUpload = (file) => {
+        console.log('File uploaded:', file.name);
         setFileName(file.name);
-        setIsFileUploaded(true)
-     }
+        setIsFileUploaded(true);
+      };
+      
 
     return (
         <div className="main-container">
@@ -424,26 +428,14 @@ const Dms = () => {
                 <p>or</p>
                 <span class="browse-button">Browse file</span>
                 </div>
-                <input id="file" type="file" onChange={handleOnChange} />
+                <input id="file" type="file"  />
             </label>
             </form>
             }
 
             {/**convert modal */}
 
-            {showConvert && 
-                <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
-                <label for="file" class="file-upload-label">
-                    <div class="file-upload-design">
-                    <i class="bi bi-filetype-pdf" style={{fontSize: "40px"}}></i>
-                    <p>Drag and Drop</p>
-                    <p>or</p>
-                    <span class="browse-button">Browse file</span>
-                    </div>
-                    <input id="file" type="file" onChange={handleOnChange} />
-                </label>
-                </form>
-            }
+            {showConvert && <FileUpload onFileUpload={onFileUpload} />}
                     
                         {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
                         {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}

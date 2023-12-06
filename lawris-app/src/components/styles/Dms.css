@@ -279,6 +279,7 @@
     border-radius: 40px;
     border: 2px dashed rgb(82, 82, 82);
     box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719);
+    width:75vw;
   }
   .file-upload-design {
     display: flex;
