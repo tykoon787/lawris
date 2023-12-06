@@ -42,6 +42,9 @@ import form78 from '../static/docs/[Form 78]-Petition for probate of written wil
 
 import { useNavigate } from 'react-router-dom';
 
+//Notifications
+import Notifications from './Notifications'
+
 
 const iconList = [
     { id: 1, png: addFile, action_name: "New File", route: "file_new_case" },
@@ -71,7 +74,7 @@ const CommandBarActions = ({ icon, action_name, onClick }) => {
     )
 }
 
-const CommandBarIcons = ({ iconList }) => {
+const CommandBarIcons = ({ iconList,handleConvertClick, handleUploadClick}) => {
     const navigate = useNavigate();
 
     const handleIconClick = (route) => {
@@ -82,7 +85,7 @@ const CommandBarIcons = ({ iconList }) => {
     return (
         <div className="command_bar d-flex align-items-center">
             {iconList.map((icon) => (
-                <CommandBarActions key={icon.id} icon={icon.png} action_name={icon.action_name} onClick={() => handleIconClick(icon.route)} />
+                <CommandBarActions key={icon.id} icon={icon.png} action_name={icon.action_name} onClick={icon.action_name === 'Upload' ? handleUploadClick : icon.action_name === "Convert" ? handleConvertClick : () => handleIconClick(icon.route)} />
             ))}
         </div>
     )
@@ -248,6 +251,10 @@ const Dms = () => {
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
     const [activeCategory, setActiveCategory] = useState("Civil");
     const [searchTerm, setSEarchTerm] = useState('');
+    const [showUpload, setShowUpload] = useState(false);
+    const [showConvert, setShowConvert] = useState(false);
+    const [isFileUploaded, setIsFileUploaded] = useState(false);
+    const [fileName, setFileName] = useState('')
    
 
     const toggleDropdown = () => {
@@ -322,6 +329,21 @@ const Dms = () => {
         )
     )
 
+    const handleUploadClick = () => {
+        setShowUpload(!showUpload);
+        setShowConvert(false);
+     }
+     
+     const handleConvertClick = () => {
+        setShowConvert(!showConvert);
+        setShowUpload(false);
+     }
+
+     const handleOnChange = (event) => {
+        const file = event.target.files[0];
+        setFileName(file.name);
+        setIsFileUploaded(true)
+     }
 
     return (
         <div className="main-container">
@@ -369,15 +391,17 @@ const Dms = () => {
                 </div>
                 
             </div>
+            {isFileUploaded && <Notifications time={new Date()} fileName={fileName} />}
             <div className="dms-container">
                 <div className="background_image-container d-flex flex-column align-items-center">
                     <p className="lead fw-bold text-center">DOCUMENT MANAGER</p>
                     <div className="command_bar-card card">
                         <div className="card-body command_bar-container">
-                            <CommandBarIcons iconList={iconList} />
+                        <CommandBarIcons iconList={iconList} handleConvertClick={handleConvertClick} handleUploadClick={handleUploadClick} />
                         </div>
                     </div>
                 </div>
+                
                 <div className='docsLayout'>
                     <div className="cases_tab-container d-flex flex-row">
                         <div className="cases-tab">
@@ -385,6 +409,41 @@ const Dms = () => {
                             <NavList handleNavItemClick={handleNavItemClick} />
                         </div>
                     </div>
+                     {/**upload modal */}
+
+            {showUpload && 
+            <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
+            <label for="file" class="file-upload-label">
+                <div class="file-upload-design">
+                <svg viewBox="0 0 640 512" height="1em">
+                    <path
+                    d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
+                    ></path>
+                </svg>
+                <p>Drag and Drop</p>
+                <p>or</p>
+                <span class="browse-button">Browse file</span>
+                </div>
+                <input id="file" type="file" onChange={handleOnChange} />
+            </label>
+            </form>
+            }
+
+            {/**convert modal */}
+
+            {showConvert && 
+                <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
+                <label for="file" class="file-upload-label">
+                    <div class="file-upload-design">
+                    <i class="bi bi-filetype-pdf" style={{fontSize: "40px"}}></i>
+                    <p>Drag and Drop</p>
+                    <p>or</p>
+                    <span class="browse-button">Browse file</span>
+                    </div>
+                    <input id="file" type="file" onChange={handleOnChange} />
+                </label>
+                </form>
+            }
                     
                         {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
                         {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
@@ -397,6 +456,7 @@ const Dms = () => {
                 </div>
                 
             </div>
+           
         </div>
     )
 }
