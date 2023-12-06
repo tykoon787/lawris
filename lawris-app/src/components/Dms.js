@@ -9,7 +9,8 @@ import Logout from '../Assets/exit.png';
 import Doc from '../Assets/google-docs.png';
 import login from '../Assets/log-in.png';
 import settings from '../Assets/settings.png';
-import { UilApps } from '@iconscout/react-unicons'
+import { UilApps } from '@iconscout/react-unicons';
+import ProfileUpload from './ProfileUpload';
 
 
 // import backgroundImg from '../static/backgrounds/art.png';
@@ -142,6 +143,28 @@ const Menu = () => {
     )
 }
 
+const UserProfile = () => {
+    const [profileImage, setProfileImage] = useState(null);
+
+    const handleProfileUpload = uploadFile => {
+        console.log('Upload File:', uploadFile);
+        setProfileImage(uploadFile)
+    }
+    return (
+        <div>
+            <h1>User Profile</h1>
+            {profileImage && (
+                <img 
+                src={URL.createObjectURL(profileImage)}
+                alt='Profile'
+                style={{ width: '150', height: '150px', borderRadius: '50%' }}
+                />
+            )}
+            <ProfileUpload onUpload={handleProfileUpload} />
+        </div>
+    )
+}
+
 const ProfileSideBar = () => {
     const [show, setShow] = useState(false);
      const navigate = useNavigate();
@@ -166,7 +189,8 @@ const ProfileSideBar = () => {
                     </Offcanvas.Header>
                     <Offcanvas.Body className=''>
                         <div>
-                            <img className='userProfile' src={User} alt='userImg'/>
+                            {/* <img className='userProfile' src={User} alt='userImg'/> */}
+                            <UserProfile />
                             <p>User Name</p>
                             <hr></hr>
                         </div>
@@ -354,21 +378,21 @@ const Dms = () => {
                         </div>
                     </div>
                 </div>
-
-                <div className="cases_tab-container d-flex flex-row">
-                    <div className="cases-tab">
-                        {/* <NavList /> */}
-                        <NavList handleNavItemClick={handleNavItemClick} />
-                    </div>
-                </div>
                 <div className='docsLayout'>
-                    {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
-                    {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
-                    <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
-                    {isEditDocModalOpen && selectedCard && (
-                    <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
-                        closeModal={closeModal} />
-                )}
+                    <div className="cases_tab-container d-flex flex-row">
+                        <div className="cases-tab">
+                            {/* <NavList /> */}
+                            <NavList handleNavItemClick={handleNavItemClick} />
+                        </div>
+                    </div>
+                    
+                        {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
+                        {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
+                        <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
+                        {isEditDocModalOpen && selectedCard && (
+                        <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
+                            closeModal={closeModal} />
+                    )}
 
                 </div>
                 
