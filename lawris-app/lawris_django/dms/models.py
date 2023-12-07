@@ -27,6 +27,7 @@ logger.addHandler(file_handler)
 
 # Create your models here.
 
+
 class BaseModel(models.Model):
     """
     Base Model for all models
@@ -91,13 +92,12 @@ class Template(BaseModel):
     type = models.CharField(max_length=20, choices=TEMPLATE_TYPES)
     title = models.CharField(max_length=200)
     category_of_law = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    division_of_law = models.CharField(max_length=20, choices=DIVISION_CHOICES)
+    division_of_law = models.CharField(max_length=50, choices=DIVISION_CHOICES)
     sub_division = models.CharField(
         max_length=20, choices=SUB_DIVISION_CHOICES)
     template_file_docx = models.CharField(max_length=255)
     pdf_preview_file = models.CharField(max_length=255, default="preview_file")
     form_fields = JSONField(blank=True, null=True)
-
 
     @classmethod
     def create_template(cls, type, title, category_of_law, division_of_law, sub_division, template_file_docx, pdf_preview_file, form_fields):
@@ -146,8 +146,7 @@ class Template(BaseModel):
                 template_content += page_text + "\n"
                 return template_content
 
-
-    def replace_placeholder(self, doc: docx.Document, placeholder:str, replacement: str):
+    def replace_placeholder(self, doc: docx.Document, placeholder: str, replacement: str):
         """
         Replaces a placeholder from a ``.docx`` document with the
         replacement string
@@ -155,9 +154,10 @@ class Template(BaseModel):
         for paragraph in doc.paragraphs:
             for run in paragraph.runs:
                 if placeholder in run.text:
-                    run.text = run.text.replace(placeholder, replacement.upper())
+                    run.text = run.text.replace(
+                        placeholder, replacement.upper())
 
-    def save_file(self, document:docx.Document, file_name:str="modified.docx", save_path:str="/home/sakwa/Okestra/lawris/lawris-app/lawris_django/dms/.temp/docs"):
+    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/sakwa/Okestra/lawris/lawris-app/lawris_django/dms/.temp/docs"):
         """
         Saves the generated file to the specified path 
 
@@ -176,7 +176,7 @@ class Template(BaseModel):
 
         return generated_content
 
-    def fill_template(self, data=None, document:docx.Document=None, replacements:dict=None):
+    def fill_template(self, data=None, document: docx.Document = None, replacements: dict = None):
         """
         Fills the template with data
         If ``docx`` is passed, the placeholders are replaced within te word document
@@ -197,13 +197,15 @@ class Template(BaseModel):
             new_document = Document(title=self.title)
             new_document.save()
 
-            generated_content = self.save_file(document, file_name=f'{new_document.title}.docx')
+            generated_content = self.save_file(
+                document, file_name=f'{new_document.title}.docx')
             new_document.content = generated_content
             new_document.save()
 
             return new_document
         else:
-            template_content = self.read_template_content(self.template_file_docx)
+            template_content = self.read_template_content(
+                self.template_file_docx)
             filled_template = template_content.format(**data)
             return (filled_template)
 
@@ -222,7 +224,7 @@ class Document(BaseModel):
         super().__init__(*args, **kwargs)
         self.title = title
 
-    def generate_document(self, format: str="docx"):
+    def generate_document(self, format: str = "docx"):
         """
         Generates a document based off it's contents
         """
@@ -242,11 +244,11 @@ class Document(BaseModel):
         Downloads a document
         """
         generated_doc = self.generate_document()
-        
+
         if generated_doc:
-            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response = HttpResponse(
+                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             response['Content-Disposition'] = f'attachment; filename={self.title}.docx'
             generated_doc.save(response)
 
             return response
-
