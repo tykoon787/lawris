@@ -53,22 +53,39 @@ class Template(BaseModel):
     """
     TEMPLATE_TYPES = [
         ('affidavit', 'Affidavit'),
-        ('petition', 'Petition'), 
+        ('petition', 'Petition'),
+        ('plaint', 'Plaint'),
+        ('notice of motion', 'Notice of Motion'),
+        ('defense', 'Defense'),
+        ('counter claim', 'Counter Claim'),
+        ('judgment', 'Judgment')
     ]
 
     CATEGORY_CHOICES = [
         ('civil', 'Civil'),
-        ('criminal', 'Criminal')
+        ('criminal', 'Criminal'),
+        ('commercial', 'Commercial'),
+        ('land', 'Land'),
+        ('arbitration', 'Arbitration'),
+        ('family', 'Family'),
+        ('business', 'Business'),
+        ('property', 'Property'),
     ]
 
     DIVISION_CHOICES = [
         ('family', 'Family'),
         ('land', 'Land'),
         ('employment', 'Employment'),
+        ('tax', 'Tax'),
+        ('intellectual property', 'Intellectual Property'),
     ]
 
     SUB_DIVISION_CHOICES = [
         ('succession', 'Succession'),
+        ('divorce', 'Divorce'),
+        ('real estate', 'Real Estate'),
+        ('labor', 'Labor'),
+        ('patent', 'Patent'),
     ]
 
     type = models.CharField(max_length=20, choices=TEMPLATE_TYPES)
