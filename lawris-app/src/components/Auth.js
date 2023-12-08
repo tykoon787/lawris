@@ -22,6 +22,7 @@ import 'sweetalert2/dist/sweetalert2.css';
 import Google from '../Assets/google.png';
 import Microsoft from '../Assets/microsoft.png';
 import LinkedIn from '../Assets/linkedin.png';
+import facebook from '../Assets/facebook.png';
 
 
 
@@ -269,8 +270,7 @@ const Auth = () => {
 
         const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
     
-      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number', 'student_id',
-       'registration_number', 'employee_id', 'Iso_number'];
+      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
       const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
@@ -443,9 +443,30 @@ const Auth = () => {
                   
 
                   {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <div className='d-flex flex-column align-items-center justify-content center'>
+                      <div className='signin mb-3'>
+                        <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
+                        <span>
+                          Sign in with google
+                        </span>
+                      </div>
+                      <div className='signin mb-3'>
+                        <img  src={facebook} alt='fbImg' style={{ width: '2em', height: '2em' }}/>
+                        <span>
+                          Sign in with Facebook
+                        </span>
+                      </div>
+                      <div className='signin'>
+                        <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
+                        <span>
+                          sign in with Linkedin
+                        </span>
+                      </div>
+                  </div>
+
+                    {/* <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
                     <img src={Microsoft} alt="microsoft" className="mx-2" style={{ width: '2em', height: '2em' }} />
-                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} /> */}
                   </div>}
                   <div className="d-flex flex-column mt-3">
                     <p>
@@ -459,6 +480,7 @@ const Auth = () => {
                     </p>
                   </div>
                 </form>
+ 
               </div>
             </div>
           </div>

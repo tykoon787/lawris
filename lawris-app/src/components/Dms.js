@@ -13,6 +13,7 @@ import { UilApps } from '@iconscout/react-unicons';
 import ProfileUpload from './ProfileUpload';
 
 
+
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
 import archive from '../static/icons/dms/icons/archive.png';
@@ -325,7 +326,7 @@ const Dms = () => {
 
     return (
         <div className="main-container">
-            <div className="dashboard-nav p-2">
+            <div className="dashboard-nav">
                 <div className='d-flex justify-content-between align-items-center'>
                     <div className='logo d-flex'>
                         <img  src={logo} alt='logoimg' style={{height: '45px'}}/>
