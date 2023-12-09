@@ -479,7 +479,7 @@ const Dms = () => {
 
             {showUpload && 
             <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
-            <label for="file" class="file-upload-label">
+            <label for="file" class="file-upload-label glass">
                 <div class="file-upload-design glass">
                 <svg viewBox="0 0 640 512" height="1em">
                                 <path
@@ -499,7 +499,7 @@ const Dms = () => {
 
             {showConvert && 
             <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
-            <label for="file" class="file-upload-label">
+            <label for="file" class="file-upload-label glass">
                 <div class="file-upload-design glass">
                 <i class="bi bi-filetype-pdf" style={{fontSize: '40px'}} ></i>
                 <p>Drag and Drop</p>
@@ -512,7 +512,7 @@ const Dms = () => {
 
             {isFileUploaded && 
             <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
-            <label for="file" class="file-upload-label">
+            <label for="file" class="file-upload-label glass">
                 <div class="file-upload-design glass">
                 <div class={isUpload? 'installer' : 'installer2'}>
 	                <label for="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
@@ -528,7 +528,7 @@ const Dms = () => {
             </div>
             <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
                 
-                <div class="file-upload-label">
+                <div class="file-upload-label glass">
             <div class="file-upload-design2 glass">
             <label className='my-auto' role="button">
             
