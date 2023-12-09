@@ -359,20 +359,28 @@ const Dms = () => {
 
     // Add the file to the state
     setSelectedFiles(prevFiles => [...prevFiles, file]);
+
+    // Call handleFileUpload after setting the file to the state
+    handleFileUpload();
+    };
+
+    const handleShowFiles = () => {
+        setShowFiles(true);
+        setIsFileUploaded(false);
     };
 
 
       const handleFileUpload = () => {
+        setIsFileUploaded(true);
+        setShowFiles(false);
         setTimeout(() => {
-            setIsFileUploaded(false);
-            setShowFiles(true);
+            handleShowFiles();
             console.log('File progress complete');
         }, 3000);
+
      }
      
-     if (isFileUploaded) {
-        handleFileUpload();
-     }
+
      
      const handleRemoveFile = (index) => {
         const newFiles = [...selectedFiles];
@@ -509,9 +517,12 @@ const Dms = () => {
 
             {showFiles && 
             <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
-            <label  class="file-upload-label">
-                <div class="file-upload-design2">
-                <label for="file">
+                <div class="file-upload-label">
+            <div class="file-upload-design2">
+            <label className='my-auto' role="button">
+                
+                <form action="/upload" method="post" enctype="multipart/form-data">
+
                     <div 
                     className="file-box" 
                     data-bs-toggle="tooltip"       
@@ -521,8 +532,10 @@ const Dms = () => {
             
                     <i class="bi bi-plus-circle m-auto" style={{fontSize: "90px"}}></i> 
                     </div>
-                    <input id="file" type="file" onChange={handleOnChange} />
-                </label>
+                    <input type="file" onChange={handleOnChange} />
+                    <input type="submit" value="Upload"></input>
+                    </form>
+                 </label>
                 {selectedFiles.map((file, index) => (
                     <div  className="file-box" 
                     data-bs-toggle="tooltip"        
@@ -539,7 +552,7 @@ const Dms = () => {
                 
 
                 </div>
-            </label>
+                </div>
             </form>}
                     
                         {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
