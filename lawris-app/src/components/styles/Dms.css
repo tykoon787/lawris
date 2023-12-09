@@ -274,7 +274,9 @@
   }
   .file-upload-label {
     cursor: pointer;
-    background-color: #ddd;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    
     padding: 10px 25px;
     border-radius: 40px;
     border: 2px dashed rgb(82, 82, 82);
@@ -304,6 +306,11 @@
     right: 0;
     top: 0;
     z-index: 9999;
+}
+
+.glass {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
 }
 
 .installer {
