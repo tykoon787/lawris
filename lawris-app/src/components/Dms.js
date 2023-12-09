@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import $ from 'jquery';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -45,8 +45,7 @@ import { useNavigate } from 'react-router-dom';
 //Notifications
 import Notifications from './Notifications'
 
-//File Upload
-import FileUpload from './FileUpload';
+
 
 
 const iconList = [
@@ -258,6 +257,10 @@ const Dms = () => {
     const [showConvert, setShowConvert] = useState(false);
     const [isFileUploaded, setIsFileUploaded] = useState(false);
     const [fileName, setFileName] = useState('')
+    const [showFiles, setShowFiles] = useState(false);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const fileInput = useRef(null);
+
    
 
     const toggleDropdown = () => {
@@ -335,18 +338,63 @@ const Dms = () => {
     const handleUploadClick = () => {
         setShowUpload(!showUpload);
         setShowConvert(false);
+        setShowFiles(false);
      }
      
      const handleConvertClick = () => {
         setShowConvert(!showConvert);
         setShowUpload(false);
+        setShowFiles(false);
      }
 
-     const onFileUpload = (file) => {
-        console.log('File uploaded:', file.name);
-        setFileName(file.name);
-        setIsFileUploaded(true);
-      };
+     
+
+    const handleOnChange = (event) => {
+    const file = event.target.files[0];
+    console.log('File uploaded:', file.name);
+    setFileName(file.name);
+    setIsFileUploaded(true);
+    setShowConvert(false);
+    setShowUpload(false);
+
+    // Add the file to the state
+    setSelectedFiles(prevFiles => [...prevFiles, file]);
+    };
+
+
+      const handleFileUpload = () => {
+        setTimeout(() => {
+            setIsFileUploaded(false);
+            setShowFiles(true);
+            console.log('File progress complete');
+        }, 3000);
+     }
+     
+     if (isFileUploaded) {
+        handleFileUpload();
+     }
+     
+     const handleRemoveFile = (index) => {
+        const newFiles = [...selectedFiles];
+        newFiles.splice(index, 1);
+        setSelectedFiles(newFiles);
+       };
+
+       const getFileIcon = (fileType) => {
+        if (fileType.includes('image')) {
+         return <i className="bi bi-file-image" style={{fontSize: '80px'}}></i>;
+        } else if (fileType.includes('pdf')) {
+         return <i className="bi bi-file-pdf mx-auto" style={{fontSize: '80px'}}></i>;
+        } else if (fileType.includes('doc') || fileType.includes('docx')) {
+         return <i className="bi bi-file-word" style={{fontSize: '80px'}}></i>;
+        } else if (fileType.includes('tiff')) {
+         return <i className="bi bi-file-image" style={{fontSize: '80px'}}></i>; 
+        } else {
+         return <i className="bi bi-file" style={{fontSize: '80px'}}></i>;
+        }
+       };
+       
+       
       
 
     return (
@@ -395,7 +443,7 @@ const Dms = () => {
                 </div>
                 
             </div>
-            {isFileUploaded && <Notifications time={new Date()} fileName={fileName} />}
+            {showFiles && <Notifications time={new Date()} fileName={fileName} />}
             <div className="dms-container">
                 <div className="background_image-container d-flex flex-column align-items-center">
                     <p className="lead fw-bold text-center">DOCUMENT MANAGER</p>
@@ -428,14 +476,71 @@ const Dms = () => {
                 <p>or</p>
                 <span class="browse-button">Browse file</span>
                 </div>
-                <input id="file" type="file"  />
+                <input id="file" type="file" onChange={handleOnChange}  />
             </label>
             </form>
             }
 
             {/**convert modal */}
 
-            {showConvert && <FileUpload onFileUpload={onFileUpload} />}
+            {showConvert && 
+            <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
+            <label for="file" class="file-upload-label">
+                <div class="file-upload-design">
+                <i class="bi bi-filetype-pdf" style={{fontSize: '40px'}} ></i>
+                <p>Drag and Drop</p>
+                <p>or</p>
+                <span class="browse-button">Browse file</span>
+                </div>
+                <input id="file" type="file" onChange={handleOnChange} />
+            </label>
+            </form>}
+
+            {isFileUploaded && 
+            <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
+            <label for="file" class="file-upload-label">
+                <div class="file-upload-design">
+                <div class="installer">
+	                <label for="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
+                </div>
+                </div>
+            </label>
+            </form>}
+
+            {showFiles && 
+            <form class="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
+            <label  class="file-upload-label">
+                <div class="file-upload-design2">
+                <label for="file">
+                    <div 
+                    className="file-box" 
+                    data-bs-toggle="tooltip"       
+                    data-bs-placement="bottom" 
+                    title="Add File"  
+                    >
+            
+                    <i class="bi bi-plus-circle m-auto" style={{fontSize: "90px"}}></i> 
+                    </div>
+                    <input id="file" type="file" onChange={handleOnChange} />
+                </label>
+                {selectedFiles.map((file, index) => (
+                    <div  className="file-box" 
+                    data-bs-toggle="tooltip"        
+                    data-bs-placement="bottom" 
+                    title={file.name}   
+                    key={index}>
+                            <span className='mx-auto'>{getFileIcon(file.type)}</span>
+                            <br/>
+                            <span>{file.name}</span>
+                            
+                            <button onClick={() => handleRemoveFile(index)}>X</button>   
+                    </div>
+                ))}
+                
+
+                </div>
+            </label>
+            </form>}
                     
                         {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
                         {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
