@@ -9,6 +9,7 @@ import os
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 import logging
+from .utils.microsoft_graph import upload_file_to_onedrive
 
 # Logs
 log_dir = "projects/lawris/logs"
@@ -171,6 +172,9 @@ class Template(BaseModel):
         """
         file_name = os.path.join(save_path, file_name)
         document.save(file_name)
+        
+        # Upload the file to OneDrive
+        upload_file_to_onedrive(save_path, file_name)
         with open(file_name, 'rb') as file:
             generated_content = file.read()
 
