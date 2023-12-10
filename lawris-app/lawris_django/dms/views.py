@@ -6,6 +6,7 @@ from .models import Template, Document
 from dms.serializers import TemplateSerializer,  ReplacementDataSerializer, DocumentSerializer
 from django.shortcuts import render
 import docx
+import os
 
 
 def react_app(request):
@@ -45,6 +46,7 @@ class TemplateEditView(viewsets.ModelViewSet):
     """
     pass
 
+
 class ReplacementDataView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = ReplacementDataSerializer(data=request.data)
@@ -57,10 +59,19 @@ class ReplacementDataView(APIView):
                 template = Template.objects.get(id=template_id)
             except Template.DoesNotExist:
                 return Response({'error': 'Template not found.'}, status=status.HTTP_404_NOT_FOUND)
+            print("passed")
 
-            doc = docx.Document(template.template_file_docx)
-            
-            filled_template = template.fill_template(document=doc, replacements=replacements)
+            file_extension = os.path.splitext(template.template_file_docx)[1].lower()
+
+            if file_extension == '.docx':
+                doc = docx.Document(template.template_file_docx)
+                template.fill_template(document=doc, replacements=replacements)
+                return Response("DOCX Filling successful")
+            elif file_extension == '.pdf':
+                
+                pdf_path = template.template_file_docx
+                template.fill_template(data=pdf_path,  replacements=replacements)
+                return Response("pdf Filling successful")
 
             return Response("200 OK")
         else:

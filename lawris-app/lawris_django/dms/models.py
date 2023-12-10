@@ -210,7 +210,7 @@ class Template(BaseModel):
         else:
             template_content = self.read_template_content(
                 self.template_file_docx)
-            filled_template = template_content.format(**data)
+            filled_template = template_content.format(**replacements)
             return (filled_template)
 
     def __str__(self):
