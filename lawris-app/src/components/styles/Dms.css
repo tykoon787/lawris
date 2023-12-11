@@ -3,10 +3,10 @@
 .dashboard-nav {
     height: 50px;
     /* background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); */
-    background: lightgray;
-    margin-left: 1rem;
+    background: transparent;
+    /* margin-left: 1rem;
     margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; */
     padding: 1rem
 }
 
@@ -15,7 +15,7 @@
     width: 100%;
 }
 .main-container {
-    background-image: url('../../static/backgrounds/dmsImage.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../static/backgrounds/background.png');
     object-fit: cover;
     height: 100vh;
 }
@@ -27,7 +27,7 @@
 .background_image-container {
     padding-top: 70px;
     /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
-    background-image: url('../../static/backgrounds/bg_pattern.png');
+    /* background-image: url('../../static/backgrounds/bg_pattern.png'); */
     width: auto;
     height: 150px;
 }
@@ -170,6 +170,7 @@
 }
 .menuItems {
     margin-bottom: 10px;
+    color: white;
 }
 
 .menuItems ul li:hover .subMenu ul li {
@@ -180,9 +181,7 @@
     text-align: left;
 }
 
-.menuItems ul li:hover .subMenu ul li:last-child {
-    border-bottom: none;
-}
+
 
 .app img {
     height: 30px;   
@@ -208,12 +207,24 @@
 }
 
 .bgCanvas{
-    /* background-color: rgba(0, 0, 0, 0.8); */
+    background-color: rgba(0, 0, 0, 0.8);
     /* background: linear-gradient(-225deg, rgba(203, 186, 204, 0.7) 0%, rgba(37, 128, 179, 0.7) 100%); */
-    background-color: lightgray;
+    /* background-color: lightgray; */
     color: white;
     font-weight: 800;
     font-size: large;
+}
+.intro {
+    color: white;
+}
+.usericon {
+    fill: white;
+}
+.usericon:hover{
+    cursor: pointer;
+    transform: translate(0, 512px) scale(0.1, -0.1);
+    fill: #fff;
+    stroke: none;
 }
 
 .close {
@@ -222,7 +233,7 @@
 
 .dropDown {
     margin-right: 3rem;
-    color: black;
+    color: white;
     font-weight: 900;
     font-size: medium;
 
@@ -240,6 +251,7 @@
     border: none;
     color: #f58f7c;
     font-weight: bold;
+    fill: white;
     
 }
 
