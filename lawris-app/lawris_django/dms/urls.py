@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import TemplateListView, SingleTemplateView, PrintTemplateView, ReplacementDataView
+from .views import TemplateListView, SingleTemplateView, PrintTemplateView, ReplacementDataView, DocumentViewSet
 from rest_framework.routers import DefaultRouter
 from . import views
 
@@ -12,5 +12,8 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/templates/<int:pk>/', SingleTemplateView.as_view({'get': 'retrieve'}), name='template-detail'),
     path('api/templates/print/', PrintTemplateView.as_view(), name='print-template'),
-    path('replacement-data/', ReplacementDataView.as_view(), name='replacement-data')
+    path('replacement-data/', ReplacementDataView.as_view(), name='replacement-data'),
+    path('documents/', DocumentViewSet.as_view({'get': 'list'}), name='document-list'),
+
+
 ]

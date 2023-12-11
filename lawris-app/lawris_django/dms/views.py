@@ -46,6 +46,14 @@ class TemplateEditView(viewsets.ModelViewSet):
     """
     pass
 
+class DocumentViewSet(viewsets.ModelViewSet):
+    serializer_class = DocumentSerializer
+    queryset = Document.objects.all()
+    actions = {
+        'get': 'retrieve',
+    }
+
+
 
 class ReplacementDataView(APIView):
     def post(self, request, *args, **kwargs):
@@ -59,7 +67,6 @@ class ReplacementDataView(APIView):
                 template = Template.objects.get(id=template_id)
             except Template.DoesNotExist:
                 return Response({'error': 'Template not found.'}, status=status.HTTP_404_NOT_FOUND)
-            print("passed")
 
             file_extension = os.path.splitext(template.template_file_docx)[1].lower()
 
