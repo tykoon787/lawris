@@ -10,9 +10,11 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 import logging
 from .utils.microsoft_graph import upload_file_to_onedrive
+from bson.binary import Binary, UuidRepresentation
+from uuid import UUID
 
 # Logs
-log_dir = "projects/lawris/logs"
+log_dir = "/home/kibe/Desktop/lawris_docs"
 os.makedirs(log_dir, exist_ok=True)
 
 logger = logging.getLogger()
@@ -27,6 +29,14 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 # Create your models here.
+
+from pymongo import MongoClient
+cluster = MongoClient("mongodb+srv://laban:Laban254@cluster0.880pe99.mongodb.net/?retryWrites=true&w=majority")
+db = cluster["test_d"]
+collection = db["test_c"]
+
+
+
 
 
 class BaseModel(models.Model):
@@ -127,7 +137,7 @@ class Template(BaseModel):
             sub_division=sub_division,
             template_file_docx=template_file_docx,
             pdf_preview_file=pdf_preview_file,
-            # thumbnail=thumbnail,
+            #thumbnail=thumbnail,
             form_fields=form_fields
         )
         template.save()
@@ -174,7 +184,7 @@ class Template(BaseModel):
         document.save(file_name)
         
         # Upload the file to OneDrive
-        upload_file_to_onedrive(save_path, file_name)
+        # upload_file_to_onedrive(save_path, file_name)
         with open(file_name, 'rb') as file:
             generated_content = file.read()
 
@@ -194,17 +204,38 @@ class Template(BaseModel):
         Returns:
             Document (Document): Document object with the generated content
         """
+        
+        
         if (document and replacements):
             for placeholder, replacement in replacements.items():
                 self.replace_placeholder(document, placeholder, replacement)
 
             new_document = Document(title=self.title)
             new_document.save()
+            document_id = new_document.id
+            # Convert UUID to binary with specified UuidRepresentation
+            
+            document_id_binary = Binary.from_uuid(document_id, UuidRepresentation.STANDARD)
+
+
+            template_data = {
+                "type": self.type,
+                "title": self.title,
+                "category_of_law": self.category_of_law,
+                "division_of_law": self.division_of_law,
+                "sub_division": self.sub_division,
+                "document_location": "http//:onedrive.com",
+                "thumbnail_url": "thumbnail location",
+                "document_id": document_id_binary
+                
+                
+            }
+            print(template_data)
+            collection.insert_one(template_data)
 
             generated_content = self.save_file(
                 document, file_name=f'{new_document.title}.docx')
             new_document.content = generated_content
-            new_document.save()
 
             return new_document
         else:
@@ -229,24 +260,17 @@ class Document(BaseModel):
         self.title = title
 
     def generate_document(self, format: str = "docx"):
-        """
-        Generates a document based off it's contents
-        """
         if format.lower() == "docx":
             doc = docx.Document()
-            doc.add_paragraph(self.content)
+            doc.add_paragraph(str(self.content))
+            print("Generated document:")
+            print(doc.paragraphs)  # Log the paragraphs
             return doc
         else:
-            # NOTE: Handler other formats (pdf)
+            # Handle other formats (pdf)
             pass
 
-    def __str__(self):
-        return f'Document Object: {self.id}-{self.title}'
-
     def download_document(self):
-        """
-        Downloads a document
-        """
         generated_doc = self.generate_document()
 
         if generated_doc:
