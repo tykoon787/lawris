@@ -7,7 +7,9 @@
     /* margin-left: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem; */
-    padding: 1rem
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.2); /* Adjust the alpha value for transparency */
+    backdrop-filter: blur(10px);
 }
 
 .dashboard-nav.d-flex {

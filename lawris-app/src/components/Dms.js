@@ -349,7 +349,7 @@ const Dms = () => {
                     <div className= 'search d-flex justify-content-center align-items-center'>    
                         <img className='searchIcon'src={Search} alt='searchIcon' style={{ height: '20px'}}/>
                         <input
-                            className="input-group"
+                            className="form-control"
                             type='search'
                             placeholder='search...'
                             value={searchTerm}
