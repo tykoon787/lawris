@@ -11,6 +11,13 @@ import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
 
+
+// Handle signup logic using firebase 
+import { auth } from './Firebase';
+import { signInWithGoogle, signInWithFacebook }  from './OAuth';
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
+
+
 import Navbar from './NavBar';
 // import TypeChecker from './TypeChecker';
 
@@ -256,7 +263,7 @@ const Auth = () => {
           [name]: value,
         });
       }; 
-      
+     
      
       const handleSignup =  async (e) => {
         e.preventDefault();
@@ -360,6 +367,33 @@ const Auth = () => {
       }
     
 
+// Function to handle provider login
+const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle(); // Call the Google sign-in function
+
+      // Redirect to the dashboard after successful login
+      navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+
+    } catch (error) {
+      // Handle errors for Google sign-in
+      console.error('Google Authentication error:', error);
+      // Display specific error messages or handle the error cases
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    try {
+      await signInWithFacebook(); // Call the Facebook sign-in function
+      // Perform actions after successful Facebook authentication
+    } catch (error) {
+      // Handle errors for Facebook sign-in
+      console.error('Facebook Authentication error:', error);
+      // Display specific error messages or handle the error cases
+    }
+  };
+
+
   return (
     <div className="main">
       <div className="contentContainer d-flex flex-column justify-content-center align-items-center">
@@ -444,13 +478,13 @@ const Auth = () => {
 
                   {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div className='d-flex flex-column align-items-center justify-content center'>
-                      <div className='signin mb-3'>
+                      <div className='signin mb-3' onClick={handleGoogleSignIn}>
                         <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
                         <span>
                           Sign in with google
                         </span>
                       </div>
-                      <div className='signin mb-3'>
+                      <div className='signin mb-3' onClick={handleFacebookSignIn}>
                         <img  src={facebook} alt='fbImg' style={{ width: '2em', height: '2em' }}/>
                         <span>
                           Sign in with Facebook
