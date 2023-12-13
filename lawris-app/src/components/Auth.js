@@ -14,8 +14,8 @@ import InputGroup from './DynamicSignupForm';
 
 // Handle signup logic using firebase 
 import { auth } from './Firebase';
-import { signInWithGoogle, signInWithFacebook }  from './OAuth';
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithGoogle, signInWithFacebook, signInWithMicrosoft }  from './OAuth';
+import { GoogleAuthProvider, FacebookAuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth';
 
 
 import Navbar from './NavBar';
@@ -392,6 +392,19 @@ const handleGoogleSignIn = async () => {
       // Display specific error messages or handle the error cases
     }
   };
+  
+  const handleMicrosoftSignIn = async () => {
+  try {
+    await signInWithMicrosoft();
+    // Perform actions after successful Microsoft authentication
+    navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+  } catch (error) {
+    // Handle Microsoft sign-in errors
+    console.error('Microsoft Authentication error:', error);
+    // Display specific error messages or handle the error cases
+    }
+  };
+
 
 
   return (
@@ -481,7 +494,7 @@ const handleGoogleSignIn = async () => {
                       <div className='signin mb-3' onClick={handleGoogleSignIn}>
                         <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          Sign in with google
+                          Sign in with Google
                         </span>
                       </div>
                       <div className='signin mb-3' onClick={handleFacebookSignIn}>
@@ -490,10 +503,10 @@ const handleGoogleSignIn = async () => {
                           Sign in with Facebook
                         </span>
                       </div>
-                      <div className='signin'>
-                        <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
+                      <div className='signin mb-3' onClick={handleMicrosoftSignIn}>
+                        <img  src={Microsoft} alt='microsoft' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          sign in with Linkedin
+                          Sign in with Microsoft
                         </span>
                       </div>
                   </div>
