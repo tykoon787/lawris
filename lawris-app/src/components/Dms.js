@@ -9,6 +9,7 @@ import Doc from '../Assets/google-docs.png';
 import login from '../Assets/log-in.png';
 import settings from '../Assets/settings.png';
 import { UilApps } from '@iconscout/react-unicons';
+import { UilUser } from '@iconscout/react-unicons'
 import ProfileUpload from './ProfileUpload';
 
 
@@ -18,6 +19,7 @@ import addFile from '../static/icons/dms/icons/new-file.png';
 import archive from '../static/icons/dms/icons/archive.png';
 import upload from '../static/icons/dms/icons/upload.png';
 import pdf from '../static/icons/dms/icons/pdf.png';
+
 import apps from '../static/icons/dms/icons/apps.svg';
 import logo from '../Assets/transparentLawrisLogo.png';
 
@@ -35,6 +37,7 @@ import EditDocMainContainer from './EditDoc';
 
 // Icons
 import { UserIcon } from './Icons';
+
 
 // Edit Doc
 // import EditDoc from '../components/EditDoc';
@@ -182,10 +185,12 @@ const ProfileSideBar = () => {
     return (
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
-                <UserIcon />
+                {/* <UserIcon className='usericon mb-1'/> */}
+                <UilUser className='usericon mb-1' />
+               
                 <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
                     <Offcanvas.Header className='close' closeButton>
-                        <Offcanvas.Title className='text-center'>My Profile</Offcanvas.Title>
+                        <Offcanvas.Title className='text-center'></Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body className=''>
                         <div>
@@ -197,32 +202,39 @@ const ProfileSideBar = () => {
                         <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
                             <div className='d-flex align-items-center justify-content-center mb-3'>
                                 <span>
-                                    <img src={Doc} alt='docsImg' style={{height: '25px'}}/>
+                                    {/* <img src={Doc} alt='docsImg' style={{height: '25px'}}/> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-code-fill" viewBox="0 0 16 16">
+                                         <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M6.646 7.646a.5.5 0 1 1 .708.708L5.707 10l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zm2.708 0 2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 10 8.646 8.354a.5.5 0 1 1 .708-.708z"/>
+                                    </svg>
                                 </span>
-                                <p className=''>My Documents</p>
+                                <p className='ml-2'>My Documents</p>
                             </div>
                             <div className='d-flex align-items-center mb-3'>
                                 <span>
-                                    <img src={Account} alt='profileIcon' style={{height: '25px'}}/>
+                                    {/* <img src={Account} alt='profileIcon' style={{height: '25px'}}/> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                    </svg>
                                 </span>
-                                <p className=''>My Account</p>
-                            </div>
-                            <div className='d-flex align-items-center mb-3'>
-                                <span>
-                                    <img src={login} alt='loginImg' style={{height: '25px'}}/>
-                                </span>
-                                <p className='' onClick={handleButtonClick}>Sign In</p>
+                                <p className='ml-2'>My Account</p>
                             </div>
                             
                             <div className='d-flex align-items-center mb-3'>
                                 <span>
-                                    <img src={Logout} alt='profileIcon' style={{height: '25px'}}/>
+                                    {/* <img src={Logout} alt='profileIcon' style={{height: '25px'}}/> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                    </svg>
                                 </span>
-                                <p className='logout'>Logout</p>
+                                <p className='logout ml-2'>Logout</p>
                             </div>
                             <div className='d-flex align-items-center mb-3'>
                                 <span>
-                                    <img className='mr-0' src={settings} alt='settingsImg' style={{height: '25px'}} />
+                                    {/* <img className='mr-0' src={settings} alt='settingsImg' style={{height: '25px'}} /> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                                    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                                    </svg>
                                 </span>
                                 <Dropdown className='dropDownSettings'>
                                     <Dropdown.Toggle as='span' id='dropdown-basic'>
@@ -330,13 +342,13 @@ const Dms = () => {
                     <div className='logo d-flex'>
                         <img  src={logo} alt='logoimg' style={{height: '45px'}}/>
 
-                        <p className='text-bold pt-2'>Lawris</p>
+                        <p className='intro text-bold pt-2'>Lawris</p>
                         
                     </div>    
                     <div className= 'search d-flex justify-content-center align-items-center'>    
                         <img className='searchIcon'src={Search} alt='searchIcon' style={{ height: '20px'}}/>
                         <input
-                            className="input-group"
+                            className="form-control"
                             type='search'
                             placeholder='search...'
                             value={searchTerm}
@@ -354,7 +366,7 @@ const Dms = () => {
                         <div onClick={toggleDropdown} className="apps">
                         
                             {/* <img className="dev_icon" src={apps} alt="apps"></img> */}
-                            <UilApps className='mr-2' />
+                            <UilApps className='usericon mr-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>
@@ -371,7 +383,7 @@ const Dms = () => {
             </div>
             <div className="dms-container">
                 <div className="background_image-container d-flex flex-column align-items-center">
-                    <p className="lead fw-bold text-center">DOCUMENT MANAGER</p>
+                    <p className="lead fw-bold text-center text-white">DOCUMENT MANAGER</p>
                     <div className="command_bar-card card">
                         <div className="card-body command_bar-container">
                             <CommandBarIcons iconList={iconList} />
