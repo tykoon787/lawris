@@ -18,6 +18,8 @@ export const signInWithGoogle = async () => {
     console.log('Credential:', credential);
     console.log('Access Token:', token);
     console.log('User:', user);
+
+    return user;
     
     // Use 'credential', 'token', and 'user' as needed
   } catch (error) {
@@ -56,6 +58,7 @@ export const signInWithFacebook = async () => {
 export const signInWithMicrosoft = async () => {
   try {
     const provider = new OAuthProvider('microsoft.com');
+
     const auth = getAuth();
 
     const result = await signInWithPopup(auth, provider);
@@ -64,11 +67,15 @@ export const signInWithMicrosoft = async () => {
     const credential = result.credential;     
     const token = result.accessToken;
     const user = result.user;
+    const email = result._tokenResponse.email;
 
     console.log('Microsoft Authentication successful!');
     console.log('Result:', result);
     console.log('Access Token:', token);
     console.log('User:', user);
+    console.log('Email:', email);
+
+    return { email };
 
     // Use 'result', 'token', and 'user' as needed
   } catch (error) {

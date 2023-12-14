@@ -366,22 +366,40 @@ const Auth = () => {
         color: 'black',
       }
     
-
 // Function to handle provider login
 const handleGoogleSignIn = async () => {
-    try {
-      await signInWithGoogle(); // Call the Google sign-in function
+  try {
+    const user = await signInWithGoogle(); // Call the Google sign-in function
+    const userEmail = user.email; // Get the user's email from the authentication response
 
-      // Redirect to the dashboard after successful login
+    // Send a request to your Django backend to verify the user's email
+    const response = await fetch('http://localhost:8000/auth/verify_email/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: userEmail }), // Send the user's email to the backend
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Email verification successful:', data);
       navigate('/dms_dashboard', { state: { isAuthenticated: true } });
-
-    } catch (error) {
-      // Handle errors for Google sign-in
-      console.error('Google Authentication error:', error);
-      // Display specific error messages or handle the error cases
+    } else {
+      // If the email is not verified, handle accordingly (e.g., show an error message)
+      console.error('Email verification failed');
+      // Handle the case where the email doesn't match records in the backend
     }
-  };
+  } catch (error) {
+    // Handle errors for Google sign-in or network issues
+    console.error('Google Authentication error:', error);
+    // Display specific error messages or handle the error cases
+  }
+};
 
+
+
+// Function to handle provider login
   const handleFacebookSignIn = async () => {
     try {
       await signInWithFacebook(); // Call the Facebook sign-in function
@@ -393,18 +411,35 @@ const handleGoogleSignIn = async () => {
     }
   };
   
-  const handleMicrosoftSignIn = async () => {
-  try {
-    await signInWithMicrosoft();
-    // Perform actions after successful Microsoft authentication
-    navigate('/dms_dashboard', { state: { isAuthenticated: true } });
-  } catch (error) {
-    // Handle Microsoft sign-in errors
-    console.error('Microsoft Authentication error:', error);
-    // Display specific error messages or handle the error cases
-    }
-  };
+const handleMicrosoftSignIn = async () => {
+    try {
+        const { email } = await signInWithMicrosoft(); // Function to authenticate with Microsoft
 
+        
+        // Send a POST request to your Django endpoint for email verification
+        const response = await fetch('http://localhost:8000/auth/verify_email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }), // Sending user's email for verification
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Email verification successful:', data);
+            // Perform actions after successful email verification, e.g., navigate to dashboard
+            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+        } else {
+            console.error('Email verification failed:', response.statusText);
+            // Handle email verification failure here
+        }
+    } catch (error) {
+        // Handle Microsoft sign-in errors
+        console.error('Microsoft Authentication error:', error);
+        // Display specific error messages or handle the error cases
+    }
+};
 
 
   return (
