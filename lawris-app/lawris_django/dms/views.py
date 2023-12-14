@@ -7,6 +7,8 @@ from dms.serializers import TemplateSerializer,  ReplacementDataSerializer, Docu
 from django.shortcuts import render
 import docx
 import os
+import tempfile
+from django.http import FileResponse
 
 
 def react_app(request):
@@ -72,8 +74,23 @@ class ReplacementDataView(APIView):
 
             if file_extension == '.docx':
                 doc = docx.Document(template.template_file_docx)
-                template.fill_template(document=doc, replacements=replacements)
-                return Response("DOCX Filling successful")
+                filled_template = template.fill_template(document=doc, replacements=replacements)
+                print(filled_template)
+
+                try:
+                    # Generate temporary docx file
+                    temp_file = tempfile.NamedTemporaryFile(suffix=".docx")
+                    filled_template.save(temp_file.name)
+
+                    # Prepare response with download headers
+                    response = FileResponse(temp_file, content_type="application/msword")
+                    response['Content-Disposition'] = f'attachment; filename="{template.title}_filled.docx"'
+                    response['Content-Length'] = temp_file.tell()
+                    return response
+                finally:
+                    # Close and delete temporary file
+                    temp_file.close()
+
             elif file_extension == '.pdf':
                 
                 pdf_path = template.template_file_docx

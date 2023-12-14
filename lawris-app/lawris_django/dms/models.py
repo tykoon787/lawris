@@ -211,7 +211,7 @@ class Template(BaseModel):
                 self.replace_placeholder(document, placeholder, replacement)
 
             new_document = Document(title=self.title)
-            new_document.save()
+            
             document_id = new_document.id
             # Convert UUID to binary with specified UuidRepresentation
             
@@ -230,7 +230,6 @@ class Template(BaseModel):
                 
                 
             }
-            print(template_data)
             collection.insert_one(template_data)
 
             generated_content = self.save_file(
