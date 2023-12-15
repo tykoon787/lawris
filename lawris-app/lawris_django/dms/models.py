@@ -37,8 +37,6 @@ collection = db["test_c"]
 
 
 
-
-
 class BaseModel(models.Model):
     """
     Base Model for all models
@@ -234,14 +232,14 @@ class Template(BaseModel):
 
             generated_content = self.save_file(
                 document, file_name=f'{new_document.title}.docx')
-            new_document.content = generated_content
-
+            new_document.content = generated_content       
             return new_document
+        
         else:
             template_content = self.read_template_content(
                 self.template_file_docx)
             filled_template = template_content.format(**replacements)
-            return (filled_template)
+            return filled_template
 
     def __str__(self):
         return self.title

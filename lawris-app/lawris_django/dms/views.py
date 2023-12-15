@@ -55,6 +55,49 @@ class DocumentViewSet(viewsets.ModelViewSet):
         'get': 'retrieve',
     }
 
+from django.http import HttpResponse
+from io import BytesIO
+import docx
+
+def serve_document(self, request, document_object, document_format):
+    """
+    Serve a document object as either DOCX or PDF attachment.
+
+    Args:
+        request: The Django request object.
+        document_object: The generated document object containing content.
+
+    Returns:
+        A Django HttpResponse object with attached document.
+    """
+
+    if document_format == "docx":
+        try:
+            # Convert raw content to DOCX document
+            docx_obj = docx.Document(BytesIO(document_object.content))
+        except Exception as conversion_error:
+            print(f"Error converting raw content to DOCX: {conversion_error}")
+            raise ValueError("Invalid DOCX content")
+
+        # Create a BytesIO buffer to serve the DOCX content
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        response['Content-Disposition'] = f'attachment; filename="{document_object.title}.docx"'
+
+        # Save the DOCX content to the buffer
+        docx_obj.save(response)
+        return response
+
+    elif document_format == "pdf":
+        pdf_content = document_object
+        print(f"PDF content: {pdf_content}")
+        # Serve PDF directly from document object data
+        content_type = 'application/pdf'
+
+        # Create an HTTP response with the PDF content
+        response = HttpResponse(pdf_content, content_type=content_type)
+        response['Content-Disposition'] = f'attachment; filename="{document_object.title}"'
+
+        return response
 
 
 class ReplacementDataView(APIView):
@@ -72,31 +115,21 @@ class ReplacementDataView(APIView):
 
             file_extension = os.path.splitext(template.template_file_docx)[1].lower()
 
-            if file_extension == '.docx':
-                doc = docx.Document(template.template_file_docx)
-                filled_template = template.fill_template(document=doc, replacements=replacements)
-                print(filled_template)
+            try:
+                if file_extension == '.pdf':
+                    filled_document = template.fill_template(data=template.template_file_docx, replacements=replacements)
+                    document_format = 'pdf' 
+                elif file_extension == '.docx':
+                    filled_document = template.fill_template(document=docx.Document(template.template_file_docx), replacements=replacements)
+                    document_format = 'docx'
+                else:
+                    raise ValueError(f"Unsupported document format: {file_extension}")
 
-                try:
-                    # Generate temporary docx file
-                    temp_file = tempfile.NamedTemporaryFile(suffix=".docx")
-                    filled_template.save(temp_file.name)
+                return serve_document(self, request, filled_document, document_format)
 
-                    # Prepare response with download headers
-                    response = FileResponse(temp_file, content_type="application/msword")
-                    response['Content-Disposition'] = f'attachment; filename="{template.title}_filled.docx"'
-                    response['Content-Length'] = temp_file.tell()
-                    return response
-                finally:
-                    # Close and delete temporary file
-                    temp_file.close()
 
-            elif file_extension == '.pdf':
-                
-                pdf_path = template.template_file_docx
-                template.fill_template(data=pdf_path,  replacements=replacements)
-                return Response("pdf Filling successful")
+            except Exception as e:
+                print(f"Error during document generation: {e}")
 
-            return Response("200 OK")
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
