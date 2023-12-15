@@ -259,6 +259,8 @@ const Dms = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [isConvert, setIsConvert] = useState(false);
     const [isUpload, setIsUpload] = useState(false);
+    const [showProgressbar, setShowProgressbar] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
     
 
    
@@ -370,7 +372,9 @@ const Dms = () => {
 
     const handleShowFiles = () => {
         setShowFiles(true);
+        setShowNotification(true);
         setIsFileUploaded(false);
+        setShowProgressbar(false);
     };
 
 
@@ -405,7 +409,43 @@ const Dms = () => {
          return <i className="bi bi-file" style={{fontSize: '80px'}}></i>;
         }
        };
+
+       const handleAddFile = (event) => {
+        const file = event.target.files[0];
+        console.log('File uploaded:', file.name);
+        setFileName(file.name);
+        setShowProgressbar(true);
+        setShowConvert(false);
+        setShowUpload(false);
+        setShowFiles(false);
+
+        setTimeout(() => {
+            // Add the file to the state
+            setShowFiles(true);
+        }, 1000);
+
+        // Call handleFileUpload after setting the file to the state
+        handleFileUpload2();
+
+        setTimeout(() => {
+            // Add the file to the state
+            setSelectedFiles(prevFiles => [...prevFiles, file]);
+        }, 8000);
+
+        
+        
+       }
        
+       const handleFileUpload2 = () => {
+        setShowProgressbar(true);
+       
+
+        setTimeout(() => {
+            handleShowFiles();
+            console.log('File progress complete');
+        }, 8000);
+
+     }
        
       
 
@@ -455,7 +495,7 @@ const Dms = () => {
                 </div>
                 
             </div>
-            {showFiles && <Notifications time={new Date()} fileName={fileName} />}
+            {showNotification && <Notifications time={new Date()} fileName={fileName} />}
             <div className="dms-container">
                 <div className="background_image-container d-flex flex-column align-items-center">
                     <p className="lead fw-bold text-center">DOCUMENT MANAGER</p>
@@ -527,10 +567,10 @@ const Dms = () => {
             
             
                 
-                <div className="file-upload-label glass">
-            <div className="file-upload-design2 glass">
-            <label className='my-auto' role="button">
-            
+                <div className="file-upload-label mx-auto glass">
+                <div className="file-upload-design2 glass">
+                <label className='my-auto' role="button">
+                
                 <form action="/upload" method="post" encType="multipart/form-data">
                 
                     <div 
@@ -542,7 +582,7 @@ const Dms = () => {
             
                     <i className="bi bi-plus-circle m-auto" style={{fontSize: "90px"}}></i> 
                     </div>
-                    <input type="file" onChange={handleOnChange} />
+                    <input type="file" onChange={handleAddFile} />
                     <input type="submit" value="Upload"></input>
                     </form>
                  </label>
@@ -561,7 +601,17 @@ const Dms = () => {
                     </div>
                      ))}
                      </form>
-               
+                     {showProgressbar &&
+                       <form className="file-upload-form3" style={{ zIndex: 9999 }}>
+                       <label htmlFor="file" className="file-upload-label3 ">
+                           <div className="file-upload-design ">
+                            <div className={isUpload? 'installer' : 'installer2'}>
+                                <label htmlFor="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
+                            </div>
+                           </div>
+                       </label>
+                       </form>
+                    }
                 
 
                 </div>

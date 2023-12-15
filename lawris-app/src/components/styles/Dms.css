@@ -263,7 +263,15 @@
     align-items: center;
     justify-content: center;
     zIndex: 9999; 
+    wrap: wrap;
   }
+
+  .file-upload-form3 {
+    width: fit-content;
+    height: fit-content;
+    zIndex: 9999; 
+  }
+
   .file-upload-label input {
     display: none;
   }
@@ -278,8 +286,15 @@
     border-radius: 40px;
     border: 2px dashed rgb(82, 82, 82);
     box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719);
-    width:75vw;
+    width:85vw;
   }
+
+  .file-upload-label3 {
+    cursor: pointer;    
+    padding: 10px 25px;
+    width:100%;
+  }
+
   .file-upload-design {
     display: flex;
     flex-direction: column;
