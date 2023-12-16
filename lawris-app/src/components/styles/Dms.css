@@ -2,13 +2,9 @@
 }
 .dashboard-nav {
     height: 50px;
-    /* background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); */
-    background: transparent;
-    /* margin-left: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem; */
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.2); /* Adjust the alpha value for transparency */
+    background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); 
+    padding: 10px;
+    /* background: rgba(255, 255, 255, 0.2); Adjust the alpha value for transparency */
     backdrop-filter: blur(10px);
 }
 
@@ -83,23 +79,29 @@
     justify-content: center;
     
 }
+.cases-tab {
+    margin-top: 30px;
+    color: #fff;
+}
 .docsLayout {
     /* background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg'); */
     object-fit: cover;
     height: 100vh;
 
 }
-.search input {
+ /* search input {
     height: 30px;
     border: none;
     min-width: 20px;
     width: 100%;
-    background-color: rgb(225, 225, 225);
-    outline: none;
-    border-radius: 5px;
-    padding: 2px 23px 2px 30px;
+    border-radius: 10px;
+    max-width: 800px;
+} */
 
-}
+/* .search input::placeholder {
+    margin-left: 10px;
+}  */
+
 .search {
     padding-bottom: 15px;
     position: relative;
@@ -108,25 +110,18 @@
 .searchIcon {
     position: absolute;
     top: 6px;
-    left: 8px;
+    left: 0;
     z-index: 1;
 }
-.clear-icon {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 10px;
-    cursor: pointer;
-    
-  }
-  .search input:hover {
+
+  /* .search input:hover {
     border: 1.8px solid #cf6f16;
     background-color: white;
   }
   .search input:focus {
     border: 1.8px solid #cf6f16;
     background-color: white;
-  }
+  } */
 
 
 

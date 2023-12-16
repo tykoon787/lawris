@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import $ from 'jquery';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import User from '../Assets/non-litigant.jpg';
 import Search from '../Assets/search.png';
-import Account from '../Assets/user.png';
-import Logout from '../Assets/exit.png';
-import Doc from '../Assets/google-docs.png';
-import login from '../Assets/log-in.png';
-import settings from '../Assets/settings.png';
+
 import { UilApps } from '@iconscout/react-unicons';
 import { UilUser } from '@iconscout/react-unicons'
 import ProfileUpload from './ProfileUpload';
@@ -38,7 +35,9 @@ import EditDocMainContainer from './EditDoc';
 
 // Icons
 import { UserIcon } from './Icons';
-
+// import { UserProfile, WelcomeMessage } from './Auth';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser } from '../redux/userSlice';
 
 // Edit Doc
 // import EditDoc from '../components/EditDoc';
@@ -92,92 +91,51 @@ const CommandBarIcons = ({ iconList }) => {
     )
 }
 
-const NavItem = ({ href, name, active }) => {
+ const NavItem = ({ href, name, active, onClick }) => {
 
-    const classes = `nav-link ${active ? 'active' : ''}`
+     const classes = `nav-link ${active ? 'active' : ''}`
+     return (
+          <li className="nav-item">
+              <a className={classes} aria-current="page" href={href} onClick={() => onClick(name)}>{name}</a>
+         </li>
+     )
+  }
+
+
+
+//  const NavList = () => {
+//        return (
+//            <ul className="nav nav-underline">
+//                {navList.map((navItem) => (
+//                   <NavItem key={navItem.id} href={navItem.href} name={navItem.name} active={navItem.active}
+//                   />
+//               ))}
+//           </ul>
+//      )
+//   }
+
+const NavList = ({ handleNavItemClick }) => {
     return (
-        <li className="nav-item">
-            <a className={classes} aria-current="page" href={href}>{name}</a>
-        </li>
-    )
-}
+      <ul className="nav nav-underline">
+        {navList.map((navItem) => (
+          <NavItem
+            key={navItem.id}
+            href={navItem.href}
+            name={navItem.name}
+            active={navItem.active}
+            onClick={() => handleNavItemClick(navItem.name)}
+          />
+        ))}
+      </ul>
+    );
+  };
 
-const NavList = () => {
-    return (
-        <ul className="nav nav-underline">
-            {navList.map((navItem) => (
-                <NavItem key={navItem.id} href={navItem.href} name={navItem.name} active={navItem.active}
-                />
-            ))}
-        </ul>
-    )
-}
 
-const Menu = () => {
-    return (
-        <div>
-            <div className='menuItems d-flex align-items-center'>
-                <Dropdown className='dropDown'>
-                    <Dropdown.Toggle as='span' id='dropdown-basic'>
-                        Services
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item href='#doc'>Document retrival</Dropdown.Item>
-                        <Dropdown.Item href='#doc'>Affidavits</Dropdown.Item>
-                        <Dropdown.Item href='#doc'>Case files</Dropdown.Item>
-                    </Dropdown.Menu>
-                            
-                </Dropdown>
-                <Dropdown className='dropDown'>
-                    <Dropdown.Toggle as='span' id='dropdown-basic'>
-                        About
-
-                    </Dropdown.Toggle>
-                </Dropdown>
-                <Dropdown className='dropDown'>
-                    <Dropdown.Toggle as='span' id='dropdown-basic'>
-                        Contact
-                    </Dropdown.Toggle>
-                </Dropdown>
-
-            </div>
-            
-
-        </div>
-    )
-}
-
-const UserProfile = () => {
-    const [profileImage, setProfileImage] = useState(null);
-
-    const handleProfileUpload = uploadFile => {
-        console.log('Upload File:', uploadFile);
-        setProfileImage(uploadFile)
-    }
-    return (
-        <div>
-            <h1>User Profile</h1>
-            {profileImage && (
-                <img 
-                src={URL.createObjectURL(profileImage)}
-                alt='Profile'
-                style={{ width: '150', height: '150px', borderRadius: '50%' }}
-                />
-            )}
-            <ProfileUpload onUpload={handleProfileUpload} />
-        </div>
-    )
-}
 
 const ProfileSideBar = () => {
     const [show, setShow] = useState(false);
-     const navigate = useNavigate();
-
-     const handleButtonClick = () => {
-        navigate('/auth');
-    }
-
-
+    const userInfo = useSelector(selectUser)
+    
     const handleToggle = () => {
         setShow(!show); 
         console.log('closed')// Toggle the show state
@@ -187,7 +145,8 @@ const ProfileSideBar = () => {
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
                 {/* <UserIcon className='usericon mb-1'/> */}
-                <UilUser className='usericon mb-1' />
+                <UilUser className='usericon mb-2' />
+                <img  src={userInfo.photoURL} alt='user profile'/>
                
                 <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
                     <Offcanvas.Header className='close' closeButton>
@@ -195,8 +154,7 @@ const ProfileSideBar = () => {
                     </Offcanvas.Header>
                     <Offcanvas.Body className=''>
                         <div>
-                            {/* <img className='userProfile' src={User} alt='userImg'/> */}
-                            <UserProfile />
+                            {/* <UserProfile /> */}
                             <p>User Name</p>
                             <hr></hr>
                         </div>
@@ -261,37 +219,50 @@ const Dms = () => {
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
     const [activeCategory, setActiveCategory] = useState("Civil");
     const [searchTerm, setSEarchTerm] = useState('');
+    const userInfo = useSelector(selectUser)
    
 
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisisble)
     }
 
-    const handleNavItemClick = (category_of_law) => {
-        console.log("Selected Category:", category_of_law);
-        setActiveCategory(category_of_law);
-      };
-
+    
 
     // Load templates on render
-    useEffect(() => {
-        $.ajax({
-            url: 'http://127.0.0.1:8000/dms/api/templates/',
-            method: 'GET',
-            dataType: 'json',
-            success: (data) => {
-                setDocumentList(data);
-                console.log(data)
+    //  useEffect(() => {
+    //      $.ajax({
+    //          url: 'http://127.0.0.1:8000/dms/api/templates/',
+    //          method: 'GET',
+    //          dataType: 'json',
+    //          success: (data) => {
+    //              setDocumentList(data);
+    //              console.log(data)
 
-                data.forEach((document) => {
-                    console.log("Category of Law:", document.category_of_law);
-                });
-            },
-            error: (error) => {
-                console.log("Error fetching data: ", error);
-            }
-        })
-    }, [])
+    //              data.forEach((document) => {
+    //                  console.log("Category of Law:", document.category_of_law);
+    //              });
+    //          },
+    //          error: (error) => {
+    //              console.log("Error fetching data: ", error);
+    //          }
+    //      })
+    //  }, [])
+
+     useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/dms/api/templates/`);
+            const data = await response.json();
+            setDocumentList(data);
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+        }
+    };
+
+    fetchData();
+  }, [activeCategory]);
+
+
 
     const handleCardClick = async (documentId) => {
         try {
@@ -319,14 +290,12 @@ const Dms = () => {
         setIsEditDocModalOpen(false);
     };
 
-    // Add a helper function to filter documents by category
-    // const filterDocumentsByCategory = (documentList, category_of_law) => {
-    //     return documentList.filter((document) => document.category_of_law === category_of_law);
-    // };
+   
 
-    console.log("IsEditModalOpen", isEditDocModalOpen);
-    console.log("Selected Card", selectedCard);
+    // console.log("IsEditModalOpen", isEditDocModalOpen);
+    // console.log("Selected Card", selectedCard);
 
+     
       // Filtering function based on the search input
     const filterDocuments = () => (
         documentList.filter((document) => 
@@ -335,30 +304,43 @@ const Dms = () => {
         )
     )
 
+    const handleNavItemClick = (category_of_law) => {
+        setActiveCategory(category_of_law);
+        console.log("Selected Category:", category_of_law);
+      };
+
+
+    const handleSearch = (e) => {
+        e.preventDefault() ;
+        const filterDocs = filterDocuments();
+        setDocumentList(filterDocs)
+
+    };
+
 
     return (
         <div className="main-container">
-            <div className="dashboard-nav">
-                <div className='d-flex justify-content-between align-items-center'>
-                    <div className='logo d-flex'>
-                        <img  src={logo} alt='logoimg' style={{height: '45px'}}/>
+            <div className="dashboard-nav navbar navbar-expand-lg">
+                <div className='container-fluid pt-1'>
+                    <div className='logo d-flex navbar-brand'>
+                        <img  src={logo} alt='logoimg' style={{height: '50px'}}/>
 
                         <p className='intro text-bold pt-2'>Lawris</p>
                         
                     </div>    
-                    <div className= 'search d-flex justify-content-center align-items-center'>    
-                        <img className='searchIcon'src={Search} alt='searchIcon' style={{ height: '20px'}}/>
-                        <input
-                            className="form-control"
-                            type='search'
-                            placeholder='search...'
-                            value={searchTerm}
-                            onChange={(e) => setSEarchTerm(e.target.value)} 
-                        />
+                    <div className= 'search d-flex justify-content-center align-items-center'> 
+                        <form onSubmit={(e) => handleSearch(e)} className='d-flex'>
+                            {/* <img className='searchIcon'src={Search} alt='searchIcon' style={{ height: '20px'}}/> */}
+                            <input
+                                className="form-control mt-1"
+                                type='search'
+                                placeholder='search...'
+                                value={searchTerm}
+                                onChange={(e) => setSEarchTerm(e.target.value)} 
+                            />
+                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        </form>   
                         
-                    </div>
-                    <div className='menuItems d-flex align-items-center'>
-                        <Menu />
                         
                     </div>
                    
@@ -367,7 +349,7 @@ const Dms = () => {
                         <div onClick={toggleDropdown} className="apps">
                         
                             {/* <img className="dev_icon" src={apps} alt="apps"></img> */}
-                            <UilApps className='usericon mr-2' />
+                            <UilApps className='usericon mr-2 mb-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>
@@ -384,6 +366,10 @@ const Dms = () => {
             </div>
             <div className="dms-container">
                 <div className="background_image-container d-flex flex-column align-items-center">
+                    {/* <WelcomeMessage /> */}
+                    <p>
+                        {userInfo.name}
+                    </p>
                     <p className="lead fw-bold text-center text-white">DOCUMENT MANAGER</p>
                     <div className="command_bar-card card">
                         <div className="card-body command_bar-container">

@@ -1,18 +1,29 @@
 // Handles OAuth authentication with different providers
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged  } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+// import { setUser } from '../redux/userSlice';
+// import { useDispatch } from 'react-redux';
+
+
 
 export const signInWithGoogle = async () => {
+  
   try {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
 
     const result = await signInWithPopup(auth, provider);
+  
     
     // Successful authentication
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
     const user = result.user;
+    return user;
+  
+
 
     console.log('Google Authentication successful!');
     console.log('Credential:', credential);
@@ -33,6 +44,7 @@ export const signInWithFacebook = async () => {
     const auth = getAuth();
 
     const result = await signInWithPopup(auth, provider);
+
     
     // Successful authentication
     const credential = FacebookAuthProvider.credentialFromResult(result);

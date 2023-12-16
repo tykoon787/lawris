@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import student from '../Assets/law students2.jpg';
@@ -13,9 +13,13 @@ import InputGroup from './DynamicSignupForm';
 
 
 // Handle signup logic using firebase 
-import { auth } from './Firebase';
+import { auth, db } from './Firebase';
 import { signInWithGoogle, signInWithFacebook }  from './OAuth';
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/userSlice';
+
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
 
 import Navbar from './NavBar';
@@ -181,6 +185,63 @@ const commonLoginInputs = [
     'institution',
     'business'
   ];
+
+ 
+
+
+// export const UserProfile = () => {
+//     const [userProfileImage, setUserProfileImage] = useState('');
+  
+//     useEffect(() => {
+//       // Check if the user is authenticated
+//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+//         if (user) {
+//           // User is signed in
+//           const userDocRef = doc(db, 'users', user.uid);
+//           const userDocSnap = await getDoc(userDocRef);
+  
+//           if (userDocSnap.exists()) {
+//             const userData = userDocSnap.data();
+//             setUserProfileImage(userData.profileImage);
+//           }
+//         } else {
+//           // User is signed out
+//           setUserProfileImage('');
+//         }
+//       });
+  
+//       return () => unsubscribe();
+//     }, [auth, db]);
+  
+//     return <img src={userProfileImage} alt="User Profile" />;
+//   };
+  
+// export  const WelcomeMessage = () => {
+//     const [userName, setUserName] = useState('');
+  
+//     useEffect(() => {
+//       // Check if the user is authenticated
+//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+//         if (user) {
+//           // User is signed in
+//           const userDocRef = doc(db, 'users', user.uid);
+//           const userDocSnap = await getDoc(userDocRef);
+  
+//           if (userDocSnap.exists()) {
+//             const userData = userDocSnap.data();
+//             setUserName(userData.displayName);
+//           }
+//         } else {
+//           // User is signed out
+//           setUserName('');
+//         }
+//       });
+  
+//       return () => unsubscribe();
+//     }, [auth, db]);
+  
+//     return <p className="welcome-message">Welcome, {userName}!</p>;
+//   };
 
 
 const Introduction = ({userType, isSignup}) => {
@@ -365,15 +426,27 @@ const Auth = () => {
         cursor: 'pointer',
         color: 'black',
       }
-    
-
+ 
+const dispatch = useDispatch();
 // Function to handle provider login
 const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle(); // Call the Google sign-in function
+      const user = await signInWithGoogle()
+      dispatch(setUser({
+        _id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+      }))
+        
+      navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+        
+      
+      // Call the Google sign-in function
 
       // Redirect to the dashboard after successful login
-      navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+
+      
 
     } catch (error) {
       // Handle errors for Google sign-in
