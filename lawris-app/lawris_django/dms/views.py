@@ -89,7 +89,6 @@ def serve_document(self, request, document_object, document_format):
 
     elif document_format == "pdf":
         pdf_content = document_object
-        print(f"PDF content: {pdf_content}")
         # Serve PDF directly from document object data
         content_type = 'application/pdf'
 

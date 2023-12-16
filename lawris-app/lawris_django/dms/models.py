@@ -1,4 +1,3 @@
-import re
 from django.db import models
 from django.db.models import JSONField
 from django.utils import timezone
@@ -11,9 +10,9 @@ from django.shortcuts import get_object_or_404
 import logging
 from .utils.microsoft_graph import upload_file_to_onedrive
 from bson.binary import Binary, UuidRepresentation
-from uuid import UUID
+from pymongo import MongoClient
 
-# Logs
+# Logging configuration
 log_dir = "/home/kibe/Desktop/lawris_docs"
 os.makedirs(log_dir, exist_ok=True)
 
@@ -28,13 +27,11 @@ file_formatter = logging.Formatter(
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
-# Create your models here.
 
-from pymongo import MongoClient
+# MongoDB connection
 cluster = MongoClient("mongodb+srv://laban:Laban254@cluster0.880pe99.mongodb.net/?retryWrites=true&w=majority")
 db = cluster["test_d"]
 collection = db["test_c"]
-
 
 
 class BaseModel(models.Model):
@@ -153,7 +150,8 @@ class Template(BaseModel):
             for page in pdf_template.pages:
                 page_text = page.extract_text()
                 template_content += page_text + "\n"
-                return template_content
+        print(template_content)
+        return template_content
 
     def replace_placeholder(self, doc: docx.Document, placeholder: str, replacement: str):
         """
@@ -239,6 +237,17 @@ class Template(BaseModel):
             template_content = self.read_template_content(
                 self.template_file_docx)
             filled_template = template_content.format(**replacements)
+            template_data = {
+                "type": self.type,
+                "title": self.title,
+                "category_of_law": self.category_of_law,
+                "division_of_law": self.division_of_law,
+                "sub_division": self.sub_division,
+                "document_location": "http//:onedrive.com",
+                "thumbnail_url": "thumbnail location pdf file",
+                "document_id": "document id"
+            }
+            collection.insert_one(template_data)
             return filled_template
 
     def __str__(self):
