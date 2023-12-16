@@ -237,6 +237,10 @@ class Template(BaseModel):
             template_content = self.read_template_content(
                 self.template_file_docx)
             filled_template = template_content.format(**replacements)
+            new_document = Document(self.title)
+            document_id = new_document.id
+            # Convert UUID to binary with specified UuidRepresentation
+            document_id_binary = Binary.from_uuid(document_id, UuidRepresentation.STANDARD)
             template_data = {
                 "type": self.type,
                 "title": self.title,
@@ -245,9 +249,10 @@ class Template(BaseModel):
                 "sub_division": self.sub_division,
                 "document_location": "http//:onedrive.com",
                 "thumbnail_url": "thumbnail location pdf file",
-                "document_id": "document id"
+                "document_id": document_id_binary
             }
             collection.insert_one(template_data)
+        
             return filled_template
 
     def __str__(self):
