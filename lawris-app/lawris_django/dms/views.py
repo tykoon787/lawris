@@ -8,7 +8,9 @@ from django.shortcuts import render
 import docx
 import os
 import tempfile
-from django.http import FileResponse
+from django.http import HttpResponse
+from io import BytesIO
+import docx
 
 
 def react_app(request):
@@ -55,9 +57,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
         'get': 'retrieve',
     }
 
-from django.http import HttpResponse
-from io import BytesIO
-import docx
+
 
 def serve_document(self, request, document_object, document_format):
     """
@@ -100,6 +100,22 @@ def serve_document(self, request, document_object, document_format):
 
 
 class ReplacementDataView(APIView):
+    """
+    Replaces data in a template document based on POST request.
+
+    **Required data:**
+
+    * `template_id` (int)
+    * `replacements` (dict)
+
+    **Returns filled document (PDF or DOCX) on success.**
+
+    **Errors:**
+
+    * 404: Template not found.
+    * 400: Invalid data or document generation error.
+    """
+
     def post(self, request, *args, **kwargs):
         serializer = ReplacementDataSerializer(data=request.data)
 
@@ -132,3 +148,4 @@ class ReplacementDataView(APIView):
 
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
