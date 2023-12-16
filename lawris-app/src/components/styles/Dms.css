@@ -259,10 +259,11 @@
 .file-upload-form {
     width: fit-content;
     height: fit-content;
+    flex-direction: row;
     display: flex;
     align-items: center;
-    justify-content: center;
-    zIndex: 9999; 
+    justify-content: center; 
+    /* zIndex: 9999;*/ 
     wrap: wrap;
   }
 
@@ -593,4 +594,5 @@
   }
 }
 
+ 
  

@@ -43,7 +43,7 @@ import form78 from '../static/docs/[Form 78]-Petition for probate of written wil
 import { useNavigate } from 'react-router-dom';
 
 //Notifications
-import Notifications from './Notifications'
+import Notifications from './Notifications';
 
 
 const iconList = [
@@ -364,15 +364,18 @@ const Dms = () => {
     setShowUpload(false);
 
     // Add the file to the state
-    setSelectedFiles(prevFiles => [...prevFiles, file]);
+     setTimeout(() => {
+            // Add the file to the state
+            setSelectedFiles(prevFiles => [...prevFiles, file]);
+        }, 8000);
 
     // Call handleFileUpload after setting the file to the state
     handleFileUpload();
+    
     };
 
     const handleShowFiles = () => {
         setShowFiles(true);
-        setShowNotification(true);
         setIsFileUploaded(false);
         setShowProgressbar(false);
     };
@@ -396,12 +399,14 @@ const Dms = () => {
         setSelectedFiles(newFiles);
        };
 
+
+
        const getFileIcon = (fileType) => {
         if (fileType.includes('image')) {
          return <i className="bi bi-file-image" style={{fontSize: '80px'}}></i>;
         } else if (fileType.includes('pdf')) {
          return <i className="bi bi-file-pdf mx-auto" style={{fontSize: '80px'}}></i>;
-        } else if (fileType.includes('doc') || fileType.includes('docx')) {
+        } else if ( fileType === "application/msword" || fileType.includes('.doc') || fileType.includes('.docx') || fileType.includes('.dot') || fileType.includes('.dotx') || fileType.includes('.docm') || fileType.includes('dotm')) {
          return <i className="bi bi-file-word" style={{fontSize: '80px'}}></i>;
         } else if (fileType.includes('tiff')) {
          return <i className="bi bi-file-image" style={{fontSize: '80px'}}></i>; 
@@ -412,12 +417,14 @@ const Dms = () => {
 
        const handleAddFile = (event) => {
         const file = event.target.files[0];
+        console.log('File uploaded:', file);
         console.log('File uploaded:', file.name);
         setFileName(file.name);
         setShowProgressbar(true);
         setShowConvert(false);
         setShowUpload(false);
         setShowFiles(false);
+        
 
         setTimeout(() => {
             // Add the file to the state
@@ -431,8 +438,6 @@ const Dms = () => {
             // Add the file to the state
             setSelectedFiles(prevFiles => [...prevFiles, file]);
         }, 8000);
-
-        
         
        }
        
@@ -446,6 +451,21 @@ const Dms = () => {
         }, 8000);
 
      }
+
+     useEffect(() => {
+        // This code block will execute whenever selectedFiles changes
+        console.log('Selected files have changed:', selectedFiles);
+        setShowNotification(true);
+
+        const notificationTimeout = setTimeout(() => {
+            setShowNotification(false);
+          }, 3000);
+
+        return () => clearTimeout(notificationTimeout);
+        
+      }, [selectedFiles]);
+
+     
        
       
 
@@ -586,21 +606,24 @@ const Dms = () => {
                     <input type="submit" value="Upload"></input>
                     </form>
                  </label>
-                 <form className="file-upload-form" style={{ zIndex: 9999 }}>
+                 
                 {selectedFiles.map((file, index) => (
                     <div  className="file-box" 
                     data-bs-toggle="tooltip"        
                     data-bs-placement="bottom" 
                     title={file.name}   
-                    key={index}>
+                    key={index}
+                    >
+                        <div onClick={() => window.open(URL.createObjectURL(file), '_blank')}>
                             <span className='mx-auto'>{getFileIcon(file.type)}</span>
                             <br/>
                             <span>{file.name}</span>
+                        </div>
                             
-                            <button onClick={() => handleRemoveFile(index)}>X</button>   
+                            <button onClick={() => handleRemoveFile(index)}>X</button>          
                     </div>
                      ))}
-                     </form>
+                    
                 </div>
                 {showProgressbar &&
                        <form className="file-upload-form3" style={{ zIndex: 9999 }}>
