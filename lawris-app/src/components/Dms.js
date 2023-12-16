@@ -601,7 +601,8 @@ const Dms = () => {
                     </div>
                      ))}
                      </form>
-                     {showProgressbar &&
+                </div>
+                {showProgressbar &&
                        <form className="file-upload-form3" style={{ zIndex: 9999 }}>
                        <label htmlFor="file" className="file-upload-label3 ">
                            <div className="file-upload-design ">
@@ -612,9 +613,6 @@ const Dms = () => {
                        </label>
                        </form>
                     }
-                
-
-                </div>
                 </div>
            
             </>
