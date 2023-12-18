@@ -454,6 +454,9 @@ const Dms = () => {
 
      useEffect(() => {
         // This code block will execute whenever selectedFiles changes
+        if (selectedFiles.length === 0) {
+          return;
+        }
         console.log('Selected files have changed:', selectedFiles);
         setShowNotification(true);
 
@@ -572,7 +575,7 @@ const Dms = () => {
             <form className="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
             <label htmlFor="file" className="file-upload-label glass">
                 <div className="file-upload-design glass">
-                <div className={isUpload? 'installer' : 'installer2'}>
+                <div className={isUpload ? 'installer' : 'installer2'}>
 	                <label htmlFor="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
                 </div>
                 </div>
@@ -629,7 +632,7 @@ const Dms = () => {
                        <form className="file-upload-form3" style={{ zIndex: 9999 }}>
                        <label htmlFor="file" className="file-upload-label3 ">
                            <div className="file-upload-design ">
-                            <div className={isUpload? 'installer' : 'installer2'}>
+                            <div className={isUpload ? 'installer' : 'installer2'}>
                                 <label htmlFor="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
                             </div>
                            </div>

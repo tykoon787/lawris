@@ -514,7 +514,7 @@
 
 .installer2 label input:checked ~ span {
   background: #87E544;
-  animation: downloadSuccess 3.1s ease;
+  animation: downloadSuccess2 3.1s ease;
 }
 
 .installer2 label span:after {
@@ -527,7 +527,7 @@
 
 .installer2 label input:checked ~ span:after {
   content: 'Thank you!';
-  animation: downloadState 5s;
+  animation: downloadState2 5s;
 }
 
 .installer2 label span:before {
@@ -542,10 +542,10 @@
 }
 
 .installer2 label input:checked ~ span:before {
-  animation: downloadProgress 7s cubic-bezier(.67,.13,.1,.81);
+  animation: downloadProgress2 7s cubic-bezier(.67,.13,.1,.81);
 }
 
-@keyframes downloadSuccess {
+@keyframes downloadSuccess2 {
   0%, 90% {
     background: #3F8EFC;
   }
@@ -555,7 +555,7 @@
   }
 }
 
-@keyframes downloadState {
+@keyframes downloadState2 {
   0%, 70% {
     content: 'CONVERTING...'
   }
@@ -565,7 +565,7 @@
   }
 }
 
-@keyframes downloadProgress {
+@keyframes downloadProgress2 {
   0% {
     width: 5%;
     opacity: 1;
