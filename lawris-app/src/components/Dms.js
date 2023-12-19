@@ -45,6 +45,9 @@ import { useNavigate } from 'react-router-dom';
 //Notifications
 import Notifications from './Notifications';
 
+//Word File Viewer
+import WordFileViewer from './WordFileViewer';
+
 
 const iconList = [
     { id: 1, png: addFile, action_name: "New File", route: "file_new_case" },
@@ -261,6 +264,8 @@ const Dms = () => {
     const [isUpload, setIsUpload] = useState(false);
     const [showProgressbar, setShowProgressbar] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
+    const [isWordFile, setIsWordFile] = useState(false);
+    const [file, setFile] = useState(null);
     
 
    
@@ -376,6 +381,7 @@ const Dms = () => {
 
     const handleShowFiles = () => {
         setShowFiles(true);
+        setIsWordFile(false);
         setIsFileUploaded(false);
         setShowProgressbar(false);
     };
@@ -429,6 +435,7 @@ const Dms = () => {
         setTimeout(() => {
             // Add the file to the state
             setShowFiles(true);
+            setIsWordFile(false);
         }, 1000);
 
         // Call handleFileUpload after setting the file to the state
@@ -468,7 +475,17 @@ const Dms = () => {
         
       }, [selectedFiles]);
 
-     
+      const openFile = (file) => {
+        setFile(file);
+        if (file.type.includes('pdf')) {
+        //   window.open(URL.createObjectURL(file), '_blank');
+          setIsWordFile(true);
+        } else if (file.type.includes('word') || file.type === "application/msword" || file.type.includes('.doc') || file.type.includes('.docx') || file.type.includes('.dot') || file.type.includes('.dotx') || file.type.includes('.docm') || file.type.includes('dotm')) { // Assuming Word files have 'word' in the type
+            setIsWordFile(true);
+        } else {
+          console.log('Unsupported file type');
+        }
+      };
        
       
 
@@ -581,68 +598,69 @@ const Dms = () => {
                 </div>
             </label>
             </form>}
-
+            
             {showFiles && 
             <>
-            <div style={{width: '100%'}}>
-                <h1 className='text-center' style={{color: "#E5252A"}} >{isConvert ? "Converted Files" : "Uploaded Files"}</h1>
-            </div>
-            
-            
-                
-                <div className="file-upload-label mx-auto glass">
-                <div className="file-upload-design2 glass">
-                <label className='my-auto' role="button">
-                
-                <form action="/upload" method="post" encType="multipart/form-data">
-                
-                    <div 
-                    className="file-box" 
-                    data-bs-toggle="tooltip"       
-                    data-bs-placement="bottom" 
-                    title="Add File"  
-                    >
-            
-                    <i className="bi bi-plus-circle m-auto" style={{fontSize: "90px"}}></i> 
+                {isWordFile ? (
+                <WordFileViewer setIsWordFile={setIsWordFile} setShowFiles={setShowFiles} file={file} URL={URL.createObjectURL(file)} />
+                ) : (
+                <>
+                    <div style={{ width: '100%' }}>
+                    <h1 className='text-center' style={{ color: "#E5252A" }}>{isConvert ? "Converted Files" : "Uploaded Files"}</h1>
                     </div>
-                    <input type="file" onChange={handleAddFile} />
-                    <input type="submit" value="Upload"></input>
-                    </form>
-                 </label>
-                 
-                {selectedFiles.map((file, index) => (
-                    <div  className="file-box" 
-                    data-bs-toggle="tooltip"        
-                    data-bs-placement="bottom" 
-                    title={file.name}   
-                    key={index}
-                    >
-                        <div onClick={() => window.open(URL.createObjectURL(file), '_blank')}>
-                            <span className='mx-auto'>{getFileIcon(file.type)}</span>
-                            <br/>
-                            <span>{file.name}</span>
-                        </div>
-                            
-                            <button onClick={() => handleRemoveFile(index)}>X</button>          
-                    </div>
-                     ))}
-                    
-                </div>
-                {showProgressbar &&
-                       <form className="file-upload-form3" style={{ zIndex: 9999 }}>
-                       <label htmlFor="file" className="file-upload-label3 ">
-                           <div className="file-upload-design ">
-                            <div className={isUpload ? 'installer' : 'installer2'}>
-                                <label htmlFor="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
+                        
+                    <div className="file-upload-label mx-auto glass">
+                    <div className="file-upload-design2 glass">
+                        <label className='my-auto' role="button">
+                        <form action="/upload" method="post" encType="multipart/form-data">
+                            <div
+                            className="file-box"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="Add File"
+                            >
+                            <i className="bi bi-plus-circle m-auto" style={{ fontSize: "90px" }}></i>
                             </div>
-                           </div>
-                       </label>
-                       </form>
-                    }
-                </div>
-           
+                            <input type="file" onChange={handleAddFile} />
+                            <input type="submit" value="Upload"></input>
+                        </form>
+                        </label>
+
+                        {selectedFiles.map((file, index) => (
+                        <div
+                            className="file-box"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title={file.name}
+                            key={index}
+                        >
+                            <div onClick={() => openFile(file)}>
+                            <span className='mx-auto'>{getFileIcon(file.type)}</span>
+                            <br />
+                            <span>{file.name}</span>
+                            </div>
+                            <button onClick={() => handleRemoveFile(index)}>X</button>
+                        </div>
+                        ))}
+
+                        {showProgressbar &&
+                        <form className="file-upload-form3" style={{ zIndex: 9999 }}>
+                            <label htmlFor="file" className="file-upload-label3 ">
+                            <div className="file-upload-design ">
+                                <div className={isUpload ? 'installer' : 'installer2'}>
+                                <label htmlFor="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
+                                </div>
+                            </div>
+                            </label>
+                        </form>
+                        }
+                    </div>
+                    </div>
+                </>
+                )}
             </>
             }
+
                     
                         {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
                         {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
