@@ -16,6 +16,7 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../static/backgrounds/background.png');
     object-fit: cover;
     height: 100vh;
+    backdrop-filter: blur(40px);
 }
 
 .dashboard-nav.apps:hover,
@@ -29,6 +30,34 @@
     width: auto;
     height: 150px;
 }
+.nav-link {
+    color: white;
+}
+
+.nav-link:active {
+    color: gray
+}
+
+.nav-link:hover {
+    color: black;
+    background: gray;
+}
+.navIntro {
+    color: white;
+}
+.navIntro:hover{
+    background-color: aquamarine;
+}
+
+.welcomeIntro {
+    color: black;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: left;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
 .command_bar-card.card {
     border-radius: 150px;
 }
@@ -80,7 +109,7 @@
     
 }
 .cases-tab {
-    margin-top: 30px;
+    margin-top: 50px;
     color: #fff;
 }
 .docsLayout {
@@ -89,18 +118,6 @@
     height: 100vh;
 
 }
- /* search input {
-    height: 30px;
-    border: none;
-    min-width: 20px;
-    width: 100%;
-    border-radius: 10px;
-    max-width: 800px;
-} */
-
-/* .search input::placeholder {
-    margin-left: 10px;
-}  */
 
 .search {
     padding-bottom: 15px;
@@ -113,16 +130,6 @@
     left: 0;
     z-index: 1;
 }
-
-  /* .search input:hover {
-    border: 1.8px solid #cf6f16;
-    background-color: white;
-  }
-  .search input:focus {
-    border: 1.8px solid #cf6f16;
-    background-color: white;
-  } */
-
 
 
 .logo p {
@@ -220,7 +227,7 @@
 .usericon:hover{
     cursor: pointer;
     transform: translate(0, 512px) scale(0.1, -0.1);
-    fill: #fff;
+    fill: orange;
     stroke: none;
 }
 
@@ -252,10 +259,13 @@
     
 }
 
-.userProfile {
-    height: 100px;
-    width: 100px;
+.profileImg {
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
+}
+.profileImg:hover {
+    cursor: pointer;
 }
 
 .profile {

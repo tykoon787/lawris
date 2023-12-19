@@ -1,9 +1,9 @@
 // Handles OAuth authentication with different providers
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged  } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-// import { setUser } from '../redux/userSlice';
+// import { setUser, removeUser } from '../redux/userSlice';
 // import { useDispatch } from 'react-redux';
 
 
@@ -63,3 +63,8 @@ export const signInWithFacebook = async () => {
     // Display specific error messages or handle the error cases
   }
 };
+
+// export  const handleSIgnout = () => {
+//   const auth = getAuth();
+//   signOut(auth)
+// }

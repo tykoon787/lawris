@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import $ from 'jquery';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import User from '../Assets/non-litigant.jpg';
+
 import Search from '../Assets/search.png';
 
 import { UilApps } from '@iconscout/react-unicons';
-import { UilUser } from '@iconscout/react-unicons'
-import ProfileUpload from './ProfileUpload';
+// import { UisHouseUser } from '@iconscout/react-unicons'
+
 
 
 
@@ -35,8 +34,8 @@ import EditDocMainContainer from './EditDoc';
 
 // Icons
 import { UserIcon } from './Icons';
-// import { UserProfile, WelcomeMessage } from './Auth';
-import { useSelector, useDispatch } from 'react-redux';
+import { logout } from './Auth';
+import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
 
 // Edit Doc
@@ -91,44 +90,57 @@ const CommandBarIcons = ({ iconList }) => {
     )
 }
 
- const NavItem = ({ href, name, active, onClick }) => {
+//  const NavItem = ({ href, name, active }) => {
 
-     const classes = `nav-link ${active ? 'active' : ''}`
-     return (
-          <li className="nav-item">
-              <a className={classes} aria-current="page" href={href} onClick={() => onClick(name)}>{name}</a>
-         </li>
-     )
-  }
-
-
-
-//  const NavList = () => {
-//        return (
-//            <ul className="nav nav-underline">
-//                {navList.map((navItem) => (
-//                   <NavItem key={navItem.id} href={navItem.href} name={navItem.name} active={navItem.active}
-//                   />
-//               ))}
-//           </ul>
+//      const classes = `nav-link ${active ? 'active' : ''}`
+//      return (
+//           <li className="nav-item">
+//               {/* <a className={classes} aria-current="page" href={href} onClick={() => onClick(name)}>{name}</a> */}
+//               <a className={classes} aria-current="page" href={href}>{name}</a>
+//          </li>
 //      )
 //   }
 
+const NavItem = ({ href, name, active, handleNavItemClick }) => {
+    const classes = `nav-link ${active ? 'active' : ''}`;
+
+    return (
+        <li className="nav-item">
+            <a className={classes} aria-current="page" href={href} onClick={() => handleNavItemClick(name)}>
+                {name}
+            </a>
+        </li>
+    );
+};
+
+
+
+//   const NavList = () => {
+//         return (
+//             <ul className="nav nav-underline">
+//                 {navList.map((navItem) => (
+//                    <NavItem key={navItem.id} href={navItem.href} name={navItem.name} active={navItem.active}
+//                    />
+//                ))}
+//            </ul>
+//       )
+//    }
 const NavList = ({ handleNavItemClick }) => {
     return (
-      <ul className="nav nav-underline">
-        {navList.map((navItem) => (
-          <NavItem
-            key={navItem.id}
-            href={navItem.href}
-            name={navItem.name}
-            active={navItem.active}
-            onClick={() => handleNavItemClick(navItem.name)}
-          />
-        ))}
-      </ul>
+        <ul className="nav nav-underline">
+            {navList.map((navItem) => (
+                <NavItem
+                    key={navItem.id}
+                    href={navItem.href}
+                    name={navItem.name}
+                    active={navItem.active}
+                    handleNavItemClick={handleNavItemClick} // Pass the handleNavItemClick function
+                />
+            ))}
+        </ul>
     );
-  };
+};
+
 
 
 
@@ -144,9 +156,8 @@ const ProfileSideBar = () => {
     return (
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
-                {/* <UserIcon className='usericon mb-1'/> */}
-                <UilUser className='usericon mb-2' />
-                <img  src={userInfo.photoURL} alt='user profile'/>
+                {/* <UilUser className='usericon mb-2' /> */}
+                <img  className='profileImg' src={userInfo.image} alt='user profile'/>
                
                 <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
                     <Offcanvas.Header className='close' closeButton>
@@ -155,7 +166,7 @@ const ProfileSideBar = () => {
                     <Offcanvas.Body className=''>
                         <div>
                             {/* <UserProfile /> */}
-                            <p>User Name</p>
+                            <p>{userInfo.name}</p>
                             <hr></hr>
                         </div>
                         <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
@@ -219,7 +230,7 @@ const Dms = () => {
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
     const [activeCategory, setActiveCategory] = useState("Civil");
     const [searchTerm, setSEarchTerm] = useState('');
-    const userInfo = useSelector(selectUser)
+    const userInfo = useSelector(selectUser);
    
 
     const toggleDropdown = () => {
@@ -229,38 +240,26 @@ const Dms = () => {
     
 
     // Load templates on render
-    //  useEffect(() => {
-    //      $.ajax({
-    //          url: 'http://127.0.0.1:8000/dms/api/templates/',
-    //          method: 'GET',
-    //          dataType: 'json',
-    //          success: (data) => {
-    //              setDocumentList(data);
-    //              console.log(data)
+      useEffect(() => {
+          $.ajax({
+              url: 'http://127.0.0.1:8000/dms/api/templates/',
+              method: 'GET',
+             dataType: 'json',
+              success: (data) => {
+                 setDocumentList(data);
+                 console.log(data)
 
-    //              data.forEach((document) => {
-    //                  console.log("Category of Law:", document.category_of_law);
-    //              });
-    //          },
-    //          error: (error) => {
-    //              console.log("Error fetching data: ", error);
-    //          }
-    //      })
-    //  }, [])
+                  data.forEach((document) => {
+                    console.log("Category of Law:", document.category_of_law);
+                 });
+             },
+             error: (error) => {
+                 console.log("Error fetching data: ", error);
+              }
+         })
+      }, [])
 
-     useEffect(() => {
-        const fetchData = async () => {
-        try {
-            const response = await fetch(`http://127.0.0.1:8000/dms/api/templates/`);
-            const data = await response.json();
-            setDocumentList(data);
-        } catch (error) {
-            console.error("Error fetching data: ", error);
-        }
-    };
 
-    fetchData();
-  }, [activeCategory]);
 
 
 
@@ -338,7 +337,7 @@ const Dms = () => {
                                 value={searchTerm}
                                 onChange={(e) => setSEarchTerm(e.target.value)} 
                             />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
+                            <button className="btn btn-outline-secondary ml-1 mt-1" type="submit">Search</button>
                         </form>   
                         
                         
@@ -347,9 +346,14 @@ const Dms = () => {
                     <div className="d-flex justify-content-end align-items-center" style={{position: 'relative'}}> 
                     
                         <div onClick={toggleDropdown} className="apps">
+                            {/* <svg  className='usericon mr-2' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                            </svg> */}
                         
                             {/* <img className="dev_icon" src={apps} alt="apps"></img> */}
-                            <UilApps className='usericon mr-2 mb-2' />
+                        {/* <UisHouseUser className='usericon mr-2' />     */}
+                        
+                        <UilApps className='usericon mr-2 mb-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>
@@ -365,11 +369,12 @@ const Dms = () => {
                 
             </div>
             <div className="dms-container">
+                <p className='welcomeIntro'>
+                    Welcome {userInfo?.name}
+                </p>
                 <div className="background_image-container d-flex flex-column align-items-center">
                     {/* <WelcomeMessage /> */}
-                    <p>
-                        {userInfo.name}
-                    </p>
+                    
                     <p className="lead fw-bold text-center text-white">DOCUMENT MANAGER</p>
                     <div className="command_bar-card card">
                         <div className="card-body command_bar-container">

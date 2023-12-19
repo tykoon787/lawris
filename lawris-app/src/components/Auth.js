@@ -14,10 +14,10 @@ import InputGroup from './DynamicSignupForm';
 
 // Handle signup logic using firebase 
 import { auth, db } from './Firebase';
-import { signInWithGoogle, signInWithFacebook }  from './OAuth';
+import { signInWithGoogle, signInWithFacebook, handleSIgnout }  from './OAuth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/userSlice';
+import { setUser, removeUser } from '../redux/userSlice';
 
 import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
@@ -242,6 +242,17 @@ const commonLoginInputs = [
   
 //     return <p className="welcome-message">Welcome, {userName}!</p>;
 //   };
+// export const logout = () => {
+//   handleSIgnout()
+//     .then(() => {
+//       dispatch(removeUser());
+//     })
+//     .catch(error => {
+//       // Handle errors if needed
+//       console.error('Logout error:', error);
+//     });
+// };
+
 
 
 const Introduction = ({userType, isSignup}) => {
@@ -466,6 +477,7 @@ const handleGoogleSignIn = async () => {
     }
   };
 
+ 
 
   return (
     <div className="main">
