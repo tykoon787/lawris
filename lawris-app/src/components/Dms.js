@@ -261,6 +261,7 @@ const Dms = () => {
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
     const [activeCategory, setActiveCategory] = useState("Civil");
     const [searchTerm, setSEarchTerm] = useState('');
+    const [formData, setFormData] = useState({})
    
 
     const toggleDropdown = () => {
@@ -292,7 +293,6 @@ const Dms = () => {
             }
         })
     }, [])
-
     const handleCardClick = async (documentId) => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/dms/api/templates/${documentId}/`);
@@ -307,6 +307,7 @@ const Dms = () => {
                 formFields: Object.values(data.form_fields)
             });
 
+            setFormData(Object.values(data.form_fields));
 
             setIsEditDocModalOpen(true)
 

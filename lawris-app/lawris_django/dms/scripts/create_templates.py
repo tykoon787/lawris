@@ -17,7 +17,7 @@ os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 log_file = os.path.join(log_dir, "create_templates.log")
-file_handler = logging.FileHandler(log_file, mode="w")
+file_handler = logging.FileHandler(log_file, mode="a")
 file_handler.setLevel(logging.DEBUG)
 file_formatter = logging.Formatter('[%(asctime)s] [%(levelname)-5s]  ::    %(message)s')
 file_handler.setFormatter(file_formatter)
@@ -140,7 +140,238 @@ templates = {
             'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
+    },
+    "form_81_template" : {
+        'type': "Plaint",
+        'title': "Plaint (Fast Track)",
+        'category_of_law' : 'Criminal',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_82_template" : {
+        'type': "Notice of Motion",
+        'title': "Notice of Motion",
+        'category_of_law' : 'Criminal',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_83_template" : {
+        'type': "Defense",
+        'title': "Defense on claims raised",
+        'category_of_law' : 'Commercial',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_84_template" : {
+        'type': "Counter Claim",
+        'title': "Counter Claim to Case Filed",
+        'category_of_law' : 'Commercial',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_85_template" : {
+        'type': "Judgment",
+        'title': "Judgment",
+        'category_of_law' : 'Family',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_86_template" : {
+        'type': "Defense",
+        'title': "Defense to land issues raised",
+        'category_of_law' : 'Family',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_87_template" : {
+        'type': "Plaint",
+        'title': "Plaint (Fast Track)",
+        'category_of_law' : 'Criminal',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_88_template" : {
+        'type': "Plaint",
+        'title': "Plaint (Fast Track)",
+        'category_of_law' : 'Arbitration',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_89_template" : {
+        'type': "Plaint",
+        'title': "A case for arbitration",
+        'category_of_law' : 'Arbitration',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
+    },
+    "form_90_template" : {
+        'type': "Plaint",
+        'title': "Plaint (Fast Track)",
+        'category_of_law' : 'Arbitration',
+        'division_of_law' : 'Family',
+        'sub_division' : 'Succession',
+        'template_file_docx' : f'{succession_docx_folder}/Form_80.docx',
+        'pdf_preview_file' : f'{succession_pdf_folder}/FORM 80-PETITION FOR LETTERS OF ADMINISTRATION INTESTATE_2.pdf',
+        'form_fields' : {
+            "case_number" : FormField('Case Number', 'text', "Enter Case Number").to_json(),
+            "court_location" : FormField('Court Location', "text", "Enter Court Location").to_json(),
+            "petitioner_name" : FormField("Petitioner's Name (Your name)", "text", "Enter Petitioner's Name").to_json(),
+            "petitioner_address_description" : FormField("Address Description", "text", "Residing at Africa").to_json(),
+            "petitioner_address" : FormField("Petitioner's Address", "text", "P.O Box, 1244").to_json(),
+            "deceased_name": FormField("Deceased Name", "text", "Enter the name of deceased").to_json(),
+            'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
+            'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
+            'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
+            'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
+        }
     }
+
 }
 
 
@@ -150,9 +381,10 @@ def run():
     """
     # TODO: Implement function to check whether the template has already been created
     # since this script is intended to be ran even after adding new templates
-    for template_key, template_value in templates.items():
-        Template.create_template(**template_value)
-        logging.info(f'[DEBUG] Created template: {template_key}')
+    for _ in range(5):
+        for template_key, template_value in templates.items():
+            Template.create_template(**template_value)
+            logging.info(f'[DEBUG] Created template: {template_key}')
 
 
 if __name__ == "__main__":
