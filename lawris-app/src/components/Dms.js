@@ -166,6 +166,7 @@ const ProfileSideBar = () => {
                     <Offcanvas.Body className=''>
                         <div>
                             {/* <UserProfile /> */}
+                            <img className='profileImg' src={userInfo.image} alt='profileIMg'/>
                             <p>{userInfo.name}</p>
                             <hr></hr>
                         </div>
