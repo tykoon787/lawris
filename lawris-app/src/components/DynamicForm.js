@@ -34,7 +34,6 @@ const DynamicForm = ({ templateId, formFields }) => {
             requestData["templateId"] = templateId
             requestData[fieldName] = fieldValue;
         })
-        console.log(requestData)
 
         try {
             const response = await axios.post(`http://127.0.0.1:8000/dms/api/templates/print/`, formData);
