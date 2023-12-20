@@ -17,4 +17,12 @@ EOF
 # Run Django migrations
 python3 manage.py makemigrations
 python3 manage.py migrate
+
+#populate database
+for ((i=1; i<=3; i++)); do
+    echo -e "\n Populating Database... (Run $i):"
+    python3 manage.py runscript dms.scripts.create_templates
+done
+
+#start server
 python3 manage.py runserver 8000
