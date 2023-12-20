@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import student from '../Assets/law students2.jpg';
@@ -10,16 +10,30 @@ import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
-import Input from './Input';
+
+
+// Handle signup logic using firebase 
+import { auth, db } from './Firebase';
+import { signInWithGoogle, signInWithFacebook, handleSIgnout }  from './OAuth';
+import { doc, getDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { setUser, removeUser } from '../redux/userSlice';
+
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+
+
 import Navbar from './NavBar';
 // import TypeChecker from './TypeChecker';
-import {getselectedUserType} from './userType';
+
 import InputLogin from './InputLogin';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 //icons import
 import Google from '../Assets/google.png';
 import Microsoft from '../Assets/microsoft.png';
 import LinkedIn from '../Assets/linkedin.png';
+import facebook from '../Assets/facebook.png';
 
 
 
@@ -28,6 +42,7 @@ import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIco
 const commonInputs = [
   {
     name: 'full_name',
+    type: 'text',
     icon: <PersonIcon />, // You can define the icon for the common inputs
     pattern: '^[A-Za-z\\s]+$',
     placeholder: 'Full Name',
@@ -36,14 +51,17 @@ const commonInputs = [
   },
   {
     name: 'email',
+    type: 'email',
     icon: <EmailIcon />,
-    pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+    //pattern: '^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$',
+    
     placeholder: 'Email',
     required: true,
     errorMessage: 'Please enter a valid email address.',
   },
   {
     name: 'password',
+    type: 'password',
     icon: <PasswordIcon />,
     pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
     placeholder: 'Password',
@@ -52,6 +70,7 @@ const commonInputs = [
   },
   {
     name: 'confirm_password',
+    type: 'password',
     icon: <PasswordIcon />,
     pattern: null, // You can set the pattern to null for confirmPassword
     placeholder: 'Confirm Password',
@@ -60,6 +79,7 @@ const commonInputs = [
   },
   {
     name: 'phone_number',
+    type: 'text',
     icon: <PhoneIcon />,
     pattern: '^\\+254[1-9]\\d{8}$',
     placeholder: 'Phone Number',
@@ -91,25 +111,19 @@ const commonLoginInputs = [
     lawyer: {
        icon: <LawyerIcon />,
        name: 'license_number',
+       type: 'text',
        pattern: '^12345$',
        placeholder: 'Licence Number',
        id: 'licenseNumberInput',
        required: true,
    },
  },
-//  {
-//    nonLitigant: {
-//       //icon: <PersonIcon />,
-//       //  name: '',
-//       //  pattern: '',
-//       //  placeholder:'Name',
 
-//    },
-//  }, 
  {
    student: {
        icon: <PersonIcon />,
        name: 'student_id',
+       type: 'text',
        pattern: '^1234$',
        placeholder:'studentNumber',
        id: 'studentNumberInput',
@@ -119,6 +133,7 @@ const commonLoginInputs = [
  {
    business: {
        icon: <LawyerIcon />,
+       type: 'text',
        name: 'registration_number',
        pattern: '^1234$',
        placeholder: 'Registration Number',
@@ -129,6 +144,7 @@ const commonLoginInputs = [
   {
     judiciary: {
       icon: <LawyerIcon />,
+      type: 'text',
       name: 'employee_id',
       pattern: '^1234$',
       placeholder: 'Employee Id',
@@ -139,6 +155,7 @@ const commonLoginInputs = [
   {
     lawFirm: {
       icon: <LawyerIcon />,
+      type: 'text',
       name: 'registration_number',
       pattern: '^1234$',
       placeholder: 'Registration Number',
@@ -149,7 +166,8 @@ const commonLoginInputs = [
   {
     institution: {
       icon: <LawyerIcon />,
-      name: 'ISO_number',
+      type: 'text',
+      name: 'Iso_number',
       pattern: '^1234$',
       placeholder: 'ISO Number',
       id: 'isoNumberInput',
@@ -167,6 +185,74 @@ const commonLoginInputs = [
     'institution',
     'business'
   ];
+
+ 
+
+
+// export const UserProfile = () => {
+//     const [userProfileImage, setUserProfileImage] = useState('');
+  
+//     useEffect(() => {
+//       // Check if the user is authenticated
+//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+//         if (user) {
+//           // User is signed in
+//           const userDocRef = doc(db, 'users', user.uid);
+//           const userDocSnap = await getDoc(userDocRef);
+  
+//           if (userDocSnap.exists()) {
+//             const userData = userDocSnap.data();
+//             setUserProfileImage(userData.profileImage);
+//           }
+//         } else {
+//           // User is signed out
+//           setUserProfileImage('');
+//         }
+//       });
+  
+//       return () => unsubscribe();
+//     }, [auth, db]);
+  
+//     return <img src={userProfileImage} alt="User Profile" />;
+//   };
+  
+// export  const WelcomeMessage = () => {
+//     const [userName, setUserName] = useState('');
+  
+//     useEffect(() => {
+//       // Check if the user is authenticated
+//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+//         if (user) {
+//           // User is signed in
+//           const userDocRef = doc(db, 'users', user.uid);
+//           const userDocSnap = await getDoc(userDocRef);
+  
+//           if (userDocSnap.exists()) {
+//             const userData = userDocSnap.data();
+//             setUserName(userData.displayName);
+//           }
+//         } else {
+//           // User is signed out
+//           setUserName('');
+//         }
+//       });
+  
+//       return () => unsubscribe();
+//     }, [auth, db]);
+  
+//     return <p className="welcome-message">Welcome, {userName}!</p>;
+//   };
+// export const logout = () => {
+//   handleSIgnout()
+//     .then(() => {
+//       dispatch(removeUser());
+//     })
+//     .catch(error => {
+//       // Handle errors if needed
+//       console.error('Logout error:', error);
+//     });
+// };
+
 
 
 const Introduction = ({userType, isSignup}) => {
@@ -233,19 +319,7 @@ const Auth = () => {
     }
   }
 
-  // const [LoginformState, setLoginFormState] = useState({
-  //   email: '',
-  //   password: '',
-  //   licenseNumber: '',
-  //   employeeId: '',
-  //   registrationNumber: '',
-  //   studentId: '',
-  //   isoNumber: '',
-  //   firmRegistrationNumber: '',
-  //   requiredField: '',
-  // });
-
-  //const [error, setError] = useState({ email: '', password: '' });
+  
 
   const handleModeSwitch = () => {
     setIsSignup((prev) => !prev);
@@ -260,8 +334,9 @@ const Auth = () => {
           ...formData,
           [name]: value,
         });
-      };     
-    
+      }; 
+     
+     
       const handleSignup =  async (e) => {
         e.preventDefault();
 
@@ -272,48 +347,50 @@ const Auth = () => {
 
         console.log(formDataWithUserType);
 
-        const apiUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint
-
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formDataWithUserType),
-          });
-      
-          if (!response.ok) {
-            throw new Error('Registration failed');
-          }
-          else {
-                console.log('Registration successful');
-                navigate('/Login');
-          }
-
-        } catch (error) {
-          console.error('Error during registration:', error.message);
-          // Handle the error, show a message to the user, or perform other actions
-        }
-               
+        const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
     
-        const requiredFields = []; // you can factor this when doing validation
-        const emptyFields = requiredFields.filter(field => !formData[field]);
+      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
+      const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
-          alert(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+          Swal.fire(`Please fill in the following fields: ${emptyFields.join(', ')}`);
           return;
-        }
-    
-        // Check for mismatched passwords
-        if (formData.password !== formData.confirmPassword) {
-          alert('Passwords do not match');
-          return;
-        }  
+        } else {
+          try {
+            const response = await fetch(signUpUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formDataWithUserType),
+            });
         
+            if (!response.ok) {
+            // Handle the case where the server returns an error
+              throw new Error('Registration failed');
+            }
+  
+          } catch (error) {
+            console.error('Error during registration:', error.message);
+            // Handle the error, show a message to the user, or perform other actions
+          }
+          Swal.fire('Registration Successful') 
+          setIsSignup(false)
+         }
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          employeeId: '',
+          registrationNumber: '',
+          studentNo: '',
+          isoId: '',
+          phone: '',
+          licenceNumber: '',
+          employeeNo: ''
+          });       
       };
-    
-
      
 
   const profileImage = {
@@ -360,16 +437,56 @@ const Auth = () => {
         cursor: 'pointer',
         color: 'black',
       }
-    
+ 
+const dispatch = useDispatch();
+// Function to handle provider login
+const handleGoogleSignIn = async () => {
+    try {
+      const user = await signInWithGoogle()
+      dispatch(setUser({
+        _id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+      }))
+        
+      navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+        
+      
+      // Call the Google sign-in function
+
+      // Redirect to the dashboard after successful login
+
+      
+
+    } catch (error) {
+      // Handle errors for Google sign-in
+      console.error('Google Authentication error:', error);
+      // Display specific error messages or handle the error cases
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    try {
+      await signInWithFacebook(); // Call the Facebook sign-in function
+      // Perform actions after successful Facebook authentication
+    } catch (error) {
+      // Handle errors for Facebook sign-in
+      console.error('Facebook Authentication error:', error);
+      // Display specific error messages or handle the error cases
+    }
+  };
+
+ 
 
   return (
     <div className="main">
       <div className="contentContainer d-flex flex-column justify-content-center align-items-center">
-        <div className="navbarContainer p-3 col-lg-10 mt-1" style={header}>
+        <div className="surround0Container p-3 col-lg-10 mt-1" style={header}>
           <div className="navbarContainer p-2 col-lg-10 mt-2" style={navbar}>
             <Navbar userType={userType} setUserType={setUserType} />
           </div>
-          <div className="card m-2 col-lg-10" style={cardStyle}>
+          <div className="card col-lg-10" style={cardStyle}>
             <div className="card-body d-flex p-0">
               
               <div className="col-md-6">
@@ -445,9 +562,30 @@ const Auth = () => {
                   
 
                   {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <div className='d-flex flex-column align-items-center justify-content center'>
+                      <div className='signin mb-3' onClick={handleGoogleSignIn}>
+                        <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
+                        <span>
+                          Sign in with google
+                        </span>
+                      </div>
+                      <div className='signin mb-3' onClick={handleFacebookSignIn}>
+                        <img  src={facebook} alt='fbImg' style={{ width: '2em', height: '2em' }}/>
+                        <span>
+                          Sign in with Facebook
+                        </span>
+                      </div>
+                      <div className='signin'>
+                        <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
+                        <span>
+                          sign in with Linkedin
+                        </span>
+                      </div>
+                  </div>
+
+                    {/* <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
                     <img src={Microsoft} alt="microsoft" className="mx-2" style={{ width: '2em', height: '2em' }} />
-                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} /> */}
                   </div>}
                   <div className="d-flex flex-column mt-3">
                     <p>
@@ -461,6 +599,7 @@ const Auth = () => {
                     </p>
                   </div>
                 </form>
+ 
               </div>
             </div>
           </div>
