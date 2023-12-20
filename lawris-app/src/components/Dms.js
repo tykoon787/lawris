@@ -55,8 +55,8 @@ const iconList = [
 ]
 
 const navList = [
-    { id: 1, name: "Civil", href: "/civil", active: false},
-    { id: 2, name: "Criminal", href: "/criminal", active: true }, // Set this item as active
+    { id: 1, name: "Civil", href: "/civil", active: true}, // Set this item as active
+    { id: 2, name: "Criminal", href: "/criminal", active: false },
     { id: 3, name: "Commercial", href: "/commercial", active: false },
     { id: 4, name: "Land Law", href: "/land_law", active: false },
     { id: 5, name: "Arbitration", href: "/arbitration", active: false },
