@@ -141,7 +141,7 @@ class ReplacementDataView(APIView):
                     raise ValueError(f"Unsupported document format: {file_extension}")
 
                 # return serve_document(self, request, filled_document, document_format)
-                return serve_document(self, request, filled_document, document_format, success=True)
+                return serve_document(self, request, filled_document, document_format)
 
 
             # except Exception as e:
