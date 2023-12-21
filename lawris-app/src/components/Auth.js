@@ -31,13 +31,12 @@ import 'sweetalert2/dist/sweetalert2.css';
 
 //icons import
 import Google from '../Assets/google.png';
-import Microsoft from '../Assets/microsoft.png';
 import LinkedIn from '../Assets/linkedin.png';
 import facebook from '../Assets/facebook.png';
 
 
 
-import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon } from './Icons';
 
 const commonInputs = [
   {
@@ -53,8 +52,6 @@ const commonInputs = [
     name: 'email',
     type: 'email',
     icon: <EmailIcon />,
-    //pattern: '^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$',
-    
     placeholder: 'Email',
     required: true,
     errorMessage: 'Please enter a valid email address.',
@@ -175,84 +172,6 @@ const commonLoginInputs = [
     }
   },  
   ];
-
-  const userTypes = [
-    'lawyer',
-    'nonlitigant',
-    'student',
-    'judiciary',
-    'lawfirm',
-    'institution',
-    'business'
-  ];
-
- 
-
-
-// export const UserProfile = () => {
-//     const [userProfileImage, setUserProfileImage] = useState('');
-  
-//     useEffect(() => {
-//       // Check if the user is authenticated
-//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-//         if (user) {
-//           // User is signed in
-//           const userDocRef = doc(db, 'users', user.uid);
-//           const userDocSnap = await getDoc(userDocRef);
-  
-//           if (userDocSnap.exists()) {
-//             const userData = userDocSnap.data();
-//             setUserProfileImage(userData.profileImage);
-//           }
-//         } else {
-//           // User is signed out
-//           setUserProfileImage('');
-//         }
-//       });
-  
-//       return () => unsubscribe();
-//     }, [auth, db]);
-  
-//     return <img src={userProfileImage} alt="User Profile" />;
-//   };
-  
-// export  const WelcomeMessage = () => {
-//     const [userName, setUserName] = useState('');
-  
-//     useEffect(() => {
-//       // Check if the user is authenticated
-//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-//         if (user) {
-//           // User is signed in
-//           const userDocRef = doc(db, 'users', user.uid);
-//           const userDocSnap = await getDoc(userDocRef);
-  
-//           if (userDocSnap.exists()) {
-//             const userData = userDocSnap.data();
-//             setUserName(userData.displayName);
-//           }
-//         } else {
-//           // User is signed out
-//           setUserName('');
-//         }
-//       });
-  
-//       return () => unsubscribe();
-//     }, [auth, db]);
-  
-//     return <p className="welcome-message">Welcome, {userName}!</p>;
-//   };
-// export const logout = () => {
-//   handleSIgnout()
-//     .then(() => {
-//       dispatch(removeUser());
-//     })
-//     .catch(error => {
-//       // Handle errors if needed
-//       console.error('Logout error:', error);
-//     });
-// };
-
 
 
 const Introduction = ({userType, isSignup}) => {

@@ -54,7 +54,7 @@
     font-size: 2rem;
     font-weight: 900;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .command_bar-card.card {
@@ -262,6 +262,7 @@
     height: 30px;
     width: 30px;
     border-radius: 50%;
+    margin-bottom: 1rem;
 }
 .profileImg:hover {
     cursor: pointer;

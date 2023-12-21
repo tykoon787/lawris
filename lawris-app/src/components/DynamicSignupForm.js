@@ -1,6 +1,4 @@
 import React from 'react';
-import userList from './utils/userList.js';
-import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from "../components/Icons";
 
  function InputGroup({ userList, commonInputs, userType, formData, handleInputChange }) {
 
