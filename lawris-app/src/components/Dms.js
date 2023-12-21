@@ -558,6 +558,16 @@ const Dms = () => {
             {showUpload && 
             <form className="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
             <label htmlFor="file" className="file-upload-label glass">
+            <i className="bi bi-x-lg float-right text-xl" style={{cursor: 'pointer', fontSize: '20px'}} onClick={() => setShowUpload(false)}></i>
+            <div
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Show Uploaded Files">
+                <i className="bi bi-cloud float-left text-xl" style={{cursor: 'pointer', fontSize: '35px'}} onClick={() => {
+                    setShowFiles(true);
+                    setShowUpload(false);
+                }}></i>
+                </div>
                 <div className="file-upload-design glass">
                 <svg viewBox="0 0 640 512" height="1em">
                                 <path
@@ -578,8 +588,18 @@ const Dms = () => {
             {showConvert && 
             <form className="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
             <label htmlFor="file" className="file-upload-label glass">
+            <i className="bi bi-x-lg float-right text-xl" style={{cursor: 'pointer', fontSize: '20px'}} onClick={() => setShowConvert(false)}></i>
+            <div
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Show Converted Files">
+                <i className="bi bi-cloud float-left text-xl" style={{cursor: 'pointer', fontSize: '35px'}} onClick={() => {
+                    setShowConvert(false);
+                    setShowFiles(true);
+                }}></i>
+                </div>
                 <div className="file-upload-design glass">
-                <i className="bi bi-filetype-pdf" style={{fontSize: '40px'}} ></i>
+                <i className="bi bi-filetype-pdf" style={{fontSize: '40px'}}></i>
                 <p>Drag and Drop</p>
                 <p>or</p>
                 <span className="browse-button">Browse file</span>
@@ -591,6 +611,7 @@ const Dms = () => {
             {isFileUploaded && 
             <form className="file-upload-form mx-auto" style={{ zIndex: 9999 }}>
             <label htmlFor="file" className="file-upload-label glass">
+            <i className="bi bi-x-lg float-right text-xl" style={{cursor: 'pointer', fontSize: '20px'}} onClick={() => setIsFileUploaded(false)}></i>
                 <div className="file-upload-design glass">
                 <div className={isUpload ? 'installer' : 'installer2'}>
 	                <label htmlFor="progressLinux"><input id="progressLinux" type="radio" /><span></span></label>
@@ -610,6 +631,7 @@ const Dms = () => {
                     </div>
                         
                     <div className="file-upload-label mx-auto glass">
+                    <i className="bi bi-x-lg float-right text-xl" style={{cursor: 'pointer', fontSize: '20px'}} onClick={() => setShowFiles(false)}></i>
                     <div className="file-upload-design2 glass">
                         <label className='my-auto' role="button">
                         <form action="/upload" method="post" encType="multipart/form-data">
@@ -625,7 +647,7 @@ const Dms = () => {
                             <input type="submit" value="Upload"></input>
                         </form>
                         </label>
-
+                        
                         {selectedFiles.map((file, index) => (
                         <div
                             className="file-box"
@@ -639,9 +661,12 @@ const Dms = () => {
                             <br />
                             <span>{file.name}</span>
                             </div>
-                            <button onClick={() => handleRemoveFile(index)}>X</button>
+                            <button onClick={() => handleRemoveFile(index)}>
+                            <i className="bi bi-x-lg float-right text-xl mr-1" style={{cursor: 'pointer', fontSize: '15px'}}></i>
+                                </button>
                         </div>
                         ))}
+                        
 
                         {showProgressbar &&
                         <form className="file-upload-form3" style={{ zIndex: 9999 }}>
