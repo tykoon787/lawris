@@ -4,6 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import { UilApps } from '@iconscout/react-unicons';
+import user from '../Assets/user.png';
 
 
 // import backgroundImg from '../static/backgrounds/art.png';
@@ -128,7 +129,12 @@ const ProfileSideBar = () => {
     return (
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
-                <img  className='profileImg' src={userInfo?.image} alt='user profile'/>
+                {userInfo ? (
+                    <img  className='profileImg' src={userInfo?.image} alt='user profile'/>
+                ) : (
+                    <img className='mb-2' src={user} alt='user' style={{height: '25px'}}/>
+
+                )}
                
                 <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
                     <Offcanvas.Header className='close' closeButton>
@@ -136,9 +142,13 @@ const ProfileSideBar = () => {
                     </Offcanvas.Header>
                     <Offcanvas.Body className=''>
                         <div>
-                           
-                            <img className='profileImg' src={userInfo?.image} alt='profileIMg' style={{height: '40px'}}/>
-                            <p>{userInfo?.name}</p>
+                            {userInfo ? (
+                                <img  className='profileImg' src={userInfo?.image} alt='user profile' style={{height: '40px'}}/>
+                            ) : (
+                                <img src={user} alt='user' style={{height: '20px'}}/>
+
+                            )}
+                            <p>{userInfo ? `${userInfo.name}` : `Username`}</p>
                             <hr></hr>
                         </div>
                         <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
@@ -335,7 +345,7 @@ const Dms = () => {
             </div>
             <div className="dms-container">
                 <p className='welcomeIntro'>
-                    Welcome {userInfo?.name}
+                    {userInfo ? `Welcome ${userInfo.name}`: `Welcome new user`}
                 </p>
                 <div className="background_image-container d-flex flex-column align-items-center">
                     {/* <WelcomeMessage /> */}

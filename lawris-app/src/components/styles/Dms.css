@@ -40,7 +40,7 @@
 
 .nav-link:hover {
     color: black;
-    background: gray;
+    background: #f58f7c;
 }
 .navIntro {
     color: white;
@@ -52,9 +52,10 @@
 .welcomeIntro {
     color: black;
     font-size: 2rem;
-    font-weight: 900;
+    font-weight: 700;
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 4rem;
+    margin-bottom: 0;
 }
 
 .command_bar-card.card {
@@ -108,7 +109,7 @@
     
 }
 .cases-tab {
-    margin-top: 50px;
+    margin-top: 30px;
     color: #fff;
 }
 .docsLayout {
