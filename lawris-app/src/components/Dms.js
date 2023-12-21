@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import $ from 'jquery';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import { Button, Dropdown, DropdownButton, MenuItem, Offcanvas } from 'react-bootstrap';
 import User from '../Assets/non-litigant.jpg';
 import Search from '../Assets/search.png';
 import Account from '../Assets/user.png';
