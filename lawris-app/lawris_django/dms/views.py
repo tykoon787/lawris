@@ -105,7 +105,7 @@ class ReplacementDataView(APIView):
 
     **Required data:**
 
-    * `template_id` (int)
+    * `templateId` (int)
     * `replacements` (dict)
 
     **Returns filled document (PDF or DOCX) on success.**
@@ -120,11 +120,11 @@ class ReplacementDataView(APIView):
         serializer = ReplacementDataSerializer(data=request.data)
 
         if serializer.is_valid():
-            template_id = serializer.validated_data['template_id']
+            templateId = serializer.validated_data['templateId']
             replacements = serializer.validated_data['replacements']
 
             try:
-                template = Template.objects.get(id=template_id)
+                template = Template.objects.get(id=templateId)
             except Template.DoesNotExist:
                 return Response({'error': 'Template not found.'}, status=status.HTTP_404_NOT_FOUND)
 

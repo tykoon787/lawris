@@ -164,7 +164,7 @@ class Template(BaseModel):
                     run.text = run.text.replace(
                         placeholder, replacement.upper())
 
-    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/kibe/Desktop/lawris_docs"):
+    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/shish/Desktop/lawris_docs"):
         """
         Saves the generated file to the specified path 
 

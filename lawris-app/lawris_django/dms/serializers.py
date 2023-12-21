@@ -15,7 +15,7 @@ class CreateDocument(serializers.ModelSerializer):
         fields = '_all__'
         
 class ReplacementDataSerializer(serializers.Serializer):
-    template_id = serializers.UUIDField()
+    templateId = serializers.UUIDField()
     replacements = serializers.DictField()
 
 
