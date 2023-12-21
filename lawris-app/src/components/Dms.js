@@ -3,15 +3,8 @@ import $ from 'jquery';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import { Button, Dropdown, DropdownButton, MenuItem, Offcanvas } from 'react-bootstrap';
-import User from '../Assets/non-litigant.jpg';
-import Search from '../Assets/search.png';
-
 import { UilApps } from '@iconscout/react-unicons';
 // import { UisHouseUser } from '@iconscout/react-unicons'
-
-
-
 
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
@@ -159,7 +152,7 @@ const ProfileSideBar = () => {
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
                 {/* <UilUser className='usericon mb-2' /> */}
-                <img  className='profileImg' src={userInfo.image} alt='user profile'/>
+                <img  className='profileImg' src={userInfo?.image} alt='user profile'/>
                
                 <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
                     <Offcanvas.Header className='close' closeButton>
@@ -168,8 +161,8 @@ const ProfileSideBar = () => {
                     <Offcanvas.Body className=''>
                         <div>
                             {/* <UserProfile /> */}
-                            <img className='profileImg' src={userInfo.image} alt='profileIMg'/>
-                            <p>{userInfo.name}</p>
+                            <img className='profileImg' src={userInfo?.image} alt='profileIMg' style={{height: '40px'}}/>
+                            <p>{userInfo?.name}</p>
                             <hr></hr>
                         </div>
                         <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
