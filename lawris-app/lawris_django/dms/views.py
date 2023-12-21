@@ -122,6 +122,15 @@ class ReplacementDataView(APIView):
         if serializer.is_valid():
             templateId = serializer.validated_data['templateId']
             replacements = serializer.validated_data['replacements']
+            
+            # Check if templateId is provided
+            if templateId is None:
+                return Response({'error': 'Template ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Check if replacements are provided and not empty
+            if replacements is None or not replacements:
+                return Response({'error': 'Replacements must be provided and not empty.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
             try:
                 template = Template.objects.get(id=templateId)
