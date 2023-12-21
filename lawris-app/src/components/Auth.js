@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import student from '../Assets/law students2.jpg';
@@ -11,6 +11,17 @@ import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
 
+
+// Handle signup logic using firebase 
+import { auth, db } from './Firebase';
+import { signInWithGoogle, signInWithFacebook, handleSIgnout }  from './OAuth';
+import { doc, getDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { setUser, removeUser } from '../redux/userSlice';
+
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+
+
 import Navbar from './NavBar';
 // import TypeChecker from './TypeChecker';
 
@@ -22,6 +33,7 @@ import 'sweetalert2/dist/sweetalert2.css';
 import Google from '../Assets/google.png';
 import Microsoft from '../Assets/microsoft.png';
 import LinkedIn from '../Assets/linkedin.png';
+import facebook from '../Assets/facebook.png';
 
 
 
@@ -174,6 +186,74 @@ const commonLoginInputs = [
     'business'
   ];
 
+ 
+
+
+// export const UserProfile = () => {
+//     const [userProfileImage, setUserProfileImage] = useState('');
+  
+//     useEffect(() => {
+//       // Check if the user is authenticated
+//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+//         if (user) {
+//           // User is signed in
+//           const userDocRef = doc(db, 'users', user.uid);
+//           const userDocSnap = await getDoc(userDocRef);
+  
+//           if (userDocSnap.exists()) {
+//             const userData = userDocSnap.data();
+//             setUserProfileImage(userData.profileImage);
+//           }
+//         } else {
+//           // User is signed out
+//           setUserProfileImage('');
+//         }
+//       });
+  
+//       return () => unsubscribe();
+//     }, [auth, db]);
+  
+//     return <img src={userProfileImage} alt="User Profile" />;
+//   };
+  
+// export  const WelcomeMessage = () => {
+//     const [userName, setUserName] = useState('');
+  
+//     useEffect(() => {
+//       // Check if the user is authenticated
+//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
+//         if (user) {
+//           // User is signed in
+//           const userDocRef = doc(db, 'users', user.uid);
+//           const userDocSnap = await getDoc(userDocRef);
+  
+//           if (userDocSnap.exists()) {
+//             const userData = userDocSnap.data();
+//             setUserName(userData.displayName);
+//           }
+//         } else {
+//           // User is signed out
+//           setUserName('');
+//         }
+//       });
+  
+//       return () => unsubscribe();
+//     }, [auth, db]);
+  
+//     return <p className="welcome-message">Welcome, {userName}!</p>;
+//   };
+// export const logout = () => {
+//   handleSIgnout()
+//     .then(() => {
+//       dispatch(removeUser());
+//     })
+//     .catch(error => {
+//       // Handle errors if needed
+//       console.error('Logout error:', error);
+//     });
+// };
+
+
 
 const Introduction = ({userType, isSignup}) => {
   return(
@@ -255,7 +335,7 @@ const Auth = () => {
           [name]: value,
         });
       }; 
-      
+     
      
       const handleSignup =  async (e) => {
         e.preventDefault();
@@ -269,8 +349,7 @@ const Auth = () => {
 
         const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
     
-      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number', 'license_number', 'student_id',
-       'registration_number', 'employee_id', 'Iso_number'];
+      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
       const emptyFields = requiredFields.filter(field => !formData[field]);
     
         if (emptyFields.length > 0) {
@@ -358,7 +437,47 @@ const Auth = () => {
         cursor: 'pointer',
         color: 'black',
       }
-    
+ 
+const dispatch = useDispatch();
+// Function to handle provider login
+const handleGoogleSignIn = async () => {
+    try {
+      const user = await signInWithGoogle()
+      dispatch(setUser({
+        _id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+      }))
+        
+      navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+        
+      
+      // Call the Google sign-in function
+
+      // Redirect to the dashboard after successful login
+
+      
+
+    } catch (error) {
+      // Handle errors for Google sign-in
+      console.error('Google Authentication error:', error);
+      // Display specific error messages or handle the error cases
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    try {
+      await signInWithFacebook(); // Call the Facebook sign-in function
+      // Perform actions after successful Facebook authentication
+    } catch (error) {
+      // Handle errors for Facebook sign-in
+      console.error('Facebook Authentication error:', error);
+      // Display specific error messages or handle the error cases
+    }
+  };
+
+ 
 
   return (
     <div className="main">
@@ -443,9 +562,30 @@ const Auth = () => {
                   
 
                   {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <div className='d-flex flex-column align-items-center justify-content center'>
+                      <div className='signin mb-3' onClick={handleGoogleSignIn}>
+                        <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
+                        <span>
+                          Sign in with google
+                        </span>
+                      </div>
+                      <div className='signin mb-3' onClick={handleFacebookSignIn}>
+                        <img  src={facebook} alt='fbImg' style={{ width: '2em', height: '2em' }}/>
+                        <span>
+                          Sign in with Facebook
+                        </span>
+                      </div>
+                      <div className='signin'>
+                        <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
+                        <span>
+                          sign in with Linkedin
+                        </span>
+                      </div>
+                  </div>
+
+                    {/* <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
                     <img src={Microsoft} alt="microsoft" className="mx-2" style={{ width: '2em', height: '2em' }} />
-                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} />
+                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} /> */}
                   </div>}
                   <div className="d-flex flex-column mt-3">
                     <p>
@@ -459,6 +599,7 @@ const Auth = () => {
                     </p>
                   </div>
                 </form>
+ 
               </div>
             </div>
           </div>

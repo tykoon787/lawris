@@ -2,13 +2,21 @@
 }
 .dashboard-nav {
     height: 50px;
-    /* background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); */
-    background: lightgray;
+    background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); 
+    padding: 10px;
+    /* background: rgba(255, 255, 255, 0.2); Adjust the alpha value for transparency */
+    backdrop-filter: blur(10px);
 }
 
 .dashboard-nav.d-flex {
     height: 100%;
     width: 100%;
+}
+.main-container {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../static/backgrounds/background.png');
+    object-fit: cover;
+    height: 100vh;
+    backdrop-filter: blur(40px);
 }
 
 .dashboard-nav.apps:hover,
@@ -18,10 +26,37 @@
 .background_image-container {
     padding-top: 70px;
     /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
-    background-image: url('../../static/backgrounds/bg_pattern.png');
+    /* background-image: url('../../static/backgrounds/bg_pattern.png'); */
     width: auto;
     height: 150px;
 }
+.nav-link {
+    color: white;
+}
+
+.nav-link:active {
+    color: gray
+}
+
+.nav-link:hover {
+    color: black;
+    background: gray;
+}
+.navIntro {
+    color: white;
+}
+.navIntro:hover{
+    background-color: aquamarine;
+}
+
+.welcomeIntro {
+    color: black;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 2rem;
+}
+
 .command_bar-card.card {
     border-radius: 150px;
 }
@@ -72,23 +107,21 @@
     justify-content: center;
     
 }
+.cases-tab {
+    margin-top: 50px;
+    color: #fff;
+}
 .docsLayout {
+<<<<<<< HEAD
     background-image: url('/src/Assets/dmsImage.jpg');
+=======
+    /* background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg'); */
+>>>>>>> 59933c9ec1ab60afd4b9d10b507f659b57e8fce2
     object-fit: cover;
     height: 100vh;
 
 }
-.search input {
-    height: 30px;
-    border: none;
-    min-width: 20px;
-    width: 100%;
-    background-color: rgb(225, 225, 225);
-    outline: none;
-    border-radius: 5px;
-    padding: 2px 23px 2px 30px;
 
-}
 .search {
     padding-bottom: 15px;
     position: relative;
@@ -97,26 +130,9 @@
 .searchIcon {
     position: absolute;
     top: 6px;
-    left: 8px;
+    left: 0;
     z-index: 1;
 }
-.clear-icon {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 10px;
-    cursor: pointer;
-    
-  }
-  .search input:hover {
-    border: 1.8px solid #cf6f16;
-    background-color: white;
-  }
-  .search input:focus {
-    border: 1.8px solid #cf6f16;
-    background-color: white;
-  }
-
 
 
 .logo p {
@@ -161,6 +177,7 @@
 }
 .menuItems {
     margin-bottom: 10px;
+    color: white;
 }
 
 .menuItems ul li:hover .subMenu ul li {
@@ -171,9 +188,7 @@
     text-align: left;
 }
 
-.menuItems ul li:hover .subMenu ul li:last-child {
-    border-bottom: none;
-}
+
 
 .app img {
     height: 30px;   
@@ -199,12 +214,24 @@
 }
 
 .bgCanvas{
-    /* background-color: rgba(0, 0, 0, 0.8); */
+    background-color: rgba(0, 0, 0, 0.8);
     /* background: linear-gradient(-225deg, rgba(203, 186, 204, 0.7) 0%, rgba(37, 128, 179, 0.7) 100%); */
-    background-color: lightgray;
+    /* background-color: lightgray; */
     color: white;
     font-weight: 800;
     font-size: large;
+}
+.intro {
+    color: white;
+}
+.usericon {
+    fill: white;
+}
+.usericon:hover{
+    cursor: pointer;
+    transform: translate(0, 512px) scale(0.1, -0.1);
+    fill: orange;
+    stroke: none;
 }
 
 .close {
@@ -213,7 +240,7 @@
 
 .dropDown {
     margin-right: 3rem;
-    color: black;
+    color: white;
     font-weight: 900;
     font-size: medium;
 
@@ -231,13 +258,17 @@
     border: none;
     color: #f58f7c;
     font-weight: bold;
+    fill: white;
     
 }
 
-.userProfile {
-    height: 100px;
-    width: 100px;
+.profileImg {
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
+}
+.profileImg:hover {
+    cursor: pointer;
 }
 
 .profile {
@@ -255,6 +286,7 @@
 .userSettings p {
     margin: 0;
 }
+<<<<<<< HEAD
 
 .file-upload-form {
     width: fit-content;
@@ -596,3 +628,23 @@
 
  
  
+=======
+.signin {
+    font-size: 1rem;
+    width: 15rem;
+    height: 3rem;
+    letter-spacing: 0.05em;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+}
+.signin:hover {
+    border-color: rgb(255, 154, 60);;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+>>>>>>> 59933c9ec1ab60afd4b9d10b507f659b57e8fce2
