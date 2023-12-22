@@ -401,7 +401,17 @@ const handleGoogleSignIn = async () => {
 // Function to handle Microsoft sign-in and email verification
 const handleMicrosoftSignIn = async () => {
     try {
-        const { email } = await signInWithMicrosoft(); // Sign in with Microsoft and retrieve email
+        const { user, email } = await signInWithMicrosoft(); // Sign in with Microsoft and retrieve email
+
+        // Dispatch user details to set in the Redux store
+        dispatch(
+            setUser({
+                _id: user.uid,
+                name: user.displayName,
+                email: email, // Ensure email is retrieved correctly
+                image: user.photoURL,
+            })
+        );
 
         // Send a POST request to your Django endpoint for email verification
         const response = await fetch('http://localhost:8000/auth/verify_email/', {

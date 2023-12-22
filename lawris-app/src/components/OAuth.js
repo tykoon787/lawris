@@ -57,7 +57,7 @@ export const signInWithMicrosoft = async () => {
         console.log('User:', user);
         console.log('Email:', email);
 
-        return { email }; // Return the email
+        return { user, email }; // Return the email
     } catch (error) {
         console.error('Microsoft Authentication error:', error);
         throw error; // Throw the error for handling in the calling function
