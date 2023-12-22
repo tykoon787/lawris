@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import student from '../Assets/law students2.jpg';
@@ -13,9 +13,13 @@ import InputGroup from './DynamicSignupForm';
 
 
 // Handle signup logic using firebase 
-import { auth } from './Firebase';
-import { signInWithGoogle, signInWithFacebook, signInWithMicrosoft }  from './OAuth';
-import { GoogleAuthProvider, FacebookAuthProvider, OAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth, db } from './Firebase';
+import { signInWithGoogle, signInWithFacebook, handleSIgnout }  from './OAuth';
+import { doc, getDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { setUser, removeUser } from '../redux/userSlice';
+
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
 
 import Navbar from './NavBar';
@@ -27,13 +31,12 @@ import 'sweetalert2/dist/sweetalert2.css';
 
 //icons import
 import Google from '../Assets/google.png';
-import Microsoft from '../Assets/microsoft.png';
 import LinkedIn from '../Assets/linkedin.png';
 import facebook from '../Assets/facebook.png';
 
 
 
-import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon } from './Icons';
 
 const commonInputs = [
   {
@@ -49,8 +52,6 @@ const commonInputs = [
     name: 'email',
     type: 'email',
     icon: <EmailIcon />,
-    //pattern: '^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$',
-    
     placeholder: 'Email',
     required: true,
     errorMessage: 'Please enter a valid email address.',
@@ -170,16 +171,6 @@ const commonLoginInputs = [
       required: true,
     }
   },  
-  ];
-
-  const userTypes = [
-    'lawyer',
-    'nonlitigant',
-    'student',
-    'judiciary',
-    'lawfirm',
-    'institution',
-    'business'
   ];
 
 
@@ -365,41 +356,35 @@ const Auth = () => {
         cursor: 'pointer',
         color: 'black',
       }
-    
+ 
+const dispatch = useDispatch();
 // Function to handle provider login
 const handleGoogleSignIn = async () => {
-  try {
-    const user = await signInWithGoogle(); // Call the Google sign-in function
-    const userEmail = user.email; // Get the user's email from the authentication response
-
-    // Send a request to your Django backend to verify the user's email
-    const response = await fetch('http://localhost:8000/auth/verify_email/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: userEmail }), // Send the user's email to the backend
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Email verification successful:', data);
+    try {
+      const user = await signInWithGoogle()
+      dispatch(setUser({
+        _id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+      }))
+        
       navigate('/dms_dashboard', { state: { isAuthenticated: true } });
-    } else {
-      // If the email is not verified, handle accordingly (e.g., show an error message)
-      console.error('Email verification failed');
-      // Handle the case where the email doesn't match records in the backend
+        
+      
+      // Call the Google sign-in function
+
+      // Redirect to the dashboard after successful login
+
+      
+
+    } catch (error) {
+      // Handle errors for Google sign-in
+      console.error('Google Authentication error:', error);
+      // Display specific error messages or handle the error cases
     }
-  } catch (error) {
-    // Handle errors for Google sign-in or network issues
-    console.error('Google Authentication error:', error);
-    // Display specific error messages or handle the error cases
-  }
-};
+  };
 
-
-
-// Function to handle provider login
   const handleFacebookSignIn = async () => {
     try {
       await signInWithFacebook(); // Call the Facebook sign-in function
@@ -410,37 +395,8 @@ const handleGoogleSignIn = async () => {
       // Display specific error messages or handle the error cases
     }
   };
-  
-const handleMicrosoftSignIn = async () => {
-    try {
-        const { email } = await signInWithMicrosoft(); // Function to authenticate with Microsoft
 
-        
-        // Send a POST request to your Django endpoint for email verification
-        const response = await fetch('http://localhost:8000/auth/verify_email/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email }), // Sending user's email for verification
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Email verification successful:', data);
-            // Perform actions after successful email verification, e.g., navigate to dashboard
-            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
-        } else {
-            console.error('Email verification failed:', response.statusText);
-            // Handle email verification failure here
-        }
-    } catch (error) {
-        // Handle Microsoft sign-in errors
-        console.error('Microsoft Authentication error:', error);
-        // Display specific error messages or handle the error cases
-    }
-};
-
+ 
 
   return (
     <div className="main">
@@ -529,7 +485,7 @@ const handleMicrosoftSignIn = async () => {
                       <div className='signin mb-3' onClick={handleGoogleSignIn}>
                         <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          Sign in with Google
+                          Sign in with google
                         </span>
                       </div>
                       <div className='signin mb-3' onClick={handleFacebookSignIn}>
@@ -538,10 +494,10 @@ const handleMicrosoftSignIn = async () => {
                           Sign in with Facebook
                         </span>
                       </div>
-                      <div className='signin mb-3' onClick={handleMicrosoftSignIn}>
-                        <img  src={Microsoft} alt='microsoft' style={{ width: '2em', height: '2em' }} />
+                      <div className='signin'>
+                        <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          Sign in with Microsoft
+                          sign in with Linkedin
                         </span>
                       </div>
                   </div>
