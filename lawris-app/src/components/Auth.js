@@ -14,7 +14,7 @@ import InputGroup from './DynamicSignupForm';
 
 // Handle signup logic using firebase 
 import { auth, db } from './Firebase';
-import { signInWithGoogle, signInWithFacebook, handleSIgnout }  from './OAuth';
+import { signInWithGoogle, signInWithMicrosoft, handleSIgnout }  from './OAuth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { setUser, removeUser } from '../redux/userSlice';
@@ -31,7 +31,7 @@ import 'sweetalert2/dist/sweetalert2.css';
 
 //icons import
 import Google from '../Assets/google.png';
-import LinkedIn from '../Assets/linkedin.png';
+import LinkedIn from '../Assets/microsoft.png';
 import facebook from '../Assets/facebook.png';
 
 
@@ -357,46 +357,79 @@ const Auth = () => {
         color: 'black',
       }
  
+
 const dispatch = useDispatch();
-// Function to handle provider login
+        
+// Function to handle Google sign-in and email verification
 const handleGoogleSignIn = async () => {
     try {
-      const user = await signInWithGoogle()
-      dispatch(setUser({
-        _id: user.uid,
-        name: user.displayName,
-        email: user.email,
-        image: user.photoURL,
-      }))
-        
-      navigate('/dms_dashboard', { state: { isAuthenticated: true } });
-        
-      
-      // Call the Google sign-in function
+        const { user, email } = await signInWithGoogle();
+        // Dispatch user information to Redux store
+        dispatch(
+            setUser({
+                _id: user.uid,
+                name: user.displayName,
+                email: user.email,
+                image: user.photoURL,
+            })
+        );
 
-      // Redirect to the dashboard after successful login
+        const response = await fetch('http://localhost:8000/auth/verify_email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+                body: JSON.stringify({ email }), // Sending user's email for verification
+        });
 
-      
-
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Email verification successful:', data);
+            // Redirect to the dashboard after successful login
+            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+        } else {
+            // Handle the case where email verification fails
+            console.error('Email verification failed');
+            // Implement the necessary logic, such as displaying an error message
+        }
     } catch (error) {
-      // Handle errors for Google sign-in
-      console.error('Google Authentication error:', error);
-      // Display specific error messages or handle the error cases
+        console.error('Error during Google sign-in:', error);
+        // Handle errors for Google sign-in, such as displaying an error message
     }
-  };
+};
 
-  const handleFacebookSignIn = async () => {
+// Function to handle Microsoft sign-in and email verification
+const handleMicrosoftSignIn = async () => {
     try {
-      await signInWithFacebook(); // Call the Facebook sign-in function
-      // Perform actions after successful Facebook authentication
-    } catch (error) {
-      // Handle errors for Facebook sign-in
-      console.error('Facebook Authentication error:', error);
-      // Display specific error messages or handle the error cases
-    }
-  };
+        const { email } = await signInWithMicrosoft(); // Sign in with Microsoft and retrieve email
 
- 
+        // Send a POST request to your Django endpoint for email verification
+        const response = await fetch('http://localhost:8000/auth/verify_email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }), // Sending user's email for verification
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Email verification successful:', data);
+
+            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+            // Redirect or perform actions after successful email verification
+            // e.g., navigate to dashboard or set user in Redux state
+        } else {
+            // Handle the case where email verification fails
+            console.error('Email verification failed');
+            // Implement error handling logic
+        }
+    } catch (error) {
+        console.error('Error during Microsoft sign-in:', error);
+        // Handle errors for Microsoft sign-in, such as displaying an error message
+    }
+};
+
 
   return (
     <div className="main">
@@ -485,19 +518,13 @@ const handleGoogleSignIn = async () => {
                       <div className='signin mb-3' onClick={handleGoogleSignIn}>
                         <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          Sign in with google
+                          Sign in with Google
                         </span>
                       </div>
-                      <div className='signin mb-3' onClick={handleFacebookSignIn}>
-                        <img  src={facebook} alt='fbImg' style={{ width: '2em', height: '2em' }}/>
-                        <span>
-                          Sign in with Facebook
-                        </span>
-                      </div>
-                      <div className='signin'>
+                      <div className='signin' onClick={handleMicrosoftSignIn}>
                         <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          sign in with Linkedin
+                          Sign in with Microsoft
                         </span>
                       </div>
                   </div>
