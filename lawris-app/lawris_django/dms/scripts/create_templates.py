@@ -12,7 +12,7 @@ import shutil
 from pathlib import Path
 
 # Logs
-log_dir = "/home/shish/Documents/lawris/logs"
+log_dir = "home/kibe/Documents/lawris/logs"
 os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -24,7 +24,7 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 # Folders from cloud storage
-lawris_db = "/home/shish/Documents/lawris_db"
+lawris_db = "/home/kibe/Documents/lawris/lawris_db/"
 template_folder = os.path.join(lawris_db, "templates") 
 succession_docx_folder = os.path.join(template_folder, "succession")
 succession_pdf_folder = os.path.join(template_folder, "SUCCESSION_FORMS")
@@ -108,7 +108,7 @@ templates = {
             'date_of_deceased_death': FormField('Date of Deceased Death', 'date', 'Enter Date').to_json(),
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
-            'executor' : FormField('Executor', 'text', "Enter Executor's Name").to_json(),
+            'executor' : FormField('EXECUTOR', 'text', "Enter Executor's Name").to_json(),
             'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             "witness_name" : FormField("Witness Name", "text", "Enter Witness Name").to_json(),
             "witness_signature": FormField("Witness Signature", "file", "Sign here").to_json(),

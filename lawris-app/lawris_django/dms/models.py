@@ -13,7 +13,7 @@ from bson.binary import Binary, UuidRepresentation
 from pymongo import MongoClient
 
 # Logging configuration
-log_dir = "/home/shish/Documents/docs/docx"
+log_dir = "/home/kibe/Documents/lawris/logs/"
 os.makedirs(log_dir, exist_ok=True)
 
 logger = logging.getLogger()
@@ -164,7 +164,7 @@ class Template(BaseModel):
                     run.text = run.text.replace(
                         placeholder, replacement.upper())
 
-    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/shish/Desktop/lawris_docs"):
+    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/kibe/Documents/lawris/docs/"):
         """
         Saves the generated file to the specified path 
 
