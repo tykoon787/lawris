@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import student from '../Assets/law students2.jpg';
@@ -32,7 +32,6 @@ import 'sweetalert2/dist/sweetalert2.css';
 //icons import
 import Google from '../Assets/google.png';
 import LinkedIn from '../Assets/microsoft.png';
-import facebook from '../Assets/facebook.png';
 
 
 

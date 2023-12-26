@@ -115,8 +115,6 @@ const NavList = ({ handleNavItemClick }) => {
 };
 
 
-
-
 const ProfileSideBar = () => {
     const [show, setShow] = useState(false);
     const userInfo = useSelector(selectUser)
@@ -145,7 +143,7 @@ const ProfileSideBar = () => {
                             {userInfo ? (
                                 <img  className='profileImg' src={userInfo?.image} alt='user profile' style={{height: '40px'}}/>
                             ) : (
-                                <img src={user} alt='user' style={{height: '20px'}}/>
+                                <img className='usericon' src={user} alt='user' style={{height: '20px'}}/>
 
                             )}
                             <p>{userInfo ? `${userInfo.name}` : `Username`}</p>
@@ -318,7 +316,7 @@ const Dms = () => {
                                 value={searchTerm}
                                 onChange={(e) => setSEarchTerm(e.target.value)} 
                             />
-                            <button className="btn btn-outline-secondary ml-1 mt-1" type="submit">Search</button>
+                            <button className="buttonSearch">Search</button>
                         </form>   
                         
                         
@@ -328,7 +326,7 @@ const Dms = () => {
                     
                         <div onClick={toggleDropdown} className="apps">
                         
-                        <UilApps className='usericon mr-2 mb-2' />
+                        <UilApps className='mr-2 mb-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>

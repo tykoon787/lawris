@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState} from 'react';
+import './styles/Dms.css';
 
  function InputGroup({ userList, commonInputs, userType, formData, handleInputChange }) {
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -50,15 +52,23 @@ import React from 'react';
                 formData[input.name] && 
                 (input.name === 'confirm_password' ? formData.confirm_password === formData.password : formData[input.name].match(input.pattern)) 
                 ? 'is-valid' : 'is-invalid'}`}
-              type={input.type}
+              type={showPassword ? 'text' : 'password'}
               name={input.name}
               required
               placeholder={input.placeholder}
               value={formData[input.name] || ''}
               onChange={handleInputChange}
               pattern={input.pattern}
-              
             />
+            {input.type === 'password' && (
+              <button
+                type='button'
+                className='btn btn-outline-secondary'
+                onClick={() =>setShowPassword(!showPassword)}
+              >
+                {showPassword ? 'Hide' : 'Show'} Password
+              </button>
+            )}
             <div id={`${input.name}Feedback`} className='invalid-feedback'>
               {formData[input.name] && !formData[input.name].match(input.pattern) && (
                 <span>{input.errorMessage}</span>
