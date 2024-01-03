@@ -229,7 +229,7 @@ class Template(BaseModel):
             collection.insert_one(template_data)
 
             generated_content = self.save_file(
-                document, file_name=f'{new_document.title}.docx')
+                new_document, file_name=f'{new_document.title}.docx')
             new_document.content = generated_content       
             return new_document
         
