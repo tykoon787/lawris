@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from pymongo import MongoClient
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -130,6 +131,17 @@ DATABASES = {
     }
 }
 
+# PyMongoDB settings
+MONGODB_CLUSTER_URI = "mongodb+srv://laban:Laban254@cluster0.880pe99.mongodb.net/?retryWrites=true&w=majority"
+MONGODB_DATABASE_NAME = "test_d"
+MONGODB_COLLECTION_NAME = "test_c"
+
+# Create a MongoClient instance for the MongoDB connection
+MONGODB_CLIENT = MongoClient(MONGODB_CLUSTER_URI)
+
+# Get the MongoDB database and collection instances
+MONGODB_DATABASE = MONGODB_CLIENT[MONGODB_DATABASE_NAME]
+MONGODB_COLLECTION = MONGODB_DATABASE[MONGODB_COLLECTION_NAME]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -176,25 +188,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2  # 2 weeks
 SESSION_COOKIE_NAME = 'lawris_sessionid'
 
-# Logging   configuration
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': '/home/kibe/jan/lawris/logs/django.log',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
 
 # JWT settings
 from datetime import timedelta
@@ -217,3 +210,8 @@ SIMPLE_JWT = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS =  [os.path.join(BASE_DIR, 'build/static')]
+
+
+
+
+
