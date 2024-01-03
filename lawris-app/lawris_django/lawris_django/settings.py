@@ -131,15 +131,14 @@ DATABASES = {
     }
 }
 
-# PyMongoDB settings
+# MongoDB settings
+
 MONGODB_CLUSTER_URI = "mongodb+srv://laban:Laban254@cluster0.880pe99.mongodb.net/?retryWrites=true&w=majority"
 MONGODB_DATABASE_NAME = "test_d"
 MONGODB_COLLECTION_NAME = "test_c"
-
-# Create a MongoClient instance for the MongoDB connection
+# MongoClient instance for the MongoDB connection
 MONGODB_CLIENT = MongoClient(MONGODB_CLUSTER_URI)
-
-# Get the MongoDB database and collection instances
+# MongoDB database and collection instances
 MONGODB_DATABASE = MONGODB_CLIENT[MONGODB_DATABASE_NAME]
 MONGODB_COLLECTION = MONGODB_DATABASE[MONGODB_COLLECTION_NAME]
 
