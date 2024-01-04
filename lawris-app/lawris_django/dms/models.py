@@ -104,8 +104,8 @@ class Template(BaseModel):
     category_of_law = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     division_of_law = models.CharField(max_length=50, choices=DIVISION_CHOICES)
     sub_division = models.CharField(
-        max_length=20, choices=SUB_DIVISION_CHOICES)
-    template_file_docx = models.CharField(max_length=255)
+        max_length=20, choices=SUB_DIVISION_CHOICES, default="sub_division")
+    template_file_docx = models.CharField(max_length=255, default="template_file")
     pdf_preview_file = models.CharField(max_length=255, default="preview_file")
     form_fields = JSONField(blank=True, null=True)
 
