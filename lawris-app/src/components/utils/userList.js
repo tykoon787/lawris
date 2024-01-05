@@ -1,4 +1,4 @@
-import { LawyerIcon, PasswordIcon, PhoneIcon, NonLitigantIcon,  } from '../Icons';
+import { LawyerIcon, NonLitigantIcon,  } from '../Icons';
 
 
 const userList = [
