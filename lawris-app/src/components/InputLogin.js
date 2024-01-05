@@ -1,7 +1,5 @@
 import React from "react";
 
-import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
-
 function InputLogin({ 
   handleInputChange,
   formData,

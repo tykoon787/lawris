@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import student from '../Assets/law students2.jpg';
@@ -13,13 +13,15 @@ import InputGroup from './DynamicSignupForm';
 
 
 // Handle signup logic using firebase 
-import { auth, db } from './Firebase';
-import { signInWithGoogle, signInWithFacebook, handleSIgnout }  from './OAuth';
-import { doc, getDoc } from 'firebase/firestore';
+
+import { signInWithGoogle, signInWithMicrosoft, handleSignout }  from './OAuth';
+
 import { useDispatch } from 'react-redux';
 import { setUser, removeUser } from '../redux/userSlice';
+import { Client } from '@microsoft/microsoft-graph-client';
 
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+
+
 
 
 import Navbar from './NavBar';
@@ -31,13 +33,11 @@ import 'sweetalert2/dist/sweetalert2.css';
 
 //icons import
 import Google from '../Assets/google.png';
-import Microsoft from '../Assets/microsoft.png';
-import LinkedIn from '../Assets/linkedin.png';
-import facebook from '../Assets/facebook.png';
+import LinkedIn from '../Assets/microsoft.png';
 
 
 
-import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon } from './Icons';
 
 const commonInputs = [
   {
@@ -53,8 +53,6 @@ const commonInputs = [
     name: 'email',
     type: 'email',
     icon: <EmailIcon />,
-    //pattern: '^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$',
-    
     placeholder: 'Email',
     required: true,
     errorMessage: 'Please enter a valid email address.',
@@ -176,84 +174,6 @@ const commonLoginInputs = [
   },  
   ];
 
-  const userTypes = [
-    'lawyer',
-    'nonlitigant',
-    'student',
-    'judiciary',
-    'lawfirm',
-    'institution',
-    'business'
-  ];
-
- 
-
-
-// export const UserProfile = () => {
-//     const [userProfileImage, setUserProfileImage] = useState('');
-  
-//     useEffect(() => {
-//       // Check if the user is authenticated
-//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-//         if (user) {
-//           // User is signed in
-//           const userDocRef = doc(db, 'users', user.uid);
-//           const userDocSnap = await getDoc(userDocRef);
-  
-//           if (userDocSnap.exists()) {
-//             const userData = userDocSnap.data();
-//             setUserProfileImage(userData.profileImage);
-//           }
-//         } else {
-//           // User is signed out
-//           setUserProfileImage('');
-//         }
-//       });
-  
-//       return () => unsubscribe();
-//     }, [auth, db]);
-  
-//     return <img src={userProfileImage} alt="User Profile" />;
-//   };
-  
-// export  const WelcomeMessage = () => {
-//     const [userName, setUserName] = useState('');
-  
-//     useEffect(() => {
-//       // Check if the user is authenticated
-//       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-//         if (user) {
-//           // User is signed in
-//           const userDocRef = doc(db, 'users', user.uid);
-//           const userDocSnap = await getDoc(userDocRef);
-  
-//           if (userDocSnap.exists()) {
-//             const userData = userDocSnap.data();
-//             setUserName(userData.displayName);
-//           }
-//         } else {
-//           // User is signed out
-//           setUserName('');
-//         }
-//       });
-  
-//       return () => unsubscribe();
-//     }, [auth, db]);
-  
-//     return <p className="welcome-message">Welcome, {userName}!</p>;
-//   };
-// export const logout = () => {
-//   handleSIgnout()
-//     .then(() => {
-//       dispatch(removeUser());
-//     })
-//     .catch(error => {
-//       // Handle errors if needed
-//       console.error('Logout error:', error);
-//     });
-// };
-
-
 
 const Introduction = ({userType, isSignup}) => {
   return(
@@ -335,62 +255,80 @@ const Auth = () => {
           [name]: value,
         });
       }; 
-     
-     
-      const handleSignup =  async (e) => {
-        e.preventDefault();
+  // Function that handles user registration 
+  const handleSignup =  async (e) => {
+    e.preventDefault();
 
-        const formDataWithUserType = {
-          ...formData,
-          user_type: userType.toLowerCase(),
-        };
+    const formDataWithUserType = {
+      ...formData,
+      user_type: userType.toLowerCase(),
+    };
 
-        console.log(formDataWithUserType);
+    console.log(formDataWithUserType);
 
-        const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
+    const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
+
+  const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
+  const emptyFields = requiredFields.filter(field => !formData[field]);
+
+    if (emptyFields.length > 0) {
+      Swal.fire(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+      return;
+    } else {
+      try {
+        const response = await fetch(signUpUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formDataWithUserType),
+        });
     
-      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
-      const emptyFields = requiredFields.filter(field => !formData[field]);
-    
-        if (emptyFields.length > 0) {
-          Swal.fire(`Please fill in the following fields: ${emptyFields.join(', ')}`);
-          return;
-        } else {
-          try {
-            const response = await fetch(signUpUrl, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formDataWithUserType),
-            });
-        
-            if (!response.ok) {
-            // Handle the case where the server returns an error
-              throw new Error('Registration failed');
+        if (!response.ok) {
+        // Handle the case where the server returns an error
+          const responseData = await response.json();
+          if (responseData.errors) {
+            if (responseData.errors.password) {
+              Swal.fire('Password is too common. Please use a different one')
+            } else if (responseData.errors.email) {
+              Swal.fire('Email is aleady taken. Please use a different one')
+            } else {
+              Swal.fire('Registrationfailed. Please check your inputs');
+
             }
-  
-          } catch (error) {
-            console.error('Error during registration:', error.message);
-            // Handle the error, show a message to the user, or perform other actions
+          } else {
+            throw new Error('Registration failed')
           }
-          Swal.fire('Registration Successful') 
-          setIsSignup(false)
-         }
-        setFormData({
-          name: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          employeeId: '',
-          registrationNumber: '',
-          studentNo: '',
-          isoId: '',
-          phone: '',
-          licenceNumber: '',
-          employeeNo: ''
-          });       
-      };
+        } else {
+          Swal.fire('Registration Sussesful!')
+          setIsSignup(false);
+          setFormData({
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            employeeId: '',
+            registrationNumber: '',
+            studentNo: '',
+            isoId: '',
+            phone: '',
+            licenceNumber: '',
+            employeeNo: ''
+
+          });
+        }
+
+      } catch (error) {
+        console.error('Error during registration:', error.message);
+        const errorMessage = error.message || 'Something went wrong. Please try again later.';
+        const errorDetails = error.details || '';
+
+        const fullErrorMessage = `${errorMessage}\n${errorDetails}`;
+        // Handle the error, show a message to the user, or perform other actions
+        Swal.fire(fullErrorMessage);
+      }
+     }      
+  };  
      
 
   const profileImage = {
@@ -438,46 +376,102 @@ const Auth = () => {
         color: 'black',
       }
  
+
 const dispatch = useDispatch();
-// Function to handle provider login
+
+       
+// Function to handle Google sign-in and email verification
 const handleGoogleSignIn = async () => {
     try {
-      const user = await signInWithGoogle()
-      dispatch(setUser({
-        _id: user.uid,
-        name: user.displayName,
-        email: user.email,
-        image: user.photoURL,
-      }))
-        
-      navigate('/dms_dashboard', { state: { isAuthenticated: true } });
-        
-      
-      // Call the Google sign-in function
+        const { user, email } = await signInWithGoogle();
+        // Dispatch user information to Redux store
+        dispatch(
+            setUser({
+                _id: user.uid,
+                name: user.displayName,
+                email: user.email,
+                image: user.photoURL,
+            })
+        );
 
-      // Redirect to the dashboard after successful login
+        const response = await fetch('http://localhost:8000/auth/verify_email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+                body: JSON.stringify({ email }), // Sending user's email for verification
+        });
 
-      
-
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Email verification successful:', data);
+            // Redirect to the dashboard after successful login
+            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+        } else {
+            // Handle the case where email verification fails
+            console.error('Email verification failed');
+            // Implement the necessary logic, such as displaying an error message
+        }
     } catch (error) {
-      // Handle errors for Google sign-in
-      console.error('Google Authentication error:', error);
-      // Display specific error messages or handle the error cases
+        console.error('Error during Google sign-in:', error);
+        // Handle errors for Google sign-in, such as displaying an error message
     }
-  };
+};
 
-  const handleFacebookSignIn = async () => {
+// Function to handle Microsoft sign-in and email verification
+const handleMicrosoftSignIn = async () => {
     try {
-      await signInWithFacebook(); // Call the Facebook sign-in function
-      // Perform actions after successful Facebook authentication
-    } catch (error) {
-      // Handle errors for Facebook sign-in
-      console.error('Facebook Authentication error:', error);
-      // Display specific error messages or handle the error cases
-    }
-  };
+        const { user, email } = await signInWithMicrosoft(); // Sign in with Microsoft and retrieve email
+        // Fetch user's profile picture using Microsoft Graph API
+        const client = Client.init({
+          authProvider: (done) => done(null, user.accessToken),
+        });
 
- 
+        const profilePictureResponse = await client
+          .api('/me/photo/$value')
+          .responseType('blob') //set response type to blob for binary data
+          .get();
+
+        const profilePictureUrl = URL.createObjectURL(profilePictureResponse);  
+        // Dispatch user details to set in the Redux store
+        dispatch(
+            setUser({
+                _id: user.uid,
+                name: user.displayName,
+                email: email, // Ensure email is retrieved correctly
+                image: profilePictureUrl,
+            })
+        );
+
+        // Send a POST request to your Django endpoint for email verification
+        const response = await fetch('http://localhost:8000/auth/verify_email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }), // Sending user's email for verification
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Email verification successful:', data);
+
+            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+            // Redirect or perform actions after successful email verification
+            // e.g., navigate to dashboard or set user in Redux state
+        } else {
+            // Handle the case where email verification fails
+            console.error('Email verification failed');
+            // Implement error handling logic
+        }
+    } catch (error) {
+        console.error('Error during Microsoft sign-in:', error);
+        // Handle errors for Microsoft sign-in, such as displaying an error message
+    }
+};
+
+
+
 
   return (
     <div className="main">
@@ -489,7 +483,7 @@ const handleGoogleSignIn = async () => {
           <div className="card col-lg-10" style={cardStyle}>
             <div className="card-body d-flex p-0">
               
-              <div className="col-md-6">
+              <div className="imageCard col-md-6 d-sm-block">
                 <img
                   className="card-img"
                   style={{
@@ -503,7 +497,7 @@ const handleGoogleSignIn = async () => {
                 />
               </div>
               <div
-                className="col-md-6 p-2 formInput"
+                className="col-md-6 p-2 formInput col-xs-12"
                 style={{ borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem' }}
               >
                 <div className="d-flex justify-content-center">
@@ -546,12 +540,7 @@ const handleGoogleSignIn = async () => {
                       commonLoginInputs={commonLoginInputs}
                       />
                     
-                    {/* <TypeChecker
-                      userType={userType}
-                      handleInputChange={handleInputChange}
-                      userList={userList}
-                      formData={formData}
-                    /> */}
+              
                   </>
                       )}
                   <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
@@ -566,27 +555,18 @@ const handleGoogleSignIn = async () => {
                       <div className='signin mb-3' onClick={handleGoogleSignIn}>
                         <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          Sign in with google
+                          Sign in with Google
                         </span>
                       </div>
-                      <div className='signin mb-3' onClick={handleFacebookSignIn}>
-                        <img  src={facebook} alt='fbImg' style={{ width: '2em', height: '2em' }}/>
-                        <span>
-                          Sign in with Facebook
-                        </span>
-                      </div>
-                      <div className='signin'>
+                      <div className='signin' onClick={handleMicrosoftSignIn}>
                         <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          sign in with Linkedin
+                          Sign in with Microsoft
                         </span>
                       </div>
                   </div>
-
-                    {/* <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
-                    <img src={Microsoft} alt="microsoft" className="mx-2" style={{ width: '2em', height: '2em' }} />
-                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} /> */}
-                  </div>}
+                  </div>
+                  }
                   <div className="d-flex flex-column mt-3">
                     <p>
                       <a href="#terms" className="small text-muted">

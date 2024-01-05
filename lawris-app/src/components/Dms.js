@@ -4,12 +4,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 // import User from '../Assets/non-litigant.jpg';
 
-import Search from '../Assets/search.png';
-
 import { UilApps } from '@iconscout/react-unicons';
-// import { UisHouseUser } from '@iconscout/react-unicons'
-
-
+import user from '../Assets/user.png';
 
 
 // import backgroundImg from '../static/backgrounds/art.png';
@@ -19,7 +15,7 @@ import upload from '../static/icons/dms/icons/upload.png';
 import pdf from '../static/icons/dms/icons/pdf.png';
 // import apps from '../static/icons/dms/icons/apps.svg';
 
-import apps from '../static/icons/dms/icons/apps.svg';
+
 import logo from '../Assets/transparentLawrisLogo.png';
 
 //importing app icons
@@ -35,7 +31,6 @@ import Docs from './Docs';
 import EditDocMainContainer from './EditDoc';
 
 // Icons
-import { UserIcon } from './Icons';
 import { logout } from './Auth';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
@@ -64,11 +59,11 @@ const iconList = [
 ]
 
 const navList = [
-    { id: 1, name: "Civil", href: "/civil", active: false},
-    { id: 2, name: "Criminal", href: "/criminal", active: true }, // Set this item as active
-    { id: 3, name: "Commercial", href: "/commercial", active: false },
-    { id: 4, name: "Land Law", href: "/land_law", active: false },
-    { id: 5, name: "Arbitration", href: "/arbitration", active: false },
+    { id: 1, name: "Civil", href:'#', active: false},
+    { id: 2, name: "Criminal", href:'#', active: true }, // Set this item as active
+    { id: 3, name: "Commercial", href:'#', active: false },
+    { id: 4, name: "Land Law", href:'#', active: false },
+    { id: 5, name: "Arbitration", href:'#', active: false },
 ]
 
 const CommandBarActions = ({ icon, action_name, onClick }) => {
@@ -101,16 +96,6 @@ const CommandBarIcons = ({ iconList,handleConvertClick, handleUploadClick}) => {
     )
 }
 
-//  const NavItem = ({ href, name, active }) => {
-
-//      const classes = `nav-link ${active ? 'active' : ''}`
-//      return (
-//           <li className="nav-item">
-//               {/* <a className={classes} aria-current="page" href={href} onClick={() => onClick(name)}>{name}</a> */}
-//               <a className={classes} aria-current="page" href={href}>{name}</a>
-//          </li>
-//      )
-//   }
 
 const NavItem = ({ href, name, active, handleNavItemClick }) => {
     const classes = `nav-link ${active ? 'active' : ''}`;
@@ -125,25 +110,14 @@ const NavItem = ({ href, name, active, handleNavItemClick }) => {
 };
 
 
-
-//   const NavList = () => {
-//         return (
-//             <ul className="nav nav-underline">
-//                 {navList.map((navItem) => (
-//                    <NavItem key={navItem.id} href={navItem.href} name={navItem.name} active={navItem.active}
-//                    />
-//                ))}
-//            </ul>
-//       )
-//    }
 const NavList = ({ handleNavItemClick }) => {
     return (
         <ul className="nav nav-underline">
             {navList.map((navItem) => (
                 <NavItem
                     key={navItem.id}
-                    href={navItem.href}
                     name={navItem.name}
+                    href={navItem.href}
                     active={navItem.active}
                     handleNavItemClick={handleNavItemClick} // Pass the handleNavItemClick function
                 />
@@ -151,8 +125,6 @@ const NavList = ({ handleNavItemClick }) => {
         </ul>
     );
 };
-
-
 
 
 const ProfileSideBar = () => {
@@ -176,8 +148,12 @@ const ProfileSideBar = () => {
     return (
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
-                {/* <UilUser className='usericon mb-2' /> */}
-                <img  className='profileImg' src={userInfo.image} alt='user profile'/>
+                {userInfo ? (
+                    <img  className='profileImg' src={userInfo?.image} alt='user profile'/>
+                ) : (
+                    <img className='mb-2' src={user} alt='user' style={{height: '25px'}}/>
+
+                )}
                
                 <Offcanvas show={show} onHide={handleClose} className='bgCanvas' placement='end'> 
                     <Offcanvas.Header className='close' closeButton>
@@ -185,24 +161,28 @@ const ProfileSideBar = () => {
                     </Offcanvas.Header>
                     <Offcanvas.Body className=''>
                         <div>
-                            {/* <UserProfile /> */}
-                            <img className='profileImg' src={userInfo.image} alt='profileIMg'/>
-                            <p>{userInfo.name}</p>
+                            {userInfo ? (
+                                <img  className='profileImg' src={userInfo?.image} alt='user profile' style={{height: '40px'}}/>
+                            ) : (
+                                <img className='usericon' src={user} alt='user' style={{height: '20px'}}/>
+
+                            )}
+                            <p>{userInfo ? `${userInfo.name}` : `Username`}</p>
                             <hr></hr>
                         </div>
                         <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
-                            <div className='d-flex align-items-center justify-content-center mb-3'>
+                            <div className='element d-flex align-items-center justify-content-center mb-3'>
                                 <span>
-                                    {/* <img src={Doc} alt='docsImg' style={{height: '25px'}}/> */}
+                                    
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-code-fill" viewBox="0 0 16 16">
                                          <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M6.646 7.646a.5.5 0 1 1 .708.708L5.707 10l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zm2.708 0 2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 10 8.646 8.354a.5.5 0 1 1 .708-.708z"/>
                                     </svg>
                                 </span>
                                 <p className='ml-2'>My Documents</p>
                             </div>
-                            <div className='d-flex align-items-center mb-3'>
+                            <div className='element d-flex align-items-center mb-3'>
                                 <span>
-                                    {/* <img src={Account} alt='profileIcon' style={{height: '25px'}}/> */}
+                                    
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                                     </svg>
@@ -210,9 +190,9 @@ const ProfileSideBar = () => {
                                 <p className='ml-2'>My Account</p>
                             </div>
                             
-                            <div className='d-flex align-items-center mb-3'>
+                            <div className='element d-flex align-items-center mb-3'>
                                 <span>
-                                    {/* <img src={Logout} alt='profileIcon' style={{height: '25px'}}/> */}
+
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
                                         <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
@@ -220,9 +200,8 @@ const ProfileSideBar = () => {
                                 </span>
                                 <p className='logout ml-2'>Logout</p>
                             </div>
-                            <div className='d-flex align-items-center mb-3'>
+                            <div className='element d-flex align-items-center mb-3'>
                                 <span>
-                                    {/* <img className='mr-0' src={settings} alt='settingsImg' style={{height: '25px'}} /> */}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
                                     <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
                                     </svg>
@@ -500,7 +479,7 @@ const Dms = () => {
 
     return (
         <div className="main-container">
-            <div className="dashboard-nav navbar navbar-expand-lg">
+            <div className="dashboard-nav navbar navbar-expand-lg col-sm-12">
                 <div className='container-fluid pt-1'>
                     <div className='logo d-flex navbar-brand'>
                         <img  src={logo} alt='logoimg' style={{height: '50px'}}/>
@@ -510,7 +489,7 @@ const Dms = () => {
                     </div>    
                     <div className= 'search d-flex justify-content-center align-items-center'> 
                         <form onSubmit={(e) => handleSearch(e)} className='d-flex'>
-                            {/* <img className='searchIcon'src={Search} alt='searchIcon' style={{ height: '20px'}}/> */}
+                            
                             <input
                                 className="form-control mt-1"
                                 type='search'
@@ -518,7 +497,7 @@ const Dms = () => {
                                 value={searchTerm}
                                 onChange={(e) => setSEarchTerm(e.target.value)} 
                             />
-                            <button className="btn btn-outline-secondary ml-1 mt-1" type="submit">Search</button>
+                            <button className="buttonSearch">Search</button>
                         </form>   
                         
                         
@@ -527,14 +506,8 @@ const Dms = () => {
                     <div className="d-flex justify-content-end align-items-center" style={{position: 'relative'}}> 
                     
                         <div onClick={toggleDropdown} className="apps">
-                            {/* <svg  className='usericon mr-2' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
-                            </svg> */}
                         
-                            {/* <img className="dev_icon" src={apps} alt="apps"></img> */}
-                        {/* <UisHouseUser className='usericon mr-2' />     */}
-                        
-                        <UilApps className='usericon mr-2 mb-2' />
+                        <UilApps className='mr-2 mb-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>
@@ -552,13 +525,13 @@ const Dms = () => {
             {showNotification && <Notifications time={new Date()} fileName={fileName} />}
             <div className="dms-container">
                 <p className='welcomeIntro'>
-                    Welcome {userInfo?.name}
+                    {userInfo ? `Welcome ${userInfo.name}`: `Welcome new user`}
                 </p>
                 <div className="background_image-container d-flex flex-column align-items-center">
                     {/* <WelcomeMessage /> */}
                     
                     <p className="lead fw-bold text-center text-white">DOCUMENT MANAGER</p>
-                    <div className="command_bar-card card">
+                    <div className="command_bar-card card col-md-6">
                         <div className="card-body command_bar-container">
                         <CommandBarIcons iconList={iconList} handleConvertClick={handleConvertClick} handleUploadClick={handleUploadClick} />
                         </div>
@@ -568,7 +541,7 @@ const Dms = () => {
                 <div className='docsLayout'>
                     <div className="cases_tab-container d-flex flex-row">
                         <div className="cases-tab">
-                            {/* <NavList /> */}
+                           
                             <NavList handleNavItemClick={handleNavItemClick} />
                         </div>
                     </div>
@@ -706,8 +679,7 @@ const Dms = () => {
             }
 
                     
-                        {/* <Docs documentList={documentList} handleCardClick={handleCardClick} /> */}
-                        {/* <Docs documentList={filterDocumentsByCategory(documentList, activeCategory)} handleCardClick={handleCardClick} /> */}
+                        
                         <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
                         {isEditDocModalOpen && selectedCard && (
                         <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
