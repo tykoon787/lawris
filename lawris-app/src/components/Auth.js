@@ -11,6 +11,17 @@ import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
 
+
+// Handle signup logic using firebase 
+import { auth, db } from './Firebase';
+import { signInWithGoogle, signInWithMicrosoft, handleSIgnout }  from './OAuth';
+import { doc, getDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { setUser, removeUser } from '../redux/userSlice';
+
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+
+
 import Navbar from './NavBar';
 // import TypeChecker from './TypeChecker';
 
@@ -20,13 +31,11 @@ import 'sweetalert2/dist/sweetalert2.css';
 
 //icons import
 import Google from '../Assets/google.png';
-import Microsoft from '../Assets/microsoft.png';
-import LinkedIn from '../Assets/linkedin.png';
-import facebook from '../Assets/facebook.png';
+import LinkedIn from '../Assets/microsoft.png';
 
 
 
-import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon, BusinessIcon, NonLitigantIcon, StudentIcon } from './Icons';
+import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon } from './Icons';
 
 const commonInputs = [
   {
@@ -42,8 +51,6 @@ const commonInputs = [
     name: 'email',
     type: 'email',
     icon: <EmailIcon />,
-    //pattern: '^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$',
-    
     placeholder: 'Email',
     required: true,
     errorMessage: 'Please enter a valid email address.',
@@ -165,16 +172,6 @@ const commonLoginInputs = [
   },  
   ];
 
-  const userTypes = [
-    'lawyer',
-    'nonlitigant',
-    'student',
-    'judiciary',
-    'lawfirm',
-    'institution',
-    'business'
-  ];
-
 
 const Introduction = ({userType, isSignup}) => {
   return(
@@ -256,7 +253,7 @@ const Auth = () => {
           [name]: value,
         });
       }; 
-      
+     
      
       const handleSignup =  async (e) => {
         e.preventDefault();
@@ -358,7 +355,90 @@ const Auth = () => {
         cursor: 'pointer',
         color: 'black',
       }
-    
+ 
+
+const dispatch = useDispatch();
+        
+// Function to handle Google sign-in and email verification
+const handleGoogleSignIn = async () => {
+    try {
+        const { user, email } = await signInWithGoogle();
+        // Dispatch user information to Redux store
+        dispatch(
+            setUser({
+                _id: user.uid,
+                name: user.displayName,
+                email: user.email,
+                image: user.photoURL,
+            })
+        );
+
+        const response = await fetch('http://localhost:8000/auth/verify_email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+                body: JSON.stringify({ email }), // Sending user's email for verification
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Email verification successful:', data);
+            // Redirect to the dashboard after successful login
+            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+        } else {
+            // Handle the case where email verification fails
+            console.error('Email verification failed');
+            // Implement the necessary logic, such as displaying an error message
+        }
+    } catch (error) {
+        console.error('Error during Google sign-in:', error);
+        // Handle errors for Google sign-in, such as displaying an error message
+    }
+};
+
+// Function to handle Microsoft sign-in and email verification
+const handleMicrosoftSignIn = async () => {
+    try {
+        const { user, email } = await signInWithMicrosoft(); // Sign in with Microsoft and retrieve email
+
+        // Dispatch user details to set in the Redux store
+        dispatch(
+            setUser({
+                _id: user.uid,
+                name: user.displayName,
+                email: email, // Ensure email is retrieved correctly
+                image: user.photoURL,
+            })
+        );
+
+        // Send a POST request to your Django endpoint for email verification
+        const response = await fetch('http://localhost:8000/auth/verify_email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }), // Sending user's email for verification
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Email verification successful:', data);
+
+            navigate('/dms_dashboard', { state: { isAuthenticated: true } });
+            // Redirect or perform actions after successful email verification
+            // e.g., navigate to dashboard or set user in Redux state
+        } else {
+            // Handle the case where email verification fails
+            console.error('Email verification failed');
+            // Implement error handling logic
+        }
+    } catch (error) {
+        console.error('Error during Microsoft sign-in:', error);
+        // Handle errors for Microsoft sign-in, such as displaying an error message
+    }
+};
+
 
   return (
     <div className="main">
@@ -444,22 +524,16 @@ const Auth = () => {
 
                   {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div className='d-flex flex-column align-items-center justify-content center'>
-                      <div className='signin mb-3'>
+                      <div className='signin mb-3' onClick={handleGoogleSignIn}>
                         <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          Sign in with google
+                          Sign in with Google
                         </span>
                       </div>
-                      <div className='signin mb-3'>
-                        <img  src={facebook} alt='fbImg' style={{ width: '2em', height: '2em' }}/>
-                        <span>
-                          Sign in with Facebook
-                        </span>
-                      </div>
-                      <div className='signin'>
+                      <div className='signin' onClick={handleMicrosoftSignIn}>
                         <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
                         <span>
-                          sign in with Linkedin
+                          Sign in with Microsoft
                         </span>
                       </div>
                   </div>
