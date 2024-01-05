@@ -13,14 +13,9 @@ import InputGroup from './DynamicSignupForm';
 
 
 // Handle signup logic using firebase 
-
-import { signInWithGoogle, signInWithMicrosoft, handleSignout }  from './OAuth';
-
+import { signInWithGoogle, signInWithMicrosoft }  from './OAuth';
 import { useDispatch } from 'react-redux';
-import { setUser, removeUser } from '../redux/userSlice';
-import { Client } from '@microsoft/microsoft-graph-client';
-
-
+import { setUser } from '../redux/userSlice';
 
 
 
@@ -34,7 +29,6 @@ import 'sweetalert2/dist/sweetalert2.css';
 //icons import
 import Google from '../Assets/google.png';
 import LinkedIn from '../Assets/microsoft.png';
-
 
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon } from './Icons';
@@ -255,80 +249,82 @@ const Auth = () => {
           [name]: value,
         });
       }; 
-  // Function that handles user registration 
-  const handleSignup =  async (e) => {
-    e.preventDefault();
-
-    const formDataWithUserType = {
-      ...formData,
-      user_type: userType.toLowerCase(),
-    };
-
-    console.log(formDataWithUserType);
-
-    const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
-
-  const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
-  const emptyFields = requiredFields.filter(field => !formData[field]);
-
-    if (emptyFields.length > 0) {
-      Swal.fire(`Please fill in the following fields: ${emptyFields.join(', ')}`);
-      return;
-    } else {
-      try {
-        const response = await fetch(signUpUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formDataWithUserType),
-        });
+     
+     
+      const handleSignup =  async (e) => {
+        e.preventDefault();
     
-        if (!response.ok) {
-        // Handle the case where the server returns an error
-          const responseData = await response.json();
-          if (responseData.errors) {
-            if (responseData.errors.password) {
-              Swal.fire('Password is too common. Please use a different one')
-            } else if (responseData.errors.email) {
-              Swal.fire('Email is aleady taken. Please use a different one')
-            } else {
-              Swal.fire('Registrationfailed. Please check your inputs');
-
-            }
-          } else {
-            throw new Error('Registration failed')
-          }
+        const formDataWithUserType = {
+          ...formData,
+          user_type: userType.toLowerCase(),
+        };
+    
+        console.log(formDataWithUserType);
+    
+        const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
+    
+      const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
+      const emptyFields = requiredFields.filter(field => !formData[field]);
+    
+        if (emptyFields.length > 0) {
+          Swal.fire(`Please fill in the following fields: ${emptyFields.join(', ')}`);
+          return;
         } else {
-          Swal.fire('Registration Sussesful!')
-          setIsSignup(false);
-          setFormData({
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            employeeId: '',
-            registrationNumber: '',
-            studentNo: '',
-            isoId: '',
-            phone: '',
-            licenceNumber: '',
-            employeeNo: ''
-
-          });
-        }
-
-      } catch (error) {
-        console.error('Error during registration:', error.message);
-        const errorMessage = error.message || 'Something went wrong. Please try again later.';
-        const errorDetails = error.details || '';
-
-        const fullErrorMessage = `${errorMessage}\n${errorDetails}`;
-        // Handle the error, show a message to the user, or perform other actions
-        Swal.fire(fullErrorMessage);
-      }
-     }      
-  };  
+          try {
+            const response = await fetch(signUpUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formDataWithUserType),
+            });
+        
+            if (!response.ok) {
+            // Handle the case where the server returns an error
+              const responseData = await response.json();
+              if (responseData.errors) {
+                if (responseData.errors.password) {
+                  Swal.fire('Password is too common. Please use a different one')
+                } else if (responseData.errors.email) {
+                  Swal.fire('Email is aleady taken. Please use a different one')
+                } else {
+                  Swal.fire('Registrationfailed. Please check your inputs');
+    
+                }
+              } else {
+                throw new Error('Registration failed')
+              }
+            } else {
+              Swal.fire('Registration Sussesful!')
+              setIsSignup(false);
+              setFormData({
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                employeeId: '',
+                registrationNumber: '',
+                studentNo: '',
+                isoId: '',
+                phone: '',
+                licenceNumber: '',
+                employeeNo: ''
+    
+              });
+            }
+    
+          } catch (error) {
+            console.error('Error during registration:', error.message);
+            const errorMessage = error.message || 'Something went wrong. Please try again later.';
+            const errorDetails = error.details || '';
+    
+            const fullErrorMessage = `${errorMessage}\n${errorDetails}`;
+            // Handle the error, show a message to the user, or perform other actions
+            Swal.fire(fullErrorMessage);
+          }
+         }      
+      };  
+         
      
 
   const profileImage = {
@@ -378,8 +374,7 @@ const Auth = () => {
  
 
 const dispatch = useDispatch();
-
-       
+        
 // Function to handle Google sign-in and email verification
 const handleGoogleSignIn = async () => {
     try {
@@ -422,24 +417,14 @@ const handleGoogleSignIn = async () => {
 const handleMicrosoftSignIn = async () => {
     try {
         const { user, email } = await signInWithMicrosoft(); // Sign in with Microsoft and retrieve email
-        // Fetch user's profile picture using Microsoft Graph API
-        const client = Client.init({
-          authProvider: (done) => done(null, user.accessToken),
-        });
 
-        const profilePictureResponse = await client
-          .api('/me/photo/$value')
-          .responseType('blob') //set response type to blob for binary data
-          .get();
-
-        const profilePictureUrl = URL.createObjectURL(profilePictureResponse);  
         // Dispatch user details to set in the Redux store
         dispatch(
             setUser({
                 _id: user.uid,
                 name: user.displayName,
                 email: email, // Ensure email is retrieved correctly
-                image: profilePictureUrl,
+                image: user.photoURL,
             })
         );
 
@@ -471,8 +456,6 @@ const handleMicrosoftSignIn = async () => {
 };
 
 
-
-
   return (
     <div className="main">
       <div className="contentContainer d-flex flex-column justify-content-center align-items-center">
@@ -497,7 +480,7 @@ const handleMicrosoftSignIn = async () => {
                 />
               </div>
               <div
-                className="col-md-6 p-2 formInput col-xs-12"
+                className="col-md-6 p-2 formInput"
                 style={{ borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem' }}
               >
                 <div className="d-flex justify-content-center">
@@ -540,7 +523,7 @@ const handleMicrosoftSignIn = async () => {
                       commonLoginInputs={commonLoginInputs}
                       />
                     
-              
+                    
                   </>
                       )}
                   <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">

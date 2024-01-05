@@ -29,7 +29,6 @@ import Docs from './Docs';
 import EditDocMainContainer from './EditDoc';
 
 // Icons
-import { logout } from './Auth';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
 
@@ -38,6 +37,8 @@ import { selectUser } from '../redux/userSlice';
 import form78 from '../static/docs/[Form 78]-Petition for probate of written will or for proof of oral will.pdf'
 
 import { useNavigate } from 'react-router-dom';
+
+//importing singnout function from firebase
 
 
 const iconList = [
@@ -178,7 +179,9 @@ const ProfileSideBar = () => {
                                         <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
                                     </svg>
                                 </span>
-                                <p className='logout ml-2'>Logout</p>
+                                <p className='logout ml-2'
+                                
+                                >Logout</p>
                             </div>
                             <div className='element d-flex align-items-center mb-3'>
                                 <span>
@@ -299,8 +302,8 @@ const Dms = () => {
 
     return (
         <div className="main-container">
-            <div className="dashboard-nav navbar navbar-expand-lg col-sm-12">
-                <div className='container-fluid pt-1'>
+            <div className="dashboard-nav navbar navbar-expand-lg">
+                <div className='menu container-fluid pt-1'>
                     <div className='logo d-flex navbar-brand'>
                         <img  src={logo} alt='logoimg' style={{height: '50px'}}/>
 
@@ -327,7 +330,7 @@ const Dms = () => {
                     
                         <div onClick={toggleDropdown} className="apps">
                         
-                        <UilApps className='mr-2 mb-2' />
+                        <UilApps className='apps mr-2 mb-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>

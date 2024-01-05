@@ -1,6 +1,6 @@
 // Handles OAuth authentication with different providers
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,  OAuthProvider  } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider  } from 'firebase/auth';
 
 
 
@@ -64,8 +64,4 @@ export const signInWithMicrosoft = async () => {
     }
 };
 
-export const handleSignout = () => {
-  const auth = getAuth();
-  signOut(auth);
-}
 
