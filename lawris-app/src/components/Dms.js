@@ -48,11 +48,11 @@ const iconList = [
 ]
 
 const navList = [
-    { id: 1, name: "Civil", active: false},
-    { id: 2, name: "Criminal", active: true }, // Set this item as active
-    { id: 3, name: "Commercial", active: false },
-    { id: 4, name: "Land Law", active: false },
-    { id: 5, name: "Arbitration", active: false },
+    { id: 1, name: "Civil", href:'#', active: false},
+    { id: 2, name: "Criminal", href:'#', active: true }, // Set this item as active
+    { id: 3, name: "Commercial", href:'#', active: false },
+    { id: 4, name: "Land Law", href:'#', active: false },
+    { id: 5, name: "Arbitration", href:'#', active: false },
 ]
 
 const CommandBarActions = ({ icon, action_name, onClick }) => {
@@ -86,12 +86,12 @@ const CommandBarIcons = ({ iconList }) => {
 }
 
 
-const NavItem = ({ name, active, handleNavItemClick }) => {
+const NavItem = ({ href, name, active, handleNavItemClick }) => {
     const classes = `nav-link ${active ? 'active' : ''}`;
 
     return (
         <li className="nav-item">
-            <a className={classes} aria-current="page" onClick={() => handleNavItemClick(name)}>
+            <a className={classes} aria-current="page" href={href} onClick={() => handleNavItemClick(name)}>
                 {name}
             </a>
         </li>
@@ -106,6 +106,7 @@ const NavList = ({ handleNavItemClick }) => {
                 <NavItem
                     key={navItem.id}
                     name={navItem.name}
+                    href={navItem.href}
                     active={navItem.active}
                     handleNavItemClick={handleNavItemClick} // Pass the handleNavItemClick function
                 />
@@ -150,7 +151,7 @@ const ProfileSideBar = () => {
                             <hr></hr>
                         </div>
                         <div className='userSettings d-flex flex-column align-items-start justify-content-between'> 
-                            <div className='d-flex align-items-center justify-content-center mb-3'>
+                            <div className='element d-flex align-items-center justify-content-center mb-3'>
                                 <span>
                                     
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-code-fill" viewBox="0 0 16 16">
@@ -159,7 +160,7 @@ const ProfileSideBar = () => {
                                 </span>
                                 <p className='ml-2'>My Documents</p>
                             </div>
-                            <div className='d-flex align-items-center mb-3'>
+                            <div className='element d-flex align-items-center mb-3'>
                                 <span>
                                     
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -169,7 +170,7 @@ const ProfileSideBar = () => {
                                 <p className='ml-2'>My Account</p>
                             </div>
                             
-                            <div className='d-flex align-items-center mb-3'>
+                            <div className='element d-flex align-items-center mb-3'>
                                 <span>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -179,7 +180,7 @@ const ProfileSideBar = () => {
                                 </span>
                                 <p className='logout ml-2'>Logout</p>
                             </div>
-                            <div className='d-flex align-items-center mb-3'>
+                            <div className='element d-flex align-items-center mb-3'>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
                                     <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
@@ -298,7 +299,7 @@ const Dms = () => {
 
     return (
         <div className="main-container">
-            <div className="dashboard-nav navbar navbar-expand-lg">
+            <div className="dashboard-nav navbar navbar-expand-lg col-sm-12">
                 <div className='container-fluid pt-1'>
                     <div className='logo d-flex navbar-brand'>
                         <img  src={logo} alt='logoimg' style={{height: '50px'}}/>
@@ -349,7 +350,7 @@ const Dms = () => {
                     {/* <WelcomeMessage /> */}
                     
                     <p className="lead fw-bold text-center text-white">DOCUMENT MANAGER</p>
-                    <div className="command_bar-card card">
+                    <div className="command_bar-card card col-md-6">
                         <div className="card-body command_bar-container">
                             <CommandBarIcons iconList={iconList} />
                         </div>
