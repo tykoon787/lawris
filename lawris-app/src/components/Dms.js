@@ -52,6 +52,9 @@ import Notifications from './Notifications';
 //Word File Viewer
 import WordFileViewer from './WordFileViewer';
 
+//default user profile
+import User from '../Assets/user.png';
+
 
 const iconList = [
     { id: 1, png: addFile, action_name: "New File", route: "file_new_case" },
@@ -154,7 +157,16 @@ const NavList = ({ handleNavItemClick }) => {
 
 const ProfileSideBar = () => {
     const [show, setShow] = useState(false);
-    const userInfo = useSelector(selectUser)
+
+    //false data
+    const defaultUserInfo = {
+        image: User,
+        name: 'Kakai',
+       };
+
+    const userInfo = useSelector(selectUser) || defaultUserInfo;
+    
+
     
     const handleToggle = () => {
         setShow(!show); 

@@ -111,17 +111,14 @@
     margin-top: 50px;
     color: #fff;
 }
+/* 
 .docsLayout {
-<<<<<<< HEAD
     background-image: url('/src/Assets/dmsImage.jpg');
-=======
     /* background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg'); */
->>>>>>> 59933c9ec1ab60afd4b9d10b507f659b57e8fce2
     object-fit: cover;
     height: 100vh;
 
-}
-
+ */
 .search {
     padding-bottom: 15px;
     position: relative;
@@ -286,7 +283,6 @@
 .userSettings p {
     margin: 0;
 }
-<<<<<<< HEAD
 
 .file-upload-form {
     width: fit-content;
@@ -628,7 +624,6 @@
 
  
  
-=======
 .signin {
     font-size: 1rem;
     width: 15rem;
@@ -647,4 +642,3 @@
     cursor: pointer;
     transition-duration: 0.3s;
 }
->>>>>>> 59933c9ec1ab60afd4b9d10b507f659b57e8fce2
