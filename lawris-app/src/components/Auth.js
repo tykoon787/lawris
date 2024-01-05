@@ -55,7 +55,7 @@ const commonInputs = [
     name: 'password',
     type: 'password',
     icon: <PasswordIcon />,
-    pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
+    pattern: '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/',
     placeholder: 'Password',
     required: true,
     errorMessage: 'password should be 8 characters, include special characters and a capital letters.',
@@ -85,7 +85,7 @@ const commonLoginInputs = [
   {
     name: 'email',
     icon: <EmailIcon />,
-    pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+    pattern: '/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/',
     placeholder: 'Email',
     required: true,
   },
@@ -486,7 +486,7 @@ const handleMicrosoftSignIn = async () => {
                 <div className="d-flex justify-content-center">
                 <ul className="nav nav-underline justify-content-center" style={btnSwitch}>
                   <li className="nav-item">
-                    <a className={`nav-link text-dark ${isSignup ? 'active' : ''}`} href="#" onClick={() => handleModeSwitch(true)}>
+                    <a className={`nav-link text-dark ${isSignup ? 'active' : ''}`} href="#li" onClick={() => handleModeSwitch(true)}>
                       Signup
                     </a>
                   </li>
