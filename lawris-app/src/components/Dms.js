@@ -6,6 +6,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { UilApps } from '@iconscout/react-unicons';
 import user from '../Assets/user.png';
 
+import { logout } from './OAuth';
+
 
 // import backgroundImg from '../static/backgrounds/art.png';
 import addFile from '../static/icons/dms/icons/new-file.png';
@@ -120,12 +122,27 @@ const NavList = ({ handleNavItemClick }) => {
 const ProfileSideBar = () => {
     const [show, setShow] = useState(false);
     const userInfo = useSelector(selectUser)
+    const navigate = useNavigate();
     
     const handleToggle = () => {
         setShow(!show); 
         console.log('closed')// Toggle the show state
       };
     const handleClose= () => setShow(false);
+
+    const handleSignOut = () => {
+        try {
+            logout()
+            navigate('/');
+
+        }
+
+        catch {
+            console.log('Logout unsuccsessful')
+        }
+        
+        
+    }
     return (
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
@@ -180,7 +197,7 @@ const ProfileSideBar = () => {
                                     </svg>
                                 </span>
                                 <p className='logout ml-2'
-                                
+                                onClick={handleSignOut}
                                 >Logout</p>
                             </div>
                             <div className='element d-flex align-items-center mb-3'>

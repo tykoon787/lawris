@@ -14,8 +14,10 @@ import InputGroup from './DynamicSignupForm';
 
 // Handle signup logic using firebase 
 import { signInWithGoogle, signInWithMicrosoft }  from './OAuth';
+import { auth, db } from './Firebase';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/userSlice';
+import { setUser} from '../redux/userSlice';
+import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
 
 
