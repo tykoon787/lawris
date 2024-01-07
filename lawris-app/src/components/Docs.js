@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import './styles/Docs.css';
 import './styles/Icons.css';
 
@@ -32,7 +32,7 @@ import Thumbnail from '../static/docs/form_78_thumbnail.png';
 // ];
 
 
-const DocumentCard = ({ name, documentThumbnail, onClick }) => {
+const DocumentCard = ({ name, documentThumbnail, category_of_law, onClick }) => {
     return (
         <div className="doc-card card col-1" onClick={onClick} data-bs-toggle="modal" data-bs-target="#edit-modal">
             <div className="card-body doc-body">
@@ -45,6 +45,9 @@ const DocumentCard = ({ name, documentThumbnail, onClick }) => {
                     <SaveIcon className="col-2" />
                     <img className="edit-icon col-2" alt="edit_icon" src={EditIcon} />
                 </div>
+                <div>
+                    {/* <p>category_of_law: {category_of_law}</p> */}
+                </div>
             </div>
         </div>
     )
@@ -56,7 +59,11 @@ const DocumentList = ({ documentList, handleCardClick }) => {
         <div className="templates-container">
             <div className="templates row g-3 justify-content-center">
                 {documentList.map((document) => (
-                    <DocumentCard key={document.id} name={document.title} documentThumbnail={Thumbnail}
+                    <DocumentCard 
+                        key={document.id} 
+                        name={document.title} 
+                        documentThumbnail={Thumbnail}
+                        category_of_law={document.category_of_law}
                         onClick={() => handleCardClick(document.id)} />
                 ))}
             </div>

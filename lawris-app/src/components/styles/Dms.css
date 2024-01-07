@@ -2,11 +2,51 @@
 }
 .dashboard-nav {
     height: 50px;
+    background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); 
+    padding: 10px;
+    /* background: rgba(255, 255, 255, 0.2); Adjust the alpha value for transparency */
+    backdrop-filter: blur(10px);
 }
-
+@media screen and (max-width: 767px) {
+    .menu {
+        display: none;
+        cursor: pointer;
+    }
+    
+}
 .dashboard-nav.d-flex {
     height: 100%;
     width: 100%;
+}
+.main-container {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../static/backgrounds/background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height:100%;
+    min-width:100%;
+    /* height: auto;
+    position: absolute;
+    overflow: hidden;
+    top:0;
+    left:0; */
+}
+/* @media screen and (max-width:1024px) {
+    .main-container {
+        left: 50%;
+        margin-left: -512px;
+    }
+} */
+@media screen and (max-width: 767px) {
+    .main-container {
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+        min-height:100%;
+        min-width:100%;
+
+    }
+    
 }
 
 .dashboard-nav.apps:hover,
@@ -16,10 +56,62 @@
 .background_image-container {
     padding-top: 70px;
     /* background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
-    background-image: url('../../static/backgrounds/bg_pattern.png');
+    /* background-image: url('../../static/backgrounds/bg_pattern.png'); */
     width: auto;
     height: 150px;
 }
+.nav-link {
+    color: #fed3ca;
+}
+
+.nav-link:hover {
+    color: black;
+    background: #f58f7c;
+}
+
+.nav-link:active {
+    color: gray !important;
+    text-decoration: underline !important;
+}
+/* .navIntro {
+    color: white;
+}
+.navIntro:hover{
+    background-color: aquamarine;
+} */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+
+.apps:hover {
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+.welcomeIntro {
+    color: #fed3ca;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 0;
+}
+@media screen and (min-width: 576px) {
+    .welcomeIntro {
+        text-align:center;
+    }
+    
+}
+    
+
 .command_bar-card.card {
     border-radius: 150px;
 }
@@ -68,4 +160,224 @@
 .cases_tab-container {
     margin-top: 45px;
     justify-content: center;
+    
 }
+.cases-tab {
+    margin-top: 30px;
+    color: #fff;
+}
+.docsLayout {
+    /* background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg'); */
+    object-fit: cover;
+    height: 100vh;
+
+}
+
+.search input {
+    min-width: 100px;
+    border-radius: 15px;
+    margin-bottom: 0.5rem;
+}
+.buttonSearch {
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    color: white;
+    background-color: transparent;
+    border:1px solid #f58f7c;
+    margin-top: 4px;
+    font-size: small;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 5px;
+
+}
+
+.buttonSearch:hover {
+    cursor: pointer;
+    background-color: #f58f7c;
+    
+}
+.searchIcon {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    z-index: 1;
+}
+
+
+.logo p {
+    font-weight: bold;
+    font-size: large;  
+}
+.logo img {
+    padding-bottom: 10px;
+}
+
+
+.menuItems ul li {
+    margin-right: 1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.menuItems ul li:hover{
+    text-decoration: underline;
+
+    color: blue;
+}
+
+.subMenu {
+    display: none;
+    list-style: none;
+}
+.subMenu ul li {
+    list-style: none;
+}
+
+.menuItems ul li:hover .subMenu {
+    display: block;
+    position: absolute;
+    background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
+    margin-top: 5px;
+    margin-left: -15px;
+}
+.menuItems ul li:hover .subMenu ul{
+    display: block;
+    margin: 10px;
+}
+.menuItems {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.menuItems ul li:hover .subMenu ul li {
+    /* width: 150px; */
+    /* padding: 10px; */
+    background: transparent;
+    border-radius: 0;
+    text-align: left;
+}
+
+
+
+.app img {
+    height: 30px;   
+    margin-right: 10px;
+    transition: transform 0.1s ease-in-out;
+}
+.app img:hover {
+    transform: translateY(-8px);
+    cursor: pointer;
+}
+
+
+.app {
+    position: absolute;
+    top: 100%;
+    left: 10;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    
+}
+
+.bgCanvas{
+    background-color: rgba(0, 0, 0, 0.8);
+    /* background: linear-gradient(-225deg, rgba(203, 186, 204, 0.7) 0%, rgba(37, 128, 179, 0.7) 100%); */
+    /* background-color: lightgray; */
+    color: white;
+    font-weight: 800;
+    font-size: large;
+}
+.intro {
+    color: white;
+}
+.usericon {
+    fill: white;
+}
+.usericon:hover{
+    cursor: pointer;
+    transform: translate(0, 512px) scale(0.1, -0.1);
+    fill: orange;
+    stroke: none;
+}
+
+.close {
+    color: white;
+}
+
+.dropDown {
+    margin-right: 3rem;
+    color: white;
+    font-weight: 900;
+    font-size: medium;
+
+}
+#dropdown-basic {
+    margin-right: 1rem;
+}
+.dropDown .btn-success{
+    background-color: black;
+}
+
+.userSettings {
+    padding: 1rem;
+    outline: none;
+    border: none;
+    color: #f58f7c;
+    font-weight: bold;
+    fill: white;
+    
+}
+.userSettings .element:hover {
+    cursor: pointer;
+    background: #f58f7c;
+    color: white;
+}
+
+.profileImg {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+.profileImg:hover {
+    cursor: pointer;
+}
+
+.profile {
+    position: relative;
+}
+
+.dropDownSettings {
+    margin-left: 1rem;
+}
+
+.userSettings img {
+    margin-right: 15px;
+    margin-top: 5px;
+}
+.userSettings p {
+    margin: 0;
+}
+.signin {
+    font-size: 1rem;
+    width: 15rem;
+    height: 3rem;
+    letter-spacing: 0.05em;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+}
+.signin:hover {
+    border-color: rgb(255, 154, 60);;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
