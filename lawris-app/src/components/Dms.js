@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import $ from 'jquery';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-
 import { UilApps } from '@iconscout/react-unicons';
 import user from '../Assets/user.png';
+import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
 
 import { logout } from './OAuth';
 
@@ -51,11 +51,11 @@ const iconList = [
 ]
 
 const navList = [
-    { id: 1, name: "Civil", href:'#', active: false},
-    { id: 2, name: "Criminal", href:'#', active: true }, // Set this item as active
-    { id: 3, name: "Commercial", href:'#', active: false },
-    { id: 4, name: "Land Law", href:'#', active: false },
-    { id: 5, name: "Arbitration", href:'#', active: false },
+    { id: 1, name: "Civil", active: true }, // Set this item as active
+    { id: 2, name: "Criminal", active: false }, 
+    { id: 3, name: "Commercial", active: false },
+    { id: 4, name: "Land Law", active: false },
+    { id: 5, name: "Arbitration", active: false },
 ]
 
 const CommandBarActions = ({ icon, action_name, onClick }) => {
@@ -230,12 +230,13 @@ const Dms = () => {
     const [isDropdownVisisble, setDropdownVisible] = useState(false);
     const [activeCategory, setActiveCategory] = useState("Civil");
     const [searchTerm, setSEarchTerm] = useState('');
+    const [formData, setFormData] = useState({})
     const userInfo = useSelector(selectUser);
-   
-
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisisble)
     }
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(15);
 
     
 
@@ -251,17 +252,13 @@ const Dms = () => {
 
                   data.forEach((document) => {
                     console.log("Category of Law:", document.category_of_law);
-                 });
-             },
-             error: (error) => {
-                 console.log("Error fetching data: ", error);
-              }
-         })
-      }, [])
-
-
-
-
+                });
+            },
+            error: (error) => {
+                console.log("Error fetching data: ", error);
+            }
+        })
+    }, [])
 
     const handleCardClick = async (documentId) => {
         try {
@@ -277,6 +274,7 @@ const Dms = () => {
                 formFields: Object.values(data.form_fields)
             });
 
+            setFormData(Object.values(data.form_fields));
 
             setIsEditDocModalOpen(true)
 
@@ -289,19 +287,20 @@ const Dms = () => {
         setIsEditDocModalOpen(false);
     };
 
-   
-
     // console.log("IsEditModalOpen", isEditDocModalOpen);
     // console.log("Selected Card", selectedCard);
 
      
-      // Filtering function based on the search input
-    const filterDocuments = () => (
-        documentList.filter((document) => 
+    // Filtering function based on the search input
+    const filterDocuments = () => {
+        return documentList.filter((document) => 
             document.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
             document.category_of_law === activeCategory
-        )
-    )
+        );
+     };
+     
+    // Function to calculate the total number of pages based on itemsPerPage
+    const totalPages = Math.ceil(filterDocuments().length / itemsPerPage);
 
     const handleNavItemClick = (category_of_law) => {
         setActiveCategory(category_of_law);
@@ -316,6 +315,20 @@ const Dms = () => {
 
     };
 
+    // Function to handle page change
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+          setCurrentPage(newPage);
+        }
+      };
+
+    // Render a subset of documents based on pagination
+    const renderDocuments = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return filterDocuments().slice(startIndex, endIndex);
+      }, [currentPage, itemsPerPage, filterDocuments]);
+      
 
     return (
         <div className="main-container">
@@ -383,12 +396,39 @@ const Dms = () => {
                             <NavList handleNavItemClick={handleNavItemClick} />
                         </div>
                     </div>
+
                     
                         
-                        <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
-                        {isEditDocModalOpen && selectedCard && (
-                        <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
-                            closeModal={closeModal} />
+                    <Docs documentList={renderDocuments}  handleCardClick={handleCardClick} />
+
+                    {/* Pagination controls */}
+                    <div className="pagination-controls d-flex justify-content-center mt-5 fixed-bottom">
+                        <div>
+                            <button
+                            className="btn btn-dark mx-2"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            >
+                            <HiArrowLeft />
+                            </button>
+                        </div>
+                        {/* <span className="page-number mt-2 text-white">
+                        Page {currentPage} of {totalPages}
+                        </span> */}
+                        <div>
+                            <button
+                            className="btn btn-dark mx-2"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            >
+                            <HiArrowRight />
+                            </button>
+                        </div>
+                    </div>
+
+                    {isEditDocModalOpen && selectedCard && (
+                    <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
+                        closeModal={closeModal} />
                     )}
 
                 </div>

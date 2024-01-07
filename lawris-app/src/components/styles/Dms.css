@@ -1,5 +1,6 @@
-.dms-background_image {
-}
+/* .dms-background_image {
+
+} */
 .dashboard-nav {
     height: 50px;
     background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); 
@@ -169,7 +170,7 @@
 .docsLayout {
     /* background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg'); */
     object-fit: cover;
-    height: 100vh;
+    /* height: 100vh; */
 
 }
 

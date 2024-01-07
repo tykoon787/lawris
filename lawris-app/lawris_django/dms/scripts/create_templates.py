@@ -12,7 +12,8 @@ import shutil
 from pathlib import Path
 
 # Logs
-log_dir = "/lawris/logs"
+base_dir = Path(__file__).resolve().parent.parent.parent.parent.parent
+log_dir = os.path.join(base_dir, "logs")
 os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -24,7 +25,7 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 # Folders from cloud storage
-lawris_db = "/mnt/r/lawris_db/"
+lawris_db = "/home/shish/Documents/lawris_db"
 template_folder = os.path.join(lawris_db, "templates") 
 succession_docx_folder = os.path.join(template_folder, "succession")
 succession_pdf_folder = os.path.join(template_folder, "SUCCESSION_FORMS")
@@ -109,9 +110,9 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'executor' : FormField('Executor', 'text', "Enter Executor's Name").to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             "witness_name" : FormField("Witness Name", "text", "Enter Witness Name").to_json(),
-            "witness_signature": FormField("Witness Signature", "text", "Sign here").to_json(),
+            "witness_signature": FormField("Witness Signature", "file", "Sign here").to_json(),
             "witness_address_description": FormField("Witness's Address Description", "text", "Where do you stay?").to_json(),
             "witness_address" : FormField("Witness Address", "text", "P.O Box, 1244").to_json(),
             "address_of_service" : FormField("Address of Service", "text", "Enter Add of service").to_json()
@@ -137,7 +138,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -160,7 +161,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -183,7 +184,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -206,7 +207,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -229,7 +230,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -252,7 +253,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -275,7 +276,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -298,7 +299,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -321,7 +322,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -344,7 +345,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     },
@@ -367,7 +368,7 @@ templates = {
             'year_of_deceased_death': FormField('Year of Deceased Death', 'text', 'Enter Year').to_json(),
             'domiciled_area': FormField('Domiciled Area', 'text', 'Enter Domiciled Area').to_json(),
             'petitioner_capacity': FormField('Petitioner Capacity', 'text', 'Enter Petitioner Capacity').to_json(),
-            'petitioner_signature': FormField('Petitioner Signature', 'text', 'Enter Petitioner Signature').to_json(),
+            'petitioner_signature': FormField('Petitioner Signature', 'file', 'Enter Petitioner Signature').to_json(),
             'address_of_service': FormField('Address of Service', 'text', 'Enter Address of Service').to_json(),
         }
     }
