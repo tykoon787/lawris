@@ -166,3 +166,4 @@ cython_debug/
 
 .temp/docs
 .temp/docslawris-app/bin/
+lawris-app/bin/
