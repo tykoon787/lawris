@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import $ from 'jquery';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 // import User from '../Assets/non-litigant.jpg';
-
 import { UilApps } from '@iconscout/react-unicons';
 import user from '../Assets/user.png';
+import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
+
+import { logout } from './OAuth';
 
 
 // import backgroundImg from '../static/backgrounds/art.png';
@@ -31,7 +33,6 @@ import Docs from './Docs';
 import EditDocMainContainer from './EditDoc';
 
 // Icons
-import { logout } from './Auth';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
 
@@ -59,11 +60,11 @@ const iconList = [
 ]
 
 const navList = [
-    { id: 1, name: "Civil", href:'#', active: false},
-    { id: 2, name: "Criminal", href:'#', active: true }, // Set this item as active
-    { id: 3, name: "Commercial", href:'#', active: false },
-    { id: 4, name: "Land Law", href:'#', active: false },
-    { id: 5, name: "Arbitration", href:'#', active: false },
+    { id: 1, name: "Civil", active: true }, // Set this item as active
+    { id: 2, name: "Criminal", active: false }, 
+    { id: 3, name: "Commercial", active: false },
+    { id: 4, name: "Land Law", active: false },
+    { id: 5, name: "Arbitration", active: false },
 ]
 
 const CommandBarActions = ({ icon, action_name, onClick }) => {
@@ -145,6 +146,20 @@ const ProfileSideBar = () => {
         console.log('closed')// Toggle the show state
       };
     const handleClose= () => setShow(false);
+
+    const handleSignOut = () => {
+        try {
+            logout()
+            navigate('/');
+
+        }
+
+        catch {
+            console.log('Logout unsuccsessful')
+        }
+        
+        
+    }
     return (
         <div>
             <div onClick={handleToggle} className="profile align-self-end">
@@ -198,7 +213,9 @@ const ProfileSideBar = () => {
                                         <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
                                     </svg>
                                 </span>
-                                <p className='logout ml-2'>Logout</p>
+                                <p className='logout ml-2'
+                                onClick={handleSignOut}
+                                >Logout</p>
                             </div>
                             <div className='element d-flex align-items-center mb-3'>
                                 <span>
@@ -245,11 +262,11 @@ const Dms = () => {
     
 
     const userInfo = useSelector(selectUser);
-   
-
     const toggleDropdown = () => {
         setDropdownVisible(!isDropdownVisisble)
     }
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(15);
 
     
 
@@ -265,17 +282,13 @@ const Dms = () => {
 
                   data.forEach((document) => {
                     console.log("Category of Law:", document.category_of_law);
-                 });
-             },
-             error: (error) => {
-                 console.log("Error fetching data: ", error);
-              }
-         })
-      }, [])
-
-
-
-
+                });
+            },
+            error: (error) => {
+                console.log("Error fetching data: ", error);
+            }
+        })
+    }, [])
 
     const handleCardClick = async (documentId) => {
         try {
@@ -291,6 +304,7 @@ const Dms = () => {
                 formFields: Object.values(data.form_fields)
             });
 
+            setFormData(Object.values(data.form_fields));
 
             setIsEditDocModalOpen(true)
 
@@ -303,19 +317,20 @@ const Dms = () => {
         setIsEditDocModalOpen(false);
     };
 
-   
-
     // console.log("IsEditModalOpen", isEditDocModalOpen);
     // console.log("Selected Card", selectedCard);
 
      
-      // Filtering function based on the search input
-    const filterDocuments = () => (
-        documentList.filter((document) => 
+    // Filtering function based on the search input
+    const filterDocuments = () => {
+        return documentList.filter((document) => 
             document.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
             document.category_of_law === activeCategory
-        )
-    )
+        );
+     };
+     
+    // Function to calculate the total number of pages based on itemsPerPage
+    const totalPages = Math.ceil(filterDocuments().length / itemsPerPage);
 
     const handleUploadClick = () => {
         setShowUpload(!showUpload);
@@ -476,11 +491,25 @@ const Dms = () => {
 
     };
 
+    // Function to handle page change
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+          setCurrentPage(newPage);
+        }
+      };
+
+    // Render a subset of documents based on pagination
+    const renderDocuments = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return filterDocuments().slice(startIndex, endIndex);
+      }, [currentPage, itemsPerPage, filterDocuments]);
+      
 
     return (
         <div className="main-container">
-            <div className="dashboard-nav navbar navbar-expand-lg col-sm-12">
-                <div className='container-fluid pt-1'>
+            <div className="dashboard-nav navbar navbar-expand-lg">
+                <div className='menu container-fluid pt-1'>
                     <div className='logo d-flex navbar-brand'>
                         <img  src={logo} alt='logoimg' style={{height: '50px'}}/>
 
@@ -507,7 +536,7 @@ const Dms = () => {
                     
                         <div onClick={toggleDropdown} className="apps">
                         
-                        <UilApps className='mr-2 mb-2' />
+                        <UilApps className='apps mr-2 mb-2' />
                         </div>
                         {isDropdownVisisble && (
                             <div className='app d-flex'>

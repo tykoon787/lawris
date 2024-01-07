@@ -1,8 +1,7 @@
 // Handles OAuth authentication with different providers
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut,  OAuthProvider  } from 'firebase/auth';
-
-
+import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
 
 
 export const signInWithGoogle = async () => {
@@ -46,7 +45,6 @@ export const signInWithMicrosoft = async () => {
         const result = await signInWithPopup(auth, provider);
 
         // Successful authentication
-        const credential = result.credential;
         const token = result.accessToken;
         const user = result.user;
         const email = result._tokenResponse.email;
@@ -64,8 +62,15 @@ export const signInWithMicrosoft = async () => {
     }
 };
 
-export const handleSignout = () => {
-  const auth = getAuth();
-  signOut(auth);
+export const logout = () => {
+  const auth = getAuth()
+  signOut(auth)
+  .then(() => {
+    console.log('signout successful')
+  })
+  .catch((error) => {
+    console.log('Error signing out:', error)
+  })
 }
+
 

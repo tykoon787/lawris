@@ -1,4 +1,4 @@
-#!/home/tykoon787/projects/lawris/lawris-app/bin/python3
+#!/home/tykoon787/projects/lawris/lawris-app/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
