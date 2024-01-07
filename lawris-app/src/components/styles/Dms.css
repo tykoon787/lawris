@@ -7,16 +7,46 @@
     /* background: rgba(255, 255, 255, 0.2); Adjust the alpha value for transparency */
     backdrop-filter: blur(10px);
 }
-
+@media screen and (max-width: 767px) {
+    .menu {
+        display: none;
+        cursor: pointer;
+    }
+    
+}
 .dashboard-nav.d-flex {
     height: 100%;
     width: 100%;
 }
 .main-container {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../static/backgrounds/background.png');
-    object-fit: cover;
-    height: 100vh;
-    backdrop-filter: blur(40px);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height:100%;
+    min-width:100%;
+    /* height: auto;
+    position: absolute;
+    overflow: hidden;
+    top:0;
+    left:0; */
+}
+/* @media screen and (max-width:1024px) {
+    .main-container {
+        left: 50%;
+        margin-left: -512px;
+    }
+} */
+@media screen and (max-width: 767px) {
+    .main-container {
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+        min-height:100%;
+        min-width:100%;
+
+    }
+    
 }
 
 .dashboard-nav.apps:hover,
@@ -31,32 +61,56 @@
     height: 150px;
 }
 .nav-link {
-    color: white;
-}
-
-.nav-link:active {
-    color: gray
+    color: #fed3ca;
 }
 
 .nav-link:hover {
     color: black;
     background: #f58f7c;
 }
-.navIntro {
+
+.nav-link:active {
+    color: gray !important;
+    text-decoration: underline !important;
+}
+/* .navIntro {
     color: white;
 }
 .navIntro:hover{
     background-color: aquamarine;
+} */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+
+.apps:hover {
+    cursor: pointer;
+    animation: bounce 2s infinite;
 }
 
 .welcomeIntro {
-    color: black;
+    color: #fed3ca;
     font-size: 2rem;
     font-weight: 700;
     text-align: center;
     margin-top: 4rem;
     margin-bottom: 0;
 }
+@media screen and (min-width: 576px) {
+    .welcomeIntro {
+        text-align:center;
+    }
+    
+}
+    
 
 .command_bar-card.card {
     border-radius: 150px;
@@ -119,10 +173,29 @@
 
 }
 
-.search {
-    padding-bottom: 15px;
-    position: relative;
+.search input {
     min-width: 100px;
+    border-radius: 15px;
+    margin-bottom: 0.5rem;
+}
+.buttonSearch {
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    color: white;
+    background-color: transparent;
+    border:1px solid #f58f7c;
+    margin-top: 4px;
+    font-size: small;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 5px;
+
+}
+
+.buttonSearch:hover {
+    cursor: pointer;
+    background-color: #f58f7c;
+    
 }
 .searchIcon {
     position: absolute;
@@ -258,6 +331,11 @@
     fill: white;
     
 }
+.userSettings .element:hover {
+    cursor: pointer;
+    background: #f58f7c;
+    color: white;
+}
 
 .profileImg {
     height: 30px;
@@ -302,3 +380,4 @@
     cursor: pointer;
     transition-duration: 0.3s;
 }
+

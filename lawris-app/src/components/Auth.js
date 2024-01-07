@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../components/styles/signup.css';
 import student from '../Assets/law students2.jpg';
@@ -13,13 +13,12 @@ import InputGroup from './DynamicSignupForm';
 
 
 // Handle signup logic using firebase 
+import { signInWithGoogle, signInWithMicrosoft }  from './OAuth';
 import { auth, db } from './Firebase';
-import { signInWithGoogle, signInWithMicrosoft, handleSIgnout }  from './OAuth';
-import { doc, getDoc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
-import { setUser, removeUser } from '../redux/userSlice';
+import { setUser} from '../redux/userSlice';
+import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
 
 import Navbar from './NavBar';
@@ -32,8 +31,6 @@ import 'sweetalert2/dist/sweetalert2.css';
 //icons import
 import Google from '../Assets/google.png';
 import LinkedIn from '../Assets/microsoft.png';
-import facebook from '../Assets/facebook.png';
-
 
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon } from './Icons';
@@ -60,7 +57,7 @@ const commonInputs = [
     name: 'password',
     type: 'password',
     icon: <PasswordIcon />,
-    pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$',
+    pattern: '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/',
     placeholder: 'Password',
     required: true,
     errorMessage: 'password should be 8 characters, include special characters and a capital letters.',
@@ -90,7 +87,7 @@ const commonLoginInputs = [
   {
     name: 'email',
     icon: <EmailIcon />,
-    pattern: '^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$',
+    pattern: '/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/',
     placeholder: 'Email',
     required: true,
   },
@@ -258,14 +255,14 @@ const Auth = () => {
      
       const handleSignup =  async (e) => {
         e.preventDefault();
-
+    
         const formDataWithUserType = {
           ...formData,
           user_type: userType.toLowerCase(),
         };
-
+    
         console.log(formDataWithUserType);
-
+    
         const signUpUrl = 'http://localhost:8000/auth/register/'; // Replace 'your-endpoint' with the actual endpoint 
     
       const requiredFields = ['full_name', 'email', 'password', 'confirm_password', 'phone_number'];
@@ -286,30 +283,50 @@ const Auth = () => {
         
             if (!response.ok) {
             // Handle the case where the server returns an error
-              throw new Error('Registration failed');
+              const responseData = await response.json();
+              if (responseData.errors) {
+                if (responseData.errors.password) {
+                  Swal.fire('Password is too common. Please use a different one')
+                } else if (responseData.errors.email) {
+                  Swal.fire('Email is aleady taken. Please use a different one')
+                } else {
+                  Swal.fire('Registrationfailed. Please check your inputs');
+    
+                }
+              } else {
+                throw new Error('Registration failed')
+              }
+            } else {
+              Swal.fire('Registration Sussesful!')
+              setIsSignup(false);
+              setFormData({
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                employeeId: '',
+                registrationNumber: '',
+                studentNo: '',
+                isoId: '',
+                phone: '',
+                licenceNumber: '',
+                employeeNo: ''
+    
+              });
             }
-  
+    
           } catch (error) {
             console.error('Error during registration:', error.message);
+            const errorMessage = error.message || 'Something went wrong. Please try again later.';
+            const errorDetails = error.details || '';
+    
+            const fullErrorMessage = `${errorMessage}\n${errorDetails}`;
             // Handle the error, show a message to the user, or perform other actions
+            Swal.fire(fullErrorMessage);
           }
-          Swal.fire('Registration Successful') 
-          setIsSignup(false)
-         }
-        setFormData({
-          name: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          employeeId: '',
-          registrationNumber: '',
-          studentNo: '',
-          isoId: '',
-          phone: '',
-          licenceNumber: '',
-          employeeNo: ''
-          });       
-      };
+         }      
+      };  
+         
      
 
   const profileImage = {
@@ -451,7 +468,7 @@ const handleMicrosoftSignIn = async () => {
           <div className="card col-lg-10" style={cardStyle}>
             <div className="card-body d-flex p-0">
               
-              <div className="col-md-6">
+              <div className="imageCard col-md-6 d-sm-block">
                 <img
                   className="card-img"
                   style={{
@@ -471,7 +488,7 @@ const handleMicrosoftSignIn = async () => {
                 <div className="d-flex justify-content-center">
                 <ul className="nav nav-underline justify-content-center" style={btnSwitch}>
                   <li className="nav-item">
-                    <a className={`nav-link text-dark ${isSignup ? 'active' : ''}`} href="#" onClick={() => handleModeSwitch(true)}>
+                    <a className={`nav-link text-dark ${isSignup ? 'active' : ''}`} href="#li" onClick={() => handleModeSwitch(true)}>
                       Signup
                     </a>
                   </li>
@@ -508,12 +525,7 @@ const handleMicrosoftSignIn = async () => {
                       commonLoginInputs={commonLoginInputs}
                       />
                     
-                    {/* <TypeChecker
-                      userType={userType}
-                      handleInputChange={handleInputChange}
-                      userList={userList}
-                      formData={formData}
-                    /> */}
+                    
                   </>
                       )}
                   <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
@@ -538,11 +550,8 @@ const handleMicrosoftSignIn = async () => {
                         </span>
                       </div>
                   </div>
-
-                    {/* <img src={Google} alt="google" className="mx-2" style={{ width: '2em', height: '2em' }} />
-                    <img src={Microsoft} alt="microsoft" className="mx-2" style={{ width: '2em', height: '2em' }} />
-                    <img src={LinkedIn} alt="linkedin" className="mx-2" style={{ width: '2em', height: '2em' }} /> */}
-                  </div>}
+                  </div>
+                  }
                   <div className="d-flex flex-column mt-3">
                     <p>
                       <a href="#terms" className="small text-muted">
