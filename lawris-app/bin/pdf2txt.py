@@ -1,4 +1,4 @@
-#!/home/tykoon787/projects/lawris/lawris-app/bin/python3
+#!/home/tykoon787/projects/lawris/lawris-app/bin/python
 """A command line tool for extracting text and images from PDF and
 output it to plain text, html, xml or tags."""
 import argparse

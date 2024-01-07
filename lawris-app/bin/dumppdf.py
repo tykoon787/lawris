@@ -1,4 +1,4 @@
-#!/home/tykoon787/projects/lawris/lawris-app/bin/python3
+#!/home/tykoon787/projects/lawris/lawris-app/bin/python
 """Extract pdf structure in XML format"""
 import logging
 import os.path
