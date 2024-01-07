@@ -12,8 +12,11 @@ import shutil
 from pathlib import Path
 
 # Logs
-base_dir = Path(__file__).resolve().parent.parent.parent.parent.parent
-log_dir = os.path.join(base_dir, "logs")
+<<<<<<< HEAD
+log_dir = "/workspace/lawris/logs"
+=======
+log_dir = "/lawris/logs"
+>>>>>>> 76b3467713152c157d15830562907082de1ad7d4
 os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
