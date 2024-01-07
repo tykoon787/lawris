@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@iconscout/react-unicons": "^2.0.2",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
     "@popperjs/core": "^2.11.8",
     "@reduxjs/toolkit": "^2.0.1",
     "@testing-library/jest-dom": "^5.17.0",
