@@ -10,10 +10,11 @@ from django.shortcuts import get_object_or_404
 import logging
 from .utils.microsoft_graph import upload_file_to_onedrive
 from bson.binary import Binary, UuidRepresentation
-from pymongo import MongoClient
+from django.conf import settings
+
 
 # Logging configuration
-log_dir = "/home/shish/Documents/docs/docx"
+log_dir = "/home/kibe/Documents/lawris/logs/"
 os.makedirs(log_dir, exist_ok=True)
 
 logger = logging.getLogger()
@@ -29,9 +30,12 @@ logger.addHandler(file_handler)
 
 
 # MongoDB connection
-cluster = MongoClient("mongodb+srv://laban:Laban254@cluster0.880pe99.mongodb.net/?retryWrites=true&w=majority")
-db = cluster["test_d"]
-collection = db["test_c"]
+# Access the MongoDB client
+mongodb_client = settings.MONGODB_CLIENT
+
+# Access the MongoDB database and collection
+mongodb_database = settings.MONGODB_DATABASE
+mongodb_collection = settings.MONGODB_COLLECTION
 
 
 class BaseModel(models.Model):
@@ -165,7 +169,7 @@ class Template(BaseModel):
                     run.text = run.text.replace(
                         placeholder, replacement.upper())
 
-    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/shish/Desktop/lawris_docs"):
+    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/kibe/Documents/lawris/docs/"):
         """
         Saves the generated file to the specified path 
 
@@ -227,10 +231,10 @@ class Template(BaseModel):
                 
                 
             }
-            collection.insert_one(template_data)
+            mongodb_collection.insert_one(template_data)
 
             generated_content = self.save_file(
-                document, file_name=f'{new_document.title}.docx')
+                new_document, file_name=f'{new_document.title}.docx')
             new_document.content = generated_content       
             return new_document
         
@@ -252,7 +256,7 @@ class Template(BaseModel):
                 "thumbnail_url": "thumbnail location pdf file",
                 "document_id": document_id_binary
             }
-            collection.insert_one(template_data)
+            mongodb_collection.insert_one(template_data)
         
             return filled_template
 

@@ -67,7 +67,7 @@ const DynamicForm = ({ templateId, formFields }) => {
             replacements: {}
         };
         
-        requestData['replacements']['templateId'] = templateId;
+        requestData['templateId'] = templateId;
         formFields.forEach((field) => {
             const fieldName = field.name;
             const fieldValue = formData.get(fieldName);
@@ -79,13 +79,31 @@ const DynamicForm = ({ templateId, formFields }) => {
         console.log(requestData)
 
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/dms/replacement-data/`, requestData);
+            const response = await axios.post(`http://127.0.0.1:8000/dms/replacement-data/`, requestData, { responseType: 'arraybuffer' });
 
             if (response.status === 200) {
-                console.log("Success");
-            } else {
-                console.log("Error");
+            const url = window.URL.createObjectURL(new Blob([response.data], {type: response.headers['content-type']}));
+            const link = document.createElement('a');
+
+            // Extract filename from Content-Disposition header
+            const contentDisposition = response.headers['content-disposition'];
+            let filename = '';
+            if (contentDisposition) {
+                const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)*/;
+                const matches = filenameRegex.exec(contentDisposition);
+                if (matches != null && matches[1]) { 
+                    filename = matches[1].replace(/['"]/g, '');
+                }
             }
+
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            }
+
+
+
         } catch (error) {
             console.error("An error occurred:", error);
         }
