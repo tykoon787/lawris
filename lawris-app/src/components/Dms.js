@@ -712,7 +712,34 @@ const Dms = () => {
 
                     
                         
-                        <Docs documentList={filterDocuments()} handleCardClick={handleCardClick} />
+                        <Docs documentList={renderDocuments} handleCardClick={handleCardClick} />
+
+
+                        {/* Pagination controls */}
+                        <div className="pagination-controls d-flex justify-content-center mt-5 fixed-bottom">
+                            <div>
+                                <button
+                                className="btn btn-dark mx-2"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                >
+                                <HiArrowLeft />
+                                </button>
+                            </div>
+                            {/* <span className="page-number mt-2 text-white">
+                            Page {currentPage} of {totalPages}
+                            </span> */}
+                            <div>
+                                <button
+                                className="btn btn-dark mx-2"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                >
+                                <HiArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                        
                         {isEditDocModalOpen && selectedCard && (
                         <EditDocMainContainer templateId={selectedCard.templateId} title={selectedCard.title} docUrl={form78} formFields={selectedCard.formFields} isOpen={isEditDocModalOpen}
                             closeModal={closeModal} />
