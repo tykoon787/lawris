@@ -238,7 +238,9 @@ const Auth = () => {
   
 
   const handleModeSwitch = () => {
+    console.log("Is Signup", isSignup);
     setIsSignup((prev) => !prev);
+    console.log("Is Signup", isSignup);
     // Reset form data when switching modes
     setFormData({
     });
@@ -360,7 +362,7 @@ const Auth = () => {
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(51, 204, 255, 0.34)',
+        // border: '1px solid rgba(51, 204, 255, 0.34)',
       }
     
       const btnHeader = {
@@ -460,112 +462,110 @@ const handleMicrosoftSignIn = async () => {
 
   return (
     <div className="main">
-      <div className="contentContainer d-flex flex-column justify-content-center align-items-center">
-        <div className="surround0Container p-3 col-lg-10 mt-1" style={header}>
-          <div className="navbarContainer p-2 col-lg-10 mt-2" style={navbar}>
-            <Navbar userType={userType} setUserType={setUserType} />
-          </div>
-          <div className="card col-lg-10" style={cardStyle}>
-            <div className="card-body d-flex p-0">
+      <div className="contentContainer d-flex flex-column g-3 justify-content-center align-items-center p-3 col-lg-12">
+        <div className="navbarContainer p-2 col-lg-10 mb-2" style={navbar}>
+          <Navbar userType={userType} setUserType={setUserType} />
+        </div>
+        <div className="auth-card card col-lg-10" style={cardStyle}>
+          <div className="card-body d-flex p-0" style={{height: '700px'}}>
+            
+            <div className="imageCard col-md-6 d-sm-block">
+              <img
+                className="card-img"
+                style={{
+                  minHeight: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '1.1rem 0 0 1.1rem'
+
+                }}
+                src={profileImage[userType]}
+                alt={userType}
+              />
+            </div>
+            <div
+              className="col-md-6 p-2 formInput"
+              style={{ borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem' }}
+            >
+              <div className="d-flex justify-content-center">
+              <ul className="nav nav-underline justify-content-center" style={btnSwitch}>
+                <li className="nav-item">
+                  <a className={`nav-link text-dark ${isSignup ? 'active' : ''}`} href="#li" onClick={() => handleModeSwitch(true)}>
+                    Signup
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className={`nav-link text-dark ${!isSignup ? 'active' : ''}`} href="#li" onClick={() => handleModeSwitch(false)}>
+                    Login
+                  </a>
+                </li>
+              </ul>
+
+
+              </div>
+              <Introduction userType={userType} isSignup={isSignup}/>
               
-              <div className="imageCard col-md-6 d-sm-block">
-                <img
-                  className="card-img"
-                  style={{
-                    minHeight: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '1.1rem 0 0 1.1rem'
-
-                  }}
-                  src={profileImage[userType]}
-                  alt={userType}
-                />
-              </div>
-              <div
-                className="col-md-6 p-2 formInput"
-                style={{ borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem' }}
+              <form
+                className="w-100 p-4 needs-validation"
+                noValidate
+                onSubmit={isSignup ? handleSignup : handleLogin}
               >
-                <div className="d-flex justify-content-center">
-                <ul className="nav nav-underline justify-content-center" style={btnSwitch}>
-                  <li className="nav-item">
-                    <a className={`nav-link text-dark ${isSignup ? 'active' : ''}`} href="#li" onClick={() => handleModeSwitch(true)}>
-                      Signup
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className={`nav-link text-dark ${!isSignup ? 'active' : ''}`} href="#li" onClick={() => handleModeSwitch(false)}>
-                      Login
-                    </a>
-                  </li>
-                </ul>
-
-
-                </div>
-                <Introduction userType={userType} isSignup={isSignup}/>
-                
-                <form
-                  className="w-100 p-4 needs-validation"
-                  noValidate
-                  onSubmit={isSignup ? handleSignup : handleLogin}
-                >
-                  {isSignup ? (
-                  <InputGroup
-                    userList={userList}
-                    commonInputs={commonInputs}
-                    userType={userType}
-                    formData={formData}
+                {isSignup ? (
+                <InputGroup
+                  userList={userList}
+                  commonInputs={commonInputs}
+                  userType={userType}
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                  isSignup={isSignup} // Pass mode to input group for conditional rendering
+                />
+                ) : (
+                  <>
+                  <InputLogin 
                     handleInputChange={handleInputChange}
-                    isSignup={isSignup} // Pass mode to input group for conditional rendering
-                  />
-                  ) : (
-                    <>
-                    <InputLogin 
-                      handleInputChange={handleInputChange}
-                      formData={formData}
-                      commonLoginInputs={commonLoginInputs}
-                      />
-                    
-                    
-                  </>
-                      )}
-                  <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
-                    {isSignup ? 'Register' : 'Login'}
-                  </button>
-                  <br />
-                  <br />
+                    formData={formData}
+                    commonLoginInputs={commonLoginInputs}
+                    />
                   
+                  
+                </>
+                    )}
+                <button className="btn btn-lg w-100 btn-outline-secondary" style={btnHeader} type="submit">
+                  {isSignup ? 'Register' : 'Login'}
+                </button>
+                <br />
+                <br />
+                
 
-                  {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <div className='d-flex flex-column align-items-center justify-content center'>
-                      <div className='signin mb-3' onClick={handleGoogleSignIn}>
-                        <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
-                        <span>
-                          Sign in with Google
-                        </span>
-                      </div>
-                      <div className='signin' onClick={handleMicrosoftSignIn}>
-                        <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
-                        <span>
-                          Sign in with Microsoft
-                        </span>
-                      </div>
-                  </div>
-                  </div>
-                  }
-                  <div className="d-flex flex-column mt-3">
-                    <p>
-                      <a href="#terms" className="small text-muted">
-                        Terms of Use
-                      </a>
-                      &nbsp; &nbsp;
-                      <a href="#privacy" className="small text-muted">
-                        Privacy Policy
-                      </a>
-                    </p>
-                  </div>
-                </form>
- 
-              </div>
+                {isSignup ? '' : <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                  <div className='d-flex flex-column align-items-center justify-content center'>
+                    <div className='signin mb-3' onClick={handleGoogleSignIn}>
+                      <img src={Google} alt='googleImg' style={{ width: '2em', height: '2em' }} />
+                      <span>
+                        Sign in with Google
+                      </span>
+                    </div>
+                    <div className='signin' onClick={handleMicrosoftSignIn}>
+                      <img  src={LinkedIn} alt='linkedin' style={{ width: '2em', height: '2em' }} />
+                      <span>
+                        Sign in with Microsoft
+                      </span>
+                    </div>
+                </div>
+                </div>
+                }
+                <div className="d-flex flex-column mt-3">
+                  <p>
+                    <a href="#terms" className="small text-muted">
+                      Terms of Use
+                    </a>
+                    &nbsp; &nbsp;
+                    <a href="#privacy" className="small text-muted">
+                      Privacy Policy
+                    </a>
+                  </p>
+                </div>
+              </form>
+
             </div>
           </div>
         </div>
