@@ -24,3 +24,6 @@ yarn-error.log*
 
 /bin
 /lib64
+
+__pycache__
+/migrations
