@@ -12,7 +12,8 @@ import shutil
 from pathlib import Path
 
 # Logs
-log_dir = "home/kibe/Documents/lawris/logs"
+log_dir = "/lawris/logs"
+
 os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
