@@ -1,4 +1,3 @@
-import re
 from django.db import models
 from django.db.models import JSONField
 from django.utils import timezone
@@ -9,9 +8,13 @@ import os
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 import logging
+from .utils.microsoft_graph import upload_file_to_onedrive
+from bson.binary import Binary, UuidRepresentation
+from django.conf import settings
 
-# Logs
-log_dir = "projects/lawris/logs"
+
+# Logging configuration
+log_dir = "/home/kibe/Documents/lawris/logs/"
 os.makedirs(log_dir, exist_ok=True)
 
 logger = logging.getLogger()
@@ -25,7 +28,14 @@ file_formatter = logging.Formatter(
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
-# Create your models here.
+
+# MongoDB connection
+# Access the MongoDB client
+mongodb_client = settings.MONGODB_CLIENT
+
+# Access the MongoDB database and collection
+mongodb_database = settings.MONGODB_DATABASE
+mongodb_collection = settings.MONGODB_COLLECTION
 
 
 class BaseModel(models.Model):
@@ -87,6 +97,7 @@ class Template(BaseModel):
         ('real estate', 'Real Estate'),
         ('labor', 'Labor'),
         ('patent', 'Patent'),
+        ('default', 'Default')
     ]
 
     type = models.CharField(max_length=20, choices=TEMPLATE_TYPES)
@@ -94,7 +105,7 @@ class Template(BaseModel):
     category_of_law = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     division_of_law = models.CharField(max_length=50, choices=DIVISION_CHOICES)
     sub_division = models.CharField(
-        max_length=20, choices=SUB_DIVISION_CHOICES)
+        max_length=20, choices=SUB_DIVISION_CHOICES, default="Default")
     template_file_docx = models.CharField(max_length=255)
     pdf_preview_file = models.CharField(max_length=255, default="preview_file")
     form_fields = JSONField(blank=True, null=True)
@@ -126,7 +137,7 @@ class Template(BaseModel):
             sub_division=sub_division,
             template_file_docx=template_file_docx,
             pdf_preview_file=pdf_preview_file,
-            # thumbnail=thumbnail,
+            #thumbnail=thumbnail,
             form_fields=form_fields
         )
         template.save()
@@ -144,7 +155,8 @@ class Template(BaseModel):
             for page in pdf_template.pages:
                 page_text = page.extract_text()
                 template_content += page_text + "\n"
-                return template_content
+        print(template_content)
+        return template_content
 
     def replace_placeholder(self, doc: docx.Document, placeholder: str, replacement: str):
         """
@@ -157,7 +169,7 @@ class Template(BaseModel):
                     run.text = run.text.replace(
                         placeholder, replacement.upper())
 
-    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/sakwa/Okestra/lawris/lawris-app/lawris_django/dms/.temp/docs"):
+    def save_file(self, document: docx.Document, file_name: str = "modified.docx", save_path: str = "/home/kibe/Documents/lawris/docs/"):
         """
         Saves the generated file to the specified path 
 
@@ -171,6 +183,9 @@ class Template(BaseModel):
         """
         file_name = os.path.join(save_path, file_name)
         document.save(file_name)
+        
+        # Upload the file to OneDrive
+        # upload_file_to_onedrive(save_path, file_name)
         with open(file_name, 'rb') as file:
             generated_content = file.read()
 
@@ -190,24 +205,60 @@ class Template(BaseModel):
         Returns:
             Document (Document): Document object with the generated content
         """
+        
+        
         if (document and replacements):
             for placeholder, replacement in replacements.items():
                 self.replace_placeholder(document, placeholder, replacement)
 
             new_document = Document(title=self.title)
-            new_document.save()
+            
+            document_id = new_document.id
+            # Convert UUID to binary with specified UuidRepresentation
+            
+            document_id_binary = Binary.from_uuid(document_id, UuidRepresentation.STANDARD)
+
+
+            template_data = {
+                "type": self.type,
+                "title": self.title,
+                "category_of_law": self.category_of_law,
+                "division_of_law": self.division_of_law,
+                "sub_division": self.sub_division,
+                "document_location": "http//:onedrive.com",
+                "thumbnail_url": "thumbnail location",
+                "document_id": document_id_binary
+                
+                
+            }
+            mongodb_collection.insert_one(template_data)
 
             generated_content = self.save_file(
-                document, file_name=f'{new_document.title}.docx')
-            new_document.content = generated_content
-            new_document.save()
-
+                new_document, file_name=f'{new_document.title}.docx')
+            new_document.content = generated_content       
             return new_document
+        
         else:
             template_content = self.read_template_content(
                 self.template_file_docx)
-            filled_template = template_content.format(**data)
-            return (filled_template)
+            filled_template = template_content.format(**replacements)
+            new_document = Document(self.title)
+            document_id = new_document.id
+            # Convert UUID to binary with specified UuidRepresentation
+            document_id_binary = Binary.from_uuid(document_id, UuidRepresentation.STANDARD)
+            template_data = {
+                "type": self.type,
+                "title": self.title,
+                "category_of_law": self.category_of_law,
+                "division_of_law": self.division_of_law,
+                "sub_division": self.sub_division,
+                "document_location": "http//:onedrive.com",
+                "thumbnail_url": "thumbnail location pdf file",
+                "document_id": document_id_binary
+            }
+            mongodb_collection.insert_one(template_data)
+        
+            return filled_template
 
     def __str__(self):
         return self.title
@@ -225,24 +276,17 @@ class Document(BaseModel):
         self.title = title
 
     def generate_document(self, format: str = "docx"):
-        """
-        Generates a document based off it's contents
-        """
         if format.lower() == "docx":
             doc = docx.Document()
-            doc.add_paragraph(self.content)
+            doc.add_paragraph(str(self.content))
+            print("Generated document:")
+            print(doc.paragraphs)  # Log the paragraphs
             return doc
         else:
-            # NOTE: Handler other formats (pdf)
+            # Handle other formats (pdf)
             pass
 
-    def __str__(self):
-        return f'Document Object: {self.id}-{self.title}'
-
     def download_document(self):
-        """
-        Downloads a document
-        """
         generated_doc = self.generate_document()
 
         if generated_doc:

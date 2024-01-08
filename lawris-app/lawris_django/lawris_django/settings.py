@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from pymongo import MongoClient
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -8,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -56,7 +58,8 @@ import firebase_admin
 from firebase_admin import credentials
 
 # Path to your service account key JSON file
-cred = credentials.Certificate("/home/sakwa/Downloads/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
+# cred = credentials.Certificate("/workspace/lawris/lawris-app/lawris_django/lawris_django/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
+cred = credentials.Certificate("lawris_django/firebase/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
 
 # Initialize Firebase Admin SDK
 firebase_admin.initialize_app(cred)
@@ -134,13 +137,23 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lawris_db',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'lawris_admin',
         'PASSWORD': 'sirwal_db',
     }
 }
 
+# MongoDB settings
+
+MONGODB_CLUSTER_URI = "mongodb+srv://laban:Laban254@cluster0.880pe99.mongodb.net/?retryWrites=true&w=majority"
+MONGODB_DATABASE_NAME = "test_d"
+MONGODB_COLLECTION_NAME = "test_c"
+# MongoClient instance for the MongoDB connection
+MONGODB_CLIENT = MongoClient(MONGODB_CLUSTER_URI)
+# MongoDB database and collection instances
+MONGODB_DATABASE = MONGODB_CLIENT[MONGODB_DATABASE_NAME]
+MONGODB_COLLECTION = MONGODB_DATABASE[MONGODB_COLLECTION_NAME]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -187,6 +200,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2  # 2 weeks
 SESSION_COOKIE_NAME = 'lawris_sessionid'
 
+
 # JWT settings
 from datetime import timedelta
 
@@ -208,3 +222,8 @@ SIMPLE_JWT = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS =  [os.path.join(BASE_DIR, 'build/static')]
+
+
+
+
+
