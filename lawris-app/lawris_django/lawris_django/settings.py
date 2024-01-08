@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -56,7 +57,8 @@ import firebase_admin
 from firebase_admin import credentials
 
 # Path to your service account key JSON file
-cred = credentials.Certificate("/media/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
+# cred = credentials.Certificate("/workspace/lawris/lawris-app/lawris_django/lawris_django/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
+cred = credentials.Certificate("lawris_django/firebase/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
 
 # Initialize Firebase Admin SDK
 firebase_admin.initialize_app(cred)
@@ -134,7 +136,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lawris_db',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'lawris_admin',
         'PASSWORD': 'sirwal_db',
@@ -186,6 +188,26 @@ STATIC_URL = '/static/'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2  # 2 weeks
 SESSION_COOKIE_NAME = 'lawris_sessionid'
+
+# Logging   configuration
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': '/home/kibe/jan/lawris/logs/django.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 # JWT settings
 from datetime import timedelta

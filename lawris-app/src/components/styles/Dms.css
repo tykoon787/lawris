@@ -1,5 +1,6 @@
-.dms-background_image {
-}
+/* .dms-background_image {
+
+} */
 .dashboard-nav {
     height: 50px;
     background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%); 
@@ -166,12 +167,14 @@
     margin-top: 30px;
     color: #fff;
 }
+/* 
 .docsLayout {
+    background-image: url('/src/Assets/dmsImage.jpg');
     /* background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg'); */
     object-fit: cover;
-    height: 100vh;
+    /* height: 100vh; */
 
-}
+
 
 .search input {
     min-width: 100px;
@@ -362,6 +365,347 @@
 .userSettings p {
     margin: 0;
 }
+
+.file-upload-form {
+    width: fit-content;
+    height: fit-content;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    /* zIndex: 9999;*/ 
+    wrap: wrap;
+  }
+
+  .file-upload-form3 {
+    width: fit-content;
+    height: fit-content;
+    zIndex: 9999; 
+  }
+
+  .file-upload-label input {
+    display: none;
+  }
+  .file-upload-label svg {
+    height: 50px;
+    fill: rgb(82, 82, 82);
+    margin-bottom: 20px;
+  }
+  .file-upload-label {
+    cursor: pointer;    
+    padding: 10px 25px;
+    border-radius: 40px;
+    border: 2px dashed rgb(82, 82, 82);
+    box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719);
+    width:85vw;
+  }
+
+  .file-upload-label3 {
+    cursor: pointer;    
+    padding: 10px 2px;
+    width:75vw;
+  }
+
+  .file-upload-design {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .browse-button {
+    background-color: rgb(82, 82, 82);
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: white;
+    transition: all 0.3s;
+  }
+  .browse-button:hover {
+    background-color: rgb(14, 14, 14);
+  }
+
+.myToastContainer {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+}
+
+.glass {
+    background-color: transparent;
+    backdrop-filter: blur(50px);
+}
+
+.installer {
+    width: 200px;
+    height: 40px;
+  }
+  
+  .installer label {
+    position: absolute;
+    height: 40px;
+    width: 200px;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .installer label input {
+    display: none;
+  }
+  
+  .installer label span {
+    position: absolute;
+    height: 40px;
+    width: 200px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    background: #3F8EFC;
+    border-radius: 5px;
+  }
+  
+  .installer label input:checked ~ span {
+    background: #87E544;
+    animation: downloadSuccess 3.1s ease;
+  }
+  
+  .installer label span:after {
+    content: 'UPLOAD';
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    left: 10%;
+  }
+  
+  .installer label input:checked ~ span:after {
+    content: 'Thank you!';
+    animation: downloadState 5s;
+  }
+  
+  .installer label span:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    background: rgba(255,255,255,.2);
+  }
+  
+  .installer label input:checked ~ span:before {
+    animation: downloadProgress 7s cubic-bezier(.67,.13,.1,.81);
+  }
+  
+  @keyframes downloadSuccess {
+    0%, 90% {
+      background: #3F8EFC;
+    }
+  
+    100% {
+      background: #87E544;
+    }
+  }
+  
+  @keyframes downloadState {
+    0%, 95% {
+      content: 'UPLOADING...'
+    }
+  
+    100% {
+      content: 'Thank you for upload!'
+    }
+  }
+  
+  @keyframes downloadProgress {
+    0% {
+      width: 5%;
+      opacity: 1;
+    }
+  
+    35% {
+      width: 17%;
+    }
+  
+    64% {
+      width: 51%;
+    }
+  
+    81% {
+      width: 70%;
+    }
+  
+    90% {
+      width: 86%;
+      opacity: 1;
+    }
+  
+    100% {
+      width: 100%;
+      opacity: 0;
+    }
+  }
+
+  .file-upload-design2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+ }
+
+  .file-box {
+    position: relative;
+    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 120px; /* Adjust this value to your preference */
+    height: 180px; /* Adjust this value to your preference */
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    overflow: hidden;
+ }
+ 
+ .file-box span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
+ 
+ .file-box .mx-auto {
+    align-self: center;
+ }
+ 
+ .file-box button {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+ }
+
+ .file-box span:hover {
+  overflow: visible;
+ }
+
+ .installer2 {
+  width: 200px;
+  height: 40px;
+}
+
+.installer2 label {
+  position: absolute;
+  height: 40px;
+  width: 200px;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.installer2 label input {
+  display: none;
+}
+
+.installer2 label span {
+  position: absolute;
+  height: 40px;
+  width: 200px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  background: #3F8EFC;
+  border-radius: 5px;
+}
+
+.installer2 label input:checked ~ span {
+  background: #87E544;
+  animation: downloadSuccess2 3.1s ease;
+}
+
+.installer2 label span:after {
+  content: 'CONVERT';
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  left: 10%;
+}
+
+.installer2 label input:checked ~ span:after {
+  content: 'Thank you!';
+  animation: downloadState2 5s;
+}
+
+.installer2 label span:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+  background: rgba(255,255,255,.2);
+}
+
+.installer2 label input:checked ~ span:before {
+  animation: downloadProgress2 7s cubic-bezier(.67,.13,.1,.81);
+}
+
+@keyframes downloadSuccess2 {
+  0%, 90% {
+    background: #3F8EFC;
+  }
+
+  100% {
+    background: #87E544;
+  }
+}
+
+@keyframes downloadState2 {
+  0%, 70% {
+    content: 'CONVERTING...'
+  }
+
+  100% {
+    content: 'Thank you for convert!'
+  }
+}
+
+@keyframes downloadProgress2 {
+  0% {
+    width: 5%;
+    opacity: 1;
+  }
+
+  35% {
+    width: 17%;
+  }
+
+  64% {
+    width: 51%;
+  }
+
+  81% {
+    width: 70%;
+  }
+
+  90% {
+    width: 86%;
+    opacity: 1;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+ 
+ 
 .signin {
     font-size: 1rem;
     width: 15rem;

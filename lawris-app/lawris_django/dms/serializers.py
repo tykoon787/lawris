@@ -13,3 +13,13 @@ class CreateDocument(serializers.ModelSerializer):
     class Meta:
         model = Template
         fields = '_all__'
+        
+class ReplacementDataSerializer(serializers.Serializer):
+    templateId = serializers.UUIDField()
+    replacements = serializers.DictField()
+
+
+class DocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        fields = '__all__'
