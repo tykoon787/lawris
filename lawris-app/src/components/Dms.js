@@ -46,7 +46,7 @@ import { useNavigate } from 'react-router-dom';
 import Notifications from './Notifications';
 
 //Word File Viewer
-import WordFileViewer from './WordFileViewer';
+// import WordFileViewer from './WordFileViewer';
 
 //default user profile
 import User from '../Assets/user.png';
@@ -129,6 +129,7 @@ const NavList = ({ handleNavItemClick }) => {
 
 
 const ProfileSideBar = () => {
+    const {navigate} = useNavigate();
     const [show, setShow] = useState(false);
 
     //false data
@@ -259,6 +260,7 @@ const Dms = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [isWordFile, setIsWordFile] = useState(false);
     const [file, setFile] = useState(null);
+    const [formData, setFormData] = useState([]);
     
 
     const userInfo = useSelector(selectUser);
@@ -644,7 +646,8 @@ const Dms = () => {
             {showFiles && 
             <>
                 {isWordFile ? (
-                <WordFileViewer setIsWordFile={setIsWordFile} setShowFiles={setShowFiles} file={file} URL={URL.createObjectURL(file)} />
+                    console.log("View File")
+                // <WordFileViewer setIsWordFile={setIsWordFile} setShowFiles={setShowFiles} file={file} URL={URL.createObjectURL(file)} />
                 ) : (
                 <>
                     <div style={{ width: '100%' }}>
