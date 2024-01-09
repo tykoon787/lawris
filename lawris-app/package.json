@@ -57,5 +57,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "eslint": "^8.56.0",
+        "jest": "^29.7.0"
     }
 }

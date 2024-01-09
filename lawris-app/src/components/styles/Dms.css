@@ -171,7 +171,7 @@
 .docsLayout {
     background-image: url('/src/Assets/dmsImage.jpg');
     /* background-image: url('/home/annette/Desktop/lawris/lawris-app/src/Assets/dmsImage.jpg'); */
-    object-fit: cover;
+    /* object-fit: cover; */
     /* height: 100vh; */
 
 
