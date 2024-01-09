@@ -14,7 +14,7 @@ from django.conf import settings
 
 
 # Logging configuration
-log_dir = "/home/kibe/Documents/lawris/logs/"
+log_dir = "/home/tykoon787/projects/lawris/logs/"
 os.makedirs(log_dir, exist_ok=True)
 
 logger = logging.getLogger()
@@ -106,7 +106,7 @@ class Template(BaseModel):
     division_of_law = models.CharField(max_length=50, choices=DIVISION_CHOICES)
     sub_division = models.CharField(
         max_length=20, choices=SUB_DIVISION_CHOICES, default="Default")
-    template_file_docx = models.CharField(max_length=255)
+    template_file_docx = models.CharField(max_length=255, default="template_file")
     pdf_preview_file = models.CharField(max_length=255, default="preview_file")
     form_fields = JSONField(blank=True, null=True)
 

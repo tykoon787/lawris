@@ -12,7 +12,7 @@ import shutil
 from pathlib import Path
 
 # Logs
-log_dir = "/lawris/logs"
+log_dir = "/home/tykoon787/projects/lawris/logs"
 
 os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger()
