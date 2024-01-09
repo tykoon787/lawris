@@ -45,6 +45,7 @@ import Notifications from "./Notifications";
 
 //Word File Viewer
 // import WordFileViewer from './WordFileViewer';
+import DocViewer from '@cyntler/react-doc-viewer';
 
 //default user profile
 import User from "../Assets/user.png";
@@ -304,25 +305,27 @@ return (
 };
 
 const Dms = () => {
-const [documentList, setDocumentList] = useState([]);
-const [selectedCard, setSelectedCard] = useState(null);
-const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
-const [isDropdownVisisble, setDropdownVisible] = useState(false);
-const [activeCategory, setActiveCategory] = useState("Civil");
-const [searchTerm, setSEarchTerm] = useState("");
-const [showUpload, setShowUpload] = useState(false);
-const [showConvert, setShowConvert] = useState(false);
-const [isFileUploaded, setIsFileUploaded] = useState(false);
-const [fileName, setFileName] = useState("");
-const [showFiles, setShowFiles] = useState(false);
-const [selectedFiles, setSelectedFiles] = useState([]);
-const [isConvert, setIsConvert] = useState(false);
-const [isUpload, setIsUpload] = useState(false);
-const [showProgressbar, setShowProgressbar] = useState(false);
-const [showNotification, setShowNotification] = useState(false);
-const [isWordFile, setIsWordFile] = useState(false);
-const [file, setFile] = useState(null);
-const [formData, setFormData] = useState([]);
+    const [documentList, setDocumentList] = useState([]);
+    const [selectedCard, setSelectedCard] = useState(null);
+    const [isEditDocModalOpen, setIsEditDocModalOpen] = useState(false);
+    const [isDropdownVisisble, setDropdownVisible] = useState(false);
+    const [activeCategory, setActiveCategory] = useState("Civil");
+    const [searchTerm, setSEarchTerm] = useState('');
+    const [showUpload, setShowUpload] = useState(false);
+    const [showConvert, setShowConvert] = useState(false);
+    const [isFileUploaded, setIsFileUploaded] = useState(false);
+    const [fileName, setFileName] = useState('')
+    const [showFiles, setShowFiles] = useState(false);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [isConvert, setIsConvert] = useState(false);
+    const [isUpload, setIsUpload] = useState(false);
+    const [showProgressbar, setShowProgressbar] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [isWordFile, setIsWordFile] = useState(false);
+    const [file, setFile] = useState(null);
+    const [formData, setFormData] = useState([]);
+    const [docs, setDocs] = useState([]);
+    
 
 const userInfo = useSelector(selectUser);
 const toggleDropdown = () => {
@@ -523,32 +526,28 @@ useEffect(() => {
     return () => clearTimeout(notificationTimeout);
 }, [selectedFiles]);
 
-const openFile = (file) => {
-    setFile(file);
-    if (file.type.includes("pdf")) {
-    //   window.open(URL.createObjectURL(file), '_blank');
-    setIsWordFile(true);
-    } else if (
-    file.type.includes("word") ||
-    file.type === "application/msword" ||
-    file.type.includes(".doc") ||
-    file.type.includes(".docx") ||
-    file.type.includes(".dot") ||
-    file.type.includes(".dotx") ||
-    file.type.includes(".docm") ||
-    file.type.includes("dotm")
-    ) {
-    // Assuming Word files have 'word' in the type
-    setIsWordFile(true);
-    } else {
-    console.log("Unsupported file type");
-    }
-};
-
-const handleNavItemClick = (category_of_law) => {
-    setActiveCategory(category_of_law);
-    console.log("Selected Category:", category_of_law);
-};
+      const openFile = (file) => {
+        // local file
+      const docs = [
+        { uri: URL.createObjectURL(file) }, // Local File
+       ];
+        setDocs(docs);
+        setFile(file);
+        if (file.type.includes('pdf')) {
+        //   window.open(URL.createObjectURL(file), '_blank');
+          setIsWordFile(true);
+        } else if (file.type.includes('word') || file.type === "application/msword" || file.type.includes('.doc') || file.type.includes('.docx') || file.type.includes('.dot') || file.type.includes('.dotx') || file.type.includes('.docm') || file.type.includes('dotm')) { // Assuming Word files have 'word' in the type
+            setIsWordFile(true);
+        } else {
+          console.log('Unsupported file type');
+        }
+      };
+       
+      
+    const handleNavItemClick = (category_of_law) => {
+        setActiveCategory(category_of_law);
+        console.log("Selected Category:", category_of_law);
+      };
 
 const handleSearch = (e) => {
     e.preventDefault();
@@ -563,12 +562,15 @@ const handlePageChange = (newPage) => {
     }
 };
 
-// Render a subset of documents based on pagination
-const renderDocuments = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return filterDocuments().slice(startIndex, endIndex);
-}, [currentPage, itemsPerPage, filterDocuments]);
+    // Render a subset of documents based on pagination
+    const renderDocuments = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return filterDocuments().slice(startIndex, endIndex);
+      }, [currentPage, itemsPerPage, filterDocuments]);
+
+    
+      
 
 return (
     <div className="main-container">
@@ -741,10 +743,11 @@ return (
 
         {showFiles && (
             <>
-            {isWordFile ? (
-                console.log("View File")
-            ) : (
-                // <WordFileViewer setIsWordFile={setIsWordFile} setShowFiles={setShowFiles} file={file} URL={URL.createObjectURL(file)} />
+                {isWordFile ? (
+                    <>
+                        <DocViewer documents={docs} />
+                    </>
+                ) : (
                 <>
                 <div style={{ width: "100%" }}>
                     <h1 className="text-center" style={{ color: "#E5252A" }}>
