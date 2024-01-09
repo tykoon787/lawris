@@ -148,13 +148,13 @@ return (
 };
 
 const ProfileSideBar = () => {
-const { navigate } = useNavigate();
+const navigate = useNavigate();
 const [show, setShow] = useState(false);
 
 //false data
 const defaultUserInfo = {
     image: User,
-    name: "Kakai",
+    name: "user name",
 };
 
 const userInfo = useSelector(selectUser) || defaultUserInfo;
@@ -165,14 +165,17 @@ const handleToggle = () => {
 };
 const handleClose = () => setShow(false);
 
-const handleSignOut = () => {
-    try {
-    logout();
-    navigate("/");
-    } catch {
-    console.log("Logout unsuccsessful");
-    }
+const handleSignOut = async () => {
+  try {
+    await logout(); // Assuming logout() is an asynchronous function
+    navigate('/'); // Replace with your desired URL or path
+  } catch (error) {
+    console.error('Logout unsuccessful', error);
+    // Handle any errors during logout or navigation
+  }
 };
+
+
 return (
     <div>
     <div onClick={handleToggle} className="profile align-self-end">

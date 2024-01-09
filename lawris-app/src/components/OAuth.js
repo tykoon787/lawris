@@ -1,6 +1,6 @@
 // Handles OAuth authentication with different providers
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider, signOut as firebaseSignOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 
@@ -62,15 +62,29 @@ export const signInWithMicrosoft = async () => {
     }
 };
 
-export const logout = () => {
-  const auth = getAuth()
-  signOut(auth)
-  .then(() => {
-    console.log('signout successful')
-  })
-  .catch((error) => {
-    console.log('Error signing out:', error)
-  })
-}
+export const logout = async () => {
+  try {
+    const auth = getAuth();
+    const refreshToken = localStorage.getItem('refresh_token');
 
+    // If a refreshToken is provided, call the backend logout endpoint
+    if (refreshToken) {
+      await fetch('http://localhost:8000/auth/logout/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refresh: refreshToken }),
+      });
+      console.log('Sign out successful');
+      // Perform any necessary actions after successful backend logout
+    }
 
+    // Firebase sign-out
+    await firebaseSignOut(auth);
+    // Perform any necessary actions after successful Firebase sign-out
+  } catch (error) {
+    console.error('Error during logout:', error);
+    // Handle any errors that occur during logout
+  }
+};
