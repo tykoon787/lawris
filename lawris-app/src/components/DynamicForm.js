@@ -1,53 +1,86 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
+import Popup from "reactjs-popup";
+import SignaturePad from 'react-signature-canvas';
+import SignatureCanvas from 'react-signature-canvas'
 
-const FormInputFields = ({ formFields, handleOnChange}) => {
+
+const FormInputFields = ({ formFields, handleOnChange }) => {
     console.log('formFields:', formFields);
+
+    const SignatureFormField = () => {
+        const sigCanvas = React.useRef({});
+       
+        const clear = () => sigCanvas.current.clear();
+        const save = () => sigCanvas.current.saveImage();
+       
+        return (
+          <div>
+            {/* <Popup
+            className='bg-black'
+            modal
+            trigger={<button>Open Signature Pad</button>}
+            >
+                <SignaturePad />
+            </Popup> */}
+            <SignatureCanvas ref={sigCanvas} canvasProps={{width: 500, height: 50}} />
+            <button onClick={clear}>Clear</button>
+            <button onClick={save}>Save</button>
+          </div>
+        );
+       };
 
     return (
         <div className="mb-3">
             {formFields.map((formField, index) => (
                 <div className="form-floating mb-3" key={index}>
                     <input 
-                        type={formField.type} 
+                        type={formField.text} 
                         className="form-control" 
                         placeholder={formField.placeholder} 
                         id={formField.id} 
                         name={formField.name} 
-                        onChange={handleOnChange}></input>
-                       {formField.name === "witness_signature" || formField.name === "petitioner_signature" ? (
-                            <label htmlFor='file'>
-                                <i className="fa-solid fa-signature"></i>
-                                <input id="file" name={formField.name} type="file" onChange={handleOnChange} />
-                            </label>
-                        ) : (
-                            formField.name === "witness_signature" && formField.name === "petitioner_signature" && (
-                                <>
-                                    <label htmlFor='file'>
-                                        <i className="fa-solid fa-signature"></i>
-                                        <input id="file" name="witness_signature" type="file" onChange={handleOnChange} />
-                                    </label>
-                                    <label htmlFor='file'>
-                                        <i className="fa-solid fa-signature"></i>
-                                        <input id="file" name="petitioner_signature" type="file" onChange={handleOnChange} />
-                                    </label>
-                                </>
-                            )
-                        )}
-
+                        onChange={handleOnChange}
+                    />
+                    {formField.placeholder === 
+"Enter Petitioner Signature" ? (
+                        <SignatureFormField />
+                        // <>
+                        //  <label htmlFor={`file_${formField.name}`}>
+                        //         <i className="fa-solid fa-signature"></i>
+                        //         <input id={`file_${formField.name}`} name={formField.name} type="type" onChange={handleOnChange} />
+                        //     </label>
+                        //     <p>enter signature here</p>
+                        //     <Popup
+                        //     modal
+                        //     trigger={<button>Open Signature Pad</button>}
+                        //     >
+                        //         <SignaturePad />
+                        //     </Popup>
+                        //     {signatureImage && (
+                        //         <img
+                        //             src={URL.createObjectURL(signatureImage)}
+                        //             alt="Petitioner Signature"
+                        //             style={{ maxWidth: '100%', maxHeight: '200px' }}
+                        //         />
+                        //     )}
+                        // </>
+                    ) : (
+                        <></>
+                    )}
                     <label htmlFor={formField.id} className="form-label">{formField.placeholder}</label>
                 </div>
-                
             ))}
-            {/* <button className='btn btn-outline-secondary align-self-end' id="print-btn" type="submit">Print</button> */}
         </div>
-    )
-}
+    );
+};
+
 
 const DynamicForm = ({ templateId, formFields }) => {
 
     const [newValues, setNewValues] = useState({});
+    // const [signatureImage, setSignatureImage] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -111,13 +144,18 @@ const DynamicForm = ({ templateId, formFields }) => {
     
     const handleOnChange = (event) => {
         event.preventDefault();
-
-        const { name, value } = event.target;
-        setNewValues({
-            ...newValues,
-            [name]: value,
-        });
-    }
+        const { name, value, type, files } = event.target;
+    
+        // if (type === 'file' && files.length > 0) {
+        //     Handle file input (e.g., signature image)
+        //     setSignatureImage(files[0]);
+        // } else {
+            // Handle other input fields
+            setNewValues({
+                ...newValues,
+                [name]: value,
+            });
+    };
 
     const half = Math.ceil(formFields.length / 2);
 
@@ -129,7 +167,7 @@ const DynamicForm = ({ templateId, formFields }) => {
     <form className='mt-5' onSubmit={handleSubmit} id="dynamicForm" >
         <Row>
             <Col className="col-6">
-              <FormInputFields formFields={formFields.slice(0, half)} handleOnChange={handleOnChange} />
+              <FormInputFields formFields={formFields.slice(0, half)} handleOnChange={handleOnChange}  />
             </Col>
             <Col className="col-6">
               <FormInputFields formFields={formFields.slice(half)} handleOnChange={handleOnChange} />

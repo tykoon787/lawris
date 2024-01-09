@@ -716,7 +716,10 @@ const Dms = () => {
 
 
                         {/* Pagination controls */}
-                        <div className="pagination-controls d-flex justify-content-center mt-5 fixed-bottom">
+                        <div className="pagination-controls d-flex justify-content-center mt-5">
+                            <span className="page-number mt-2 text-black">
+                                Page {currentPage} of {totalPages}
+                            </span>
                             <div>
                                 <button
                                 className="btn btn-dark mx-2"
@@ -726,9 +729,6 @@ const Dms = () => {
                                 <HiArrowLeft />
                                 </button>
                             </div>
-                            {/* <span className="page-number mt-2 text-white">
-                            Page {currentPage} of {totalPages}
-                            </span> */}
                             <div>
                                 <button
                                 className="btn btn-dark mx-2"
