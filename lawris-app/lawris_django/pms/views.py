@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from .models import (
     Client, Contact, Matter, Task, CalendarEvent,
@@ -62,6 +62,7 @@ class CRUDAPIView(APIView):
 
 # CRUD views for each model
 class ClientAPIView(CRUDAPIView):
+    permission_classes = (permissions.IsAdminUser,)
     model = Client
     serializer_class = ClientSerializer
 
