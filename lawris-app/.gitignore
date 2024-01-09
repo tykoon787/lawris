@@ -28,4 +28,4 @@ yarn-error.log*
 /bin
 /lib64
 
-/package-lock.json
+/package-lock.jsonlawris_django/authentication/migrations/

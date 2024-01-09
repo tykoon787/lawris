@@ -14,7 +14,7 @@ from django.conf import settings
 
 
 # Logging configuration
-log_dir = "/home/kibe/Documents/lawris/logs/"
+log_dir = "/home/tykoon787/projects/lawris/logs/"
 os.makedirs(log_dir, exist_ok=True)
 
 logger = logging.getLogger()

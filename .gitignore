@@ -172,3 +172,5 @@ lawris-app/lawris_django/*/migrations/*.py
 lawris-app/lawris_django/*/migrations/__pycache__/
 lawris-app/package-lock.json
 .vscode/
+lawris_django/authentication/migrations/
+lawris-app/lawris_django/authentication/migrations/__pycache__
