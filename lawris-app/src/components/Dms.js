@@ -47,6 +47,7 @@ import Notifications from './Notifications';
 
 //Word File Viewer
 // import WordFileViewer from './WordFileViewer';
+import DocViewer from '@cyntler/react-doc-viewer';
 
 //default user profile
 import User from '../Assets/user.png';
@@ -261,6 +262,7 @@ const Dms = () => {
     const [isWordFile, setIsWordFile] = useState(false);
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState([]);
+    const [docs, setDocs] = useState([]);
     
 
     const userInfo = useSelector(selectUser);
@@ -468,6 +470,11 @@ const Dms = () => {
       }, [selectedFiles]);
 
       const openFile = (file) => {
+        // local file
+      const docs = [
+        { uri: URL.createObjectURL(file) }, // Local File
+       ];
+        setDocs(docs);
         setFile(file);
         if (file.type.includes('pdf')) {
         //   window.open(URL.createObjectURL(file), '_blank');
@@ -506,6 +513,8 @@ const Dms = () => {
         const endIndex = startIndex + itemsPerPage;
         return filterDocuments().slice(startIndex, endIndex);
       }, [currentPage, itemsPerPage, filterDocuments]);
+
+    
       
 
     return (
@@ -576,6 +585,15 @@ const Dms = () => {
                             <NavList handleNavItemClick={handleNavItemClick} />
                         </div>
                     </div>
+                    {isWordFile && 
+                    <button class="cta" onClick={() => setIsWordFile(false)}>
+                    <span>Close ❌</span>
+                    <svg width="15px" height="10px" viewBox="0 0 13 10">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                    </button>
+                    }
                      {/**upload modal */}
 
             {showUpload && 
@@ -646,8 +664,9 @@ const Dms = () => {
             {showFiles && 
             <>
                 {isWordFile ? (
-                    console.log("View File")
-                // <WordFileViewer setIsWordFile={setIsWordFile} setShowFiles={setShowFiles} file={file} URL={URL.createObjectURL(file)} />
+                    <>
+                        <DocViewer documents={docs} />
+                    </>
                 ) : (
                 <>
                     <div style={{ width: '100%' }}>
