@@ -167,8 +167,9 @@ const handleClose = () => setShow(false);
 
 const handleSignOut = async () => {
   try {
-    await logout(); // Assuming logout() is an asynchronous function
-    navigate('/'); // Replace with your desired URL or path
+    await logout();
+    window.history.replaceState({}, '', '/auth'); // ensure we don't have a back button to the app
+    navigate('/'); 
   } catch (error) {
     console.error('Logout unsuccessful', error);
     // Handle any errors during logout or navigation
