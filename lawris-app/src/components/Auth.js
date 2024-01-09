@@ -10,6 +10,7 @@ import lawyer from '../Assets/lawyer.png';
 import lawFirm from '../Assets/lawFirm.jpg';
 import logo from '../Assets/transparentLawrisLogo.png';
 import InputGroup from './DynamicSignupForm';
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 
 // Handle signup logic using firebase 
@@ -22,6 +23,7 @@ import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
 
 import Navbar from './NavBar';
+import { MenuNav } from './NavBar';
 // import TypeChecker from './TypeChecker';
 
 import InputLogin from './InputLogin';
@@ -34,6 +36,7 @@ import LinkedIn from '../Assets/microsoft.png';
 
 
 import { PersonIcon, EmailIcon, LawyerIcon, PasswordIcon, PhoneIcon } from './Icons';
+// import { Offcanvas } from 'react-bootstrap';
 
 const commonInputs = [
   {
@@ -57,7 +60,7 @@ const commonInputs = [
     name: 'password',
     type: 'password',
     icon: <PasswordIcon />,
-    pattern: '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/',
+    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/,
     placeholder: 'Password',
     required: true,
     errorMessage: 'password should be 8 characters, include special characters and a capital letters.',
@@ -87,7 +90,7 @@ const commonLoginInputs = [
   {
     name: 'email',
     icon: <EmailIcon />,
-    pattern: '/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/',
+    pattern: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
     placeholder: 'Email',
     required: true,
   },
@@ -110,6 +113,7 @@ const commonLoginInputs = [
        placeholder: 'Licence Number',
        id: 'licenseNumberInput',
        required: true,
+       errorMessage: 'number should start with 1234.',
    },
  },
 
@@ -122,6 +126,7 @@ const commonLoginInputs = [
        placeholder:'studentNumber',
        id: 'studentNumberInput',
        required: true,
+       errorMessage: 'number should start with 1234.',
    },
  },
  {
@@ -133,6 +138,7 @@ const commonLoginInputs = [
        placeholder: 'Registration Number',
        id: 'registrationNumberInput',
        required: true,
+       errorMessage: 'number should start with 1234.',
    },
   },
   {
@@ -144,6 +150,7 @@ const commonLoginInputs = [
       placeholder: 'Employee Id',
       id: 'employeeIdInput',
       required: true,
+      errorMessage: 'number should start with 1234.',
     }
   },
   {
@@ -155,6 +162,7 @@ const commonLoginInputs = [
       placeholder: 'Registration Number',
       id: 'registrationNumberInput',
       required: true,
+      errorMessage: 'number should start with 1234.',
     },
   },
   {
@@ -166,6 +174,7 @@ const commonLoginInputs = [
       placeholder: 'ISO Number',
       id: 'isoNumberInput',
       required: true,
+      errorMessage: 'number should start with 1234.',
     }
   },  
   ];
@@ -459,6 +468,40 @@ const handleMicrosoftSignIn = async () => {
     }
 };
 
+const Menu = () => {
+  const [show, setShow] = useState(false);
+
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  return (
+    <div>
+      <div> 
+        <div onClick={handleShow} className='direction p-2'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </div>
+          <Offcanvas show={show} onHide={handleClose} placement="end" className='bgBody'>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title className="text-center">User Types</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body >
+              <div>
+                <MenuNav userType={userType} setUserType={setUserType} />
+
+              </div>
+              
+            </Offcanvas.Body>
+          </Offcanvas>
+
+      </div>
+     
+    </div>
+  )
+
+}
+
 
   return (
     <div className="main">
@@ -466,6 +509,15 @@ const handleMicrosoftSignIn = async () => {
         <div className="navbarContainer p-2 col-lg-10 mb-2" style={navbar}>
           <Navbar userType={userType} setUserType={setUserType} />
         </div>
+        <div className='mobilemenu d-flex align-items-center justify-content-between'>
+          <p className='direction mb-0'>Please click to select user type</p>
+          <div>
+            
+            <Menu />
+          </div>
+          
+        </div>
+      
         <div className="auth-card card col-lg-10" style={cardStyle}>
           <div className="card-body d-flex p-0" style={{height: '700px'}}>
             

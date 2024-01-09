@@ -32,9 +32,9 @@ import './styles/Dms.css';
                 )} 
                 {/* <label htmlFor={userProps.id}>{userProps.placeholder}</label> */}
                 <div id='inputFeedback' className='invalid-feedback'>
-                  Number must start with 12345
                   {formData[userProps.name] && !formData[userProps.name].match(userProps.pattern) && (
-                    <span>{`${userProps.placeholder} is invalid.`}</span>
+                    <span>{`${userProps.errorMessage} is invalid.`}</span>
+                    
                   )}
 
                 </div>

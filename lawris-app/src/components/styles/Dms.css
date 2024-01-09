@@ -8,6 +8,14 @@
     /* background: rgba(255, 255, 255, 0.2); Adjust the alpha value for transparency */
     backdrop-filter: blur(10px);
 }
+
+@media screen and (max-width: 720px) {
+  .dashboard-nav {
+    display: none;
+  }
+  
+  
+}
 @media screen and (max-width: 767px) {
     .menu {
         display: none;
