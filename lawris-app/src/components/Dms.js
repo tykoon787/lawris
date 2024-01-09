@@ -36,7 +36,7 @@ import { selectUser } from "../redux/userSlice";
 
 // Edit Doc
 // import EditDoc from '../components/EditDoc';
-import form78 from "../static/docs/[Form 78]-Petition for probate of written will or for proof of oral will.pdf";
+import form78 from "../static/docs/previewFile.pdf";
 
 import { useNavigate } from "react-router-dom";
 
