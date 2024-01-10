@@ -352,7 +352,8 @@
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    margin-bottom: 1rem;
+    margin-bottom: 8px;
+    margin-left: 12px;
 }
 .profileImg:hover {
     cursor: pointer;

@@ -59,7 +59,9 @@ from firebase_admin import credentials
 
 # Path to your service account key JSON file
 # cred = credentials.Certificate("/workspace/lawris/lawris-app/lawris_django/lawris_django/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
-cred = credentials.Certificate("/home/tykoon787/projects/firebase_creds/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
+#cred = credentials.Certificate("/home/tykoon787/projects/firebase_creds/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
+cred = credentials.Certificate("/media/authentication-2f5cc-firebase-adminsdk-f0dy2-c01b29d1e6.json")
+
 
 # Initialize Firebase Admin SDK
 firebase_admin.initialize_app(cred)

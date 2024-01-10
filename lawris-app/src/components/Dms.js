@@ -175,10 +175,10 @@ const handleSignOut = () => {
 };
 return (
     <div>
-    <div onClick={handleToggle} className="profile align-self-end">
+    <div onClick={handleToggle} className="profile align-self-end pl-2">
         {userInfo ? (
         <img
-            className="profileImg"
+            className="profileImg mr-2"
             src={userInfo?.image}
             alt="user profile"
         />
@@ -597,7 +597,7 @@ return (
             style={{ position: "relative" }}
         >
             <div onClick={toggleDropdown} className="apps">
-            <UilApps className="apps mr-2 mb-2" />
+            <UilApps className="apps mr-4 mb-2" />
             </div>
             {isDropdownVisisble && (
             <div className="app d-flex">
