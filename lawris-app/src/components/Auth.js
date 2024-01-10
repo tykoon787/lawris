@@ -306,7 +306,7 @@ const Auth = () => {
               if (responseData.errors) {
                 if (responseData.errors.password) {
                   Swal.fire('Password is too common. Please use a different one')
-                } else if (responseData.errors.email) {
+                } else if (responseData.errors.email && responseData.errors.email[0] === 'user with this email address already exists.') {
                   Swal.fire('Email is aleady taken. Please use a different one')
                 } else {
                   Swal.fire('Registration failed. Please check your inputs');
