@@ -230,6 +230,14 @@ const Auth = () => {
           },
           body: JSON.stringify(formData),
         });
+        
+        const data = await response.json();
+        const {access, refresh} = data;
+        console.log('Access Token:', access);
+        console.log('Refresh Token:', refresh);
+
+        localStorage.setItem('access_token', access);
+        localStorage.setItem('refresh_token', refresh);
       
         if (!response.ok) {
           // Handle the case where the server returns an error
@@ -301,14 +309,14 @@ const Auth = () => {
                 } else if (responseData.errors.email) {
                   Swal.fire('Email is aleady taken. Please use a different one')
                 } else {
-                  Swal.fire('Registrationfailed. Please check your inputs');
+                  Swal.fire('Registration failed. Please check your inputs');
     
                 }
               } else {
                 throw new Error('Registration failed')
               }
             } else {
-              Swal.fire('Registration Sussesful!')
+              Swal.fire('Registration Successful!')
               setIsSignup(false);
               setFormData({
                 name: '',
